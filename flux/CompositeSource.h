@@ -1,7 +1,7 @@
 /** @file CompositeSource.h
     @brief CompositeSource declaration
     
-  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/CompositeSource.h,v 1.16 2003/03/20 19:55:32 burnett Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.h,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 */
 
 #ifndef CompositeSource_h
@@ -14,7 +14,7 @@
 * "which source" it is representing this time.  Old particles are held, along with the
 * time of their arrival, until use.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/CompositeSource.h,v 1.16 2003/03/20 19:55:32 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.h,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 */
 
 #include "flux/EventSource.h"

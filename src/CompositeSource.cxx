@@ -1,10 +1,10 @@
 /** @file CompositeSource.cxx
     @brief Define CompositeSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/CompositeSource.cxx,v 1.20 2003/03/20 19:55:32 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 */
 
-#include "CompositeSource.h"  
+#include "flux/CompositeSource.h"  
 
 
 #include <strstream>
