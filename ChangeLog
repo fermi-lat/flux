@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Wed Oct  6 16:29:18 PDT 2004
+flux/sources
+
+Removed Files:
+	albedop.txt chimefile.txt 
+Log Message:
+Removed files used with old version of FILESpectrum
+    *
+------------------------------------------------------------
 User: hierath  Wed Oct  6 16:13:59 PDT 2004
 flux/src
 
