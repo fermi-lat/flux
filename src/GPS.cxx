@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.17 2003/10/21 13:48:29 burnett Exp $
+// $Id: GPS.cxx,v 1.18 2003/11/03 09:41:21 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -505,10 +505,40 @@ void GPS::setInterpPoint(double time){
     }
 
     m_currentInterpPoint.position=pos1+((pos2-pos1)*prop);
+
     m_currentInterpPoint.lat=lat1+((lat2-lat1)*prop);
     m_currentInterpPoint.lon=lon1+((lon2-lon1)*prop);	
     m_currentInterpPoint.dirZ=astro::SkyDir(raz1+((raz2-raz1)*prop),decz1+((decz2-decz1)*prop));
     m_currentInterpPoint.dirX=astro::SkyDir(rax1+((rax2-rax1)*prop),decx1+((decx2-decx1)*prop));
+
+	//this piece of code should just handle the "wraparound" cases:
+	if(fabs(lon1-lon2) >= 330.){
+		//we have gone off one end of the longitude scale.
+		double lonlesser=std::max(lon1,lon2);
+		double longreater=std::min(lon1,lon2)+360.;
+		double interpLon = lonlesser+((longreater-lonlesser)*prop);
+		while(interpLon > 360.)interpLon -= 360.;
+		m_currentInterpPoint.lon=interpLon;
+	}
+
+	if(fabs(raz1-raz2) >= 330.){
+		//we have gone off one end of the right ascenion scale for the z axis.
+		double razlesser=std::max(raz1,raz2);
+		double razgreater=std::min(raz1,raz2)+360.;
+		double interpraz = razlesser+((razgreater-razlesser)*prop);
+		while(interpraz > 360.)interpraz -= 360.;
+		m_currentInterpPoint.dirZ=astro::SkyDir(interpraz,decz1+((decz2-decz1)*prop));
+	}
+
+	if(fabs(rax1-rax2) >= 330.){
+		//we have gone off one end of the right ascenion scale for the x axis.
+		double raxlesser=std::max(rax1,rax2);
+		double raxgreater=std::min(rax1,rax2)+360.;
+		double interprax = raxlesser+((raxgreater-raxlesser)*prop);
+		while(interprax > 360.)interprax -= 360.;
+		m_currentInterpPoint.dirX=astro::SkyDir(interprax,decx1+((decx2-decx1)*prop));
+	}
+
     //now regenerate X to be perpindicular to Z (ir should be almost there anyway).
     Hep3Vector dirY( m_currentInterpPoint.dirZ().cross(m_currentInterpPoint.dirX()) );
     m_currentInterpPoint.dirX=astro::SkyDir( dirY.cross(m_currentInterpPoint.dirZ()) );
