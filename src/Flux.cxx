@@ -1,9 +1,9 @@
 /** @file Flux.cxx
-    @brief Implementation of Flux
+@brief Implementation of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.5 2003/11/03 09:41:21 srobinsn Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.6 2003/12/02 22:55:57 burnett Exp $
 
-  Original author: T. Burnett
+Original author: T. Burnett
 */
 #include "flux/Flux.h"
 #include "flux/EventSource.h"
@@ -46,11 +46,13 @@ void Flux::generate()
     // Purpose and Method: generate a new entry trajectory, set FluxSource, time
     // Inputs  - none
     // Outputs - none
-	do{
-    m_flux = m_event->event(time());
-    double timepass = m_event->interval(time());
-    pass(timepass);
-	}while(m_event->occulted());
+    do{
+        double current_time=time();
+        // get the next event and its time interval?
+        m_flux = m_event->event(current_time);
+        double timepass = m_event->interval(current_time);
+        pass(timepass);
+    }while(m_event->occulted());
 }
 
 // the particle generated 
@@ -96,7 +98,7 @@ HepVector3D Flux::launchDir()const
 // rate ( /mm**2 /s)
 double Flux::rate()const
 {
-   return  m_event!=0?  m_event->rate(time()) : -1;;
+    return  m_event!=0?  m_event->rate(time()) : -1;;
 }
 
 /// set the area of the target
@@ -121,7 +123,7 @@ std::string Flux::findSource()const
 int Flux::numSource()const
 {
     return m_event->numSource();
-    
+
 }
 
 
@@ -137,7 +139,7 @@ HepRotation Flux::orientTransform(double time)const{
 }
 
 HepRotation Flux::transformGlastToGalactic(double time)const{
-    
+
     return s_mgr->transformGlastToGalactic(time);
 }
 
@@ -145,7 +147,7 @@ HepRotation Flux::transformGlastToGalactic(double time)const{
 HepRotation Flux::transformToGlast(double seconds,GPS::CoordSystem index)const{
     return s_mgr->transformToGlast(seconds, index);
 }
-  
+
 
 
 void Flux::writeSourceCharacteristic(std::ostream& out){
