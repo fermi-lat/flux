@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/AGNSpectrum.h,v 1.1 2004/01/23 22:00:30 srobinsn Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/AGNSpectrum.h,v 1.2 2004/09/24 22:44:15 burnett Exp $
 
 
 #ifndef AGN_SPECTRUM_H
@@ -12,7 +12,7 @@
 * AGNSpectrum represents AGN sources, given input nominal flux, index,  
 * flaring period, flaring flux multiplier and spectral index.
 * 
-* $Header$
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/AGNSpectrum.h,v 1.2 2004/09/24 22:44:15 burnett Exp $
 */
 
 #include <string>
@@ -32,7 +32,7 @@ class AGNSpectrum : public Spectrum {
 public:
     
     /// Return energy
-    virtual float operator()(float r)const;
+    virtual float operator()(float r);
     
     /// Constructor with parameters
     AGNSpectrum (const std::string& params);
