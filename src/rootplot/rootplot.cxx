@@ -273,7 +273,7 @@ void rootplot::init(std::vector<const char*> argv)
             angle_hist.storeTheta(cos_theta);
             angle_hist.storePhi(phi);
             
-			if(j % 1000 == 0) {std::cerr << "\r" << j << ": " << energy << "...";
+			if(j % 1000 == 0) {std::cout << "\r" << j << ": " << energy << "...";
 			}
         }
         

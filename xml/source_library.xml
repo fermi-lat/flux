@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.16 2004/06/02 22:12:51 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.17 2004/06/05 01:29:17 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -167,6 +167,17 @@
             <use_spectrum/>
         </spectrum>
     </source>
+    
+    <!-- 
+       SurfaceMuons based off of Caprice data
+    -->
+    <source name="caprice_surface_muons">
+       <spectrum escale="GeV">
+	      <SpectrumClass name="SurfaceMuons" params="0.0,1.0, 2.0"/>
+	      <use_spectrum/>
+	   </spectrum>
+	</source>   
+    
     <!--
         vertical muons only
     -->
@@ -205,7 +216,7 @@
 <!-- ************************************************************************** -->
 <source_library title="background">
 
-  
+ 
     <!-- the CHIME spectrum. angular dependence and rate are from the CHIME spectrum object 
          This is deprecated, since it is not supported, and gives wrong angular distributions.
       -->
