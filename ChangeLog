@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Sat Oct 18 12:00:54 PDT 2003
+flux/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+extra minus sign bug fixed in FluxSource
+
+    *
+------------------------------------------------------------
 User: hierath  Fri Oct 10 12:52:42 PDT 2003
 flux/src/rootplot
 
