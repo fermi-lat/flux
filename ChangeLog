@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Tue Oct 21 01:43:56 PDT 2003
+flux/flux
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+rockingTransform absorbed into GPS, rocking redundancy issue fixed in GPS.
+
+    *
+------------------------------------------------------------
 User: srobinsn  Sat Oct 18 12:00:54 PDT 2003
 flux/src
 
