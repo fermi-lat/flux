@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.15 2004/03/16 19:16:34 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.16 2004/06/02 22:12:51 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -136,17 +136,31 @@
 <source_library title="cosmic ray surface muons" >
 
     <!-- 
-        special representation of surface muons for test
-        params is the angle in degree to rotate the resulting flux
-        all angles
+        special representation of surface muons for test:
+          first a PDG fit for E>1GeV
+          then, a simple low energy 
     -->
-    <source name="surface_muons">
+    <source name="high_e_surface_muons">
         <spectrum escale="GeV">
             <SpectrumClass name="SurfaceMuons" params="0.0,1.0, 0.0"/> 
             <use_spectrum/>
         </spectrum>
     </source>
+    <source name="low_e_surface_muons" flux="3.0">
+        <spectrum escale="GeV">
+            <particle name="mu+"> <power_law emin="0.010" gamma="0.1"  emax="1" /> </particle>
+            <solid_angle mincos="0" maxcos="1.0"/>
+	</spectrum>
+    </source>
 
+    <source name="surface_muons">
+        <nestedSource sourceRef="low_e_surface_muons"/>
+        <nestedSource sourceRef="high_e_surface_muons"/>
+    </source>
+
+    <!--
+        Special "analytic" approximation also implemented in SurfaceMuons
+    -->
     <source name="hiro_surface_muons">
         <spectrum escale="GeV">
             <SpectrumClass name="SurfaceMuons" params="0.0,1.0, 1.0"/> 
@@ -162,7 +176,7 @@
             <use_spectrum/>
         </spectrum>
     </source>
-
+    
 </source_library>
 
 

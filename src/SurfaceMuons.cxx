@@ -2,7 +2,7 @@
 * @file SurfaceMuons.cxx
 * @brief declaration and definition of SurfaceMuons
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.3 2004/05/25 23:34:29 burnett Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.4 2004/06/02 22:12:51 burnett Exp $
 */
 #include "flux/Spectrum.h"
 #include "flux/SpectrumFactory.h"
@@ -19,7 +19,7 @@
 * \brief Spectrum representing cosmic ray muon flux at the Earth's surface
 * \author T. Burnett
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.3 2004/05/25 23:34:29 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.4 2004/06/02 22:12:51 burnett Exp $
 */
 //
 
@@ -58,7 +58,7 @@ private:
 
   // option to choose which energy spectrum is implemented.
   // 0 (default): use the spectrum as a function of E*cos(theta)
-  // 1: use an analytic form, see analyticSpectrum()
+  // 1: use Hiro's analytic form, which is independent of angle, see analyticSpectrum()
   int m_option;
 
 
@@ -101,8 +101,12 @@ SurfaceMuons::SurfaceMuons(const std::string& paramstring)
     m_cosmin = (params.size()>0)? params[0]: 0.0;
     m_cosmax = (params.size()>1)? params[1]: 1.0;
 
-    m_option = (int) (params.size()>2 ? params[2]: 0.);
+    // total flux is (above 1 GeV) the integral over the cos theta, assuming cos(theta)**2
+    // and PDG value of 70/m^2/s/sr in the vertical
     m_flux = 70. * 2*M_PI * fabs(pow(m_cosmax,3) - pow(m_cosmin,3))/3;
+
+    // option =1 if for Hiro version
+    m_option = (int) (params.size()>2 ? params[2]: 0.);
 
     if(m_option == 0) {
 
