@@ -1,10 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.35 2004/11/11 00:46:21 jrb Exp $
-           EOH
-
+  $Id: release.notes,v 1.36 2004/12/21 04:41:30 burnett Exp $
+       
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+    EOH
+
+   v8r13   3-Jan-2005  jrb Use xmlBase package rather than xml
  * 20-dec-04  v8r12  thb  add Earth
  * 10-nov-04  v8r11  jrb  Upgrade for Xerces 2.6.0
  * 04-jun-04  v8r9p1 THB  protect against linux STL behaviour 
