@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: hierath  Wed Oct 13 17:32:11 PDT 2004
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+Changed relative path to an absolute one.
+    *
+------------------------------------------------------------
+User: hierath  Wed Oct 13 17:32:11 PDT 2004
 flux/src
 
 Modified Files:
