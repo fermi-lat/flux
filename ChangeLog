@@ -1,5 +1,16 @@
 ------------------------------------------------------------
 User: burnett  Wed Oct 29 05:30:13 PST 2003
+flux/doc
+
+Added Files:
+	multipower.htm multipower1.JPG multipower4.JPG 
+Removed Files:
+	used_packages.html 
+Log Message:
+refactor broken power law a bit, put Sean't doc in to describe it.
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 29 05:30:13 PST 2003
 flux/src
 
 Modified Files:
