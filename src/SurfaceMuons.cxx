@@ -2,7 +2,7 @@
 * @file SurfaceMuons.cxx
 * @brief declaration and definition of SurfaceMuons
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.4 2004/06/02 22:12:51 burnett Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.5 2004/06/05 01:29:17 burnett Exp $
 */
 #include "flux/Spectrum.h"
 #include "flux/SpectrumFactory.h"
@@ -12,14 +12,14 @@
 #include <utility>
 #include <algorithm>
 #include <map>
-
+#include <iostream>
 /** 
 * \class SurfaceMuons
 *
 * \brief Spectrum representing cosmic ray muon flux at the Earth's surface
 * \author T. Burnett
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.4 2004/06/02 22:12:51 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.5 2004/06/05 01:29:17 burnett Exp $
 */
 //
 
@@ -148,22 +148,36 @@ double SurfaceMuons::energy( double time )
 
     if(m_option == 1) return analyticSpectrum(time);
 
+
     // select an energy*costh from the distribution
+    double energy = 0; 
 
     double fraction = RandFlat::shoot();
-     map<double,double>::const_iterator 
-         element  = m_ispec.lower_bound(fraction*m_total),
-         prev = element;
-         prev--;
-     if( element!=m_ispec.end() ){
-         double energy = prev->second;
-         // interpolate if not last one
-         double 
-             deltaI = fraction-prev->first/m_total,
-             deltaE = element->second -energy;
-         return (energy+deltaI)/m_costh; 
-    }
-    return m_emax/m_costh;
+    map<double,double>::const_iterator 
+       element  = m_ispec.lower_bound(fraction*m_total);
+
+     if( element == m_ispec.begin()){
+       // this should not happen, but catch it anyway
+	 energy = element->second;
+     }	
+
+     else if( element!=m_ispec.end() ){
+       // interpolste here
+       map<double,double>::const_iterator prev = element;
+       prev--;
+       double 
+	 energy_prev = prev->second,
+	 deltaI = fraction - prev->first/m_total,
+	 deltaE = element->second - energy_prev;
+	 
+       energy =  energy_prev + deltaI*deltaE;
+     } else {
+       // at the top
+       energy = m_emax;
+     }
+
+     // scale by cos(theta)
+    return energy/m_costh;
 }
 
   
@@ -185,7 +199,7 @@ double SurfaceMuons::spectrum(double ecth)
         cutoff = ecth<30? exp(-sqr(::log10(ecth/30.))/0.55) : 1.0;
 
 
-    return pow(ecth, -2.71)*atmos*cutoff;
+    return ecth<1.0 ? 0 : pow(ecth, -2.71)*atmos*cutoff;
 }
 
 double SurfaceMuons::analyticSpectrum(double time) const 
