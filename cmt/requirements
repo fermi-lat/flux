@@ -1,6 +1,6 @@
 package flux
 
-version v7r0
+version v7r2
 
 use xml
 use CLHEP v2* IExternal

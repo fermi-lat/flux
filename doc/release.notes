@@ -3,6 +3,7 @@
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 28-aug-03  v7r2 removed separate time in the Flux clas.
  * 29-jul-03  v7r0 Inital import of the non-Gaudi portion of FluxSvc. See old archives for the
                    original version of this package  
  @endverbatim 
