@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.27 2003/05/09 20:48:31 hierath Exp $
+// $Id: GPS.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -153,7 +153,7 @@ std::pair<double,double> GPS::rotateAngles(){
 //set m_rotangles
 void GPS::rotateAngles(std::pair<double,double> coords){
     m_rotangles=coords;
-    m_rockType = EXPLICIT;
+    //m_rockType = EXPLICIT;
 }
 
 
@@ -197,7 +197,7 @@ HepRotation GPS::rockingAngleTransform(double seconds){
         while(orbitPhase >2.*M_2PI){ orbitPhase -= 2.*M_2PI;}
         if(orbitPhase <= M_2PI) rockNorth *= -1.;
     }else{
-        //for safety and EXPLICIT
+        //for safety and EXPLICIT and POINT
         rockNorth = 0.;
     }
     // now, we want to find the proper transformation for the rocking angles:
@@ -223,9 +223,24 @@ HepRotation GPS::CELTransform(double seconds){
     m_position = m_earthOrbit->position(time);
     
     //first make the directions for the x and Z axes, as well as the zenith direction.
+	double lZ,bZ;
     //before rotation, the z axis points along the zenith:
-    SkyDir dirZ(m_position.unit());
-    SkyDir dirX(dirZ.ra()-90., 0.0);
+	if(m_rockType == POINT){
+		lZ=m_rotangles.first;
+		bZ=m_rotangles.second;
+	}else if(m_rockType == HISTORY){
+		//here should be a pointing setup to the history file.
+		lZ=0.;
+		bZ=0.;
+	}else{
+		//ok, get the pointing from earthOrbit.
+		SkyDir tempDirZ(m_position.unit());
+		lZ=tempDirZ.l();
+		bZ=tempDirZ.b();
+	}
+
+	SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
+	SkyDir dirX(dirZ.ra()-90., 0.0);
 
     //so now we know where the x and z axes of the zenith-pointing frame point in the celestial frame.
     //what we want now is to make cel, where
@@ -254,9 +269,24 @@ HepRotation GPS::transformCelToGlast(double seconds){
     m_position = m_earthOrbit->position(time);
     
     //first make the directions for the x and Z axes, as well as the zenith direction.
+	double lZ,bZ;
     //before rotation, the z axis points along the zenith:
-    SkyDir dirZ(m_position.unit());
-    SkyDir dirX(dirZ.ra()-90., 0.0);
+	if(m_rockType == POINT){
+		lZ=m_rotangles.first;
+		bZ=m_rotangles.second;
+	}else if(m_rockType == HISTORY){
+		//here should be a pointing setup to the history file.
+		lZ=0.;
+		bZ=0.;
+	}else{
+		//ok, get the pointing from earthOrbit.
+		SkyDir tempDirZ(m_position.unit());
+		lZ=tempDirZ.l();
+		bZ=tempDirZ.b();
+	}
+
+	SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
+	SkyDir dirX(dirZ.ra()-90., 0.0);
 
     //so now we know where the x and z axes of the zenith-pointing frame point in the celestial frame.
     //what we want now is to make cel, where
@@ -281,10 +311,26 @@ void GPS::getPointingCharacteristics(double seconds){
     m_position = m_earthOrbit->position(time);
     
     //first make the directions for the x and Z axes, as well as the zenith direction.
-    SkyDir dirZenith(m_position.unit());
+double lZ,bZ;
     //before rotation, the z axis points along the zenith:
-    SkyDir dirZ(m_position.unit());
-    SkyDir dirX(dirZ.ra()-90., 0.0);
+	if(m_rockType == POINT){
+		lZ=m_rotangles.first;
+		bZ=m_rotangles.second;
+	}else if(m_rockType == HISTORY){
+		//here should be a pointing setup to the history file.
+		lZ=0.;
+		bZ=0.;
+	}else{
+		//ok, get the pointing from earthOrbit.
+		SkyDir tempDirZ(m_position.unit());
+		lZ=tempDirZ.l();
+		bZ=tempDirZ.b();
+	}
+
+	SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
+	SkyDir dirX(dirZ.ra()-90., 0.0);
+	//before rotation, the z axis points along the zenith:
+	SkyDir dirZenith(dirZ.dir());
     
     //rotate the x direction so that the x direction points along the orbital direction.
     dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
@@ -312,7 +358,9 @@ void GPS::getPointingCharacteristics(double seconds){
     }else if(m_rockType == ONEPERORBIT){
         while(orbitPhase >2.*M_2PI) {orbitPhase -= 2.*M_2PI;}
         if(orbitPhase <= M_2PI) rockNorth *= -1.;
-    }
+	}else{
+		rockNorth = 0.;
+	}
     
     dirZ().rotate(dirX.dir() , rockNorth);
     
@@ -334,6 +382,8 @@ int GPS::setRockType(int rockType){
     if(m_rockType == SLEWING)ret = 2;
     if(m_rockType == ONEPERORBIT)ret = 3;
     if(m_rockType == EXPLICIT)ret = 4;
+	if(m_rockType == POINT)ret = 5;
+	if(m_rockType == HISTORY)ret = 6;
 
 
     m_rockType = NONE;
@@ -341,6 +391,8 @@ int GPS::setRockType(int rockType){
     if(rockType == 2) m_rockType = SLEWING;
     if(rockType == 3) m_rockType = ONEPERORBIT;
     if(rockType == 4) m_rockType = EXPLICIT;
+	if(rockType == 5) m_rockType = POINT;
+    if(rockType == 6) m_rockType = HISTORY;
 
     return ret;
 }
@@ -353,6 +405,8 @@ int GPS::setRockType(RockType rockType){
     if(m_rockType == SLEWING)ret = 2;
     if(m_rockType == ONEPERORBIT)ret = 3;
     if(m_rockType == EXPLICIT)ret = 4;
+	if(m_rockType == POINT)ret = 5;
+    if(m_rockType == HISTORY)ret = 6;
 
     m_rockType = rockType;
     return ret;
