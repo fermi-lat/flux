@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.5 2003/11/07 12:56:21 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.6 2003/11/24 18:47:27 srobinsn Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -373,20 +373,20 @@
  <source_library title="galactic">
 
 
-    <!-- diffuse extraglactic from 10 MeV: from APJ 494:523
-            1.45E-5 /cm^2/s E> 100 MeV, so (1.45E-5)*(1e4 cm^2/m^2)*(100/10)^1.1 = 1.83 /s/sr/m^2
+    <!-- diffuse extraglactic from20 MeV to 1 TeV: from APJ 494:523
+            1.45E-5 /cm^2/s E> 100 MeV, so (1.45E-5)*(1e4 cm^2/m^2)*(100/20)^1.1 = 0.85 /s/sr/m^2
             -->
  
-    <source name="diffuse" flux="1.83">
+    <source name="diffuse-20mev" flux="0.85">
         <spectrum escale="GeV">
-            <particle name="gamma">  <power_law emin="0.01" gamma="2.1"/></particle>
+            <particle name="gamma">  <power_law emin="0.02" emax="1e3" gamma="2.1"/></particle>
             <solid_angle mincos="-0.4" maxcos="1.0"/>
         </spectrum>
     </source>
 
 
     <!-- diffuse extraglactic from 100 MeV: see above for numbers-->
-    <source name="diffuse-100mev" flux="0.145">
+    <source name="diffuse" flux="0.145">
         <spectrum escale="GeV">
             <particle name="gamma">  <power_law emin="0.1" gamma="2.1"/></particle>
             <solid_angle mincos="-0.4" maxcos="1.0"/>
@@ -403,9 +403,9 @@
     </source>
 
 	 <!-- Test source at the galactic origin -->
-     <source name="galcenter" flux="0.05">
+     <source name="galcenter" flux="5e-4">
           <spectrum escale="GeV">
-              <particle name="gamma"> <energy e="0.1"/> </particle>
+              <particle name="gamma"> <energy e="110."/> </particle>
                <galactic_dir l="0" b="0"/>
           </spectrum>
      </source>
