@@ -1,5 +1,16 @@
 ------------------------------------------------------------
 User: hierath  Wed Jan 28 15:52:25 PST 2004
+flux/src
+
+Modified Files:
+	AlbedoPSpectrum.cxx CHIMESpectrum.cxx FluxMgr.cxx 
+	FluxSource.cxx GalElSpectrum.cxx 
+Log Message:
+
+Moved GPS class to astro.
+    *
+------------------------------------------------------------
+User: hierath  Wed Jan 28 15:52:25 PST 2004
 flux/flux
 
 Modified Files:
