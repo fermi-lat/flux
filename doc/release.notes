@@ -1,9 +1,10 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.15 2003/12/12 17:55:54 jrb Exp $
+  $Id: release.notes,v 1.16 2004/01/06 22:49:43 srobinsn Exp $
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 06-jan-04  v8r5p1 SMR THB's "radius" parameter added to galactic sources.
  * 06-jan-04  v8r5   SMR migrate MapSpectrum into flux.
  * 12-dec-03  v8r4p2 jrb Replace xml::IFile::extractEnvVar call with one to
  *                       facilities::Util::expandEnvVar in FluxMgr.cxx

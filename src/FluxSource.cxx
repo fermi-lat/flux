@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.10 2003/12/05 19:14:45 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.11 2004/01/07 02:17:01 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -524,7 +524,8 @@ FluxSource::FluxSource(const DOM_Element& xelem )
                 atof(xml::Dom::transToChar(angles.getAttribute("l"))),
                 atof(xml::Dom::transToChar(angles.getAttribute("b"))), 
                 astro::SkyDir::GALACTIC
-                ) 
+                ),
+                atof(xml::Dom::getAttribute(angles, "radius").c_str())
                 );
         }
         else if(anglesTag.equals("celestial_dir")){
