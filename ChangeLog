@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Sat Oct  4 20:46:20 PDT 2003
+flux/src
+
+Modified Files:
+	Flux.cxx FluxMgr.cxx 
+Log Message:
+provide interface to specify a list of sources
+    *
+------------------------------------------------------------
+User: burnett  Sat Oct  4 20:46:20 PDT 2003
 flux/flux
 
 Modified Files:
