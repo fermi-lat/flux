@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: cohen  Wed Sep 29 11:27:48 PDT 2004
+flux/xml
+
+Modified Files:
+	source.dtd 
+Log Message:
+modification to generalize FILESpectrum internals and allow for more complete use of XML description attributes 
+
+    *
+------------------------------------------------------------
+User: cohen  Wed Sep 29 11:27:48 PDT 2004
 flux/src
 
 Modified Files:
