@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/mainpage.h,v 1.11 2003/05/15 20:34:42 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/mainpage.h,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 // Mainpage for doxygen
 
 /*! \mainpage package flux
@@ -9,7 +9,8 @@
   This package implements source definitions, and a procedure to extend them.
   <br>
 
-
+@section Basic_xml Basic XML specifications
+  Broken power law specification <a href="../multipower.htm">found here</a>
  <hr>
   @section Basic_XML_Sources Sources
   This is a limited selection of sources. See the contents of the source library file for a complete list.
