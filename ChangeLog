@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Fri Dec  5 11:14:45 PST 2003
+flux/src
+
+Modified Files:
+	Flux.cxx FluxSource.cxx 
+Log Message:
+fix wrong sign in zenith comparison for external sources, and some indentation.
+    *
+------------------------------------------------------------
 User: burnett  Tue Dec  2 14:55:57 PST 2003
 flux/src
 
