@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Tue Mar 16 15:42:58 PST 2004
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+Use specific major version (v4 for now) of xml
+
+    *
+------------------------------------------------------------
 User: burnett  Tue Mar 16 11:26:55 PST 2004
 flux/src
 
