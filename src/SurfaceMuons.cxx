@@ -2,7 +2,7 @@
 * @file SurfaceMuons.cxx
 * @brief declaration and definition of SurfaceMuons
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.9 2004/06/17 19:05:21 hierath Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.10 2004/06/17 22:16:25 hierath Exp $
 */
 #include "flux/Spectrum.h"
 #include "flux/SpectrumFactory.h"
@@ -18,7 +18,7 @@
 * \brief Spectrum representing cosmic ray muon flux at the Earth's surface
 * \author T. Burnett
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.9 2004/06/17 19:05:21 hierath Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.10 2004/06/17 22:16:25 hierath Exp $
 */
 //
 
@@ -110,7 +110,7 @@ SurfaceMuons::SurfaceMuons(const std::string& paramstring)
     // and PDG value of 70/m^2/s/sr in the vertical
     m_flux = 70. * 2*M_PI * fabs(pow(m_cosmax,3) - pow(m_cosmin,3))/3;
 
-    // option =1 is for Hiro version
+    // option > 0  is for alternate version
     m_option = (int) (params.size()>2 ? params[2]: 0.);
 
     if(m_option == 0) {
@@ -126,6 +126,8 @@ SurfaceMuons::SurfaceMuons(const std::string& paramstring)
 
             m_ispec[m_total +=f] =e;
         }
+    } else {
+        m_flux *= 100./70.;
     }
 }
 
@@ -199,7 +201,6 @@ double SurfaceMuons::capriceSpectrum(double time) const
                   6.8951e+000,  9.8949e+000,  1.5395e+001,  2.2895e+001,  3.0995e+001,  4.3494e+001,  6.0994e+001,
                   8.5494e+001,  1.1989e+002};
 
-   double *integ_flux;
 
    // Integrated mu+ and mu- flux from Caprice94 data (Manitoba, Canada at atmospheric depth of 1000 g/cm^2)
    // (m^2 sr s)^-1
@@ -217,10 +218,7 @@ double SurfaceMuons::capriceSpectrum(double time) const
       8.3682e+001,  8.8407e+001,  9.3807e+001,  9.7844e+001,  9.9869e+001,  1.0075e+002,
       1.0136e+002,  1.0167e+002,  1.0185e+002,  1.0194e+002 };
 
-   if(m_option == 2)
-      integ_flux = integ_flux94;
-   else
-      integ_flux = integ_flux97;
+   double *integ_flux = (m_option == 2)?  integ_flux94 : integ_flux97;
 
    double target = RandFlat::shoot(integ_flux[21]);
    double m = 0, b = 0;
