@@ -16,9 +16,6 @@
 #include <vector>
 #include <fstream>
 
-#define GAL_SWITCH
-
-
 class GalPulsars : public Spectrum
 {
 public:
@@ -38,11 +35,11 @@ public:
 private:
 
    void updateIntervals(double current_time, double time_decrement);
-   double period(double time, int pulsarIndex) const;
+   double period(double jd, int pulsarIndex) const;
    double power_law( double r, double e1, double e2, double gamma) const;
    void initLightCurve(void);
 
-   std::vector< std::vector<double> > m_lightCurve;
+   std::vector< std::vector<double> > m_lc;
    std::vector< std::string > m_name;
    std::vector<double> m_spectralIndex;
    std::vector<double> m_highCutoff;
@@ -112,7 +109,7 @@ GalPulsars::GalPulsars(const std::string& paramString)
       input_file.getline(buffer,1024,'\t');
       m_spectralIndex.push_back(std::atof(buffer));
 
-      m_t0.push_back(0.0);
+      m_t0.push_back(2400000.5+51595.370251);
 
       std::vector<double> temp_lc;
       for(int i = 0; i < 20; i++)
@@ -123,7 +120,7 @@ GalPulsars::GalPulsars(const std::string& paramString)
       input_file.getline(buffer,1024,'\n');
       temp_lc.push_back(std::atof(buffer));
 
-      m_lightCurve.push_back(temp_lc);
+      m_lc.push_back(temp_lc);
       temp_lc.clear();
    }
    input_file.close();
@@ -174,42 +171,43 @@ void GalPulsars::updateIntervals(double current_time, double time_decrement)
          double target = -std::log(1.-RandFlat::shoot(1.));
 
          double area = 1.0e4 * EventSource::totalArea();
-         double current_period = period(current_time,i);
+         double current_period = period(tdb,i);
 
          double num_per_cycle = m_flux[i]*area*current_period;
          double num_cycles = floor(target/num_per_cycle);
 
          m_interval[i] = current_period * num_cycles;
 
-         // Determine what fraction of a cycle the pulsar is at for the current time
-         double cycle_fraction = fmod(m_freq[i]*dt + 0.5 * m_freq_dot[i]*dt*dt,1);
+         // Determine phase of the pulsar for the current time
+         double cycle_fraction = fmod(m_freq[i]*dt + 0.5 * m_freq_dot[i]*dt*dt,current_period);
              
-         int phase_index = (int) floor(cycle_fraction * 21.);
-         if(phase_index == 21) 
+         int phase_index = (int) floor(cycle_fraction * m_lc[i].size());
+         if(phase_index == m_lc[i].size()) 
             phase_index = 0;
 
          double current = num_per_cycle * num_cycles;
 
          // Start sum by subtracting off part of bin that isn't used
-         double phase_sum = - m_lightCurve[i][phase_index] * (cycle_fraction * 21. - 1.0 * phase_index) 
-                            * area * (current_period / 21.);
-         
+         double phase_sum = - m_lc[i][phase_index] * (cycle_fraction * m_lc[i].size() - 1.0 * phase_index) 
+                            * area * (current_period / m_lc[i].size());
+
          // Find out which bin corresponds to the target
-         for(int j = 0; j < 43; j++)
+         for(int j = 0; j < 2 * m_lc[i].size() + 1; j++)
          {
             // For each bin add rate * bin-time 
-            phase_sum += m_lightCurve[i][phase_index] * area * (current_period / 21.);
+            phase_sum += m_lc[i][phase_index] * area * (current_period / m_lc[i].size());
 
             if(current + phase_sum > target)
             {
-               m_interval[i] += (j+1.)*current_period / 21.;
-               m_interval[i] -= current_period / 21. * (current + phase_sum - target) / (m_lightCurve[i][phase_index] * area * (current_period / 21.));
+               m_interval[i] += (j+1.)*current_period / m_lc[i].size();
+               m_interval[i] -= current_period / m_lc[i].size() * (current + phase_sum - target) / (m_lc[i][phase_index] * area * (current_period / m_lc[i].size()));
+              
                break;
             }
             else
             {
                phase_index++; 
-               if(phase_index == 21) phase_index = 0;
+               if(phase_index == m_lc[i].size()) phase_index = 0;
             }
          }
 
@@ -220,8 +218,8 @@ void GalPulsars::updateIntervals(double current_time, double time_decrement)
 } 
 
 
-double GalPulsars::period(double time, int pulsarIndex) const {
-   return 1./m_freq[pulsarIndex] + (-m_freq_dot[pulsarIndex]/(m_freq[pulsarIndex]*m_freq[pulsarIndex]))*(time - m_t0[pulsarIndex]);
+double GalPulsars::period(double jd, int pulsarIndex) const {
+   return 1./m_freq[pulsarIndex] + (-m_freq_dot[pulsarIndex]/(m_freq[pulsarIndex]*m_freq[pulsarIndex]))*(jd - m_t0[pulsarIndex])*86400;
 }
 
 std::pair<double,double> GalPulsars::dir(double energy)
@@ -262,15 +260,15 @@ double GalPulsars::power_law( double r, double e1, double e2, double gamma) cons
 // verify that light curve agrees with flux for each source
 void GalPulsars::initLightCurve(void)
 {
-   for(int i = 0; i < m_lightCurve.size(); i++)
+   for(unsigned int i = 0; i < m_lc.size(); i++)
    {
       double rate = 0;
-      for(int j = 0; j < 21; j++)
-         rate += m_lightCurve[i][j] / 21.;
+      for(int j = 0; j < m_lc[i].size(); j++)
+         rate += m_lc[i][j] / m_lc[i].size();
 
       double scaling_factor = m_flux[i] / rate;
 
-      for(int k = 0; k < 21; k++)
-         rate *= scaling_factor;
+      for(int k = 0; k < m_lc[i].size(); k++)
+         m_lc[i][k] *= scaling_factor;
    }
 }
