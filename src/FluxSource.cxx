@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
     @brief Implementation of FluxSource
 
-  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/FluxSource.cxx,v 1.61 2003/04/03 19:44:50 burnett Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 
   */
 #include "flux/FluxSource.h"
@@ -500,25 +500,19 @@ FluxSource::FluxSource(const DOM_Element& xelem )
             DOMString launchTag = launch.getTagName();
             
              if(launchTag.equals("launch_point")){
-                m_launch_pt = new FixedPoint(
-                    HepPoint3D(
-                        atof(xml::Dom::transToChar(launch.getAttribute("x"))),
-                        atof(xml::Dom::transToChar(launch.getAttribute("y"))),
-                        atof(xml::Dom::transToChar(launch.getAttribute("z"))) ),
-                    atof(xml::Dom::transToChar(launch.getAttribute("beam_radius")))
-                    );
-
-                
+				 double float1=atof(xml::Dom::transToChar(launch.getAttribute("x")));
+				 double float2=atof(xml::Dom::transToChar(launch.getAttribute("y")));
+				 double float3=atof(xml::Dom::transToChar(launch.getAttribute("z")));
+				 m_launch_pt = new FixedPoint(HepPoint3D(float1,float2,float3),
+					 atof(xml::Dom::transToChar(launch.getAttribute("beam_radius"))) );
             }else if(launchTag.equals("patch")){
-                m_launch_pt = new Patch( 
-                    atof(xml::Dom::transToChar(launch.getAttribute("xmax"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("xmin"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("ymax"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("ymin"))), 
-                    atof(xml::Dom::transToChar(launch.getAttribute("zmax"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("zmin"))) 
-                    );
-                
+				float num1=atof(xml::Dom::transToChar(launch.getAttribute("xmax")));
+				float num2=atof(xml::Dom::transToChar(launch.getAttribute("xmin")));
+				float num3=atof(xml::Dom::transToChar(launch.getAttribute("ymax")));
+				float num4=atof(xml::Dom::transToChar(launch.getAttribute("ymin")));
+				float num5=atof(xml::Dom::transToChar(launch.getAttribute("zmax")));
+				float num6=atof(xml::Dom::transToChar(launch.getAttribute("zmin")));
+                m_launch_pt = new Patch(num1,num2,num3,num4,num5,num6);
             }else {
                 FATAL_MACRO("Unknown launch specification in Flux::Flux \""
                     << xml::Dom::transToChar(launchTag) << "\"" );
