@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.12 2004/01/07 06:07:37 srobinsn Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.13 2004/01/15 12:27:03 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -353,9 +353,10 @@ public:
     @param spectrum pointer to the ISpectrum object that will provide the direction
     @param galactic if true, interpret pair as l,b (in degrees); otherwise costh, phi
     */
-    SourceDirection(ISpectrum* spectrum, bool galactic)
+    SourceDirection(ISpectrum* spectrum, std::string frame /*bool galactic*/)
         : m_spectrum(spectrum)
-        , m_galactic(galactic)
+        , m_galactic(frame=="galaxy")
+        , m_equatorial(frame=="equatorial")
         , m_zenithCos(1.0)
     {}
 
@@ -364,7 +365,7 @@ public:
         std::pair<float,float> direction 
             = m_spectrum->dir(ke);
 
-        if( !m_galactic) {
+        if( !(m_galactic||m_equatorial) ) {
             // special option that gets direction from the spectrum object
             // note extra - sign since direction corresponds to *from*, not *to*
 
@@ -382,11 +383,12 @@ public:
             setDir(zenToGlast*(-unrotated));
 
         }else {
-            // iterpret direction as l,b for a galactic source
+            // iterpret direction as l,b for a galactic or celestial source
             double  l = direction.first,
                 b = direction.second;
-            //then set up this direction:
-            astro::SkyDir unrotated(l,b,astro::SkyDir::GALACTIC);
+            //then set up this direction, either in galactic or celestial coordinates:    
+            astro::SkyDir unrotated(l,b,m_galactic? astro::SkyDir::GALACTIC : astro::SkyDir::CELESTIAL);
+
             //get the zenith cosine:
             astro::SkyDir zenDir(GPS::instance()->RAZenith(),GPS::instance()->DECZenith());
             m_zenithCos = unrotated()*zenDir();
@@ -413,7 +415,7 @@ public:
 
 private:
     ISpectrum* m_spectrum;
-    bool   m_galactic;
+    bool   m_galactic,m_equatorial;
     double m_zenithCos;
 };
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -515,8 +517,8 @@ FluxSource::FluxSource(const DOM_Element& xelem )
         }
         else if (anglesTag.equals("use_spectrum") ) {
             std::string frame = xml::Dom::transToChar(angles.getAttribute("frame"));
-            m_occultable=(frame=="galaxy");
-            m_launch_dir = new SourceDirection(m_spectrum, frame=="galaxy"); 
+            m_occultable=(frame=="galaxy" || frame=="equatorial");
+            m_launch_dir = new SourceDirection(m_spectrum, frame); 
         }
         else if(anglesTag.equals("galactic_dir")){
             m_occultable=true;
