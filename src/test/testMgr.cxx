@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.3 2004/01/13 22:09:54 srobinsn Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.4 2004/01/14 04:12:57 srobinsn Exp $
 
 //#include "FluxSvc/ISpectrumFactory.h"
 
@@ -74,7 +74,7 @@ void galacticTest(FluxMgr* fm, std::string sourceName,double count){
         //of fluxsource, and is expected.
         time+=interval;
         fm->pass(interval);
-        Hep3Vector abc(fm->transformToGlast(time,GPS::CoordSystem::CELESTIAL).inverse()*(-(f->launchDir())));
+        Hep3Vector abc(fm->transformToGlast(time,GPS::CELESTIAL).inverse()*(-(f->launchDir())));
         astro::SkyDir dir(abc,astro::SkyDir::CELESTIAL);
         std::cout << "particle "<< i << " located at (l,b) = " << dir.l() << "," << dir.b() << std::endl;
         lavg +=dir.l();
