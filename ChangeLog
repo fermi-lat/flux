@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Fri Aug 29 10:19:35 PDT 2003
+flux/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+interpolation distance calculation fix in GPS
+
+    *
+------------------------------------------------------------
 User: srobinsn  Fri Aug 29 02:08:16 PDT 2003
 flux/src
 
