@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.19 2004/03/16 19:26:55 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.20 2004/03/16 23:43:36 jrb Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -444,40 +444,14 @@ FluxSource::FluxSource(const DOM_Element& xelem )
     if (spec == DOM_Element()) {
 
         // source has no imbedded spectrum element: expect a name
-#if 0
-        class_name = xml::Dom::transToChar(xelem.getAttribute("name"));
-#else
         class_name = xml::Dom::getAttribute(xelem, "name");
-#endif
     } else {
         // process spectrum element
-#if 0
-        DOM_NodeList children = spec.getChildNodes();
-
-        // First child element is type of spectrum
-        DOM_Node    childNode = children.item(0);
-        DOM_Element specType;
-
-        if (childNode.getNodeType() == DOM_Node::ELEMENT_NODE) {
-            specType = (DOM_Element &) childNode;
-        }
-        else specType = xml::Dom::getSiblingElement(childNode);
-#else
         DOM_Element specType = xml::Dom::getFirstChildElement(spec);
-#endif
 
-#if 0
-        DOMString   typeTagName = specType.getTagName();
-#else
         std::string typeTagName = xml::Dom::getTagName(specType);
-#endif
-#if 0
-        std::string spectrum_name = xml::Dom::transToChar(spec.getAttribute("name"));
-        std::string spectrum_energyscale = xml::Dom::transToChar(spec.getAttribute("escale"));
-#else
         std::string spectrum_name = xml::Dom::getAttribute(spec, "name");
         std::string spectrum_energyscale = xml::Dom::getAttribute(spec, "escale");
-#endif
 
         if(spectrum_energyscale == "GeV"){ m_energyscale=GeV;
         }else if(spectrum_energyscale == "MeV"){ m_energyscale=MeV;
@@ -486,29 +460,15 @@ FluxSource::FluxSource(const DOM_Element& xelem )
                 << spectrum_energyscale << " , exiting.";
             return;} //this line "just in case"
 
-#if 0
-        if (typeTagName.equals("particle")) s = new SimpleSpectrum(specType,  m_energyscale==GeV );
-        else if (typeTagName.equals("SpectrumClass")) {
-#else
         if (typeTagName=="particle") s = new SimpleSpectrum(specType,  m_energyscale==GeV );
         else if (typeTagName=="SpectrumClass") {
-#endif
             // attribute "name" is the class name
-#if 0
-            class_name = xml::Dom::transToChar(specType.getAttribute("name"));
-            source_params= xml::Dom::transToChar(specType.getAttribute("params"));
-#else
             class_name = xml::Dom::getAttribute(specType, "name");
             source_params= xml::Dom::getAttribute(specType, "params");
-#endif
         }
         else {
             // no, the tag itself
-#if 0
-            class_name = xml::Dom::transToChar(typeTagName);//.transcode();
-#else
             class_name = typeTagName;//.transcode();
-#endif
         }
 
         //if s is still 0, we need to create the internal spectrum object.
@@ -530,174 +490,84 @@ FluxSource::FluxSource(const DOM_Element& xelem )
 
         // second child element is angle
         DOM_Element angles = xml::Dom::getSiblingElement(specType);
-#if 0
-        DOMString anglesTag = angles.getTagName();
-        if (anglesTag.equals("solid_angle") ) 
-#else
         std::string anglesTag = xml::Dom::getTagName(angles);
         if (anglesTag == "solid_angle") 
-#endif
         {
             m_occultable=false;
             m_launch_dir = new RandomDirection(
-#if 0
-                atof(xml::Dom::transToChar(angles.getAttribute("mincos"))),
-                atof(xml::Dom::transToChar(angles.getAttribute("maxcos"))),
-                atof(xml::Dom::transToChar(angles.getAttribute("theta"))) * d2r, 
-                atof(xml::Dom::transToChar(angles.getAttribute("phi"))) *d2r);
-#else
                 xml::Dom::getDoubleAttribute(angles, "mincos"),
                 xml::Dom::getDoubleAttribute(angles, "maxcos"),
                 xml::Dom::getDoubleAttribute(angles, "theta") * d2r,
                 xml::Dom::getDoubleAttribute(angles, "phi")*d2r);
-#endif
 
         }
-#if 0
-        else if (anglesTag.equals("direction") ) 
-#else
         else if (anglesTag == "direction") 
-#endif
         {
             m_occultable=false;
             m_launch_dir = new LaunchDirection(
-#if 0
-                atof(xml::Dom::transToChar(angles.getAttribute("theta"))) * d2r, 
-                atof(xml::Dom::transToChar(angles.getAttribute("phi"))) *d2r);
-#else
                 xml::Dom::getDoubleAttribute(angles, "theta") * d2r,
                 xml::Dom::getDoubleAttribute(angles, "phi")*d2r);
-#endif
         }
-#if 0
-        else if (anglesTag.equals("use_spectrum") ) 
-#else
         else if (anglesTag == "use_spectrum")
-#endif
         {
             std::string frame = xml::Dom::transToChar(angles.getAttribute("frame"));
             m_occultable=(frame=="galaxy" || frame=="equatorial");
             m_launch_dir = new SourceDirection(m_spectrum, frame); 
         }
-#if 0
-        else if(anglesTag.equals("galactic_dir"))
-#else
         else if (anglesTag == "galactic_dir")
-#endif
         {
             m_occultable=true;
             m_launch_dir = new LaunchDirection(
                 astro::SkyDir(
-#if 0
-                atof(xml::Dom::transToChar(angles.getAttribute("l"))),
-                atof(xml::Dom::transToChar(angles.getAttribute("b"))), 
-#else
                 xml::Dom::getDoubleAttribute(angles, "l") ,
                 xml::Dom::getDoubleAttribute(angles, "b") ,
-#endif
                 astro::SkyDir::GALACTIC
                 ),
-#if 0
-                atof(xml::Dom::getAttribute(angles, "radius").c_str())
-#else
                xml::Dom::getDoubleAttribute(angles, "radius") 
 
-#endif
                 );
         }
-#if 0
-        else if(anglesTag.equals("celestial_dir"))
-#else
         else if (anglesTag == "celestial_dir")
-#endif
 
         {
             m_occultable=true;
             m_launch_dir = new LaunchDirection(
                 astro::SkyDir(
-#if 0
-                atof(xml::Dom::transToChar(angles.getAttribute("ra"))),
-                atof(xml::Dom::transToChar(angles.getAttribute("dec"))), 
-                astro::SkyDir::EQUATORIAL 
-#else
                 xml::Dom::getDoubleAttribute(angles, "ra")  ,
                 xml::Dom::getDoubleAttribute(angles, "dec")
 
-#endif
                 ),
-#if 0
-                atof(xml::Dom::getAttribute(angles, "radius").c_str())
-#else
                xml::Dom::getDoubleAttribute(angles, "radius") 
-#endif
                 );
 
         }
-#if  0
-        else if(anglesTag.equals("galactic_spread"))
-#else
         else if (anglesTag == "galactic_spread")
-#endif
         {
             m_occultable=true;
             FATAL_MACRO("not implemented");
         }
         else {
-#if 0
-            FATAL_MACRO("Unknown angle specification in Flux::Flux \""
-                << xml::Dom::transToChar(anglesTag) << "\"" );
-#else
             FATAL_MACRO("Unknown angle specification in Flux::Flux \""
                 << anglesTag << "\"" );
 
-#endif
         }
 
         // third child element is optional launch spec
         DOM_Element launch = xml::Dom::getSiblingElement(angles);
 
         if(launch !=DOM_Element()) {
-#if 0
-            DOMString launchTag = launch.getTagName();
-#else
             std::string launchTag = xml::Dom::getTagName(launch);
-#endif
 
-#if 0
-            if(launchTag.equals("launch_point"))
-#else
             if (launchTag == "launch_point")
-#endif
             {
-#if 0
-                double float1=atof(xml::Dom::transToChar(launch.getAttribute("x")));
-                double float2=atof(xml::Dom::transToChar(launch.getAttribute("y")));
-                double float3=atof(xml::Dom::transToChar(launch.getAttribute("z")));
-                m_launch_pt = new FixedPoint(HepPoint3D(float1,float2,float3),
-                    atof(xml::Dom::transToChar(launch.getAttribute("beam_radius"))) );
-#else
                 m_launch_pt = new FixedPoint(HepPoint3D(
                     xml::Dom::getDoubleAttribute(launch, "x"),
                     xml::Dom::getDoubleAttribute(launch, "y"),
                     xml::Dom::getDoubleAttribute(launch, "z")),
                     xml::Dom::getDoubleAttribute(launch, "beam_radius") );
-#endif
             }
-#if 0
-            else if(launchTag.equals("patch"))
-#else
             else if (launchTag == "patch")
-#endif
             {
-#if 0
-                float num1=atof(xml::Dom::transToChar(launch.getAttribute("xmax")));
-                float num2=atof(xml::Dom::transToChar(launch.getAttribute("xmin")));
-                float num3=atof(xml::Dom::transToChar(launch.getAttribute("ymax")));
-                float num4=atof(xml::Dom::transToChar(launch.getAttribute("ymin")));
-                float num5=atof(xml::Dom::transToChar(launch.getAttribute("zmax")));
-                float num6=atof(xml::Dom::transToChar(launch.getAttribute("zmin")));
-                m_launch_pt = new Patch(num1,num2,num3,num4,num5,num6);
-#else
                 m_launch_pt = new Patch(
                     xml::Dom::getDoubleAttribute(launch, "xmax"),
                     xml::Dom::getDoubleAttribute(launch, "xmin"),
@@ -705,15 +575,9 @@ FluxSource::FluxSource(const DOM_Element& xelem )
                     xml::Dom::getDoubleAttribute(launch, "ymin"),
                     xml::Dom::getDoubleAttribute(launch, "zmax"),
                     xml::Dom::getDoubleAttribute(launch, "zmin") );
-#endif
             }else {
-#if 0
-                FATAL_MACRO("Unknown launch specification in Flux::Flux \""
-                    << xml::Dom::transToChar(launchTag) << "\"" );
-#else
                 FATAL_MACRO("Unknown launch specification in Flux::Flux \""
                     << launchTag << "\"" );
-#endif
 
             }
         } else {

@@ -5,7 +5,7 @@ author Sean Robinson <srobinsn@u.washington.edu>
 
 use xml  v4r*
 use CLHEP v2* IExternal
-use astro v0r*
+use astro v*
 use cfitsio * IExternal
 
 apply_pattern package_include
