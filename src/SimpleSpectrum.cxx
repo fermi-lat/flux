@@ -1,13 +1,13 @@
 /** @file SimpleSpectrum.cxx
     @brief definition of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.6 2004/03/29 20:33:28 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.7 2004/04/13 01:16:57 burnett Exp $
 */
 
 
 #include "flux/SimpleSpectrum.h"
 
-#include <xercesc/dom/DOM_Element.hpp>
+#include <xercesc/dom/DOMElement.hpp>
 #include "xml/Dom.h"
 
 #include "flux/FluxException.h" // for FATAL_MACRO
@@ -45,12 +45,15 @@ SimpleSpectrum::SimpleSpectrum(const std::string& params)
 {}
 
 
-SimpleSpectrum::SimpleSpectrum(const DOM_Element& xelem, bool useGeV)
+SimpleSpectrum::SimpleSpectrum(const 
+                               XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem,
+                               bool useGeV)
 : m_useGeV(useGeV)
 {
     m_name = xml::Dom::getAttribute(xelem, "name").c_str();
     
-    const DOM_Element spectrum = xml::Dom::findFirstChildByName(xelem, "*");
+    const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* spectrum = 
+      xml::Dom::findFirstChildByName(xelem, "*");
     
     std::string tagName = xml::Dom::getTagName(spectrum);
     if( tagName == "power_law" ){

@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.6 2004/03/17 01:09:53 jrb Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.7 2004/04/02 00:47:25 mcenery Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -23,13 +23,16 @@
 
 #include "FluxSource.h"
 
-#include <xercesc/dom/DOM_Document.hpp>
-#include <xercesc/dom/DOM_Element.hpp>
+#include <xercesc/dom/DOMDocument.hpp>
+#include <xercesc/dom/DOMElement.hpp>
 #include "xml/XmlParser.h"
 #include "ISpectrumFactory.h"
 #include <map>
 #include <list>
 #include <string>
+
+using XERCES_CPP_NAMESPACE_QUALIFIER DOMElement;
+using XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument;
 
 class FluxMgr 
 {
@@ -107,29 +110,26 @@ private:
     
     /// source library lookup.  Each source is uniquely identified
     /// by its "name" attribute because "name" is of type ID
-#if 0
-    DOM_Element  getLibrarySource(const DOMString& id);
-#else
-    DOM_Element  getLibrarySource(const std::string& id);
-#endif
+    DOMElement* getLibrarySource(const std::string& id);
     
     
     void defaultFile();
     void init(const std::vector<std::string>& fileList);
     
-    EventSource* getSourceFromXML(const DOM_Element& src);
+    EventSource* 
+    getSourceFromXML(const DOMElement* src);
     
-    DOM_Document m_library_doc;
+    DOMDocument* m_library_doc;
     
-    DOM_Element     s_library;
+    DOMElement*     s_library;
     
-    std::vector<DOM_Document> m_library_doclist;
+    std::vector<DOMDocument*> m_library_doclist;
     
-    std::vector<DOM_Element>     s_librarylist;
+    std::vector<DOMElement*>     s_librarylist;
     
     /// list of sources for easy lookup
     //std::map<std::string, DOM_Element > m_sources;
-    std::map<std::string, std::pair<DOM_Element,std::string> > m_sources;
+    std::map<std::string, std::pair<DOMElement* ,std::string> > m_sources;
 
     /// internal routine that creates the document
     std::string  writeXmlFile( const std::vector<std::string>& fileList);
