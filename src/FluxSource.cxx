@@ -1,13 +1,12 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.23 2004/08/10 16:10:07 hierath Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.24 2004/09/29 18:27:48 cohen Exp $
 
 */
 #include "flux/FluxSource.h"
 
-#include <xercesc/dom/DOM_Element.hpp>
-#include <xercesc/dom/DOM_NodeList.hpp>
+#include <xercesc/dom/DOMElement.hpp>
 #include "xml/Dom.h"
 #include "CLHEP/Random/RandFlat.h"
 
@@ -429,12 +428,13 @@ private:
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                   FluxSource constructor
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-FluxSource::FluxSource(const DOM_Element& xelem )
+FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
 : EventSource ()
 , m_spectrum(0)
 , m_occultable(true)
 , m_zenithCosTheta(1.0) //won't be occulted by default
 {
+    using XERCES_CPP_NAMESPACE_QUALIFIER DOMElement;
     static double d2r = M_PI/180.;
 
 
@@ -445,15 +445,15 @@ FluxSource::FluxSource(const DOM_Element& xelem )
     setFlux(atof (xml::Dom::getAttribute(xelem, "flux").c_str()));
 
 
-    DOM_Element   spec = xml::Dom::findFirstChildByName(xelem, "spectrum");
+    DOMElement*   spec = xml::Dom::findFirstChildByName(xelem, "spectrum");
 
-    if (spec == DOM_Element()) {
+    if (spec == 0) {
 
         // source has no imbedded spectrum element: expect a name
         class_name = xml::Dom::getAttribute(xelem, "name");
     } else {
         // process spectrum element
-        DOM_Element specType = xml::Dom::getFirstChildElement(spec);
+        DOMElement* specType = xml::Dom::getFirstChildElement(spec);
 
         std::string typeTagName = xml::Dom::getTagName(specType);
         std::string spectrum_name = xml::Dom::getAttribute(spec, "particle_name");
@@ -501,7 +501,7 @@ FluxSource::FluxSource(const DOM_Element& xelem )
 	
 
         // second child element is angle
-        DOM_Element angles = xml::Dom::getSiblingElement(specType);
+        DOMElement* angles = xml::Dom::getSiblingElement(specType);
         std::string anglesTag = xml::Dom::getTagName(angles);
         if (anglesTag == "solid_angle") 
         {
@@ -516,7 +516,7 @@ FluxSource::FluxSource(const DOM_Element& xelem )
         else if (anglesTag == "direction") 
         {
             //m_occultable=false;
-            std::string frame = xml::Dom::transToChar(angles.getAttribute("frame"));
+            std::string frame = xml::Dom::getAttribute(angles, "frame");
             m_occultable=(frame=="zenith");
             m_launch_dir = new LaunchDirection(
                 xml::Dom::getDoubleAttribute(angles, "theta") * d2r,
@@ -525,7 +525,9 @@ FluxSource::FluxSource(const DOM_Element& xelem )
         }
         else if (anglesTag == "use_spectrum")
         {
-            std::string frame = xml::Dom::transToChar(angles.getAttribute("frame"));
+            std::string frame = 
+                xml::Dom::getAttribute(angles, "frame");
+                // xml::Dom::transToChar(angles->getAttribute("frame"));
             m_occultable=(frame=="galaxy" || frame=="equatorial");
             m_launch_dir = new SourceDirection(m_spectrum, frame); 
         }
@@ -568,9 +570,9 @@ FluxSource::FluxSource(const DOM_Element& xelem )
         }
 
         // third child element is optional launch spec
-        DOM_Element launch = xml::Dom::getSiblingElement(angles);
+        DOMElement* launch = xml::Dom::getSiblingElement(angles);
 
-        if(launch !=DOM_Element()) {
+        if(launch != 0) {
             std::string launchTag = xml::Dom::getTagName(launch);
 
             if (launchTag == "launch_point")

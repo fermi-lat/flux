@@ -6,7 +6,12 @@
 
 #include "EventSource.h"
 // forward declarations
-class DOM_Element;
+
+#include <xercesc/util/XercesDefs.hpp>
+XERCES_CPP_NAMESPACE_BEGIN
+class  DOMElement;
+XERCES_CPP_NAMESPACE_END
+
 class ISpectrum;
 
 // 
@@ -14,7 +19,7 @@ class ISpectrum;
 @brief class which manages to compute flux from various particle source configurations
 It is initialized from a xml description
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.4 2003/10/29 16:47:46 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.5 2004/02/13 22:11:20 burnett Exp $
 */
 class FluxSource : public EventSource  
 {
@@ -22,7 +27,7 @@ public:
     /**  constructor
     @param xelem The xml description for this source
     */
-    FluxSource ( const DOM_Element& xelem );
+    FluxSource ( const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem );
 
     ///    destructor
     virtual ~FluxSource();

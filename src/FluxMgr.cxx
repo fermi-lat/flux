@@ -11,8 +11,8 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.18 2004/09/29 06:
 #include "flux/FluxException.h" // defines FATAL_MACRO
 #include "flux/CompositeSource.h"
 
-#include <xercesc/dom/DOM_Document.hpp>
-#include <xercesc/dom/DOM_Element.hpp>
+// #include <xercesc/dom/DOMDocument.hpp>   already included by .h file
+// #include <xercesc/dom/DOMElement.hpp>
 #include "xml/Dom.h"
 #include "facilities/Util.h"     // for expandEnvVar
 
@@ -62,7 +62,7 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
 
     m_library_doc = parser.parse(xmlFileIn);
 
-    if (m_library_doc == DOM_Document()) {
+    if (m_library_doc == 0) {
         FATAL_MACRO("Parse error: processing the document" << std::endl
             << xmlFileIn << std::endl);
         return;
@@ -71,25 +71,25 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
     // Root element is of type source_library.  Content is
     // one or more source elements.
 
-    s_library = m_library_doc.getDocumentElement();
+    s_library = m_library_doc->getDocumentElement();
 
-    // loop through the source elements to create a map of names, DOM_Elements
-    if (s_library != DOM_Element()) {
+    // loop through the source elements to create a map of names, DOMElements
+    if (s_library != 0) {
 
-        DOM_Element child = xml::Dom::getFirstChildElement(s_library);
-        DOM_Element toplevel = xml::Dom::getFirstChildElement(s_library);
+        DOMElement* child = xml::Dom::getFirstChildElement(s_library);
+        DOMElement* toplevel = xml::Dom::getFirstChildElement(s_library);
 
-        while (child != DOM_Element()) {
+        while (child != 0) {
             while (!(xml::Dom::hasAttribute(child, "name"))  )
             {
                 s_library = child;
                 child = xml::Dom::getFirstChildElement(s_library);
             }
 
-            while (child != DOM_Element()) {
+            while (child != 0) {
                 std::string name = xml::Dom::getAttribute(child, "name");
                 std::string parentfilename = xml::Dom::getAttribute(toplevel, "title");
-                m_sources[name]=std::make_pair<DOM_Element,std::string>(child,parentfilename);
+                m_sources[name]=std::make_pair<DOMElement*,std::string>(child,parentfilename);
                 child = xml::Dom::getSiblingElement(child);
             }
 
@@ -147,14 +147,16 @@ EventSource* FluxMgr::compositeSource(std::vector<std::string> names)
     return comp;
 }
 
-EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
+EventSource*  FluxMgr::getSourceFromXML(const DOMElement* src)
 {
     //Purpose: sourceFromXML - create a new EventSource from a DOM element
     //instantiated, e.g., from a description in source_library.xml
     //Input:  the element holding particle information.
 
-    DOM_Node    childNode = src.getFirstChild();
-    if (childNode == DOM_Node()) {
+    using XERCES_CPP_NAMESPACE_QUALIFIER DOMNode;
+
+    DOMNode*    childNode = src->getFirstChild();
+    if (childNode == 0) {
         /*
         FATAL_MACRO("Improperly formed XML event source");
         return 0;
@@ -163,8 +165,8 @@ EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
         return  new FluxSource(src);
     }
 
-    DOM_Element sname = xml::Dom::getFirstChildElement(src);
-    if (sname == DOM_Element() ) {
+    DOMElement* sname = xml::Dom::getFirstChildElement(src);
+    if (sname == 0 ) {
         FATAL_MACRO("Improperly formed XML event source");
         return 0;
     }
@@ -184,10 +186,10 @@ EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
         CompositeSource* cs;
         cs = new CompositeSource();
         do { 
-            DOM_Element selem = 
+            DOMElement* selem = 
                 getLibrarySource(xml::Dom::getAttribute(sname, "sourceRef"));
 
-            if (selem == DOM_Element()) {
+            if (selem == 0) {
                 FATAL_MACRO("source name" << 
                     xml::Dom::getAttribute(sname, "sourceRef") <<
                     "' not in source library");
@@ -195,7 +197,7 @@ EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
             cs->addSource(getSourceFromXML(selem)); 
             sname = xml::Dom::getSiblingElement(sname);
         } 
-        while (sname != DOM_Element() );
+        while (sname != 0 );
         return cs;
     }
     else {
@@ -207,13 +209,13 @@ EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
 
 
 
-DOM_Element    FluxMgr::getLibrarySource(const std::string& id)
+DOMElement*    FluxMgr::getLibrarySource(const std::string& id)
 {
     //Purpose: source library lookup.  Each source is uniquely identified
     // by its "name" attribute because "name" is of type ID
 
     // quit if the library was unitialized
-    if (s_library == DOM_Element() ) return DOM_Element(); 
+    if (s_library == 0 ) return 0; 
 
     return xml::Dom::getElementById(m_library_doc, id);
 }
@@ -221,7 +223,7 @@ DOM_Element    FluxMgr::getLibrarySource(const std::string& id)
 std::list<std::string> FluxMgr::sourceList() const
 {
     std::list<std::string> s;
-    for( std::map<std::string, std::pair<DOM_Element,std::string> >::const_iterator it = m_sources.begin();
+    for( std::map<std::string, std::pair<DOMElement*,std::string> >::const_iterator it = m_sources.begin();
         it != m_sources.end();
         ++it){
             s.push_back((*it).first);
@@ -232,7 +234,7 @@ std::list<std::string> FluxMgr::sourceList() const
 std::vector<std::pair< std::string ,std::list<std::string> > > FluxMgr::sourceOriginList() const
 {
     std::vector<std::pair< std::string ,std::list<std::string> > > originList;
-    for( std::map<std::string, std::pair<DOM_Element,std::string> >::const_iterator it = m_sources.begin();
+    for( std::map<std::string, std::pair<DOMElement*,std::string> >::const_iterator it = m_sources.begin();
         it != m_sources.end();
         ++it){
             //now see if we can find the filename already used in the vector:
@@ -257,10 +259,9 @@ std::vector<std::pair< std::string ,std::list<std::string> > > FluxMgr::sourceOr
 void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
 {   
     EventSource* e = source(source_name);
-    if( e==0 ) { 
-            throw std::invalid_argument(std::string("Did not find source ")+source_name);
-        }
-
+    if (e==0) {
+        throw std::invalid_argument(std::string("Did not find source ")+source_name);
+    }
     setExpansion(1.);
     double time=0.;
 
