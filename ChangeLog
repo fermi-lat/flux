@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Nov 10 12:25:11 PST 2004
+flux/src
+
+Modified Files:
+	EventSource.cxx FluxMgr.cxx FluxSource.cxx SimpleSpectrum.cxx 
+Log Message:
+changes for Xerces 2.6.0
+
+    *
+------------------------------------------------------------
 User: jrb  Wed Nov 10 12:22:24 PST 2004
 flux/flux
 
