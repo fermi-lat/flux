@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: hierath  Wed Nov 10 18:38:35 PST 2004
+flux/src
+
+Modified Files:
+	GalPulsars.cxx 
+Log Message:
+Removed an include statement that shouldn't have been there.
+
+    *
+------------------------------------------------------------
 User: hierath  Wed Nov 10 18:15:23 PST 2004
 flux/src
 
