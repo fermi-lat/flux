@@ -1,9 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.33 2004/06/05 01:33:01 burnett Exp $
+  $Id: release.notes,v 1.34 2004/06/11 17:46:31 burnett Exp $
+           EOH
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 10-nov-04  v8r11  jrb  Upgrade for Xerces 2.6.0
  * 04-jun-04  v8r9p1 THB  protect against linux STL behaviour 
  * 04-jun-04  v8r9   THB  add low energy muon source 
  * 02-jun-04  v8r8p7 THB, apply normalization to hiro SurfaceMuons 
