@@ -2,7 +2,7 @@
 * @file SurfaceMuons.cxx
 * @brief declaration and definition of SurfaceMuons
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.2 2004/04/20 21:29:34 burnett Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.3 2004/05/25 23:34:29 burnett Exp $
 */
 #include "flux/Spectrum.h"
 #include "flux/SpectrumFactory.h"
@@ -19,7 +19,7 @@
 * \brief Spectrum representing cosmic ray muon flux at the Earth's surface
 * \author T. Burnett
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.2 2004/04/20 21:29:34 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.3 2004/05/25 23:34:29 burnett Exp $
 */
 //
 
@@ -102,9 +102,9 @@ SurfaceMuons::SurfaceMuons(const std::string& paramstring)
     m_cosmax = (params.size()>1)? params[1]: 1.0;
 
     m_option = (int) (params.size()>2 ? params[2]: 0.);
+    m_flux = 70. * 2*M_PI * fabs(pow(m_cosmax,3) - pow(m_cosmin,3))/3;
 
     if(m_option == 0) {
-      m_flux = 70. * 2*M_PI * fabs(pow(m_cosmax,3) - pow(m_cosmin,3))/3;
 
       // create integral table of the flux function, as a map of
       // energy and e*flux(e), with logarithmic energies
