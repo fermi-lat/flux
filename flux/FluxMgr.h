@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/FluxMgr.h,v 1.20 2003/03/21 19:14:37 jrb Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -55,6 +55,9 @@ public:
     
     /// set the angular (off-zenith) values of the GLAST satellite
     void setExplicitRockingAngles(std::pair<double,double> ang);
+
+	/// set the desired pointing history file to use:
+	void setPointingHistoryFile(std::string fileName);
 
     /// get the angular values of the satellite
     std::pair<double,double> getExplicitRockingAngles();

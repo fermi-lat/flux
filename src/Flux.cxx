@@ -1,7 +1,7 @@
 /** @file Flux.cxx
     @brief Implementation of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/Flux.cxx,v 1.28 2003/03/20 19:55:32 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.2 2003/08/28 18:31:12 burnett Exp $
 
   Original author: T. Burnett
 */
@@ -11,8 +11,7 @@
 #include "flux/SpectrumFactory.h"
 
 Flux::Flux(std::string name) 
-: m_time(0)
-, m_flux(0)
+:  m_flux(0)
 {
     m_event = s_mgr->source(name);
 }
@@ -39,13 +38,14 @@ std::string Flux::title()const
 
 void Flux::generate()
 {
-    // Purpose and Method: generate a new entry trajectory, set FluxSource, increment local time
+    // Purpose and Method: generate a new entry trajectory, set FluxSource, time
     // Inputs  - none
     // Outputs - none
+	do{
     m_flux = m_event->event(time());
     double timepass = m_event->interval(time());
-    m_time+= timepass;
     pass(timepass);
+	}while(m_event->occulted());
 }
 
 // the particle generated 
@@ -67,7 +67,7 @@ HepPoint3D Flux::launchPoint()const
 
 double Flux::time()const 
 {
-    return m_time ;
+    return s_mgr->time();
 }
 
 
