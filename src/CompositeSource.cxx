@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.4 2003/10/29 16:47:46 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.5 2003/10/29 20:58:22 srobinsn Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -37,8 +37,7 @@ void CompositeSource::addSource (EventSource* aSource)
 EventSource* CompositeSource::event (double time)
 {
     int i=0; //for iterating through the m_unusedSource vector
-    int winningsourcenum; //the number of the "winning" source
-
+    int winningsourcenum=0; //the number of the "winning" source
     EventSource::setTime(time);
 
     m_numofiters=0;
