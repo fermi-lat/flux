@@ -1,4 +1,16 @@
 ------------------------------------------------------------
+User: xchen  Mon Oct  6 09:58:16 PDT 2003
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Added Files:
+	VdgGamma.cxx 
+Log Message:
+Add VdgGamma.cxx and modify FluxMgr.cxx to simulate gamma spectrum produced by VDG accelerator at SLAC
+
+    *
+------------------------------------------------------------
 User: burnett  Sat Oct  4 20:50:58 PDT 2003
 flux/doc
 
