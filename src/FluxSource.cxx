@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
     @brief Implementation of FluxSource
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.3 2003/08/15 05:40:20 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.4 2003/10/01 22:21:50 srobinsn Exp $
 
   */
 #include "flux/FluxSource.h"
@@ -203,7 +203,7 @@ public:
     LaunchDirection(astro::SkyDir sky)
         :m_skydir(true)
     {
-        m_dir = sky.dir();
+        m_dir = -sky.dir();
     }
     /** @brief choose a direction
         @param KE kinetic energy
