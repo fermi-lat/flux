@@ -1,10 +1,12 @@
 package flux
 
-version v7r0
+version v8r5p2
+author Sean Robinson <srobinsn@u.washington.edu>
 
 use xml
 use CLHEP v2* IExternal
 use astro v0r*
+use cfitsio * IExternal
 
 apply_pattern package_include
 apply_pattern package_linkopts

@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/FluxMgr.cxx,v 1.49 2003/03/21 19:14:37 jrb Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.11 2004/01/07 02:18:58 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -9,15 +9,17 @@
 #include "flux/SpectrumFactoryTable.h"
 #include "flux/GPS.h"
 #include "flux/FluxException.h" // defines FATAL_MACRO
-#include "CompositeSource.h"
+#include "flux/CompositeSource.h"
 
 #include <xercesc/dom/DOM_Document.hpp>
 #include <xercesc/dom/DOM_Element.hpp>
 #include "xml/Dom.h"
-#include "xml/IFile.h"
+#include "facilities/Util.h"     // for expandEnvVar
+
+#include "astro/PointingTransform.h"
 
 #include <sstream>
-
+#include <map>
 #define DLL_DECL_SPECTRUM(x)   extern const ISpectrumFactory& x##Factory; x##Factory.addRef();
 #define DECLARE_SPECTRUM(x)   extern const ISpectrumFactory& x##Factory; x##Factory.addRef();
 
@@ -106,6 +108,7 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
     DLL_DECL_SPECTRUM( AlbedoPSpectrum);
     DLL_DECL_SPECTRUM( CHIMESpectrum );
     DLL_DECL_SPECTRUM( GalElSpectrum);
+    DLL_DECL_SPECTRUM( MapSpectrum);
     
 }
 
@@ -124,6 +127,22 @@ EventSource* FluxMgr::source(std::string name)
     return getSourceFromXML(m_sources[name].first);
 }
 
+EventSource* FluxMgr::compositeSource(std::vector<std::string> names)
+{
+    //Purpose: to return a pointer to a source, referenced by a list of names.
+    //Input: the names of the desired sources.
+
+    CompositeSource* comp = new CompositeSource();
+    for( std::vector<std::string>::const_iterator it= names.begin(); it!=names.end(); ++it){
+        const std::string& name = *it;
+        if( m_sources.find(name)==m_sources.end() ) {
+            delete comp;
+            return 0;
+        }
+        comp->addSource(getSourceFromXML(m_sources[name].first));
+    }
+    return comp;
+}
 
 EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
 {
@@ -236,16 +255,8 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
     double time=0.;
     
     const int howMany = e->howManySources();
-    //int counts[howMany] = 0;
-    std::vector<int> counts;
+    std::map<int,int> counts;
     
-    //std::vector<int>::const_iterator countIter = counts.begin();
-    
-    int q;
-    for(q=0 ; q<=howMany+2 ; q++){
-        counts.push_back(0);
-        //  countIter++;
-    }
     
     cout << "running source: " << e->fullTitle() << std::endl;
     cout << " Total rate is: " << e->rate(time) << " Hz into " << e->totalArea() << " m^2" << std::endl;
@@ -255,7 +266,7 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
     cout << " --------------------------------" << std::endl;
     
     //testing rotateangles function
-    GPS::instance()->rotateAngles(std::make_pair<double,double>(0.0,0.3));
+    GPS::instance()->rotateAngles(std::make_pair<double,double>(0.0,0.0));
     EventSource* f;
     double totalinterval=0;
     for( int i = 0; i< count; ++i) {
@@ -294,8 +305,8 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
         << "Average rate = " << count/totalinterval <<std::endl;
     
     cout << "Source Statistics: " << std::endl;
-    for(q=0 ; q<howMany ; q++){
-        cout << "source #" << q+1 << ": " << counts[q] << " events counted." << std::endl;
+    for( std::map<int,int>::const_iterator q=counts.begin() ; q!= counts.end() ; ++q){
+        cout << "source #" << q->first << ": " << q->second << " events counted." << std::endl;
     }
     
     
@@ -312,6 +323,11 @@ void FluxMgr::setExplicitRockingAngles(std::pair<double,double> ang){
 
 std::pair<double,double> FluxMgr::getExplicitRockingAngles(){
     return GPS::instance()->rotateAngles();
+}
+
+/// set the desired pointing history file to use:
+void FluxMgr::setPointingHistoryFile(std::string fileName){
+	GPS::instance()->setPointingHistoryFile(fileName);
 }
 
 void FluxMgr::setExpansion (double p){
@@ -342,6 +358,11 @@ std::pair<double,double> FluxMgr::location(){
     return std::make_pair<double,double>(GPS::instance()->lat(),GPS::instance()->lon());
 }
 
+//get the transformtation matrix - the rest of these functions are now deprecated
+HepRotation FluxMgr::transformToGlast(double seconds,GPS::CoordSystem index){
+    return GPS::instance()->transformToGlast(seconds, index);
+}
+
 //get the transformation matrix.
 HepRotation FluxMgr::CELTransform(double time){
     return GPS::instance()->CELTransform(time);
@@ -349,7 +370,20 @@ HepRotation FluxMgr::CELTransform(double time){
 
 //get the transformation matrix.
 HepRotation FluxMgr::orientTransform(double time){
-    return GPS::instance()->rockingAngleTransform(time);
+	//make the transformtion that turns zenith coordinates into local coordinates.
+    HepRotation ret;
+    ret = GPS::instance()->transformToGlast(time,GPS::ZENITH);
+	//note:  this transformation is only used by FluxDisplay to tell where the earth's horizon is.
+	//it will rotate zenith coordinates into a frame where the "upwards direction" becomes the direction of the
+	//zenith in spacecraft coordinates, but is not more specific than that.
+	//astro::SkyDir dirZ( GPS::instance()->RAZ() , GPS::instance()->DECZ() );
+	//astro::SkyDir dirX( GPS::instance()->RAX() , GPS::instance()->DECX() );
+	//astro::SkyDir dirZenith( GPS::instance()->RAZenith() , GPS::instance()->DECZenith() );
+	//astro::PointingTransform point(dirZ,dirX);
+	//Hep3Vector localZenith((point.localToCelestial().inverse())*dirZenith());
+	//Hep3Vector perp1(localZenith.orthogonal());
+	//HepRotation ret(perp1,localZenith.cross(perp1),localZenith);
+	return ret;
 }
 
 ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
@@ -401,7 +435,7 @@ std::string FluxMgr::writeXmlFile(const std::vector<std::string>& fileList) {
     //the default DTD file
     inFileName=m_dtd;
     //replace $(FLUXROOT) by its system variable
-    xml::IFile::extractEnvVar(&inFileName);
+    facilities::Util::expandEnvVar(&inFileName);
     
     //this stuff goes in the beginnning of the XML file to be read into the parser
     fileString << "<?xml version='1.0' ?>" << std::endl << "<!DOCTYPE source_library" 
@@ -412,7 +446,7 @@ std::string FluxMgr::writeXmlFile(const std::vector<std::string>& fileList) {
         
         // get the file name, and evaluate any system variables in it
         inFileName=(*iter).c_str();
-        xml::IFile::extractEnvVar(&inFileName);
+        facilities::Util::expandEnvVar(&inFileName);
         
         //then make an ENTITY entry specifying where the file is
         fileString << "<!ENTITY " << "library" << libchar << " SYSTEM " << '"' 
