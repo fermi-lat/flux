@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/FluxMgr.h,v 1.20 2003/03/21 19:14:37 jrb Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.5 2004/01/28 23:52:25 hierath Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -19,7 +19,7 @@
 * $Header $
 */
 
-#include "GPS.h"
+#include "astro/GPS.h"
 
 #include "FluxSource.h"
 
@@ -43,6 +43,10 @@ public:
     
     /// create and return a source by name.
     EventSource* source(std::string name);
+
+    /// create a composite source from the list of names
+    EventSource* compositeSource(std::vector<std::string> names);
+
     
     /// access to the source list
     std::list<std::string> sourceList() const;
@@ -55,6 +59,9 @@ public:
     
     /// set the angular (off-zenith) values of the GLAST satellite
     void setExplicitRockingAngles(std::pair<double,double> ang);
+
+	/// set the desired pointing history file to use:
+	void setPointingHistoryFile(std::string fileName);
 
     /// get the angular values of the satellite
     std::pair<double,double> getExplicitRockingAngles();
@@ -82,6 +89,7 @@ public:
     /// get the current satellite location
     std::pair<double,double> location();
     
+    HepRotation transformToGlast(double seconds,GPS::CoordSystem index);
     
     ///get the transformation matrix due to orientation of the Galaxy
     HepRotation CELTransform(double time);
@@ -99,8 +107,11 @@ private:
     
     /// source library lookup.  Each source is uniquely identified
     /// by its "name" attribute because "name" is of type ID
+#if 0
     DOM_Element  getLibrarySource(const DOMString& id);
-    
+#else
+    DOM_Element  getLibrarySource(const std::string& id);
+#endif
     
     
     void defaultFile();
