@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.4 2004/01/14 04:12:57 srobinsn Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.5 2004/01/14 16:58:09 cohen Exp $
 
 //#include "FluxSvc/ISpectrumFactory.h"
 
@@ -141,6 +141,8 @@ int main(int argn, char * argc[]) {
         galacticTest(&fm,"spread101010",count);
         std::cout << std::endl << "testing the galactic diffuse map: these photons should be mostly around b=0" << std::endl;
         galacticTest(&fm,"galdiffusemap",count);
+        std::cout << std::endl << "testing the AGN Source:" << std::endl;
+        galacticTest(&fm,"AGN",count);
         return 0;
     }
     std::string testfilename("testMgrOutput.out");

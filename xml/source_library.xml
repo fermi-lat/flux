@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.10 2004/01/13 22:09:54 srobinsn Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.11 2004/01/23 22:00:30 srobinsn Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -98,9 +98,10 @@
           </spectrum>
      </source>    
 
-    <!-- Test source, an AGN with extreme parameters -->
-    <!-- AGN source parameters are as follows:
-    l,b, flux, index, flareMult, flareAdd,flareDuty,flarePeriod, Emin, Emax -->
+    <!-- Test source, an AGN with extreme parameters
+    AGN source parameters are as follows:
+    l,b, flux, index, flareMult, flareAdd,flareDuty,flarePeriod, Emin, Emax 
+    NOTE: you can use Ra,Dec coordinates instead by specifying frame="equatorial" -->
 	<source name="AGN">
         <spectrum escale="GeV"> 
             <SpectrumClass name="AGNSpectrum" params="10 , 10 , 0.001 , 2.0 , 100.0 , 0.1 , 0.05 , 0.1 , 0.1 , 100"/> 
