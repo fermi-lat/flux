@@ -2,7 +2,7 @@
 * @file SurfaceMuons.cxx
 * @brief declaration and definition of SurfaceMuons
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.6 2004/06/11 17:18:03 burnett Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.7 2004/06/11 17:39:25 burnett Exp $
 */
 #include "flux/Spectrum.h"
 #include "flux/SpectrumFactory.h"
@@ -18,7 +18,7 @@
 * \brief Spectrum representing cosmic ray muon flux at the Earth's surface
 * \author T. Burnett
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.6 2004/06/11 17:18:03 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.7 2004/06/11 17:39:25 burnett Exp $
 */
 //
 
@@ -151,9 +151,9 @@ double SurfaceMuons::energy( double time )
     // select an energy by inverting the integral distribution
     double energy = 0; 
 
-    double fraction = RandFlat::shoot();
+    double partial = RandFlat::shoot()*m_total; // the value of the integral to find the energy
     map<double,double>::const_iterator 
-        element  = m_ispec.lower_bound(fraction*m_total);
+        element  = m_ispec.lower_bound(partial);
 
     if( element == m_ispec.begin()){
         // this should not happen, but catch it anyway
@@ -165,11 +165,12 @@ double SurfaceMuons::energy( double time )
         map<double,double>::const_iterator prev = element;
         prev--;
         double 
-            energy_prev = prev->second,
-            deltaI = fraction - prev->first/m_total,
-            deltaE = element->second - energy_prev;
+            dI = partial - prev->first, // the part of the integral
+            deltaI = element->first - prev->first, //total increment
+            energy_prev = prev->second, 
+            deltaE = element->second - energy_prev; // totlal energy diff
 
-        energy =  energy_prev + deltaI*deltaE;
+        energy =  energy_prev + dI*deltaE/deltaI;
     } else {
         // at the top
         energy = m_emax;
