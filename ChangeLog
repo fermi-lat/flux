@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Wed Aug  4 12:09:54 PDT 2004
+flux/src
+
+Modified Files:
+	GalPulsars.cxx 
+Log Message:
+Cleaned up code and some fixes
+    *
+------------------------------------------------------------
 User: hierath  Thu Jul 29 15:01:06 PDT 2004
 flux/sources
 
