@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sat Oct  4 20:46:20 PDT 2003
+flux/flux
+
+Modified Files:
+	Flux.h FluxMgr.h 
+Log Message:
+provide interface to specify a list of sources
+    *
+------------------------------------------------------------
 User: srobinsn  Thu Oct  2 14:00:47 PDT 2003
 flux/src
 
