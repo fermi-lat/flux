@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Thu Jan 15 04:27:03 PST 2004
+flux/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+fix little numeric hole and patch tag to p4
+    *
+------------------------------------------------------------
+User: burnett  Thu Jan 15 04:27:03 PST 2004
 flux/doc
 
 Modified Files:
