@@ -2,7 +2,7 @@
 * @file SurfaceMuons.cxx
 * @brief declaration and definition of SurfaceMuons
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.10 2004/06/17 22:16:25 hierath Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.11 2004/06/18 00:46:09 burnett Exp $
 */
 #include "flux/Spectrum.h"
 #include "flux/SpectrumFactory.h"
@@ -18,7 +18,7 @@
 * \brief Spectrum representing cosmic ray muon flux at the Earth's surface
 * \author T. Burnett
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.10 2004/06/17 22:16:25 hierath Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.11 2004/06/18 00:46:09 burnett Exp $
 */
 //
 
@@ -141,8 +141,9 @@ const char* SurfaceMuons::particleName()const
         plus_fraction=1/(1+charge_ratio);
     return RandFlat::shoot()>plus_fraction? pnames[0]:pnames[1];
 }
-
-static inline double cube(double x){return x*x*x;}
+namespace {
+    inline double cube(double x){return x*x*x;}
+}
 
 /// sample a single particle energy from the spectrum: assume called first
 double SurfaceMuons::energy( double time )
