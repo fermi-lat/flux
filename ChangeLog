@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Tue May 11 19:56:42 PDT 2004
+flux/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+extra time-initialization of GPS in rootplots.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue May 11 19:56:42 PDT 2004
 flux/doc
 
 Modified Files:
