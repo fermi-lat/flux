@@ -1,9 +1,10 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.16 2004/01/06 22:49:43 srobinsn Exp $
+  $Id: release.notes,v 1.17 2004/01/07 06:07:37 srobinsn Exp $
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 12-jan-04  v8r5p2 SMR Small Fix to galactic map file location, added galactic tests.
  * 06-jan-04  v8r5p1 SMR THB's "radius" parameter added to galactic sources.
  * 06-jan-04  v8r5   SMR migrate MapSpectrum into flux.
  * 12-dec-03  v8r4p2 jrb Replace xml::IFile::extractEnvVar call with one to
