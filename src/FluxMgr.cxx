@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.17 2004/07/29 22:01:05 hierath Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.18 2004/09/29 06:52:28 cohen Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -20,6 +20,7 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.17 2004/07/29 22:
 
 #include <sstream>
 #include <map>
+#include <stdexcept>
 #define DECLARE_SPECTRUM(x)   extern const ISpectrumFactory& x##Factory; x##Factory.addRef();
 
 
@@ -256,6 +257,10 @@ std::vector<std::pair< std::string ,std::list<std::string> > > FluxMgr::sourceOr
 void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
 {   
     EventSource* e = source(source_name);
+    if( e==0 ) { 
+            throw std::invalid_argument(std::string("Did not find source ")+source_name);
+        }
+
     setExpansion(1.);
     double time=0.;
 
