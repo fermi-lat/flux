@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Fri Feb 13 14:11:20 PST 2004
+flux/flux
+
+Modified Files:
+	EventSource.h FluxSource.h SimpleSpectrum.h 
+Log Message:
+provide some convenient access methods for uncovering the truth.
+    *
+------------------------------------------------------------
 User: hierath  Fri Feb  6 13:44:00 PST 2004
 flux/xml
 
