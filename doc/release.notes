@@ -3,6 +3,7 @@
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 02-oct-03  v8r0p0 CompositeSource.h moved to /flux.
  * 04-oct-03  v8r1 THB new inteface to specify a list of source names
  * 01-oct-03  v7r4 fixes for driving by a pointing file
  * 28-aug-03  v7r3 removed separate time in the Flux class.
