@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/FluxMgr.cxx,v 1.49 2003/03/21 19:14:37 jrb Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -312,6 +312,11 @@ void FluxMgr::setExplicitRockingAngles(std::pair<double,double> ang){
 
 std::pair<double,double> FluxMgr::getExplicitRockingAngles(){
     return GPS::instance()->rotateAngles();
+}
+
+/// set the desired pointing history file to use:
+void FluxMgr::setPointingHistoryFile(std::string fileName){
+	GPS::instance()->setPointingHistoryFile(fileName);
 }
 
 void FluxMgr::setExpansion (double p){
