@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.6 2003/11/24 18:47:27 srobinsn Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.7 2003/12/02 15:05:50 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -451,3 +451,18 @@
 
 </source_library>
 
+<source_library title="MapFlux">
+
+<!-- the Format of the params variable for the below sources is:
+"Minimun Energy Used in Map,
+Extrapolated minimum to be used,
+High-Energy Cutoff,
+Energy Index,
+Map File to Use" -->
+
+	<!-- the Map of the modeled galactic diffuse gamma-ray emission -->
+    <source name="galdiffusemap" >
+        <spectrum escale="GeV"> <SpectrumClass name="MapSpectrum" params="0.1,0.03,1000.0,2,../sources/gas_gal.fits"/> <use_spectrum frame="galaxy"/> </spectrum>
+    </source>
+
+</source_library>
