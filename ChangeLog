@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Wed Oct 29 06:05:49 PST 2003
+flux/xml
+
+Modified Files:
+	source.dtd 
+Log Message:
+put in place holder for exponential distribution
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 29 06:05:49 PST 2003
 flux/src
 
 Modified Files:
