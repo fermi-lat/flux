@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Thu Feb 19 15:03:45 PST 2004
+flux/src
+
+Modified Files:
+	MapSpectrum.cxx 
+Log Message:
+MapSpectrum "scale factor" added.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb 19 15:03:45 PST 2004
 flux/flux
 
 Modified Files:
