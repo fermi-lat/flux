@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Tue Sep 30 21:46:38 PDT 2003
+flux/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+automatic current-time usage in lat,lon,pointing functions removed.
+
+    *
+------------------------------------------------------------
 User: srobinsn  Tue Sep 30 20:23:01 PDT 2003
 flux/src
 
