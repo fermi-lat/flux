@@ -69,7 +69,7 @@ void rootplot::init(std::vector<const char*> argv)
     std::vector<std::string> sources;
     std::vector<int> longsources;
     
-    flux_load();
+//    flux_load();
     
     //FluxMgr fm(sources); 
     FluxMgr & fm = *m_fm;
