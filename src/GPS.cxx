@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.14 2003/10/02 21:00:47 srobinsn Exp $
+// $Id: GPS.cxx,v 1.15 2003/10/06 20:10:00 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -160,50 +160,14 @@ HepRotation GPS::rockingAngleTransform(double seconds){
     // set the needed pointing/location variables:
     getPointingCharacteristics(seconds);
 
-    double time = m_earthOrbit->dateFromSeconds(seconds);
-
-    double inclination = m_earthOrbit->inclination();
-    double orbitPhase = m_earthOrbit->phase(time);
-    m_position = m_earthOrbit->position(time);
-
-    SkyDir dirZ(m_RAZ,m_DECZ,SkyDir::CELESTIAL);
-    SkyDir dirX(m_RAX,m_DECX);
-
-    //rotate the x direction so that the x direction points along the orbital direction.
-    dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
-
-    //now set the zenith direction to do the rocking properly.
-    m_RAZenith = dirZ.ra();
-    m_DECZenith = dirZ.dec();
-
-    double rockNorth = m_rockDegrees*M_PI/180;
-
-    //here's where we decide how much to rock about the x axis.  this depends on the 
-    //rocking mode.
-    if(m_rockType == NONE){
-        rockNorth = 0.;
-    }else if(m_rockType == UPDOWN){
-        if(m_DECZenith <= 0) rockNorth *= -1.;
-    }else if(m_rockType == SLEWING){
-        //slewing is experimental
-        if(m_DECZenith <= 0) rockNorth *= -1.;
-        if(m_DECZenith >= -5.5 && m_DECZenith <= 5.5){
-            rockNorth -= rockNorth*((5.5-fabs(m_DECZenith))/5.5);
-        }
-    }else if(m_rockType == ONEPERORBIT){
-        while(orbitPhase >2.*M_2PI){ orbitPhase -= 2.*M_2PI;}
-        if(orbitPhase <= M_2PI) rockNorth *= -1.;
-    }else{
-        //for safety and EXPLICIT, POINT and HISTORY
-        rockNorth = 0.;
-    }
     // now, we want to find the proper transformation for the rocking angles:
     HepRotation rockRot;
     if(m_rockType == EXPLICIT){
         rockRot.rotateX(m_rotangles.first).rotateZ(m_rotangles.second);
     }else{
-        //just rock north or south by the desired amount.
-        rockRot./*rotateZ(inclination*cos(orbitPhase)).*/rotateX(rockNorth);
+        //don't do anything - the new pointing characteristics have already been taken account of
+		//in getPointingCharacteristics().
+        rockRot.rotateX(0.0);
     }
 
     return rockRot;
@@ -242,7 +206,7 @@ HepRotation GPS::transformCelToGlast(double seconds){
 
     double time = m_earthOrbit->dateFromSeconds(seconds);
 
-    m_position = m_earthOrbit->position(time);
+    //m_position = m_earthOrbit->position(time);
 
     SkyDir dirZ(m_RAZ,m_DECZ,SkyDir::CELESTIAL);
     SkyDir dirX(m_RAX,m_DECX);
@@ -290,8 +254,12 @@ void GPS::getPointingCharacteristics(double inputTime){
         astro::EarthCoordinate earthpos(m_position,time);
         m_lat = earthpos.latitude();
         m_lon = earthpos.longitude();
+		//now set the zenith direction before the rocking.
+        m_RAZenith = tempDirZ.ra();
+        m_DECZenith = tempDirZ.dec();
     }else if(m_rockType == HISTORY){
         setInterpPoint(inputTime);
+		SkyDir dirZenith(m_currentInterpPoint.position);
         SkyDir dirZ(m_currentInterpPoint.dirZ);
         SkyDir dirX(m_currentInterpPoint.dirX);
         lZ=dirZ.l();
@@ -300,6 +268,9 @@ void GPS::getPointingCharacteristics(double inputTime){
         decX=dirX.dec();
         m_lat = m_currentInterpPoint.lat;
         m_lon = m_currentInterpPoint.lon;
+		//now set the zenith direction before the rocking.
+        m_RAZenith = dirZenith.ra();
+        m_DECZenith = dirZenith.dec();
     }else{
         //ok, get the pointing from earthOrbit.
         SkyDir tempDirZ(m_position.unit());
@@ -310,6 +281,9 @@ void GPS::getPointingCharacteristics(double inputTime){
         astro::EarthCoordinate earthpos(m_position,time);
         m_lat = earthpos.latitude();
         m_lon = earthpos.longitude();
+		//now set the zenith direction before the rocking.
+        m_RAZenith = tempDirZ.ra();
+        m_DECZenith = tempDirZ.dec();
     }
 
     SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
@@ -321,10 +295,6 @@ void GPS::getPointingCharacteristics(double inputTime){
         //rotate the x direction so that the x direction points along the orbital direction.
         dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
     }
-
-    //now set the zenith direction before the rocking.
-    m_RAZenith = dirZ.ra();
-    m_DECZenith = dirZ.dec();
 
     // now, we want to find the proper transformation for the rocking angles:
     //HepRotation rockRot(Hep3Vector(0,0,1).cross(dirZ.dir()) , rockNorth);    
@@ -346,6 +316,8 @@ void GPS::getPointingCharacteristics(double inputTime){
         while(orbitPhase >2.*M_2PI) {orbitPhase -= 2.*M_2PI;}
         if(orbitPhase <= M_2PI) rockNorth *= -1.;
     }else{
+		//important - this includes EXPLICIT rocking angles - they
+		//are currently still handled by rockingTransform().
         rockNorth = 0.;
     }
 

@@ -14,7 +14,7 @@ class ISpectrum;
     @brief class which manages to compute flux from various particle source configurations
     It is initialized from a xml description
 
-    $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.2 2003/08/15 05:40:20 srobinsn Exp $
 */
 class FluxSource : public EventSource  
 {
@@ -111,6 +111,9 @@ private:
 
 	///flag showing whether the current spectrum can be occulted by the earth.
 	bool m_occultable;
+
+	///cosine of angle between zenith direction and incoming particle direction.
+	double m_zenithCosTheta;
 
 
 };
