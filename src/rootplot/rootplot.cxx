@@ -1,4 +1,7 @@
+/** @file rootplot.h
 
+$Header$
+*/
 #include "flux/rootplot.h"
 
 #include "rootEnergyHist.h"
@@ -8,9 +11,9 @@
 
 rootplot::rootplot(int argc, char* argv[])
 : NUM_BINS(30),LOOP(30000),
-  TIME(0.01), 
-  ENERGY_MIN(0.01*1000.), 
-  ENERGY_MAX(100.0*1000.), m_fm(0)
+TIME(0.01), 
+ENERGY_MIN(0.01*1000.), 
+ENERGY_MAX(100.0*1000.), m_fm(0)
 {
     std::vector<const char*> args;
     for( int i =1; i< argc; ++i) 
@@ -26,19 +29,19 @@ rootplot::rootplot(int argc, char* argv[])
 
 rootplot::rootplot(std::vector<const char*> argv, FluxMgr* fm)
 : NUM_BINS(30),LOOP(30000),
- TIME(0.01), ENERGY_MIN(0.01*1000.), ENERGY_MAX(100.0*1000.)
- ,m_fm(fm)
+TIME(0.01), ENERGY_MIN(0.01*1000.), ENERGY_MAX(100.0*1000.)
+,m_fm(fm)
 {
     init(argv);
 }
 
 void rootplot::init(std::vector<const char*> argv)
 {
-    
+
     int argc = argv.size();
     static const char * default_arg="default";
     static const char * default_graph="log";
-    
+
     int num_bins = NUM_BINS;  // Initialize to default number of bins
     int loop = LOOP; // Initialize to default number of iterations
     int num_sources = 0;
@@ -65,25 +68,25 @@ void rootplot::init(std::vector<const char*> argv)
     std::string ylabel_eflux  = "E*Flux (particles/m^2/s/sr)";
     std::string ylabel_integ_flux  = "Flux (particles/m^2/s/MeV)"; // Flux integrated over solid angle
     std::string ylabel_integ_eflux = "E*Flux (particles/m^2/s)";   // E*Flux integrated over solid angle
-    
+
     std::vector<std::string> sources;
     std::vector<int> longsources;
-    
-//    flux_load();
-    
+
+    //    flux_load();
+
     //FluxMgr fm(sources); 
     FluxMgr & fm = *m_fm;
-    
-    
+
+
     // Process Command Line Arguments
-    
+
     std::cout << "------------------------------------------------------" << std::endl;
     std::cout << " Flux test program: type 'rootplot -help' for help" << std::endl;
     std::cout << ( ( argc == 0)?  " No command line args, using defaults"
         :  "") << std::endl;
-    
-    
-    
+
+
+
     while(current_arg < argc)
     {
         arg_name = argv[current_arg];
@@ -141,7 +144,7 @@ void rootplot::init(std::vector<const char*> argv)
             std::cout<<" TIME = "<< time << std::endl;
         }
         else if("-stationary" == arg_name) {
-           stationary = true;
+            stationary = true;
         }
         else if('-' == arg_name[0]) {std::cerr << "Unrecognized option "<< arg_name << ", -help for help" << std::endl;}
         else
@@ -151,15 +154,15 @@ void rootplot::init(std::vector<const char*> argv)
         }
         current_arg++;
     }
-    
-    
+
+
     // Use default source if no source was specified in arguments
     if(0 == sources.size())
     {
         sources.push_back(default_arg);
         num_sources++;
     }
-    
+
     rootEnergyHist energy_hist(num_bins,energy_min,energy_max);
     rootAngleHist angle_hist(num_bins);
 
@@ -167,27 +170,27 @@ void rootplot::init(std::vector<const char*> argv)
     for(int i = 0; i < num_sources; i++)
     {
         int j;
-        
+
         //decide whether or not this run should be longterm
         longterm = false;
         std::vector<int>::iterator longiter;
         for( longiter=longsources.begin(); longiter!=longsources.end() ;longiter++){
             if(*longiter==i) longterm=true;
         }
-        
+
         if(longterm)
             fm.setExpansion(-1.);
-        
-        
+
+
         if((false == sum_mode && false==longterm)||(true==longterm && (longtime==1))) 
         {
             // Reset for new source
             energy_hist.reset();
             angle_hist.reset();
         }
-        
-		// Make sure positions are initialized
-		GPS::instance()->synch();
+
+        // Make sure positions are initialized
+        GPS::instance()->synch();
         fm.pass(0.);
 
         EventSource *e = fm.source(sources[i]);
@@ -197,17 +200,17 @@ void rootplot::init(std::vector<const char*> argv)
             fm.pass(2.);
             time+=2.;
         }else{time=0;}
-        
-		
+
+
 
         if( 0==e ) {std::cerr << "Source \"" << sources[i] << "\" not found: -list for a list" << std::endl;
         return;}
-        
+
         energy_hist.setGraphType(default_graph);
         energy_hist.setTitle( sources[i] );
-        
+
         energy_hist.setXLabel("Kinetic Energy (MeV)");
-        
+
         if(true == use_flux)
         {
             energy_hist.setFluxMode();
@@ -223,32 +226,32 @@ void rootplot::init(std::vector<const char*> argv)
             else
                 energy_hist.setYLabel(ylabel_eflux);
         }
-        
+
         if(true == use_flux_min)
             energy_hist.setFluxMin(flux_min);
-        
+
         if(true == use_flux_max)
             energy_hist.setFluxMax(flux_max);
-        
+
         angle_hist.setGraphType(default_graph);
         angle_hist.setTitle( sources[i] );
         angle_hist.setPhiXLabel("Angle (degrees)");
         angle_hist.setPhiYLabel("Particles");
         angle_hist.setThetaXLabel("Cos(Theta)");
         angle_hist.setThetaYLabel("Particles");
-        
 
-		std::cout << sources[i] << std::endl;
+
+        std::cout << sources[i] << std::endl;
 
         GPS::instance()->getPointingCharacteristics(time);
         std::pair<double,double> loc=fm.location();
-		std::cout << "Lat/Lon:  " << loc.first << "   " << loc.second << std::endl;
+        std::cout << "Lat/Lon:  " << loc.first << "   " << loc.second << std::endl;
 
         //	  std::cout << "orbit angle=" << GPS::instance()-> << "orbit phase=" << << std::endl;
 
         std::cout << "Initial (p/s/m^2): " << e->rate(time)/e->totalArea() << std::endl;
         std::cout << "Initial (p/s/m^2/sr): " << e->flux(time) << std::endl;
-         
+
         double time2 = 0;  // time used for scaling the graphs
         for(j = 0; j < loop; j++) 
         {
@@ -259,8 +262,8 @@ void rootplot::init(std::vector<const char*> argv)
 
             if(!stationary)
             {
-               time += timeadd;
-               fm.pass(timeadd);
+                time += timeadd;
+                fm.pass(timeadd);
             }
 
             HepVector3D dir = f->launchDir();
@@ -270,55 +273,55 @@ void rootplot::init(std::vector<const char*> argv)
             double phi = atan2(dir.y(),dir.x());
             if(phi < 0)
                 phi = 2*M_PI + phi;
-            
+
             energy_hist.store(energy);
             angle_hist.storeTheta(cos_theta);
             angle_hist.storePhi(phi);
-            
-			if(j % 1000 == 0) {std::cout << "\r" << j << ": " << energy << "...";
-			}
+
+            if(j % 1000 == 0) {std::cout << "\r" << j << ": " << energy << "...";
+            }
         }
-        
+
         std::cerr << "\n";
 
-		double scale_factor;
+        double scale_factor;
 
 
-		double flux=(loop/time2)/e->totalArea();
-		// There's probably a better way to get at the solid angle but
-		// e->solidAngle doesn't seem to be initialized.
-		double solidangle = e->rate(time)/(e->flux(time)*e->totalArea());
+        double flux=(loop/time2)/e->totalArea();
+        // There's probably a better way to get at the solid angle but
+        // e->solidAngle doesn't seem to be initialized.
+        double solidangle = e->rate(time)/(e->flux(time)*e->totalArea());
 
-		// These scale factors are approximately correct for sources that have
-		// spectrums that change over time.  For static sources these will work 
-		// very well.  To do: Apply scale factor to each event individually rather
-		// than an average scale factor to them all at the end.
+        // These scale factors are approximately correct for sources that have
+        // spectrums that change over time.  For static sources these will work 
+        // very well.  To do: Apply scale factor to each event individually rather
+        // than an average scale factor to them all at the end.
         if(true == use_integrated_flux)
-			scale_factor = flux/loop*num_bins/log(energy_max/energy_min);
+            scale_factor = flux/loop*num_bins/log(energy_max/energy_min);
         else
-			scale_factor = flux/loop*num_bins/log(energy_max/energy_min)/solidangle;
+            scale_factor = flux/loop*num_bins/log(energy_max/energy_min)/solidangle;
 
         std::cout << "Average (p/s/m^2): " << flux  << std::endl;
         std::cout << "Average (p/s/m^2/sr): " << flux/solidangle << std::endl;
-   
 
-		// Scale factor must be applied before the draw member function can be called
+
+        // Scale factor must be applied before the draw member function can be called
         energy_hist.apply(scale_factor);
         angle_hist.apply(scale_factor);
-        
+
         for(j = 0; j < num_bins; j++) 
         {
             std::cout << energy_min*pow(10.0,((j + 0.5)/num_bins) * energy_hist.retrieveRange() ) 
                 << "   \t" << energy_hist.retrieveFlux(j) << "\t";
             std::cout << std::endl;         
         }
-        
-        
+
+
         if(false == sum_mode && false==longterm)
         {
             angle_hist.draw(1,"begin",i,num_sources);
             energy_hist.draw(1,"end",i,num_sources);
-            
+
             //delete e;
             std::cout << "Normal method" << std::endl;        
         }
@@ -326,7 +329,7 @@ void rootplot::init(std::vector<const char*> argv)
         {
             angle_hist.draw(1,"begin",0,1);
             energy_hist.draw(1,"end",0,1);
-            
+
             //delete e;
             std::cout << "Sum Mode method" << std::endl;
         }
@@ -343,21 +346,21 @@ void rootplot::init(std::vector<const char*> argv)
                 std::ofstream output_file;
                 output_file_name += ".txt";
                 output_file.open(output_file_name.c_str());
-                
+
                 energy_hist.writeFile(1./(longtime),output_file);
                 output_file.close();
             }
             angle_hist.draw(1./double(longtime),"begin",i,num_sources);
             energy_hist.draw(1./double(longtime),"end",i,num_sources);
-            
+
             delete e;
             longtime=1; 
-            
+
         }
 
-		std::cout << std::endl;
-        
-   } // for all sources   
-   
-   //return 0;
+        std::cout << std::endl;
+
+    } // for all sources   
+
+    //return 0;
 }

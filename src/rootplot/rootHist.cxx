@@ -1,3 +1,7 @@
+/** @file rootHist.cxx
+
+$Header$
+*/
 //  class rootHist
 //  Author:  Theodore Hierath
 //  This class contains a basic histogram function
