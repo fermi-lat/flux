@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.26 2004/10/14 00:32:11 hierath Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.27 2004/11/11 02:14:47 hierath Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -516,12 +516,6 @@
     <source name="vela-galactic">
 		<spectrum escale="GeV">
 		   <SpectrumClass name="GalPulsars" params="$(FLUXROOT)/sources/vela.txt"/> <use_spectrum frame="galaxy"/>
-		</spectrum>
-    </source>
-    
-    <source name="crab-galactic2">
-		<spectrum escale="GeV">
-			<SpectrumClass name="GalPulsars" params="$(FLUXROOT)/sources/crab.txt"/> <use_spectrum frame="galaxy"/>
 		</spectrum>
     </source>
     
