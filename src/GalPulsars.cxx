@@ -144,7 +144,7 @@ GalPulsars::GalPulsars(const std::string& paramString)
    initLightCurve();
 
    // Test function
-   writeCorrections();
+//   writeCorrections();
 }
 
 
