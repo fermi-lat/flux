@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/FluxSvc/IFlux.h,v 1.28 2003/03/20 19:55:32 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
 
 #ifndef _H_IFlux_
 #define _H_IFlux_
@@ -8,6 +8,7 @@
 #include "CLHEP/Geometry/Point3D.h"
 #include "CLHEP/Geometry/Vector3D.h"
 #include "CLHEP/Vector/Rotation.h"
+#include "flux/GPS.h"
 
 class ParticleProperty;
 class EventSource;
@@ -22,7 +23,7 @@ class ISpectrumFactory;
 * 
   Abstract interface for an object that generates particles, Flux
 
-  * $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/FluxSvc/IFlux.h,v 1.28 2003/03/20 19:55:32 burnett Exp $
+  * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
 */
 class IFlux {
 public:
@@ -93,6 +94,9 @@ public:
 
     /// write the characteristics of the current source distribution to a stream
     virtual void writeSourceCharacteristic(std::ostream& out)=0;
+
+    /// get the transformtation matrix - the rest of these functions are now deprecated
+    virtual HepRotation transformToGlast(double seconds,GPS::CoordSystem index)const=0;
     
 };
 
