@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Thu Mar 17 20:38:17 PST 2005
+flux/src
+
+Modified Files:
+	FluxMgr.cxx TimeCandle.cxx TimeCandle.h 
+Log Message:
+make the first tick happen instantly.
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r14p5, operation: add
 Package: flux
