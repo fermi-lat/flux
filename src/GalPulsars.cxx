@@ -78,6 +78,7 @@ GalPulsars::GalPulsars(const std::string& paramString)
 
    while(!input_file.eof())
    {
+      // Check to see if the first character is valid for a name
       input_file.getline(buffer,1024,'\t');
       if(!isalnum(buffer[0]))
          break;
@@ -116,7 +117,7 @@ GalPulsars::GalPulsars(const std::string& paramString)
          input_file.getline(buffer,1024,'\t');
          temp_lc.push_back(std::atof(buffer));
       }
-      input_file.getline(buffer,1024,'\n');
+      input_file.getline(buffer,1024,'\n'); 
       temp_lc.push_back(std::atof(buffer));
 
       m_lc.push_back(temp_lc);
@@ -133,6 +134,7 @@ GalPulsars::GalPulsars(const std::string& paramString)
 
 double GalPulsars::interval(double current_time) 
 {
+   // Initialize the intervals for all the pulsars if this is being called for the first time
    if(m_changed == -1)
       updateIntervals(current_time,0.);
 
@@ -155,8 +157,10 @@ double GalPulsars::interval(double current_time)
 
 void GalPulsars::updateIntervals(double current_time, double time_decrement)
 {
+   // Loop over all sources
    for(unsigned int i = 0; i < m_interval.size(); i++)
    {
+      // Update all sources that need a new interval
       if(m_changed == i || m_changed == -1)
       {
          astro::EarthOrbit orbit;
@@ -177,19 +181,19 @@ void GalPulsars::updateIntervals(double current_time, double time_decrement)
 
          m_interval[i] = current_period * num_cycles;
 
-         // Determine phase of the pulsar for the current time
-         // Todo:  Check signs of correction (+/-) 
-
          // Get source direction for Shapiro delay and geometric delay calculations
          std::pair<double,double> lb;
-         lb = dir(0.);
+         lb.first = m_lon[i];
+         lb.second = m_lat[i];
          astro::SkyDir s_dir(lb.first,lb.second,astro::SkyDir::GALACTIC);
 
          double traveltime = orbit.calcTravelTime(tdb,s_dir);
 
+         // Todo:  Check whether another tdb -> tt conversion is needed
          double cycle_fraction = fmod(m_freq[i]*dt + 0.5 * m_freq_dot[i]*dt*dt
             + orbit.calcShapiroDelay(tdb,s_dir) + orbit.calcTravelTime(tdb,s_dir), current_period);
-             
+
+         // Determine phase of the pulsar for the current time
          int phase_index = (int) floor(cycle_fraction * m_lc[i].size());
          if(phase_index == m_lc[i].size()) 
             phase_index = 0;
@@ -235,7 +239,7 @@ std::pair<double,double> GalPulsars::dir(double energy)
 {
    if(m_changed == -1)
    {
-      ;// Throw an exception
+      std::cout << "Warning:  interval should be called before dir when using GalPulsars class." << std::endl;
    }
 
    // return direction in galactic coordinates
@@ -246,7 +250,7 @@ float GalPulsars::operator()(float xi) const {
 
    if(m_changed == -1)
    {
-      ; // Throw an exception
+      std::cout << "Warning:  interval should be called before () when using GalPulsars class." << std::endl;
    }
 
     // single power law, or first segment
@@ -258,7 +262,7 @@ double GalPulsars::energy(double time) {
 }
 
 
-// differential rate: return energy distrbuted as e**-gamma between e1 and e2, if r is uniform from 0 to1
+// differential rate: return energy distrbuted as e**-gamma between e1 and e2, if r is uniform from 0 to 1
 double GalPulsars::power_law( double r, double e1, double e2, double gamma) const
 {
    return gamma==1
