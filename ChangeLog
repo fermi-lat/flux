@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: hierath  Thu Jul 29 15:01:05 PDT 2004
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Added Files:
+	GalPulsars.cxx 
+Log Message:
+Adding a galactic pulsar source.
+    *
+------------------------------------------------------------
 User: hierath  Thu Jul 29 14:43:06 PDT 2004
 flux/src/rootplot
 
