@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.1.1.1 2003/07/29 18:22:20 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.2 2003/10/22 23:59:37 srobinsn Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -225,6 +225,16 @@
          <spectrum escale="GeV"> <SpectrumClass name="AlbedoPSpectrum" params="19.6,37.99"/>  <solid_angle mincos="-1.0" maxcos="1.0"/>
          </spectrum>
 	</source>
+	
+    <!-- testing new broken power law: this should be the same as albedo_electronpositron_total -->
+    <source name="aep" flux="146.">
+        <spectrum escale="GeV">
+            <particle name="e+" >
+                <power_law emin="0.010" ebreak="0.1" gamma="1.0"  emax="100"  gamma2="3.2" />
+            </particle>
+            <solid_angle mincos="-1.0" maxcos="1.0"/>
+        </spectrum>
+    </source>
 
     <source name="albedo_electronpositronlow" flux="146.">
         <spectrum escale="GeV">
