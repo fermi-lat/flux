@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Nov 10 09:11:15 PST 2004
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Log Message:
+have test method throw an exception
+    *
+------------------------------------------------------------
 User: hierath  Mon Oct 25 12:00:38 PDT 2004
 flux/sources
 
