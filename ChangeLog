@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: cohen  Wed Jan 14 08:58:09 PST 2004
+flux/src/test
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+fix the enum scope error
+    *
+------------------------------------------------------------
 User: srobinsn  Tue Jan 13 20:12:57 PST 2004
 flux/src/test
 
