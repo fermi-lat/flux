@@ -3,6 +3,8 @@
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 07-nov-03  v8r3  THB add upward albedo gamma source;
+ *                  SR  clean up pointing code        
  * 21-oct-03  v8r2  THB revise rocking treatment
  * 02-oct-03  v8r0p0 CompositeSource.h moved to /flux.
  * 04-oct-03  v8r1 THB new inteface to specify a list of source names
