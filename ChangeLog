@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Tue Oct 28 16:58:47 PST 2003
+flux/flux
+
+Modified Files:
+	SimpleSpectrum.h 
+Log Message:
+Implement addition to power_law XML element to allow for broken power law
+    *
+------------------------------------------------------------
 User: srobinsn  Wed Oct 22 16:59:37 PDT 2003
 flux/xml
 
