@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Tue Mar 30 14:18:34 PST 2004
+flux/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+frame usable with "direction"
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Mar 30 14:18:34 PST 2004
 flux/doc
 
 Modified Files:
