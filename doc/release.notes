@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.40 2005/02/27 15:27:20 burnett Exp $
+  $Id: release.notes,v 1.41 2005/03/04 04:22:37 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     EOH
 
+   v8r14p4 10-mar-2005 thb restore missing chime in backgndavgpdr, thanks to Igor 
    v8r14p3 03-mar-2005 thb remove Earth from source_library.xml 
    v8r14p2 27-feb-2005 thb and missed quite a few others :-( MAPspectrum, AlbedoPspectrum, GalElspectrum
    v8r14p1 26-feb-2005 thb missed that CHIMEspectrum had const operator(); fixed. removed \0 from titles.
