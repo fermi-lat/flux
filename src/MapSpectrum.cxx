@@ -150,7 +150,7 @@ MapSpectrum::MapSpectrum(const std::string& params)
 				//the 1E4 is due to the map being held in 
 				//particles/s*cm^2*sr in stead of p/s*m^2*sr
 				//do the extrapolation down to lower energy here
-			    m_testCatalog[trig].intensity = curint*(pow(m_extrapE0/m_mapE0,(1.0-curind)))*1E4;
+			    m_testCatalog[trig].intensity = curint*(pow(double(m_extrapE0/m_mapE0),(1.0-curind)))*1E4;
 				m_testCatalog[trig].index = curind;
           
                 //          std::cout << (int)curl << ", " << (int)curb << ", " << m_catalog[std::make_pair<int,int>(curl,curb)].intensity*100000. << std::endl;
@@ -188,7 +188,7 @@ MapSpectrum::MapSpectrum(const std::string& params)
 
 				//the 1E4 is due to the map being held in 
 				//particles/s*cm^2*sr in stead of p/s*m^2*sr
-			    m_testCatalog[trig].intensity = curint*(pow(m_extrapE0/m_mapE0,(1.0-curind)))*1E4;
+			    m_testCatalog[trig].intensity = curint*(pow(double(m_extrapE0/m_mapE0),(1.0-curind)))*1E4;
 				m_testCatalog[trig].index = curind;
             }
         }
