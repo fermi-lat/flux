@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
     @brief Define CompositeSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.2 2003/09/30 20:19:33 srobinsn Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.3 2003/10/01 22:21:50 srobinsn Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -139,9 +139,11 @@ std::string CompositeSource::findSource()const
     return m_recent->fullTitle();
 }
 
-int CompositeSource::numSource()const
+int  CompositeSource::numSource()const
 {
     ///Purpose: Return a unique number correcponding to the current spectrum.
-    return m_numofiters;
+    // if selected source is composite itself, (id=-1)  add its id as an integer
+    int t=m_recent->numSource();
+    return 1000*m_numofiters + (t==-1? 0:  t/1000);
 }
 
