@@ -1,13 +1,4 @@
 ------------------------------------------------------------
-User: burnett  Thu Jun 17 17:46:09 PDT 2004
-flux/src
-
-Modified Files:
-	SurfaceMuons.cxx 
-Log Message:
-implement muon flux based on actual recent measurments
-    *
-------------------------------------------------------------
 User: hierath  Thu Jun 17 15:16:25 PDT 2004
 flux/xml
 
