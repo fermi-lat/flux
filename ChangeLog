@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: burnett  Mon Dec 20 19:46:41 PST 2004
+flux/src
+
+Modified Files:
+	FILESpectrum.cxx FluxMgr.cxx 
+Added Files:
+	Earth.cxx Earth.h 
+Log Message:
+add Dirk's gamma Earth source
+    *
+------------------------------------------------------------
 User: hierath  Wed Nov 10 18:40:53 PST 2004
 flux/xml
 
