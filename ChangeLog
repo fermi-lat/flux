@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Wed Oct 22 16:59:37 PDT 2003
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Log Message:
+vela flux range fixed, orientrot changed to represent rocking in FluxMgr.
+
+    *
+------------------------------------------------------------
 User: burnett  Tue Oct 21 06:58:05 PDT 2003
 flux/doc
 
