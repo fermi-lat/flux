@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Wed Nov 10 12:22:02 PST 2004
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+Use Xerces 2.6.0-compatible version of xml package (v5r*)
+
+    *
+------------------------------------------------------------
 User: burnett  Wed Nov 10 09:11:15 PST 2004
 flux/src
 
