@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.2 2003/10/01 22:21:50 srobinsn Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.3 2003/10/29 16:47:46 burnett Exp $
 */
 
 #ifndef EventSource_h
@@ -17,7 +17,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.2 2003/10/01 22:21:50 srobinsn Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.3 2003/10/29 16:47:46 burnett Exp $
 */
 
 
@@ -97,7 +97,7 @@ public:
     virtual double energy()const { return 0;}
     virtual const HepVector3D& launchDir()const { static HepVector3D dummy; return dummy;}
     virtual const HepPoint3D&  launchPoint()const { static HepPoint3D dummy; return dummy;}
-
+    virtual const HepVector3D& skyDirection()const{ static HepVector3D dummy; return dummy;}
     
 private:
     double m_time;    // elapsed time, really only needed for EventSource

@@ -1,7 +1,7 @@
 /** @file SimpleSpectrum.h
     @brief declaration of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.2 2003/10/29 00:58:47 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.3 2003/10/29 13:30:12 burnett Exp $
 */
 #ifndef SIMPLESPECTRUM_H
 #define SIMPLESPECTRUM_H
@@ -16,7 +16,7 @@ class DOM_Element;
 * \class SimpleSpectrum
 * @brief define a particle and spectral index
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.2 2003/10/29 00:58:47 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.3 2003/10/29 13:30:12 burnett Exp $
 */
 class SimpleSpectrum : public Spectrum {
 public: 
@@ -33,6 +33,12 @@ public:
     virtual float  operator()(float f)const;
     virtual const char* particleName()const;
     virtual std::string title()const;
+
+    // convenient access methods
+    double ebase()const{return m_E0;}
+    double index()const{return m_index;}
+    double ebreak()const{return m_ebreak;}
+    double index2()const{return m_index2;}
 
 private:
     float parseParamList(std::string input, int index);
