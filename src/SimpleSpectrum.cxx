@@ -1,7 +1,7 @@
 /** @file SimpleSpectrum.cxx
     @brief definition of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.8 2004/11/10 20:25:11 jrb Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.9 2005/01/03 19:22:01 jrb Exp $
 */
 
 
@@ -104,7 +104,7 @@ std::string SimpleSpectrum::title()const
 
 
 float
-SimpleSpectrum::operator()(float f)const
+SimpleSpectrum::operator()(float f)
 {
     if( m_index == 0.0 )     return m_E0;
     

@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/GalElSpectrum.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/GalElSpectrum.cxx,v 1.2 2004/01/28 23:52:25 hierath Exp $
 // Original author: P. L. Nolan, pln@egret1.Stanford.EDU
 //
 #ifdef __GNUG__
@@ -61,7 +61,7 @@ float GalElSpectrum::flux(std::pair<double,double> coords) const {
     return flux(coords.first, coords.second);
 }
 
-float GalElSpectrum::operator() (float x) const{
+float GalElSpectrum::operator() (float x) {
     return m_cutoff * pow(1.-x, 1./m_expo);
 }
 

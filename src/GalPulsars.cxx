@@ -27,7 +27,7 @@ public:
    GalPulsars(const std::string& params);
 
    std::pair<double,double> dir(double energy);
-   float operator()(float xi) const;
+   float operator()(float xi) ;
 
    double interval(double time);
    double energy(double time);
@@ -265,7 +265,7 @@ std::pair<double,double> GalPulsars::dir(double energy)
    return std::make_pair<double,double>(m_lon[m_changed],m_lat[m_changed]);
 }
 
-float GalPulsars::operator()(float xi) const {
+float GalPulsars::operator()(float xi)  {
 
    if(m_changed == -1)
    {

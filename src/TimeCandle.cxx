@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.cxx,v 1.2 2004/04/20 21:29:34 burnett Exp $
 
 
 #include "TimeCandle.h"
@@ -33,7 +33,7 @@ std::string TimeCandle::title()const
 }
 
 float
-TimeCandle::operator()(float f)const
+TimeCandle::operator()(float f)
 {
     return 1.;
 }

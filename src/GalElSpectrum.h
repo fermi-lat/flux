@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/GalElSpectrum.h,v 1.12 2003/02/23 02:08:22 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/GalElSpectrum.h,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 // Original author: P. L. Nolan, pln@egret1.Stanford.EDU
 
 /*
@@ -62,7 +62,7 @@ public:
     virtual float flux(float lat, float lon) const;
     virtual float flux(std::pair<double, double> coords) const;
     
-    virtual float operator() (float)const;
+    virtual float operator() (float);
     
     float cutoff () const {return m_cutoff;};
     

@@ -2,7 +2,7 @@
 * @file FILESpectrum.cxx
 * @brief Implementation of FILESpectrum
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FILESpectrum.cxx,v 1.3 2004/10/06 23:11:16 hierath Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FILESpectrum.cxx,v 1.4 2004/12/21 03:46:40 burnett Exp $
 */
 
 #include "FILESpectrum.h"
@@ -67,7 +67,7 @@ double FILESpectrum::flux (double time ) const{
 }
 
 
-float FILESpectrum::operator() (float r)const
+float FILESpectrum::operator() (float r)
 {
     /// Purpose: sample a single particle energy from the spectrum
     double target_flux = r * m_fileflux;

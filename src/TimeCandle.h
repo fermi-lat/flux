@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/TimeCandle.h,v 1.4 2003/03/01 23:14:56 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.h,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 #ifndef TimeCandle_H
 #define TimeCandle_H
 
@@ -13,7 +13,7 @@
 
   a convenient Spectrum : a single particle at a constant incremental time, 
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/TimeCandle.h,v 1.4 2003/03/01 23:14:56 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.h,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 */
 
 
@@ -24,7 +24,7 @@ public:
     TimeCandle();
     //void setPosition ( float /*lat*/, float /*lon*/ ){}
     //virtual double calculate_rate(double old_rate);
-    virtual float  operator()(float f)const;
+    virtual float  operator()(float f);
     virtual const char* particleName()const;
     virtual std::string title()const;
         
