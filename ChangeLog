@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Fri Jun 11 13:49:38 PDT 2004
+flux/src
+
+Modified Files:
+	SurfaceMuons.cxx 
+Log Message:
+catch error in interpolation pointed out by Xin.
+    *
+------------------------------------------------------------
 User: burnett  Fri Jun 11 10:46:31 PDT 2004
 flux/doc
 
