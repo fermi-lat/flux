@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: hierath  Thu Jul 29 15:01:05 PDT 2004
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+Adding a galactic pulsar source.
+    *
+------------------------------------------------------------
+User: hierath  Thu Jul 29 15:01:05 PDT 2004
 flux/src
 
 Modified Files:
