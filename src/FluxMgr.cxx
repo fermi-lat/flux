@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/FluxMgr.cxx,v 1.49 2003/03/21 19:14:37 jrb Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.5 2003/10/06 16:58:16 xchen Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -9,12 +9,14 @@
 #include "flux/SpectrumFactoryTable.h"
 #include "flux/GPS.h"
 #include "flux/FluxException.h" // defines FATAL_MACRO
-#include "CompositeSource.h"
+#include "flux/CompositeSource.h"
 
 #include <xercesc/dom/DOM_Document.hpp>
 #include <xercesc/dom/DOM_Element.hpp>
 #include "xml/Dom.h"
 #include "xml/IFile.h"
+
+#include "astro/PointingTransform.h"
 
 #include <sstream>
 
@@ -102,6 +104,8 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
 
     DLL_DECL_SPECTRUM( SurfaceMuons);
 
+    DLL_DECL_SPECTRUM( VdgGamma);
+
     // these are deprecated, will be replaced by Hiroshima group
     DLL_DECL_SPECTRUM( AlbedoPSpectrum);
     DLL_DECL_SPECTRUM( CHIMESpectrum );
@@ -124,6 +128,22 @@ EventSource* FluxMgr::source(std::string name)
     return getSourceFromXML(m_sources[name].first);
 }
 
+EventSource* FluxMgr::compositeSource(std::vector<std::string> names)
+{
+    //Purpose: to return a pointer to a source, referenced by a list of names.
+    //Input: the names of the desired sources.
+
+    CompositeSource* comp = new CompositeSource();
+    for( std::vector<std::string>::const_iterator it= names.begin(); it!=names.end(); ++it){
+        const std::string& name = *it;
+        if( m_sources.find(name)==m_sources.end() ) {
+            delete comp;
+            return 0;
+        }
+        comp->addSource(getSourceFromXML(m_sources[name].first));
+    }
+    return comp;
+}
 
 EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
 {
@@ -314,6 +334,11 @@ std::pair<double,double> FluxMgr::getExplicitRockingAngles(){
     return GPS::instance()->rotateAngles();
 }
 
+/// set the desired pointing history file to use:
+void FluxMgr::setPointingHistoryFile(std::string fileName){
+	GPS::instance()->setPointingHistoryFile(fileName);
+}
+
 void FluxMgr::setExpansion (double p){
     // set the expansion factor for the orbit (-1) = random
     GPS::instance()->expansion(p);
@@ -349,7 +374,18 @@ HepRotation FluxMgr::CELTransform(double time){
 
 //get the transformation matrix.
 HepRotation FluxMgr::orientTransform(double time){
-    return GPS::instance()->rockingAngleTransform(time);
+	//make the transformtion that turns zenith coordinates into local coordinates.
+	//note:  this transformation is only used by FluxDisplay to tell where the earth's horizon is.
+	//it will rotate zenith coordinates into a frame where the "upwards direction" becomes the direction of the
+	//zenith in spacecraft coordinates, but is not more specific than that.
+	astro::SkyDir dirZ( GPS::instance()->RAZ() , GPS::instance()->DECZ() );
+	astro::SkyDir dirX( GPS::instance()->RAX() , GPS::instance()->DECX() );
+	astro::SkyDir dirZenith( GPS::instance()->RAZenith() , GPS::instance()->DECZenith() );
+	astro::PointingTransform point(dirZ,dirX);
+	Hep3Vector localZenith((point.localToCelestial().inverse())*dirZenith());
+	Hep3Vector perp1(localZenith.orthogonal());
+	HepRotation ret(perp1,localZenith.cross(perp1),localZenith);
+	return ret;
 }
 
 ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
