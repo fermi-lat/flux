@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Wed Oct 13 17:34:12 PDT 2004
+flux/src
+
+Modified Files:
+	GalPulsars.cxx 
+Log Message:
+Commented out test function that prints out the timing corrections.
+    *
+------------------------------------------------------------
 User: hierath  Wed Oct 13 17:32:11 PDT 2004
 flux/xml
 
