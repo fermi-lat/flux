@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Thu Jun 17 12:05:21 PDT 2004
+flux/src
+
+Modified Files:
+	SurfaceMuons.cxx 
+Log Message:
+Added caprice_surface_muons to xml and to SurfaceMuons class
+    *
+------------------------------------------------------------
 User: burnett  Fri Jun 11 13:49:38 PDT 2004
 flux/src
 
