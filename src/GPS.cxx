@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.13 2003/10/02 15:42:32 burnett Exp $
+// $Id: GPS.cxx,v 1.14 2003/10/02 21:00:47 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -494,4 +494,8 @@ void GPS::setInterpPoint(double time){
     m_currentInterpPoint.lon=lon1+((lon2-lon1)*prop);	
     m_currentInterpPoint.dirZ=astro::SkyDir(raz1+((raz2-raz1)*prop),decz1+((decz2-decz1)*prop));
     m_currentInterpPoint.dirX=astro::SkyDir(rax1+((rax2-rax1)*prop),decx1+((decx2-decx1)*prop));
+    //now regenerate X to be perpindicular to Z (ir should be almost there anyway).
+    Hep3Vector dirY( m_currentInterpPoint.dirZ().cross(m_currentInterpPoint.dirX()) );
+    m_currentInterpPoint.dirX=astro::SkyDir( dirY.cross(m_currentInterpPoint.dirZ()) );
+
 }
