@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/ExGalflux/src/AGNSpectrum.h,v 1.3 2003/08/18 21:44:41 srobinsn Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/AGNSpectrum.h,v 1.1 2004/01/23 22:00:30 srobinsn Exp $
 
 
 #ifndef AGN_SPECTRUM_H
@@ -12,7 +12,7 @@
 * AGNSpectrum represents AGN sources, given input nominal flux, index,  
 * flaring period, flaring flux multiplier and spectral index.
 * 
-* $Header $
+* $Header$
 */
 
 #include <string>
@@ -38,7 +38,7 @@ public:
     AGNSpectrum (const std::string& params);
     
     /// constructor with individual parameters
-    AGNSpectrum (float l = 0.0f,float b = 0.0f,float flux = 10.0f,float index = 2.0f,float flareMult = 5.0f,
+    AGNSpectrum (float l = 0.0f,float b = 0.0f,float flux = 10.0f,float index = 2.15f,float flareMult = 5.0f,
         float flareAdd = 0.01f,float flareDuty = 0.00f,float flarePeriod = 1.0f,float Emin=0.1f,float Emax=100.0f);
     
     /// subclasses need to specify correct particle type
@@ -70,7 +70,6 @@ public:
     ///function for handling initialization through the xml "params" variable.
     void init(std::vector<float> params);
     
-    AGNSpectrum(){}
     
     ///turns flaring to the opposite state.
     void flipState(){
