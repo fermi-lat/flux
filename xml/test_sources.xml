@@ -1,0 +1,356 @@
+
+<source_library>
+   <!--
+       $Header: /nfs/slac/g/glast/ground/cvs/Gleam/src/systests/test_sources.xml,v 1.7 2002/12/13 20:27:35 heather Exp $
+       Some simple test flux definitions for debugging
+    -->
+
+
+    <!-- E^-1 spectrum from 18 MeV to 18 GeV and 0-90 degrees to weight all gammas-->
+    <source name="all_gamma" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.01778" emax="17.78" gamma="1"/>
+            </particle>
+            <solid_angle mincos="0" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+
+    <!-- background mixture 6 - maximums-->
+    <source name="backgndmax">
+        <nestedSource sourceRef="chimemax"/>
+        <nestedSource sourceRef="albedo_proton_max"/>
+    </source>
+
+	<!-- background mixture 5 - minimums-->
+    <source name="backgndmin">
+        <nestedSource sourceRef="chimemin"/>
+        <nestedSource sourceRef="albedo_proton_min"/>
+    </source>
+
+	<!-- background mixture 4 - averages-->
+    <source name="backgndavg">
+        <nestedSource sourceRef="chimeavg"/>
+        <nestedSource sourceRef="albedo_proton_avg"/>
+    </source>
+
+	<!-- the CHIME spectrum at minimum flux. angular dependence and rate are from the CHIME spectrum object -->
+    <source name="chimemin" >
+      <spectrum escale="GeV">
+        <SpectrumClass name="CHIMESpectrum" params="10.00, 144.37"/> <use_spectrum/> </spectrum>
+    </source>
+
+	<!-- the CHIME spectrum at Maximum flux. angular dependence and rate are from the CHIME spectrum object -->
+    <source name="chimemax" >
+       <spectrum escale="GeV">
+          <SpectrumClass name="CHIMESpectrum" params="-28.5,110"/> <use_spectrum/> </spectrum>
+    </source>
+
+	<!-- the CHIME spectrum at average flux. angular dependence and rate are from the CHIME spectrum object -->
+    <source name="chimeavg" >
+        <spectrum escale="GeV">
+          <SpectrumClass name="CHIMESpectrum" params="13.8, 24.9"/> <use_spectrum/> </spectrum>
+    </source>
+
+	<!-- the albedo proton spectrum, measured by AMS, implemented by AlbedoPSpectrum. isotropic for now  -->
+    <source name="albedo_proton_min">
+         <spectrum escale="GeV">
+           <SpectrumClass name="AlbedoPSpectrum" params="-20.923,185.25"/>  <solid_angle mincos="-1.0" maxcos="1.0"/>
+         </spectrum>
+    </source>
+
+	<!-- the albedo proton spectrum, measured by AMS, implemented by AlbedoPSpectrum. isotropic for now  -->
+    <source name="albedo_proton_max">
+         <spectrum escale="GeV">
+           <SpectrumClass name="AlbedoPSpectrum" params="4.78,8.18"/>  <solid_angle mincos="-1.0" maxcos="1.0"/>
+         </spectrum>
+    </source>
+
+	<!-- the albedo proton spectrum, measured by AMS, implemented by AlbedoPSpectrum. isotropic for now  -->
+    <source name="albedo_proton_avg">
+       <spectrum escale="GeV">
+         <SpectrumClass name="AlbedoPSpectrum" params="19.6,37.99"/>  <solid_angle mincos="-1.0" maxcos="1.0"/>
+         </spectrum>
+	</source>
+
+    <source name="muon_pencil_side">
+       <spectrum escale="GeV">
+         <particle name="mu+"><energy e="2"/> </particle>
+           <direction theta="90" phi="45" />
+           <launch_point x="500" y="500" z="0" />
+       </spectrum>
+     </source>
+
+    <source name="muon_pencil_side_x">
+       <spectrum escale="GeV">
+         <particle name="mu+"><energy e="2"/> </particle>
+           <direction theta="90" phi="90" />
+           <launch_point x="0" y="500" z="0" />
+       </spectrum>
+     </source>
+
+    <source name="muon_pencil_side_y">
+       <spectrum escale="GeV">
+         <particle name="mu+"><energy e="2"/> </particle>
+           <direction theta="90" phi="0" />
+           <launch_point x="500" y="50" z="0" />
+       </spectrum>
+     </source>
+
+    <source name="muon_pencil">
+       <spectrum escale="GeV">
+         <particle name="mu+"><energy e="2"/> </particle>
+           <direction theta="0" phi="0" />
+           <launch_point x="40" y="40" z="800" />
+       </spectrum>
+     </source>
+
+    <source name="muon_pencil_angle">
+       <spectrum escale="GeV">
+         <particle name="mu+"><energy e="2"/> </particle>
+           <direction theta="30" phi="90" />
+           <launch_point x="50" y="500" z="1000" />
+       </spectrum>
+     </source>
+
+
+    <source name="muon_patch_CALLayers">
+       <spectrum escale="GeV">
+         <particle name="mu+"><energy e="2"/> </particle>
+           <direction theta="0" phi="0" />
+           <patch xmin="45.01" xmax="45.02" ymin="-163." ymax="163" />
+       </spectrum>
+     </source>
+
+    <source name="electron_patch_SingleCDE">
+       <spectrum escale="GeV">
+         <particle name="e-"><energy e="10"/> </particle>
+           <direction theta="0" phi="0" />
+           <patch xmin="-163." xmax="163." ymin="-.001" ymax="0.001" />
+       </spectrum>
+     </source>
+
+    <source name="gamma_patch_SingleCDE">
+       <spectrum escale="GeV"> 
+         <particle name="gamma"><energy e="0.02"/> </particle>
+           <direction theta="0" phi="0" />
+           <patch xmin="-163." xmax="163." ymin="-.001" ymax="0.001" />
+       </spectrum>
+     </source>
+
+    <source name="muon_patch_SingleCDE">
+       <spectrum escale="GeV">
+         <particle name="mu+"><energy e="2"/> </particle>
+           <direction theta="0" phi="0" />
+           <patch xmin="-163." xmax="163." ymin="-.001" ymax="0.001" />
+       </spectrum>
+     </source>
+
+    <source name="alpha_test">
+       <spectrum escale="GeV">
+         <particle name="alpha"><energy e="20"/> </particle>
+           <direction theta="0" phi="0" />
+           <patch xmin="-700" xmax="700" ymin="-700" ymax="700" />
+       </spectrum>
+     </source>
+
+    <source name="pi0_test">
+       <spectrum escale="GeV">
+         <particle name="pi0"><energy e="20"/> </particle>
+           <direction theta="0" phi="0" />
+           <patch xmin="-700" xmax="700" ymin="-700" ymax="700" />
+       </spectrum>
+     </source>
+
+    <source name="lambda_test">
+       <spectrum escale="GeV">
+         <particle name="lambda"><energy e="20"/> </particle>
+           <direction theta="0" phi="0" />
+           <patch xmin="-700" xmax="700" ymin="-700" ymax="700" />
+       </spectrum>
+     </source>
+
+    <source name="gamma_test_vertical_10GeV">
+       <spectrum escale="GeV">
+         <particle name="gamma"><energy e="10.0"/> </particle>
+           <direction theta="0" phi="0" />
+           <launch_point x="45" y="45" z="1000" />
+       </spectrum>
+     </source>
+
+    <source name="gamma_test_vertical_1GeV">
+       <spectrum escale="GeV">
+         <particle name="gamma"><energy e="1.0"/> </particle>
+           <direction theta="0" phi="0" />
+           <launch_point x="45" y="45" z="1000" />
+       </spectrum>
+     </source>
+
+     <source name="gamma_test_vertical_100MeV">
+       <spectrum escale="GeV">
+         <particle name="gamma"><energy e="0.1"/> </particle>
+           <direction theta="0" phi="0" />
+           <launch_point x="45" y="45" z="1000" />
+       </spectrum>
+     </source>
+
+   <source name="muon_test_vertical_1GeV">
+         <spectrum escale="GeV">
+            <particle name="mu+"> <energy e="1.0"/> </particle>
+            <direction theta="0" phi="0"/>
+            <launch_point x="45" y="45" z="1000" />
+        </spectrum>
+    </source>
+
+    <source name="muon_test_vertical_10GeV">
+         <spectrum escale="GeV">
+            <particle name="mu+"> <energy e="10.0"/> </particle>
+            <direction theta="0" phi="0"/>
+            <launch_point x="45" y="45" z="1000" />
+        </spectrum>
+    </source>
+
+    <source name="proton_test_vertical_1GeV">
+          <spectrum escale="GeV">
+            <particle name="p"> <energy e="1.0"/> </particle>
+            <direction theta="0" phi="0"/>
+            <launch_point x="45" y="45" z="1000" />
+        </spectrum>
+    </source>
+
+    <source name="proton_test_vertical_10GeV">
+          <spectrum escale="GeV">
+            <particle name="p"> <energy e="10.0"/> </particle>
+            <direction theta="0" phi="0"/>
+            <launch_point x="45" y="45" z="1000" />
+        </spectrum>
+    </source>
+
+    <!--100 mev -->
+    <source name="gamma_100_mev_normal" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <energy e="0.1"/> </particle>
+            <solid_angle mincos="0.99" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+    <!--1 gev -->
+    <source name="gamma_1_gev_normal" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <energy e="1.0"/> </particle>
+            <solid_angle mincos="0.99" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+    <!--10 gev -->
+    <source name="gamma_10_gev_normal" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <energy e="10.0"/> </particle>
+            <solid_angle mincos="0.99" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+    <source name="gamma_vdg">
+       <spectrum escale="GeV">
+         <particle name="gamma"><energy e=".0176"/> </particle>
+           <direction theta="0" phi="0" />
+           <launch_point x="180" y="180" z="1000" />
+       </spectrum>
+     </source>
+
+    <source name="gamma_patch_for_G4">
+       <spectrum escale="GeV">
+         <particle name="gamma"><energy e="10"/> </particle>
+           <direction theta="0" phi="0" />
+           <patch />
+       </spectrum>
+     </source>
+
+
+    <source name="muon_pencil_300MeV_center_0deg">
+       <spectrum escale="MeV">
+         <particle name="mu+"><energy e="300"/> </particle>
+           <direction theta="0" phi="0" />
+           <launch_point x="0" y="0" z="11" />
+       </spectrum>
+     </source>
+
+    <source name="muon_pencil_300MeV_center_15deg">
+       <spectrum escale="MeV">
+         <particle name="mu+"><energy e="300"/> </particle>
+           <direction theta="15" phi="0" />
+           <launch_point x="0" y="0" z="11" />
+       </spectrum>
+     </source>
+
+    <source name="muon_pencil_300MeV_center_30deg">
+       <spectrum escale="MeV">
+         <particle name="mu+"><energy e="300"/> </particle>
+           <direction theta="30" phi="0" />
+           <launch_point x="0" y="0" z="11" />
+       </spectrum>
+     </source>
+
+    <source name="muon_pencil_300MeV_center_45deg">
+       <spectrum escale="MeV">
+         <particle name="mu+"><energy e="300"/> </particle>
+           <direction theta="45" phi="0" />
+           <launch_point x="0" y="0" z="11" />
+       </spectrum>
+     </source>
+
+    <source name="muon_pencil_300MeV_center_60deg">
+       <spectrum escale="MeV">
+         <particle name="mu+"><energy e="300"/> </particle>
+           <direction theta="60" phi="0" />
+           <launch_point x="0" y="0" z="11" />
+       </spectrum>
+     </source>
+
+    <source name="muon_pencil_300MeV_center_75deg">
+       <spectrum escale="MeV">
+         <particle name="mu+"><energy e="300"/> </particle>
+           <direction theta="75" phi="0" />
+           <launch_point x="0" y="0" z="11" />
+       </spectrum>
+     </source>
+
+    <source name="muon_patch_300MeV_centerTile0022_acdtop">
+       <spectrum escale="MeV">
+         <particle name="mu+"><energy e="300"/> </particle>
+           <solid_angle mincos="0.25" maxcos="1.0" />
+           <patch xmin="-0.1" xmax="0.1" ymin="-0.1" ymax="0.1" zmin="11."
+zmax="11."/>
+       </spectrum>
+     </source>
+
+   <source name="muon_patch_2GeV_tile0044">
+       <spectrum escale="GeV">
+         <particle name="mu+"><energy e="2."/> </particle>
+           <solid_angle mincos="0" maxcos="1.0" />
+           <patch xmin="453." xmax="774." ymin="466." ymax="771." zmin="822."
+zmax="822."/>
+       </spectrum>
+     </source>
+
+
+    <source name="muon_patch_2GeV_tile0022">
+       <spectrum escale="GeV">
+         <particle name="mu+"><energy e="2."/> </particle>
+           <solid_angle mincos="0" maxcos="1.0" />
+           <patch xmin="-152." xmax="152." ymin="-152." ymax="152." zmin="802."
+zmax="802."/>
+       </spectrum>
+     </source>
+
+    <source name="muon_patch_2GeV_tile0022_0deg">
+       <spectrum escale="GeV">
+         <particle name="mu+"><energy e="2."/> </particle>
+           <direction theta="0" phi="0" />
+           <patch xmin="-152." xmax="152." ymin="-152." ymax="152." zmin="802."
+zmax="802."/>
+       </spectrum>
+     </source>
+
+</source_library>
+
