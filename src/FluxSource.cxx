@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
     @brief Implementation of FluxSource
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.4 2003/10/01 22:21:50 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.5 2003/10/02 21:00:47 srobinsn Exp $
 
   */
 #include "flux/FluxSource.h"
@@ -352,7 +352,7 @@ public:
                 =GPS::instance()->transformCelToGlast(time);
 
             //and do the transform:
-            setDir(celtoglast*unrotated());
+            setDir(celtoglast*(-unrotated()));
         }
     }
 
