@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sun Mar 20 13:21:10 PST 2005
+flux/src
+
+Modified Files:
+	TimeCandle.cxx TimeCandle.h 
+Log Message:
+clean up a little; make initial tick at 1e-30 instead of 1e-6
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r15, operation: add
 Package: flux
