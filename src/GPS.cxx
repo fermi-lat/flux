@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.20 2003/11/25 22:13:25 srobinsn Exp $
+// $Id: GPS.cxx,v 1.21 2003/11/28 20:54:27 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -508,12 +508,11 @@ void GPS::setInterpPoint(double time){
         prop= 1.0 - ((time2-time)/(time2-time1));
     }
 
-    m_currentInterpPoint.position=pos1+((pos2-pos1)*prop);
+	double averageAlt=(pos1.mag()+pos2.mag())/2.;
+    m_currentInterpPoint.position=(pos1+((pos2-pos1)*prop)).unit() * averageAlt;
 
     m_currentInterpPoint.lat=lat1+((lat2-lat1)*prop);
     m_currentInterpPoint.lon=lon1+((lon2-lon1)*prop);	
-    m_currentInterpPoint.dirZ=astro::SkyDir(raz1+((raz2-raz1)*prop),decz1+((decz2-decz1)*prop));
-    m_currentInterpPoint.dirX=astro::SkyDir(rax1+((rax2-rax1)*prop),decx1+((decx2-decx1)*prop));
 
 	//this piece of code should just handle the "wraparound" cases:
 	if(fabs(lon1-lon2) >= 330.){
