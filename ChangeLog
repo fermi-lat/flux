@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: hierath  Tue Aug 10 09:15:07 PDT 2004
+flux/sources
+
+Modified Files:
+	GRS01369.txt pulsars.txt 
+Added Files:
+	vela.txt 
+Log Message:
+GalPulsars now reads in t0 from source files.  Minor fixes.
+    *
+------------------------------------------------------------
 User: hierath  Tue Aug 10 09:10:07 PDT 2004
 flux/src
 
