@@ -1,9 +1,10 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.24 2004/03/29 20:33:28 burnett Exp $
+  $Id: release.notes,v 1.25 2004/03/30 22:18:34 srobinsn Exp $
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 12-apr-04  v8r8p1 THB, catch bug introduced in simplespectrum by XML change.
  * 30-mar-04  v8r8p1 THB, "frame" attriibute working with "direction" xml element.
  * 29-mar-04  v8r8   THB, JRB XML stage 1 conversion
  * 13-feb-04  v8r6   THB Add convenient access functions for truth study

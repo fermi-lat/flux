@@ -1,7 +1,7 @@
 /** @file SimpleSpectrum.cxx
     @brief definition of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.5 2004/03/17 00:10:28 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.6 2004/03/29 20:33:28 burnett Exp $
 */
 
 
@@ -71,6 +71,7 @@ SimpleSpectrum::SimpleSpectrum(const DOM_Element& xelem, bool useGeV)
         }
     }
     else if(tagName=="energy") {
+        m_E0 =xml::Dom::getDoubleAttribute(spectrum, "e");
         m_emax = 100.0;
         m_index = 0.0;
     }
