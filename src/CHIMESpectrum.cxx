@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/CHIMESpectrum.cxx,v 1.14 2003/02/23 02:08:22 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CHIMESpectrum.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 
 
 #include "CHIMESpectrum.h"
@@ -266,6 +266,8 @@ float CHIMESpectrum::cosomega(float E) const {
     // should be derived from the position by looking in tables.
     // Also, this is simple Størmer theory, ignoring  the penumbral
     // region and multipole effects.
+
+    E *= 0.001;  // Convert Mev->GeV
     
     const float Mp = 0.938f;  // mass of proton in GeV
     double/*float*/ pcut = sqrt(m_cutoff*m_cutoff + 2.*Mp*m_cutoff);  // cutoff momentum
