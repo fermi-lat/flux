@@ -1,10 +1,11 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/test/flux/testMgr.cxx,v 1.20 2003/03/02 06:30:57 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.6 2004/01/26 23:19:40 srobinsn Exp $
 
 //#include "FluxSvc/ISpectrumFactory.h"
 
 #include "flux/EventSource.h"
 #include "flux/SpectrumFactoryTable.h"
 #include "flux/FluxMgr.h"
+#include "astro/GPS.h"
 
 #include <iostream>
 #include <fstream>
@@ -55,7 +56,34 @@ void flux_load() {
     DECLARE_SPECTRUM( FILESpectrum);
     DECLARE_SPECTRUM( GalElSpectrum);
     DECLARE_SPECTRUM( SurfaceMuons);
+    DECLARE_SPECTRUM( MapSpectrum);
  }
+
+void galacticTest(FluxMgr* fm, std::string sourceName,double count){
+    EventSource* e = fm->source(sourceName);
+    double time=fm->time();
+    EventSource* f;
+    double totalinterval=0;
+    double lavg=0,bavg=0;
+    int i;
+    for(i = 0; i< count; ++i) {
+        f = e->event(time);
+        double interval=e->interval(time);
+        //here we increment the "elapsed" time and the "orbital" time,
+        //just as is done in flux.  NOTE: this is important for the operation 
+        //of fluxsource, and is expected.
+        time+=interval;
+        fm->pass(interval);
+        Hep3Vector abc(fm->transformToGlast(time,GPS::CELESTIAL).inverse()*(-(f->launchDir())));
+        astro::SkyDir dir(abc,astro::SkyDir::CELESTIAL);
+        std::cout << "particle "<< i << " located at (l,b) = " << dir.l() << "," << dir.b() << std::endl;
+        lavg +=dir.l();
+        bavg +=dir.b();
+    }
+    lavg /= i;
+    bavg /= i;
+    std::cout << "  the average photon location was (l,b) = " << lavg << "," << bavg << std::endl;
+}
 
 int main(int argn, char * argc[]) {
     using std::cout;
@@ -109,6 +137,12 @@ int main(int argn, char * argc[]) {
     std::list<std::string>::iterator abc;
     if(argn != 1){
         fm.test(std::cout, source_name, count);
+        std::cout << std::endl << "testing the galactic spread function: these photons should be centeres on l=b=10" << std::endl;
+        galacticTest(&fm,"spread101010",count);
+        std::cout << std::endl << "testing the galactic diffuse map: these photons should be mostly around b=0" << std::endl;
+        galacticTest(&fm,"galdiffusemap",count);
+        std::cout << std::endl << "testing the AGN Source:" << std::endl;
+        galacticTest(&fm,"AGN",count);
         return 0;
     }
     std::string testfilename("testMgrOutput.out");
