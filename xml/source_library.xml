@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.24 2004/09/29 06:15:56 cohen Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.25 2004/10/11 22:18:38 hierath Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -515,7 +515,7 @@
     -->
     <source name="vela-galactic">
 		<spectrum escale="GeV">
-		   <SpectrumClass name="GalPulsars" params="../sources/vela.txt"/> <use_spectrum frame="galaxy"/>
+		   <SpectrumClass name="GalPulsars" params="vela.txt"/> <use_spectrum frame="galaxy"/>
 		</spectrum>
     </source>
     
@@ -523,14 +523,14 @@
     -->
     <source name="galactic-pulsars">
 	   <spectrum escale="GeV">
-	      <SpectrumClass name="GalPulsars" params="../sources/pulsars.txt"/> <use_spectrum frame="galaxy"/>
+	      <SpectrumClass name="GalPulsars" params="pulsars.txt"/> <use_spectrum frame="galaxy"/>
 	   </spectrum>
     </source>
     
     <!-- Single simulated pulsar source using GalPulsars. -->
     <source name="GRS01369">
        <spectrum escale="GeV">
-          <SpectrumClass name="GalPulsars" params="../sources/GRS01369.txt"/> <use_spectrum frame="galaxy"/>
+          <SpectrumClass name="GalPulsars" params="GRS01369.txt"/> <use_spectrum frame="galaxy"/>
        </spectrum>
     </source>
 
