@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Mon Aug 11 23:02:58 PDT 2003
+flux/flux
+
+Modified Files:
+	FluxMgr.h GPS.h 
+Log Message:
+"history" pointing mode created, with ASCII file interface.
+
+    *
+------------------------------------------------------------
 User: srobinsn  Sun Aug  3 15:08:21 PDT 2003
 flux/src
 
