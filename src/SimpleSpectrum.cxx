@@ -1,7 +1,7 @@
 /** @file SimpleSpectrum.cxx
     @brief definition of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.2 2003/10/29 00:58:47 burnett Exp $
 */
 
 
@@ -19,6 +19,7 @@
 static SpectrumFactory<SimpleSpectrum> factory;
 namespace {
     // useful utility functions
+
     // differential rate: return energy distrbuted as e**-gamma between e1 and e2, if r is uniform from 0 to1
     double power_law( double r, double e1, double e2, double gamma)
     {
@@ -36,11 +37,7 @@ namespace {
     }
 }
     
-#if 0
-
-SimpleSpectrum::SimpleSpectrum(){}//default constructor
-#endif
-
+// Is this used? if so, should be extended to set all parameters
 SimpleSpectrum::SimpleSpectrum(const std::string& params)
 :m_name("gamma")
 ,m_E0(parseParamList(params,0))
@@ -98,7 +95,6 @@ SimpleSpectrum::operator()(float f)const
 {
     if( m_index == 0.0 )     return m_E0;
     
-    
     float energy;
     if( f<m_a ) {
         //float x = 1 - exp((1-m_index)*log(m_emax/m_E0));
@@ -110,18 +106,12 @@ SimpleSpectrum::operator()(float f)const
         energy = power_law( (f-m_a)/(1-m_a), m_ebreak, m_emax, m_index2);
     }
     return energy;
-    
 }
 
 const char*
 SimpleSpectrum::particleName() const
 {
     return m_name.c_str();
-}
-
-double SimpleSpectrum::calculate_rate(double old_rate)
-{
-    return old_rate;
 }
 
 float SimpleSpectrum::parseParamList(std::string input, int index)
