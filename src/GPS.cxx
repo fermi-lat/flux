@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.3 2003/08/12 06:02:58 srobinsn Exp $
+// $Id: GPS.cxx,v 1.4 2003/08/13 20:38:27 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -192,6 +192,7 @@ HepRotation GPS::rockingAngleTransform(double seconds){
 	//before anything, check to see if we are using a history file:
 	if(m_rockType == HISTORY){
 		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		if((seconds< (*(m_pointingHistory.begin())).first )||iter==m_pointingHistory.end()) std::cerr << "WARNING: Time out of scope of pointing database" << std::endl;
 		iter--;
 		lZ=(*iter).second.dirZ.l();
 		bZ=(*iter).second.dirZ.b();
@@ -269,6 +270,7 @@ HepRotation GPS::CELTransform(double seconds){
 		decX = 0.;
 	}else if(m_rockType == HISTORY){
 		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		if((seconds< (*(m_pointingHistory.begin())).first )||iter==m_pointingHistory.end()) std::cerr << "WARNING: Time out of scope of pointing database" << std::endl;
 		iter--;
 		SkyDir dirZ((*iter).second.dirZ);
 		SkyDir dirX((*iter).second.dirX);
@@ -325,6 +327,7 @@ HepRotation GPS::transformCelToGlast(double seconds){
 		decX = 0.;
 	}else if(m_rockType == HISTORY){
 		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		if((seconds< (*(m_pointingHistory.begin())).first )||iter==m_pointingHistory.end()) std::cerr << "WARNING: Time out of scope of pointing database" << std::endl;
 		iter--;
 		SkyDir dirZ((*iter).second.dirZ);
 		SkyDir dirX((*iter).second.dirX);
@@ -377,6 +380,7 @@ void GPS::getPointingCharacteristics(double seconds){
 		decX = 0.;
 	}else if(m_rockType == HISTORY){
 		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		if((seconds< (*(m_pointingHistory.begin())).first )||iter==m_pointingHistory.end()) std::cerr << "WARNING: Time out of scope of pointing database" << std::endl;
 		iter--;
 		SkyDir dirZ((*iter).second.dirZ);
 		SkyDir dirX((*iter).second.dirZ);
@@ -491,12 +495,10 @@ void GPS::setUpHistory(){
 	}
 	else
 	{
-		double intrvalstart,intrvalend,posx,posy,posz,raz,decz,rax,decx,razenith,deczenith,LATTurnedOn,livetime,SAA
-			,lon,lat,alt,curDirl,curDirb,xDirl,xDirb,rasun,decsun,sunDirx,sunDiry,sunDirz,ramoon,decmoon;
+		double intrvalstart,intrvalend,posx,posy,posz,raz,decz,rax,decx,razenith,deczenith,lon,lat,alt;
 		//initialize the key structure:
 		while (!input_file.eof()){
 			input_file >> intrvalstart;
-			input_file >> intrvalend;
 			input_file >> posx;
 			input_file >> posy;
 			input_file >> posz;
@@ -506,26 +508,9 @@ void GPS::setUpHistory(){
 			input_file >> decx;
 			input_file >> razenith;
 			input_file >> deczenith;
-			input_file >> LATTurnedOn;
-			input_file >> livetime;
-			input_file >> SAA;
 			input_file >> lon;
 			input_file >> lat;
 			input_file >> alt;
-			input_file >> curDirl;
-			input_file >> curDirb;
-			input_file >> xDirl;
-			input_file >> xDirb;
-			input_file >> rasun;
-			input_file >> decsun;
-			input_file >> sunDirx;
-			input_file >> sunDiry; 
-			input_file >> sunDirz;
-			input_file >> ramoon;
-			input_file >> decmoon;
-
-
-
 
 			POINTINFO temp;
 			temp.dirZ=astro::SkyDir(raz,decz);
