@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Oct 29 05:30:12 PST 2003
+flux/flux
+
+Modified Files:
+	SimpleSpectrum.h 
+Log Message:
+refactor broken power law a bit, put Sean't doc in to describe it.
+    *
+------------------------------------------------------------
 User: burnett  Tue Oct 28 16:58:47 PST 2003
 flux/xml
 
