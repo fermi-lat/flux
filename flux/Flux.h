@@ -1,7 +1,7 @@
 /** @file Flux.h
     @brief Declaration of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.3 2003/10/05 03:46:20 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.4 2003/11/03 09:41:21 srobinsn Exp $
 
   Original author: T. Burnett
 */
@@ -103,7 +103,7 @@ public:
     virtual HepRotation transformToGlast(double seconds,GPS::CoordSystem index)const;
     
     ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
-    HepRotation Flux::transformGlastToGalactic(double time)const;
+    HepRotation transformGlastToGalactic(double time)const;
     
     //    insert(std::make_pair<std::string, const ISpectrumFactory*>(name, factory));
     
