@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Mon Oct  6 13:10:00 PDT 2003
+flux/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+x-z axis perpindicularity bug fix in GPS
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Oct  6 13:10:00 PDT 2003
 flux/doc
 
 Modified Files:
