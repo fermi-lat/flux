@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Wed Oct  6 16:13:59 PDT 2004
+flux/sources
+
+Modified Files:
+	GRS01369.txt pulsars.txt vela.txt 
+Log Message:
+Changed GalPulsars to accept light curves of varying lengths
+    *
+------------------------------------------------------------
 User: hierath  Wed Oct  6 16:11:16 PDT 2004
 flux/src
 
