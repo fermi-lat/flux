@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.2 2003/08/12 06:02:58 srobinsn Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -9,7 +9,7 @@
 #include "flux/SpectrumFactoryTable.h"
 #include "flux/GPS.h"
 #include "flux/FluxException.h" // defines FATAL_MACRO
-#include "CompositeSource.h"
+#include "flux/CompositeSource.h"
 
 #include <xercesc/dom/DOM_Document.hpp>
 #include <xercesc/dom/DOM_Element.hpp>
