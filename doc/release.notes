@@ -1,0 +1,9 @@
+/** @file release.notes
+ * @brief Package flux 
+
+@verbatim
+ * Coordinators: T.Burnett, S. Robinson
+ * 29-jul-03  v7r0 Inital import of the non-Gaudi portion of FluxSvc. See old archives for the
+                   original version of this package  
+ @endverbatim 
+*/

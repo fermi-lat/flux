@@ -1,0 +1,310 @@
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/test/flux/test_library.xml,v 1.1 2003/02/20 22:04:11 srobinsn Exp $
+   This is a library of sources that can be used to test the current system outside of the Gaudi Infrastructure.
+-->
+<!-- ************************************************************************** -->
+<source_library title="tests">
+
+    <!-- standard particle generater used as a default -->
+    <source name="default" flux="0.4">
+          <spectrum escale="GeV">
+              <particle name="gamma"> <energy e="0.1"/> </particle>
+               <direction/>
+          </spectrum>
+     </source>
+
+     <!-- E^-1 spectrum from 18 MeV to 18 GeV and 0-90 degrees to weight all gammas-->
+    <source name="all_gamma" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.01778" emax="17.78" gamma="1"/>
+            </particle>
+            <solid_angle mincos="0" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+
+    <!-- E^-1 spectrum from 18 MeV to 18 GeV and normal incidence-->
+    <source name="normal_gamma" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.01778" emax="17.78" gamma="1"/>
+            </particle>
+            <solid_angle mincos="0.99" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+
+	<!--1 gev -->
+    <source name="gamma_1_gev_normal" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <energy e="1"/> </particle>
+            <solid_angle mincos="0.99" maxcos="1.0"/>
+        </spectrum>
+    </source>
+    <source name="gamma_1_gev_30deg" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <energy e="1"/> </particle>
+            <solid_angle mincos="0.866" maxcos="0.867"/>
+        </spectrum>
+    </source>
+    <source name="gamma_1_gev_60deg" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <energy e="1"/> </particle>
+            <solid_angle mincos="0.4995" maxcos="0.5005"/>
+        </spectrum>
+    </source>
+    <source name="gamma_1_gev_uniform" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <energy e="1"/> </particle>
+            <solid_angle mincos="0." maxcos="1.0"/>
+        </spectrum>
+    </source>
+    <!--100 gev -->
+    <source name="gamma_100_gev_normal" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <energy e="100"/> </particle>
+            <solid_angle mincos="0.99" maxcos="1.0"/>
+        </spectrum>
+    </source>
+    <!-- 100 mev -->
+    <source name="gamma_100_mev_uniform" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <energy e="0.1"/> </particle>
+            <solid_angle mincos="0" maxcos="1.0"/>
+        </spectrum>
+    </source>
+	<!-- 10 GeV uniform 0-90 degrees -->
+    <source name="gamma_10_gev_uniform" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <energy e="10."/> </particle>
+            <solid_angle mincos="0" maxcos="1.0"/>
+        </spectrum>
+    </source>
+    <!-- 100 GeV uniform 0-90 degrees -->
+    <source name="gamma_100_gev_uniform" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <energy e="100."/> </particle>
+            <solid_angle mincos="0" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+
+    <!-- special source that mimics non-interacting cosmics -->
+    <source name="cosmic_muons" flux="100">
+        <spectrum escale="GeV">
+            <particle name="mu+"> <energy e="10"/> </particle>
+            <solid_angle mincos="-0.4" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+
+    <source name="vertical_muons" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="mu+"> <energy e="10."/> </particle>
+            <direction theta="0" phi="0"/>
+        </spectrum>
+    </source>
+
+   <!-- the CHIME spectrum. angular dependence and rate are from the CHIME spectrum object 
+         This is deprecated, since it is not supported, and gives wrong angular distributions.
+      -->
+    <source name="chime" >
+        <spectrum escale="GeV"> <SpectrumClass name="CHIMESpectrum"/> <use_spectrum/> </spectrum>
+    </source>
+
+    <!-- the CHIME spectrum at Maximum flux. angular dependence and rate are from the CHIME spectrum object -->
+    <source name="chimemax" >
+        <spectrum escale="GeV"> <SpectrumClass name="CHIMESpectrum" params="-28.5,110"/> <use_spectrum/> </spectrum>
+    </source>
+
+    <!-- the CHIME spectrum at average flux. angular dependence and rate are from the CHIME spectrum object -->
+    <source name="chimeavg" >
+        <spectrum escale="GeV"> <SpectrumClass name="CHIMESpectrum" params="13.8, 24.9"/> <use_spectrum/> </spectrum>
+    </source>
+
+	<!-- the CHIME spectrum at minimum flux. angular dependence and rate are from the CHIME spectrum object -->
+    <source name="chimemin" >
+        <spectrum escale="GeV"> <SpectrumClass name="CHIMESpectrum" params="10.0, 144.37"/> <use_spectrum/> </spectrum>
+    </source>
+   
+
+    <!-- default creme is the orbit average -->   
+    <source name="cremeavg" >
+        <spectrum escale="GeV"> <SpectrumClass name="FILESpectrum" params="sources/glast_smin_flx.txt"/> 
+            <solid_angle mincos="-0.4" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+    <!-- galactic electron spectrum -->
+    <source name="electron">
+        <spectrum escale="GeV"> <SpectrumClass name="GalElSpectrum"/> <use_spectrum/> </spectrum>
+    </source>
+
+
+	<!-- galactic electron spectrum evaluated at the CHIME  average . angular dependence and rate are from the CHIME spectrum object -->
+    <source name="electronavg" >
+        <spectrum escale="GeV"> <SpectrumClass name="GalElSpectrum" params="13.8, 24.9"/> <use_spectrum/> </spectrum>
+    </source>
+
+ 
+    <!-- galactic electron spectrum orbit max-->
+    <source name="electronmax">
+        <spectrum escale="GeV"> <SpectrumClass name="GalElSpectrum" params="-28.5,110"/> <use_spectrum/> </spectrum>
+    </source>
+
+
+    <!-- the albedo proton spectrum, measured by AMS, implemented by AlbedoPSpectrum. isotropic for now  -->
+    <source name="albedo_proton_max">
+         <spectrum escale="GeV"> <SpectrumClass name="AlbedoPSpectrum" params="4.78,8.18"/>  <solid_angle mincos="-1.0" maxcos="1.0"/>
+         </spectrum>
+    </source>
+
+	<!-- the albedo proton spectrum, measured by AMS, implemented by AlbedoPSpectrum. isotropic for now  -->
+    <source name="albedo_proton_avg">
+         <spectrum escale="GeV"> <SpectrumClass name="AlbedoPSpectrum" params="19.6,37.99"/>  <solid_angle mincos="-1.0" maxcos="1.0"/>
+         </spectrum>
+	</source>
+
+    <source name="albedo_electronpositronlow" flux="146.">
+        <spectrum escale="GeV">
+            <particle name="e+" >
+                <power_law emin="0.010" emax="0.1" gamma="1.0"/>
+            </particle>
+            <solid_angle mincos="-1.0" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+    <source name="albedo_electronpositronhi" flux="28.8">
+        <spectrum escale="GeV">
+            <particle name="e+" >
+                <power_law emin="0.10" gamma="3.2"/>
+            </particle>
+            <solid_angle mincos="-1.0" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+    <source name="albedo_electronpositronavglow" flux="73.">
+        <spectrum escale="GeV">
+            <particle name="e+" >
+                <power_law emin="0.010" emax="0.1" gamma="1.0"/>
+            </particle>
+            <solid_angle mincos="-1.0" maxcos="1.0"/>
+        </spectrum>
+    </source>
+    <source name="albedo_electronpositronavghi" flux="14.4">
+        <spectrum escale="GeV">
+            <particle name="e+" >
+                <power_law emin="0.10" gamma="3.2"/>
+            </particle>
+            <solid_angle mincos="-1.0" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+
+    <!-- source that represents the Earth horizon albedo with Glast zenith pointing
+     Numbers are based on Thompson et al., JGR 86, 1265
+     Flux starts with total of 920/m/s at 115 degrees, extrapolated down to 10 MeV using
+     E^-2 spectrum and assuming isotropic in phi:
+     920/(2.*3.14159*0.01) = 1.464226713225e+004
+     Note that the angle theta below is the pitch angle of the space craft.
+     -->
+    <source name="albedo_gamma" flux="14642">
+        <spectrum escale="GeV">
+            <particle name="gamma" >
+                <power_law emin="0.010" gamma="2"/>
+            </particle>
+            <solid_angle mincos="-0.405" maxcos="-0.395" theta="0"/>
+        </spectrum>
+    </source>
+
+    <!-- source that represents the spalsh and re-entrant albedo electrons and positrons 
+     Numbers are based on LAT-TD-00250-01 figure 10, multiplied by 2 for positrons and is
+	 isotropic to include splash and re-entrant pieces and is blindly extrapolated down
+	 to 10 MeV (worst case).
+     -3.2 index spectrum (best fit by eye) and assuming isotropic in phi:
+     = 994 particles/m^2/s/sr integrated above 20 MeV.  Make them all positrons for worst case and simplicity.
+     -->
+    <source name="albedo_electronpositron" flux="994.">
+        <spectrum escale="GeV">
+            <particle name="e+" >
+                <power_law emin="0.020" gamma="3.2"/>
+            </particle>
+            <solid_angle mincos="-1.0" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+    <!-- 'standard' background mixture -->
+    <source name="backgndmix">
+        <nestedSource sourceRef="albedo_proton_avg"/>
+        <nestedSource sourceRef="albedo_gamma"/>
+    </source>
+
+    <source name="albedo_electronpositronavg_total">
+        <nestedSource sourceRef="albedo_electronpositronavglow"/>
+        <nestedSource sourceRef="albedo_electronpositronavghi"/>
+    </source>
+
+	
+    <source name="albedo_electronpositron_total">
+        <nestedSource sourceRef="albedo_electronpositronlow"/>
+        <nestedSource sourceRef="albedo_electronpositronhi"/>
+    </source>
+
+
+    <!-- diffuse extraglactic from 10 MeV: from APJ 494:523
+            1.45E-5 /cm^2/s E> 100 MeV, so (1.45E-5)*(1e4 cm^2/m^2)*(100/10)^1.1 = 1.83
+            -->
+    <source name="diffuse" flux="1.83">
+        <spectrum escale="GeV">
+            <particle name="gamma">  <power_law emin="0.01" gamma="2.1"/></particle>
+            <solid_angle mincos="-0.4" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+    <!-- diffuse extraglactic from 100 MeV: see above for numbers-->
+    <source name="diffuse-100mev" flux="0.145">
+        <spectrum escale="GeV">
+            <particle name="gamma">  <power_law emin="0.1" gamma="2.1"/></particle>
+            <solid_angle mincos="-0.4" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+    <!--the Crab, pulsed portion, with pointed observation, for photons above 100 MeV,
+        based on Nolan APJ 409:697
+        The flux number is: 4.11E-9/2.15*(274/100)**2.15*(1e4cm^2/m^2)*100 MeV
+    -->
+    <source name="crab-pulsed-pointed" flux="0.0167">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.100" emax="100." gamma="2.15"/>
+            </particle>
+            <direction/>
+        </spectrum>
+
+    </source>
+
+    <!--the Crab, pulsed portion, with pointed observation, for photons above 100 MeV,
+        based on Nolan APJ 409:697
+        The flux number is: 4.11E-9/2.15*(274/100)**2.15*(1e4cm^2/m^2)*100 MeV
+    -->
+    <source name="crab-galactic" flux="0.0167">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.100" emax="100." gamma="2.15"/>
+            </particle>
+            <galactic_dir l="-179.31." b="-5.8."/>
+        </spectrum>
+
+    </source>
+
+<!--Vela, off-pulse portion, with pointed observation, for photons above 30 MeV,
+        based on astro-ph/9709123 from arXiv.org. The flux above 100 MeV was 4.4*10^-7
+        (cm^-2*s^-1), and the flux was extrapolated down to 30 MeV with the same index.
+    -->
+    <source name="vela" flux="0.00928">
+        <spectrum escale="MeV">
+            <particle name="gamma"> <power_law emin="100.0" emax="100000." gamma="1.62"/>
+            </particle>
+            <celestial_dir ra="45.4." dec="26.2."/>
+        </spectrum>
+
+    </source>
+
+</source_library>
+
