@@ -1,13 +1,13 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.5 2003/10/29 20:58:22 srobinsn Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.6 2003/11/07 12:56:21 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
 
 
-#include <strstream>
+#include <sstream>
 #include <cassert>
 #include <numeric> // for accumulate
 #include <functional>
@@ -82,7 +82,7 @@ EventSource* CompositeSource::event (double time)
 
 std::string CompositeSource::fullTitle () const
 {
-    std::strstream  s;
+    std::stringstream  s;
     std::vector<EventSource*>::const_iterator	it = m_sourceList.begin();
 
     while (it != m_sourceList.end()) {
@@ -93,7 +93,6 @@ std::string CompositeSource::fullTitle () const
     }
     s << '\0';
     std::string t(s.str());
-    s.freeze(false);
     return t;
 }
 

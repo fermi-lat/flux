@@ -112,9 +112,9 @@ private:
    rootHist *flux_hist; ///< histogram to store fluxes
    rootHist *flux_sigma_hist; ///< histogram to store uncertainties
    rootHist *raw_hist; ///< histogram to store raw counts
-   const int num_bins;  ///< number of bins for the histogram
    const double emin;   ///< minimum energy
    const double emax;   ///< maximum energy
+   const int num_bins;  ///< number of bins for the histogram
    double range;        ///< logarithmic range of energies
    std::string graphTitle;    ///< title of graph
    std::string xlabel;  ///< x axis title

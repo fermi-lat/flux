@@ -31,4 +31,4 @@ namespace Geomag {
     double geoInterp(double, double, const double *);
 }
 
-#endif GEOMAG_H
+#endif //GEOMAG_H

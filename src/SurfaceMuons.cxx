@@ -2,7 +2,7 @@
 * @file SurfaceMuons.cxx
 * @brief declaration and definition of SurfaceMuons
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/SurfaceMuons.cxx,v 1.6 2003/03/25 21:58:49 xchen Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 */
 #include "flux/Spectrum.h"
 #include "flux/SpectrumFactory.h"
@@ -19,7 +19,7 @@
 * \brief Spectrum representing cosmic ray muon flux at the Earth's surface
 * \author T. Burnett
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/SurfaceMuons.cxx,v 1.6 2003/03/25 21:58:49 xchen Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 */
 //
 
@@ -32,7 +32,7 @@ public:
     SurfaceMuons(const std::string& paramstring);
 
     /// flux integrated over energy, will be multipled by solidAngle to get a rate/m^2
-    double flux (double time ) const { return m_flux/solidAngle();}
+    double flux (double /*time*/ ) const { return m_flux/solidAngle();}
 
     double solidAngle()const{return 2*M_PI*fabs(m_cosmax-m_cosmin);}
     
@@ -108,7 +108,6 @@ SurfaceMuons::SurfaceMuons(const std::string& paramstring)
       // create integral table of the flux function, as a map of
       // energy and e*flux(e), with logarithmic energies
       int n=100;
-      double  emin=1;
         
       for( int i=0; i< n; ++i){
         double 
@@ -156,8 +155,7 @@ double SurfaceMuons::energy( double time )
          // interpolate if not last one
          double 
              deltaI = fraction-prev->first/m_total,
-             deltaE = element->second -energy,
-             correct = deltaE*deltaI;
+             deltaE = element->second -energy;
          return (energy+deltaI)/m_costh; 
     }
     return m_emax/m_costh;
