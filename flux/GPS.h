@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.2 2003/08/03 22:08:20 srobinsn Exp $
 
 #if !defined(_H_GPS_CLASS)
 #define _H_GPS_CLASS
@@ -23,7 +23,7 @@
 * \class GPS
 * \brief Models the Global Positoning System for a spacecraft. Handles time, position, and orientation for the instrument as a whole.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.2 2003/08/03 22:08:20 srobinsn Exp $
  Represents the Global Positioning System on-board the spacecraft. An Orbit
   object is used to compute the spacecraft's position and pointing characteristics.
 Time is tracked through this object, and synchronized with the Scheduler for 
@@ -47,6 +47,12 @@ public:
 			POINT, //!  The Lat points in a given direction.  Here, m_rotangles is in (l,b) format for pointing.
 			HISTORY //! This setting is for using a previously generated pointing database to represent the orbit.
         };
+
+	typedef struct{
+		astro::SkyDir dirZ;
+		astro::SkyDir dirX;
+		double lat,lon;
+	}POINTINFO;
 
     class Coords {
     public:
@@ -99,6 +105,12 @@ public:
     void    ascendingLon(double);   
     /// set m_rotangles
     void    rotateAngles(std::pair<double,double> coords); 
+
+	/// set the desired pointing history file to use:
+    void setPointingHistoryFile(std::string fileName);
+
+	/// write the explicit history data for re-creation of orbit.
+	void setUpHistory();
     
     /// print time & position
     void    printOn(std::ostream& out) const; 
@@ -165,6 +177,8 @@ public:
         Subject    m_notification; 
         double m_rockDegrees; //number of degrees to "rock" the spacecraft, along the local x axis.  
         RockType m_rockType;//current rocking scheme
+		std::string m_pointingHistoryFile;//pointing/livetime database history file to use.
+		std::map<double,POINTINFO> m_pointingHistory;
 };
 
 inline std::istream&    operator>>(std::istream& i, GPS::Coords& c) {
