@@ -39,8 +39,7 @@ std::pair<double,double> Spectrum::dir(double energy)
 
 
 const char * Spectrum::particleName()const{
-    static const char x='p';
-    return &x;
+  return m_particle_name.c_str();
 }
 
 double Spectrum::energy( double time)
