@@ -254,14 +254,14 @@ void rootEnergyHist::draw(double scale_factor, std::string mode, int current_plo
             "      e_energy[i] = 0;\n"
             "   }\n"
             "   //                 name, title, wtopx, wtopy, ww, wh\n"
-            "   c1 = new TCanvas(\"c1\",energy_window_title, 200, 200, 700, 500);\n"
-            "   c1->SetGrid();\n"
-            "   c1->GetFrame()->SetFillColor(21);\n"
-            "   c1->GetFrame()->SetBorderSize(12);\n";
+            "   c1 = c2;\n"; //new TCanvas(\"c1\",energy_window_title, 200, 200, 700, 500);\n"
+            //"   c1->SetGrid();\n"
+            //"   c1->GetFrame()->SetFillColor(21);\n"
+            //"   c1->GetFrame()->SetBorderSize(12);\n";
         
-        if(currentType == loglog)        out_file << "   c1->SetLogx(1); c1->SetLogy(1);\n";
-        else if(currentType == semilogx) out_file << "   c1->SetLogx(1);\n";
-        else if(currentType == semilogy) out_file << "   c1->SetLogy(1);\n";
+        if(currentType == loglog)        out_file << "   c1->GetPad(1)->SetLogx(1); c1->GetPad(1)->SetLogy(1);\n";
+        else if(currentType == semilogx) out_file << "   c1->GetPad(1)->SetLogx(1);\n";
+        else if(currentType == semilogy) out_file << "   c1->GetPad(1)->SetLogy(1);\n";
         else if(currentType == linear)   ;
         else
             std::cerr << "Error:  invalid graph type" << std::endl;
@@ -313,7 +313,7 @@ void rootEnergyHist::draw(double scale_factor, std::string mode, int current_plo
     {
         std::ofstream out_file("graph.cxx", std::ios::app);
         out_file <<
-            "   c1->cd();\n"
+            "   c1->cd(1);\n"
             "   double scale_factor" << current_plot << " = " << scale_factor << ";\n"
             "   double count" << current_plot << "[] = {\n";
         {for(int i = 0; i < num_bins; i++)
