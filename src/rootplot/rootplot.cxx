@@ -238,8 +238,6 @@ void rootplot::init(std::vector<const char*> argv)
         angle_hist.setThetaYLabel("Particles");
         
 
-
-
 		std::cout << sources[i] << std::endl;
 
         GPS::instance()->getPointingCharacteristics(time);
@@ -250,16 +248,20 @@ void rootplot::init(std::vector<const char*> argv)
 
         std::cout << "Initial (p/s/m^2): " << e->rate(time)/e->totalArea() << std::endl;
         std::cout << "Initial (p/s/m^2/sr): " << e->flux(time) << std::endl;
-                
+         
+        double time2 = 0;  // time used for scaling the graphs
         for(j = 0; j < loop; j++) 
         {
             EventSource *f = e->event(time);
             //increment the time
             double timeadd = e->interval(time);
-            time += timeadd;
+            time2 += timeadd;
 
             if(!stationary)
+            {
+               time += timeadd;
                fm.pass(timeadd);
+            }
 
             HepVector3D dir = f->launchDir();
             double energy = f->energy();
@@ -280,7 +282,9 @@ void rootplot::init(std::vector<const char*> argv)
         std::cerr << "\n";
 
 		double scale_factor;
-		double flux=(loop/time)/e->totalArea();
+
+
+		double flux=(loop/time2)/e->totalArea();
 		// There's probably a better way to get at the solid angle but
 		// e->solidAngle doesn't seem to be initialized.
 		double solidangle = e->rate(time)/(e->flux(time)*e->totalArea());
@@ -294,9 +298,9 @@ void rootplot::init(std::vector<const char*> argv)
         else
 			scale_factor = flux/loop*num_bins/log(energy_max/energy_min)/solidangle;
 
-
-		std::cout << "Average (p/s/m^2): " << flux  << std::endl;
+        std::cout << "Average (p/s/m^2): " << flux  << std::endl;
         std::cout << "Average (p/s/m^2/sr): " << flux/solidangle << std::endl;
+   
 
 		// Scale factor must be applied before the draw member function can be called
         energy_hist.apply(scale_factor);
