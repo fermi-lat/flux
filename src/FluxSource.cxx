@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.15 2004/01/28 23:52:25 hierath Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.16 2004/02/05 23:15:02 srobinsn Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -263,6 +263,8 @@ public:
         //if the direction is local
         return 1.0;
     }
+
+    virtual const HepVector3D& skyDirection()const { return m_dir; }
 
 private:
     HepRotation m_rottoglast;
@@ -715,4 +717,8 @@ bool FluxSource::occulted(){
 
     return (m_occultable) && (m_zenithCosTheta < minCosTheta);
 
+}
+const HepVector3D& FluxSource::skyDirection()const
+{
+    return m_launch_dir->skyDirection();
 }

@@ -14,7 +14,7 @@ class ISpectrum;
 @brief class which manages to compute flux from various particle source configurations
 It is initialized from a xml description
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.3 2003/10/21 08:43:56 srobinsn Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.4 2003/10/29 16:47:46 burnett Exp $
 */
 class FluxSource : public EventSource  
 {
@@ -64,6 +64,8 @@ public:
     virtual double energy()const { return m_energy;}
     virtual const HepVector3D& launchDir()const {return m_correctedDir;}
     virtual const HepPoint3D&  launchPoint()const { return m_launchPoint;}
+    virtual const HepVector3D& skyDirection()const;
+
     virtual std::string particleName();
     /// this function decides if the current incoming photon would be occulted
     /// by the earth
