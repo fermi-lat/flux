@@ -1,0 +1,33 @@
+package flux
+
+version v7r0
+
+use xml
+use CLHEP v2* IExternal
+use astro v0r*
+
+apply_pattern package_include
+apply_pattern package_linkopts
+
+
+#=============================================================
+private
+
+macro xml_files    "" WIN32 "-s=../xml *.xml *.dtd"
+macro source       "*.cxx" WIN32 "*.h *.cxx"
+
+#static  library
+
+library flux -no_share\
+ -s=../flux $(source) \
+ -s=../src  $(source) \
+ $(xml_files) \
+ -s=rootplot $(source)
+
+# test programs
+
+application testMgr test/testMgr.cxx   
+
+application rootplots rootplot/test/roottest.cxx  
+
+

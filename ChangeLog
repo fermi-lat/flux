@@ -1,0 +1,6887 @@
+------------------------------------------------------------
+User: burnett  Thu May 15 13:34:43 PDT 2003
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt test_source.xml 
+Log Message:
+tagging; see release.notes
+    *
+------------------------------------------------------------
+User: burnett  Thu May 15 13:34:43 PDT 2003
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx mainpage.h 
+Log Message:
+tagging; see release.notes
+    *
+------------------------------------------------------------
+User: burnett  Thu May 15 13:34:42 PDT 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+tagging; see release.notes
+    *
+------------------------------------------------------------
+User: burnett  Thu May 15 13:34:42 PDT 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+tagging; see release.notes
+    *
+------------------------------------------------------------
+User: hierath  Fri May  9 18:48:15 PDT 2003
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+Fixed a normalization problem when plotting time dependent sources.  
+    *
+------------------------------------------------------------
+User: hierath  Fri May  9 13:48:31 PDT 2003
+FluxSvc/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+    *
+------------------------------------------------------------
+User: burnett  Thu Apr  3 11:46:42 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tagging v6r4p3
+    *
+------------------------------------------------------------
+User: burnett  Thu Apr  3 11:46:41 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tagging v6r4p3
+    *
+------------------------------------------------------------
+User: burnett  Thu Apr  3 11:44:50 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx SimpleSpectrum.cxx SimpleSpectrum.h 
+Log Message:
+fix up SimpleSpectrum label
+    *
+------------------------------------------------------------
+User: xchen  Tue Mar 25 14:00:09 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+modify surface_muons source so that it can generate muons according to an analytic spectrum
+
+    *
+------------------------------------------------------------
+User: xchen  Tue Mar 25 13:58:49 PST 2003
+FluxSvc/src
+
+Modified Files:
+	SurfaceMuons.cxx 
+Log Message:
+modify code so that it can generate muons with an analytic energy spectrum
+
+    *
+------------------------------------------------------------
+User: burnett  Fri Mar 21 14:45:06 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+fix bad file spec
+    *
+------------------------------------------------------------
+User: jrb  Fri Mar 21 12:00:46 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+updated for new release
+    *
+------------------------------------------------------------
+User: jrb  Fri Mar 21 12:00:03 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+Added new line - version v6r4p2
+    *
+------------------------------------------------------------
+User: jrb  Fri Mar 21 11:14:38 PST 2003
+FluxSvc/src
+
+Modified Files:
+	EventSource.cxx FluxMgr.cxx FluxMgr.h FluxSource.cxx 
+	SimpleSpectrum.cxx 
+Log Message:
+Change Xerces include references to new style, compatible with Xerces 1.7.0
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar 20 13:45:04 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tagging after bug fix.
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar 20 13:45:04 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tagging after bug fix.
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar 20 11:55:33 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+restore proper rates for power-law spectra;
+remove FluxSource from interface
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar 20 11:55:33 PST 2003
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootplot.cxx rootplot.h 
+Log Message:
+restore proper rates for power-law spectra;
+remove FluxSource from interface
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar 20 11:55:32 PST 2003
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx CompositeSource.h EventSource.cxx 
+	EventSource.h Flux.cxx Flux.h FluxMgr.cxx FluxSource.cxx 
+	FluxSource.h 
+Log Message:
+restore proper rates for power-law spectra;
+remove FluxSource from interface
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar 20 11:55:32 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFlux.h 
+Log Message:
+restore proper rates for power-law spectra;
+remove FluxSource from interface
+    *
+------------------------------------------------------------
+User: burnett  Wed Mar 19 11:15:33 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tagging v6r4
+    *
+------------------------------------------------------------
+User: burnett  Wed Mar 19 11:15:32 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tagging v6r4
+    *
+------------------------------------------------------------
+User: burnett  Wed Mar 19 10:50:48 PST 2003
+FluxSvc/src
+
+Modified Files:
+	SurfaceMuons.cxx 
+Log Message:
+fix bug that suppressed low energies
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Mar 18 22:31:04 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx FluxMgr.h FluxSvc.cxx GPS.cxx GPS.h 
+Log Message:
+rocking mode methods given facility to return current state.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Mar 18 22:31:03 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+rocking mode methods given facility to return current state.
+
+    *
+------------------------------------------------------------
+User: burnett  Fri Mar  7 14:16:02 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+new patch tag
+    *
+------------------------------------------------------------
+User: burnett  Fri Mar  7 14:16:01 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+new patch tag
+    *
+------------------------------------------------------------
+User: burnett  Fri Mar  7 13:44:50 PST 2003
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+
+implement phi angle for fixed orientation. wired-in backoff distance to 1.5 m
+    *
+------------------------------------------------------------
+User: burnett  Fri Mar  7 13:44:50 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx FluxSource.cxx mainpage.h 
+Log Message:
+
+implement phi angle for fixed orientation. wired-in backoff distance to 1.5 m
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar  6 20:32:12 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+
+Tagging documentation changes by Sean; 
+Fixed transformation when launch point is the target sphere.
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar  6 20:32:12 PST 2003
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+
+Tagging documentation changes by Sean; 
+Fixed transformation when launch point is the target sphere.
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar  6 20:32:12 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+Tagging documentation changes by Sean; 
+Fixed transformation when launch point is the target sphere.
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar  6 20:32:12 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+Tagging documentation changes by Sean; 
+Fixed transformation when launch point is the target sphere.
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar  6 20:25:11 PST 2003
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+fix tilting calculation to properly deal with the target sphere
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar  6 20:25:10 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+fix tilting calculation to properly deal with the target sphere
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Mar  5 16:53:16 PST 2003
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+extra comments into ISpectrum, explicit rocking declarable through joboptions (rocking mode "4".)
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Mar  5 16:53:16 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+extra comments into ISpectrum, explicit rocking declarable through joboptions (rocking mode "4".)
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Mar  5 16:53:16 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	ISpectrum.h 
+Log Message:
+extra comments into ISpectrum, explicit rocking declarable through joboptions (rocking mode "4".)
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Mar  3 16:04:33 PST 2003
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+rocking angle setting allowed for, extra rocking documentation added.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Mar  3 16:04:33 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx FluxMgr.cxx FluxMgr.h FluxSource.cxx FluxSvc.cxx 
+Log Message:
+rocking angle setting allowed for, extra rocking documentation added.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Mar  3 16:04:32 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+rocking angle setting allowed for, extra rocking documentation added.
+
+    *
+------------------------------------------------------------
+User: burnett  Sun Mar  2 11:11:16 PST 2003
+FluxSvc/src
+
+Modified Files:
+	EventSource.cxx EventSource.h Flux.cxx Flux.h FluxAlg.cxx 
+	FluxMgr.h SurfaceMuons.cxx 
+Log Message:
+doxygen cleanup, especially @file entries
+    *
+------------------------------------------------------------
+User: burnett  Sun Mar  2 09:49:00 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx FluxSource.cxx GPS.cxx 
+Log Message:
+unix warnings
+    *
+------------------------------------------------------------
+User: burnett  Sun Mar  2 09:49:00 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFlux.h 
+Log Message:
+unix warnings
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 22:35:58 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx FluxSource.cxx Spectrum.cxx 
+Log Message:
+final fix for moving headers
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 22:32:26 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+allow selection of range of cos theta, with rate computed appropriately
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 22:32:25 PST 2003
+FluxSvc/src
+
+Modified Files:
+	SurfaceMuons.cxx 
+Log Message:
+allow selection of range of cos theta, with rate computed appropriately
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 22:30:57 PST 2003
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+move header files from interface directory;  
+more doc changes, clean out unused methods.
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 22:30:57 PST 2003
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootplot.h 
+Log Message:
+move header files from interface directory;  
+more doc changes, clean out unused methods.
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 22:30:57 PST 2003
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx CompositeSource.h EventSource.cxx 
+	ExposureAlg.cxx Flux.cxx FluxMgr.cxx FluxMgr.h FluxSource.cxx 
+	FluxSvc.cxx FluxSvc.h Spectrum.h SpectrumFactoryTable.h 
+	mainpage.h 
+Added Files:
+	EventSource.h FluxSource.h 
+Log Message:
+move header files from interface directory;  
+more doc changes, clean out unused methods.
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 22:30:57 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+move header files from interface directory;  
+more doc changes, clean out unused methods.
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 22:30:56 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	ISpectrum.h 
+Removed Files:
+	EventSource.h FluxSource.h 
+Log Message:
+move header files from interface directory;  
+more doc changes, clean out unused methods.
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 18:08:45 PST 2003
+FluxSvc/doc
+
+Added Files:
+	Doxyfile 
+Log Message:
+update documentation
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 18:08:45 PST 2003
+FluxSvc/src
+
+Modified Files:
+	mainpage.h 
+Log Message:
+update documentation
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 15:26:48 PST 2003
+FluxSvc/src
+
+Modified Files:
+	SurfaceMuons.cxx 
+Log Message:
+
+clean up, prepare for tag
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 15:26:48 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+clean up, prepare for tag
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 15:26:48 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+clean up, prepare for tag
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 15:26:48 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFlux.h IFluxSvc.h 
+Log Message:
+
+clean up, prepare for tag
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 15:14:56 PST 2003
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+mostly fixing doxygen comments;
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Mar  1 15:14:56 PST 2003
+FluxSvc/src
+
+Modified Files:
+	Flux.cxx Flux.h FluxAlg.cxx FluxAlg.h FluxMgr.cxx FluxMgr.h 
+	FluxSource.cxx GPS.cxx GPS.h SimpleSpectrum.cxx 
+	SimpleSpectrum.h Spectrum.h TimeCandle.cxx TimeCandle.h 
+	mainpage.h 
+Log Message:
+mostly fixing doxygen comments;
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb 27 17:47:39 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx FluxMgr.h FluxSvc.cxx FluxSvc.h GPS.cxx GPS.h 
+Log Message:
+SetExplicitRotationAngles put in as a fluxSvc method, sets an explicitly declared set of rocking angles.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb 27 17:47:39 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+SetExplicitRotationAngles put in as a fluxSvc method, sets an explicitly declared set of rocking angles.
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Feb 26 21:02:24 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tagging
+    *
+------------------------------------------------------------
+User: burnett  Wed Feb 26 21:00:39 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+new surface muon source
+    *
+------------------------------------------------------------
+User: burnett  Wed Feb 26 21:00:39 PST 2003
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+new surface muon source
+    *
+------------------------------------------------------------
+User: burnett  Wed Feb 26 21:00:39 PST 2003
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootAngleHist.cxx rootHist.cxx 
+Log Message:
+new surface muon source
+    *
+------------------------------------------------------------
+User: burnett  Wed Feb 26 21:00:39 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxException.h FluxMgr.cxx FluxSource.cxx 
+Added Files:
+	SurfaceMuons.cxx 
+Log Message:
+new surface muon source
+    *
+------------------------------------------------------------
+User: burnett  Wed Feb 26 21:00:38 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+new surface muon source
+    *
+------------------------------------------------------------
+User: burnett  Wed Feb 26 21:00:38 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+new surface muon source
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Feb 26 14:26:00 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+"local variable or temporary" warning fixed in FluxSource.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Feb 25 17:43:47 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+galcenter source added, galactic rotation implemented in FluxSource.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Feb 25 17:43:47 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+galcenter source added, galactic rotation implemented in FluxSource.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Feb 25 17:43:46 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+galcenter source added, galactic rotation implemented in FluxSource.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Feb 24 16:38:41 PST 2003
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+Orbit class removed, references removed from GPS, GPS cleaned up, obsolete setposition function referecing Orbit removed from FluxMgr.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Feb 24 16:38:40 PST 2003
+FluxSvc/src
+
+Modified Files:
+	Flux.cxx FluxMgr.cxx FluxMgr.h FluxSource.cxx GPS.cxx GPS.h 
+Removed Files:
+	Orbit.cxx Orbit.h 
+Log Message:
+Orbit class removed, references removed from GPS, GPS cleaned up, obsolete setposition function referecing Orbit removed from FluxMgr.
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Feb 22 18:08:22 PST 2003
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+change interface to remove random engine from ISpectrum, give access via IFluxSvc
+    *
+------------------------------------------------------------
+User: burnett  Sat Feb 22 18:08:22 PST 2003
+FluxSvc/src/test
+
+Modified Files:
+	RegisterTest.cxx jobOptions.txt test_source.xml 
+Log Message:
+change interface to remove random engine from ISpectrum, give access via IFluxSvc
+    *
+------------------------------------------------------------
+User: burnett  Sat Feb 22 18:08:22 PST 2003
+FluxSvc/src
+
+Modified Files:
+	AlbedoPSpectrum.cxx AlbedoPSpectrum.h CHIMESpectrum.cxx 
+	CHIMESpectrum.h FluxSource.cxx FluxSvc.cxx FluxSvc.h 
+	GalElSpectrum.cxx GalElSpectrum.h Spectrum.cxx Spectrum.h 
+	TimeCandle.h 
+Log Message:
+change interface to remove random engine from ISpectrum, give access via IFluxSvc
+    *
+------------------------------------------------------------
+User: burnett  Sat Feb 22 18:08:21 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+change interface to remove random engine from ISpectrum, give access via IFluxSvc
+    *
+------------------------------------------------------------
+User: burnett  Sat Feb 22 18:08:21 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h ISpectrum.h ISpectrumFactory.h 
+Log Message:
+change interface to remove random engine from ISpectrum, give access via IFluxSvc
+    *
+------------------------------------------------------------
+User: burnett  Sat Feb 22 18:08:21 PST 2003
+FluxSvc
+
+Modified Files:
+	.cvsignore 
+Log Message:
+change interface to remove random engine from ISpectrum, give access via IFluxSvc
+    *
+------------------------------------------------------------
+User: burnett  Sat Feb 22 08:14:02 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	.cvsignore 
+Log Message:
+clean up cvs output
+    *
+------------------------------------------------------------
+User: burnett  Sat Feb 22 08:14:02 PST 2003
+FluxSvc
+
+Modified Files:
+	.cvsignore 
+Log Message:
+clean up cvs output
+    *
+------------------------------------------------------------
+User: burnett  Sat Feb 22 06:56:44 PST 2003
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+refactoring consequence
+    *
+------------------------------------------------------------
+User: burnett  Sat Feb 22 06:38:02 PST 2003
+FluxSvc/src
+
+Modified Files:
+	AlbedoPSpectrum.cxx CompositeSource.cxx FluxMgr.h 
+	FluxSource.cxx 
+Log Message:
+
+fix linux compilation issue
+    *
+------------------------------------------------------------
+User: burnett  Sat Feb 22 06:38:02 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h FluxSource.h 
+Log Message:
+
+fix linux compilation issue
+    *
+------------------------------------------------------------
+User: burnett  Fri Feb 21 22:03:37 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tag v5r19 after refactoring
+    *
+------------------------------------------------------------
+User: burnett  Fri Feb 21 22:03:37 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tag v5r19 after refactoring
+    *
+------------------------------------------------------------
+User: burnett  Fri Feb 21 21:58:28 PST 2003
+FluxSvc/src/test
+
+Added Files:
+	test_source.xml 
+Log Message:
+fix test
+    *
+------------------------------------------------------------
+User: burnett  Fri Feb 21 21:42:25 PST 2003
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+refactoring, phase 2
+    *
+------------------------------------------------------------
+User: burnett  Fri Feb 21 21:42:25 PST 2003
+FluxSvc/src
+
+Modified Files:
+	CHIMESpectrum.cxx CHIMESpectrum.h CompositeSource.cxx 
+	EventSource.cxx FluxMgr.cxx FluxSource.cxx GalElSpectrum.cxx 
+	SimpleSpectrum.cxx 
+Log Message:
+refactoring, phase 2
+    *
+------------------------------------------------------------
+User: burnett  Fri Feb 21 21:42:24 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h FluxSource.h 
+Log Message:
+refactoring, phase 2
+    *
+------------------------------------------------------------
+User: burnett  Thu Feb 20 15:12:00 PST 2003
+FluxSvc/src
+
+Modified Files:
+	EventSource.cxx FluxSource.cxx 
+Log Message:
+consequence of refactorization
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb 20 14:04:11 PST 2003
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Added Files:
+	test_library.xml 
+Log Message:
+testMgr altered to allow many source-checking, output to a file.
+lines added to eventsource for functionality.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb 20 14:04:11 PST 2003
+FluxSvc/src
+
+Modified Files:
+	EventSource.cxx FluxMgr.cxx 
+Log Message:
+testMgr altered to allow many source-checking, output to a file.
+lines added to eventsource for functionality.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb 20 14:04:11 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h 
+Log Message:
+testMgr altered to allow many source-checking, output to a file.
+lines added to eventsource for functionality.
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Feb 20 13:39:04 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source.dtd 
+Log Message:
+big fix to simplify specification of sources
+    *
+------------------------------------------------------------
+User: burnett  Thu Feb 20 13:39:03 PST 2003
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+big fix to simplify specification of sources
+    *
+------------------------------------------------------------
+User: burnett  Thu Feb 20 13:39:03 PST 2003
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+big fix to simplify specification of sources
+    *
+------------------------------------------------------------
+User: burnett  Thu Feb 20 13:39:03 PST 2003
+FluxSvc/src
+
+Modified Files:
+	EventSource.cxx FluxAlg.cxx FluxMgr.cxx FluxSource.cxx 
+Log Message:
+big fix to simplify specification of sources
+    *
+------------------------------------------------------------
+User: burnett  Thu Feb 20 13:39:03 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+big fix to simplify specification of sources
+    *
+------------------------------------------------------------
+User: burnett  Thu Feb 20 13:39:02 PST 2003
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h FluxSource.h 
+Log Message:
+big fix to simplify specification of sources
+    *
+------------------------------------------------------------
+User: burnett  Wed Feb 12 07:53:12 PST 2003
+FluxSvc/src/test
+
+Modified Files:
+	RegisterTest.cxx 
+Log Message:
+put it a little debug output to trace puzzling core dump
+    *
+------------------------------------------------------------
+User: burnett  Wed Feb 12 07:53:11 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+put it a little debug output to trace puzzling core dump
+    *
+------------------------------------------------------------
+User: burnett  Mon Feb 10 06:50:44 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tagging v5r18p1
+    *
+------------------------------------------------------------
+User: burnett  Mon Feb 10 06:50:43 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tagging v5r18p1
+    *
+------------------------------------------------------------
+User: burnett  Mon Feb 10 06:48:22 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+
+did not need ToolSvc: just have the tools belong to FluxSvc.
+    *
+------------------------------------------------------------
+User: burnett  Sun Feb  9 08:53:58 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+bypass initialize call when searching for Flux creation tools.
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb  6 14:55:29 PST 2003
+FluxSvc/src
+
+Modified Files:
+	GalElSpectrum.cxx GalElSpectrum.h 
+Log Message:
+GalElSpectrum altered to not exhibit chime "negative table index" bug.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb  6 14:55:28 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+GalElSpectrum altered to not exhibit chime "negative table index" bug.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb  6 09:53:38 PST 2003
+FluxSvc/src
+
+Modified Files:
+	CHIMESpectrum.cxx 
+Log Message:
+longitude input offset in CHIMESpectrum fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 29 14:30:40 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+electronmax, avg reinstated, exposurealg output now has time in elapsed seconds.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 29 14:30:40 PST 2003
+FluxSvc/src
+
+Modified Files:
+	ExposureAlg.cxx 
+Log Message:
+electronmax, avg reinstated, exposurealg output now has time in elapsed seconds.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jan 28 12:28:34 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+GalElSpectrum added back in, rootplot "delete e" issue fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jan 28 12:28:34 PST 2003
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+GalElSpectrum added back in, rootplot "delete e" issue fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jan 28 12:28:34 PST 2003
+FluxSvc/src
+
+Modified Files:
+	CHIMESpectrum.cxx FluxMgr.cxx 
+Added Files:
+	GalElSpectrum.cxx GalElSpectrum.h 
+Log Message:
+GalElSpectrum added back in, rootplot "delete e" issue fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jan 27 11:35:35 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+chimemin added, spectrum interval defaulted to aviod "solid angle=1" error.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jan 27 11:35:35 PST 2003
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+chimemin added, spectrum interval defaulted to aviod "solid angle=1" error.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jan 27 11:35:35 PST 2003
+FluxSvc/src
+
+Modified Files:
+	CHIMESpectrum.cxx FluxSource.cxx Spectrum.cxx 
+Log Message:
+chimemin added, spectrum interval defaulted to aviod "solid angle=1" error.
+
+    *
+------------------------------------------------------------
+User: dnwren  Fri Jan 24 12:05:04 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+reinserted "backgndmaxpdr" composite flux.
+backgnd(avg/max)pdr updated to use nested composite albedo_electronpositron(avg)_total
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 23 15:16:14 PST 2003
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+chimeavg re-inserted.
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Jan 22 14:27:04 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+prepare to tag
+    *
+------------------------------------------------------------
+User: burnett  Wed Jan 22 14:27:04 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+prepare to tag
+    *
+------------------------------------------------------------
+User: burnett  Wed Jan 22 14:24:02 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+necessary to have the tool service release it.
+    *
+------------------------------------------------------------
+User: burnett  Sun Jan 19 17:48:30 PST 2003
+FluxSvc/cdf
+
+Modified Files:
+	particle.cdf 
+Log Message:
+change He number to agree with G4Generator convention
+    *
+------------------------------------------------------------
+User: burnett  Sun Jan 19 15:48:56 PST 2003
+FluxSvc/cdf
+
+Modified Files:
+	particle.cdf 
+Log Message:
+copy some preliminary heavy ions info from EXTLIB
+    *
+------------------------------------------------------------
+User: burnett  Wed Jan 15 21:58:56 PST 2003
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx 
+Log Message:
+remove warning
+    *
+------------------------------------------------------------
+User: burnett  Tue Jan 14 18:20:29 PST 2003
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+fix for vsnet, tagging
+    *
+------------------------------------------------------------
+User: burnett  Tue Jan 14 18:20:29 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+fix for vsnet, tagging
+    *
+------------------------------------------------------------
+User: als  Thu Jan  9 20:58:37 PST 2003
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+sandbox merge
+
+version v5r17
+update use statements
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Dec 22 12:16:35 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+source "vela_low" removed, "vela" extends down to 30 MeV.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Dec 21 15:12:35 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+sources "vela" (above 100 MeV), and "vela_low" (extrapolated above 30 MeV) added, suggestion in spectrum.cxx to remove defaulted interval function.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Dec 21 15:12:35 PST 2002
+FluxSvc/src
+
+Modified Files:
+	Spectrum.cxx 
+Log Message:
+sources "vela" (above 100 MeV), and "vela_low" (extrapolated above 30 MeV) added, suggestion in spectrum.cxx to remove defaulted interval function.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Dec 16 23:43:13 PST 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+"fixed lat/lon" issue fixed in albedoP, exposureAlg output changed so time is readable, collected rate function added to fluxAlg output.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Dec 16 23:43:12 PST 2002
+FluxSvc/src
+
+Modified Files:
+	AlbedoPSpectrum.cxx AlbedoPSpectrum.h ExposureAlg.cxx 
+	FluxAlg.cxx FluxAlg.h 
+Log Message:
+"fixed lat/lon" issue fixed in albedoP, exposureAlg output changed so time is readable, collected rate function added to fluxAlg output.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Dec 12 14:48:47 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+chime altered not to change flux if explicit initial coordinates are furnished.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Dec 12 14:48:47 PST 2002
+FluxSvc/src
+
+Modified Files:
+	CHIMESpectrum.cxx CHIMESpectrum.h 
+Log Message:
+chime altered not to change flux if explicit initial coordinates are furnished.
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Dec 12 13:42:58 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+
+put chimemax back in, since we still have Chime. (but it is deprecated, too.)
+    *
+------------------------------------------------------------
+User: burnett  Thu Dec 12 13:31:18 PST 2002
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+
+fix argument counting so a single arg is interpreted as the spectrum name
+    *
+------------------------------------------------------------
+User: burnett  Wed Nov 20 21:23:47 PST 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+put particle definitions here; tagging v5r16.
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Nov 20 21:23:46 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+put particle definitions here; tagging v5r16.
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Nov 20 21:23:46 PST 2002
+FluxSvc/cdf
+
+Added Files:
+	particle.cdf 
+Log Message:
+
+put particle definitions here; tagging v5r16.
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Nov 20 21:15:19 PST 2002
+FluxSvc/cdf
+
+Log Message:
+Directory /nfs/slac/g/glast/ground/cvs/FluxSvc/cdf added to the repository
+--> Using per-directory sticky tag `v5r15p2'
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Nov 20 12:09:54 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FILESpectrum.cxx FILESpectrum.h 
+Log Message:
+flux method with time input added to FILESpectrum to fix spectrum::flux default bug.
+
+    *
+------------------------------------------------------------
+User: hierath  Thu Nov 14 13:05:46 PST 2002
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootAngleHist.cxx rootEnergyHist.cxx rootHist.cxx rootHist.h 
+	rootplot.cxx rootplot.h 
+Log Message:
+Minor changes to variable names and added histogram incrementing
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Nov  6 11:51:48 PST 2002
+FluxSvc/xml
+
+Removed Files:
+	user_library.xml 
+Log Message:
+removed obsolete and confusing file
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Nov  4 14:53:49 PST 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+ready for tag.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Nov  4 14:53:48 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+ready for tag.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Nov  4 14:11:07 PST 2002
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+rootplot now advances time to be consistent with time-varying flux/composites.
+
+    *
+------------------------------------------------------------
+User: burnett  Fri Nov  1 15:27:55 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+temporarily restore CHIME
+    *
+------------------------------------------------------------
+User: burnett  Fri Nov  1 15:27:54 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx 
+Added Files:
+	CHIMESpectrum.cxx CHIMESpectrum.h CHIMESpectrum.inc 
+Log Message:
+temporarily restore CHIME
+    *
+------------------------------------------------------------
+User: burnett  Fri Nov  1 15:27:54 PST 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+temporarily restore CHIME
+    *
+------------------------------------------------------------
+User: burnett  Fri Nov  1 15:27:54 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+temporarily restore CHIME
+    *
+------------------------------------------------------------
+User: burnett  Fri Nov  1 13:53:16 PST 2002
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootHist.cxx 
+Log Message:
+
+fix endpoint problem by putting under/overflow in end bins.
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 20:33:31 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Removed Files:
+	composite_library.xml 
+Log Message:
+remove GalElSpectrum
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 17:43:57 PST 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tagging v5r15
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 17:43:57 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tagging v5r15
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 30 17:36:56 PST 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+GalElSpectrum removed, jobOptions altered to remove other source libraries.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 30 17:36:55 PST 2002
+FluxSvc/src
+
+Removed Files:
+	GalElSpectrum.cxx GalElSpectrum.h 
+Log Message:
+GalElSpectrum removed, jobOptions altered to remove other source libraries.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 30 17:31:01 PST 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx CompositeSource.h 
+Log Message:
+compositeSource altered for proper timing of nested composite sources.
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 17:19:56 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx 
+Added Files:
+	AlbedoPSpectrum.cxx AlbedoPSpectrum.h Geomag.cxx Geomag.h 
+	Geomag.inc 
+Log Message:
+restore Pat's AlbedoP 
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 16:23:41 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+more cleanup
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 16:23:41 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	roottest.cxx 
+Log Message:
+more cleanup
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 16:23:41 PST 2002
+FluxSvc/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+more cleanup
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 16:23:40 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxException.h SimpleSpectrum.cxx defaultOptions.txt 
+Log Message:
+more cleanup
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 30 12:43:55 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+GPS orbit cleanup (further), wired-in '6' removed, replaced with EventSource::totalArea(), solid angle fixed in ISpectrum, compositeDiffuse structure removed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 30 12:43:54 PST 2002
+FluxSvc/src
+
+Modified Files:
+	EventSource.cxx FluxMgr.cxx FluxSource.cxx GPS.cxx GPS.h 
+	GalElSpectrum.h Spectrum.cxx 
+Removed Files:
+	CompositeDiffuse.cxx CompositeDiffuse.h 
+Log Message:
+GPS orbit cleanup (further), wired-in '6' removed, replaced with EventSource::totalArea(), solid angle fixed in ISpectrum, compositeDiffuse structure removed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 30 12:43:54 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h ISpectrum.h 
+Log Message:
+GPS orbit cleanup (further), wired-in '6' removed, replaced with EventSource::totalArea(), solid angle fixed in ISpectrum, compositeDiffuse structure removed.
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 12:08:12 PST 2002
+FluxSvc/src/test/flux
+
+Removed Files:
+	rootAngleHist.cxx rootAngleHist.h rootEnergyHist.cxx 
+	rootEnergyHist.h rootHist.cxx rootHist.h rootplot.cxx 
+	rootplot.h 
+Log Message:
+clean up, removing unsupported spectra, moving rootplots
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 12:08:12 PST 2002
+FluxSvc/src/rootplot
+
+Added Files:
+	rootAngleHist.cxx rootAngleHist.h rootEnergyHist.cxx 
+	rootEnergyHist.h rootHist.cxx rootHist.h rootplot.cxx 
+	rootplot.h roottest.cxx 
+Log Message:
+clean up, removing unsupported spectra, moving rootplots
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 12:08:11 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	composite_library.xml source_library.xml 
+Log Message:
+clean up, removing unsupported spectra, moving rootplots
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 12:08:11 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxException.h FluxMgr.cxx FluxSvc.cxx Spectrum.h 
+	defaultOptions.txt mainpage.h 
+Removed Files:
+	AlbedoPSpectrum.cxx AlbedoPSpectrum.h CHIMESpectrum.cxx 
+	CHIMESpectrum.h CHIMESpectrum.inc Geomag.cxx Geomag.h 
+	Geomag.inc HeSpectrum.cxx HeSpectrum.h HeSpectrum.inc 
+	StaticOrbit.h 
+Log Message:
+clean up, removing unsupported spectra, moving rootplots
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 12:08:11 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+clean up, removing unsupported spectra, moving rootplots
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 12:08:11 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h IFluxSvc.h 
+Log Message:
+clean up, removing unsupported spectra, moving rootplots
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 11:27:25 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootplot.cxx rootplot.h roottest.cxx 
+Log Message:
+add interface to command line, access to FluxMgr
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 11:05:17 PST 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx CompositeSource.h 
+Log Message:
+cleanup
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 30 11:04:33 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx FluxSvc.h 
+Log Message:
+use const for pointers.
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Oct 28 23:17:01 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	FluxSvcParams.xml 
+Log Message:
+compositediffuse changes, roll/pitch/yaw removed in orbit, lat/lon functions fixed to use new orbit model, compositesource fixed to allow nested composites.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Oct 28 23:17:01 PST 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+compositediffuse changes, roll/pitch/yaw removed in orbit, lat/lon functions fixed to use new orbit model, compositesource fixed to allow nested composites.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Oct 28 23:17:01 PST 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx CompositeSource.cxx CompositeSource.h 
+	GPS.cxx GPS.h 
+Log Message:
+compositediffuse changes, roll/pitch/yaw removed in orbit, lat/lon functions fixed to use new orbit model, compositesource fixed to allow nested composites.
+
+    *
+------------------------------------------------------------
+User: kuss  Thu Oct 24 09:33:29 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx 
+Log Message:
+For gcc v3, fixed "ISO scope" error.
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 23 05:55:52 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	ExposureAlg.cxx ExposureAlg.h 
+Log Message:
+reorganized a bit, especially control over output text file
+    *
+------------------------------------------------------------
+User: burnett  Sun Oct 20 16:06:34 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+
+fix Irunable problem if reading digi input.
+tag v4r14p2
+    *
+------------------------------------------------------------
+User: burnett  Sun Oct 20 16:06:34 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+fix Irunable problem if reading digi input.
+tag v4r14p2
+    *
+------------------------------------------------------------
+User: burnett  Sun Oct 20 16:06:33 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+fix Irunable problem if reading digi input.
+tag v4r14p2
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Oct 19 16:20:05 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	composite_library.xml user_library.xml 
+Log Message:
+many compositediffuse changes, diffuse source for testing changed to be appropriate,pdr test sources altered to avoid crashing due to "nested composite" problem - this needs examination.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Oct 19 16:20:05 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx CompositeDiffuse.h 
+Log Message:
+many compositediffuse changes, diffuse source for testing changed to be appropriate,pdr test sources altered to avoid crashing due to "nested composite" problem - this needs examination.
+
+    *
+------------------------------------------------------------
+User: burnett  Fri Oct 18 09:37:43 PDT 2002
+FluxSvc/sources
+
+Added Files:
+	albedop.txt chimefile.txt glast_smax_flx.txt 
+	glast_smin_flx.txt glast_wday_flx.txt glast_wweek_flx.txt 
+Log Message:
+Restore tablular flux generation from old flux package
+    *
+------------------------------------------------------------
+User: burnett  Fri Oct 18 09:37:43 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FILESpectrum.cxx FILESpectrum.h defaultOptions.txt 
+Log Message:
+Restore tablular flux generation from old flux package
+    *
+------------------------------------------------------------
+User: burnett  Fri Oct 18 09:34:57 PDT 2002
+FluxSvc/sources
+
+Log Message:
+Directory /nfs/slac/g/glast/ground/cvs/FluxSvc/sources added to the repository
+
+    *
+------------------------------------------------------------
+User: hierath  Wed Oct 16 18:34:37 PDT 2002
+FluxSvc/src/rootplot
+
+Log Message:
+Directory /nfs/slac/g/glast/ground/cvs/FluxSvc/src/rootplot added to the repository
+
+    *
+------------------------------------------------------------
+User: burnett  Tue Oct 15 21:06:59 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+patch to fix the side patch illumination
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Oct 14 12:46:13 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+rocking angle defaults to 35 degrees.
+
+    *
+------------------------------------------------------------
+User: burnett  Mon Oct 14 10:49:12 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+fix loop condition
+    *
+------------------------------------------------------------
+User: burnett  Mon Oct 14 10:49:12 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+fix loop condition
+    *
+------------------------------------------------------------
+User: burnett  Mon Oct 14 08:10:33 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tagging v4r14
+    *
+------------------------------------------------------------
+User: burnett  Mon Oct 14 08:10:33 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tagging v4r14
+    *
+------------------------------------------------------------
+User: burnett  Mon Oct 14 08:00:31 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	Flux.h FluxMgr.cxx FluxSvc.cxx FluxSvc.h defaultOptions.txt 
+Log Message:
+Clean interface a little; remove geometry package, use CLHEP instead; implement IRunable interface.
+    *
+------------------------------------------------------------
+User: burnett  Mon Oct 14 08:00:31 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+Clean interface a little; remove geometry package, use CLHEP instead; implement IRunable interface.
+    *
+------------------------------------------------------------
+User: burnett  Mon Oct 14 07:54:43 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Added Files:
+	.cvsignore 
+Log Message:
+remove dependence on geometry
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Oct 13 12:13:47 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+compositediffuse algorithm altered, compilation error with destruction of ostream fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Oct 13 12:13:47 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx 
+Log Message:
+compositediffuse algorithm altered, compilation error with destruction of ostream fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Oct 10 18:28:49 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+string include statement back into ISpectrum for the sake of linux, extraaneous output removed, compositeDiffuse output upgraded.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Oct 10 18:28:49 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+string include statement back into ISpectrum for the sake of linux, extraaneous output removed, compositeDiffuse output upgraded.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Oct 10 18:28:49 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx CompositeDiffuse.h FluxSource.cxx 
+Log Message:
+string include statement back into ISpectrum for the sake of linux, extraaneous output removed, compositeDiffuse output upgraded.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Oct 10 18:28:48 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	ISpectrum.h 
+Log Message:
+string include statement back into ISpectrum for the sake of linux, extraaneous output removed, compositeDiffuse output upgraded.
+
+    *
+------------------------------------------------------------
+User: burnett  Tue Oct  8 23:23:54 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+taggin v5r13
+    *
+------------------------------------------------------------
+User: burnett  Tue Oct  8 23:14:54 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+change interface id
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Oct  8 19:48:30 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+virtual problem fixed in IFluxSvc
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Oct  8 16:05:48 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+IFluxSvc now knows about new source returning function also.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Oct  8 15:48:37 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	composite_library.xml source.dtd source_library.xml 
+	user_library.xml 
+Log Message:
+FluxMgr now knows about the file responsible for declaring a particular source.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Oct  8 15:48:37 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx FluxMgr.h FluxSvc.cxx FluxSvc.h 
+Log Message:
+FluxMgr now knows about the file responsible for declaring a particular source.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Oct  7 16:42:21 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml user_library.xml 
+Log Message:
+extra output in exposurealg, slewing angle optimized from requirements, file output (and associated functions) for writing the characteristics of teh diffuse source model.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Oct  7 16:42:20 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+extra output in exposurealg, slewing angle optimized from requirements, file output (and associated functions) for writing the characteristics of teh diffuse source model.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Oct  7 16:42:20 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx CompositeDiffuse.h CompositeSource.h 
+	ExposureAlg.cxx ExposureAlg.h Flux.cxx Flux.h GPS.cxx 
+Log Message:
+extra output in exposurealg, slewing angle optimized from requirements, file output (and associated functions) for writing the characteristics of teh diffuse source model.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Oct  7 16:42:18 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h IFlux.h 
+Log Message:
+extra output in exposurealg, slewing angle optimized from requirements, file output (and associated functions) for writing the characteristics of teh diffuse source model.
+
+    *
+------------------------------------------------------------
+User: burnett  Sun Oct  6 12:47:57 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+Change to use GlastSvc converters for EventHeader, MCEvent
+    *
+------------------------------------------------------------
+User: burnett  Sun Oct  6 12:47:57 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+Change to use GlastSvc converters for EventHeader, MCEvent
+    *
+------------------------------------------------------------
+User: burnett  Sun Oct  6 12:47:57 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+Change to use GlastSvc converters for EventHeader, MCEvent
+    *
+------------------------------------------------------------
+User: burnett  Sat Oct  5 10:24:34 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+Assume that run and sequence number are set elsewhere. Use smartptr to access the MCEvent,
+so that the converter is now creating the object.
+
+    *
+------------------------------------------------------------
+User: kyoung  Fri Oct  4 11:36:34 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+requirements for FluxSvcRandom
+    *
+------------------------------------------------------------
+User: kyoung  Fri Oct  4 11:32:48 PDT 2002
+FluxSvc/src/Dll
+
+Modified Files:
+	FluxSvc_load.cxx 
+Log Message:
+Add FluxSvcRandom.cxx
+    *
+------------------------------------------------------------
+User: kyoung  Fri Oct  4 11:32:48 PDT 2002
+FluxSvc/src
+
+Added Files:
+	FluxSvcRandom.cxx 
+Log Message:
+Add FluxSvcRandom.cxx
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Sep 23 13:39:38 PDT 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+ISpectrum streamlined, rootplot energy plotting error temporarily fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Sep 23 13:39:37 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	ISpectrum.h 
+Log Message:
+ISpectrum streamlined, rootplot energy plotting error temporarily fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Sep 20 11:38:36 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	mainpage.h 
+Log Message:
+ancient todo removed, release notes ready for v5r12
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Sep 20 11:38:36 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+ancient todo removed, release notes ready for v5r12
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Sep 20 11:38:35 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+ancient todo removed, release notes ready for v5r12
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Sep 19 17:29:03 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source.dtd user_library.xml 
+Log Message:
+code cleanup, "galactic_spread" particle direction type entered and tested.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Sep 19 17:29:02 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+code cleanup, "galactic_spread" particle direction type entered and tested.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Sep 19 17:29:02 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx GPS.cxx 
+Log Message:
+code cleanup, "galactic_spread" particle direction type entered and tested.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Sep 19 17:29:01 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+code cleanup, "galactic_spread" particle direction type entered and tested.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Sep 16 17:33:46 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	ExposureAlg.cxx GPS.cxx GPS.h 
+Log Message:
+ExposureAlg time usage fixed to use julian date structures in astro.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Sep 16 11:26:08 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source.dtd source_library.xml user_library.xml 
+Log Message:
+added celestial direction declaration for xml sources, mandated declaration of energy scale for sources, no maximum source energy in FluxSource, exposureAlg properly implement rocking.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Sep 16 11:26:08 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+added celestial direction declaration for xml sources, mandated declaration of energy scale for sources, no maximum source energy in FluxSource, exposureAlg properly implement rocking.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Sep 16 11:26:08 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	ExposureAlg.cxx ExposureAlg.h FluxSource.cxx FluxSvc.cxx 
+	GPS.cxx 
+Log Message:
+added celestial direction declaration for xml sources, mandated declaration of energy scale for sources, no maximum source energy in FluxSource, exposureAlg properly implement rocking.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Sep 16 11:26:07 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+added celestial direction declaration for xml sources, mandated declaration of energy scale for sources, no maximum source energy in FluxSource, exposureAlg properly implement rocking.
+
+    *
+------------------------------------------------------------
+User: burnett  Fri Sep 13 13:57:18 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+
+setting MCEvent now. tag v5r11
+    *
+------------------------------------------------------------
+User: burnett  Fri Sep 13 13:57:17 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+setting MCEvent now. tag v5r11
+    *
+------------------------------------------------------------
+User: burnett  Fri Sep 13 13:57:17 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+setting MCEvent now. tag v5r11
+    *
+------------------------------------------------------------
+User: burnett  Fri Sep 13 09:12:04 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+setting sequence number in MCEvent
+    *
+------------------------------------------------------------
+User: burnett  Fri Sep 13 09:12:04 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx FluxAlg.h 
+Log Message:
+setting sequence number in MCEvent
+    *
+------------------------------------------------------------
+User: burnett  Thu Sep 12 16:05:44 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+tagging p6
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Sep 12 13:44:37 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+forgot the "l". sorry, Leon.
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Sep 12 11:25:46 PDT 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	roottest.cxx 
+Log Message:
+
+unix mods for linking executables and shareables against static library.
+    *
+------------------------------------------------------------
+User: burnett  Thu Sep 12 11:25:46 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+
+unix mods for linking executables and shareables against static library.
+    *
+------------------------------------------------------------
+User: burnett  Thu Sep 12 11:25:45 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+unix mods for linking executables and shareables against static library.
+    *
+------------------------------------------------------------
+User: burnett  Tue Sep 10 17:50:31 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+fix Event version
+    *
+------------------------------------------------------------
+User: burnett  Tue Sep 10 17:50:30 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+fix Event version
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Sep  6 14:14:47 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx FluxMgr.h FluxSvc.cxx FluxSvc.h GPS.cxx GPS.h 
+Log Message:
+extra "setrockingangle" function usable through the service for sending an integer flag instead of enum.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Sep  6 14:14:46 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+extra "setrockingangle" function usable through the service for sending an integer flag instead of enum.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Sep  4 19:24:02 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml user_library.xml 
+Log Message:
+non-shareable static library defined to clean up requirements file, rocking-angle modes added to GPS, controllable via the service interface, example in TestFluxSvc.  Rotation methods ghanged in GPS, SkyDir used in getGalacticDirection structure in FluxSource, extra "TestOptions" file for alternate joboptions, all(?) references to the internal orbit class migrated to GPS, which uses the astro package for the orbit model.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Sep  4 19:24:02 PDT 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+non-shareable static library defined to clean up requirements file, rocking-angle modes added to GPS, controllable via the service interface, example in TestFluxSvc.  Rotation methods ghanged in GPS, SkyDir used in getGalacticDirection structure in FluxSource, extra "TestOptions" file for alternate joboptions, all(?) references to the internal orbit class migrated to GPS, which uses the astro package for the orbit model.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Sep  4 19:24:01 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Added Files:
+	testOptions.txt 
+Log Message:
+non-shareable static library defined to clean up requirements file, rocking-angle modes added to GPS, controllable via the service interface, example in TestFluxSvc.  Rotation methods ghanged in GPS, SkyDir used in getGalacticDirection structure in FluxSource, extra "TestOptions" file for alternate joboptions, all(?) references to the internal orbit class migrated to GPS, which uses the astro package for the orbit model.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Sep  4 19:24:01 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	ExposureAlg.cxx Flux.cxx FluxMgr.cxx FluxMgr.h FluxSource.cxx 
+	FluxSvc.cxx FluxSvc.h GPS.cxx GPS.h 
+Log Message:
+non-shareable static library defined to clean up requirements file, rocking-angle modes added to GPS, controllable via the service interface, example in TestFluxSvc.  Rotation methods ghanged in GPS, SkyDir used in getGalacticDirection structure in FluxSource, extra "TestOptions" file for alternate joboptions, all(?) references to the internal orbit class migrated to GPS, which uses the astro package for the orbit model.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Sep  4 19:24:00 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+non-shareable static library defined to clean up requirements file, rocking-angle modes added to GPS, controllable via the service interface, example in TestFluxSvc.  Rotation methods ghanged in GPS, SkyDir used in getGalacticDirection structure in FluxSource, extra "TestOptions" file for alternate joboptions, all(?) references to the internal orbit class migrated to GPS, which uses the astro package for the orbit model.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Sep  4 19:23:59 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+non-shareable static library defined to clean up requirements file, rocking-angle modes added to GPS, controllable via the service interface, example in TestFluxSvc.  Rotation methods ghanged in GPS, SkyDir used in getGalacticDirection structure in FluxSource, extra "TestOptions" file for alternate joboptions, all(?) references to the internal orbit class migrated to GPS, which uses the astro package for the orbit model.
+
+    *
+------------------------------------------------------------
+User: burnett  Mon Sep  2 12:34:49 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+fix a few unix warnings
+    *
+------------------------------------------------------------
+User: burnett  Mon Sep  2 12:34:48 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+fix a few unix warnings
+    *
+------------------------------------------------------------
+User: burnett  Mon Sep  2 11:47:02 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+remove commented lines, cut to 10 events
+    *
+------------------------------------------------------------
+User: burnett  Sat Aug 31 13:55:59 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	ExposureAlg.cxx ExposureAlg.h 
+Log Message:
+remove static ofstream definition
+    *
+------------------------------------------------------------
+User: burnett  Thu Aug 29 20:34:47 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+wildcard missing
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Aug 29 13:30:00 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml user_library.xml 
+Log Message:
+exposureAlf and FluxAlg altered (in the sense of when filterpassed() flags are set) to work with the new Gleam infrastructure (the top sequence loop).  Some sources moved into source_library.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Aug 29 13:30:00 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	ExposureAlg.cxx FluxAlg.cxx 
+Log Message:
+exposureAlf and FluxAlg altered (in the sense of when filterpassed() flags are set) to work with the new Gleam infrastructure (the top sequence loop).  Some sources moved into source_library.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Aug 29 13:30:00 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+exposureAlf and FluxAlg altered (in the sense of when filterpassed() flags are set) to work with the new Gleam infrastructure (the top sequence loop).  Some sources moved into source_library.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Aug 28 19:13:11 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+TimeCandle changed to use input from xml, exposureAlg now has file output ala the astro package, default test operation is set to create the file.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Aug 28 19:13:11 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+TimeCandle changed to use input from xml, exposureAlg now has file output ala the astro package, default test operation is set to create the file.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Aug 28 19:13:10 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	ExposureAlg.cxx ExposureAlg.h TimeCandle.h 
+Log Message:
+TimeCandle changed to use input from xml, exposureAlg now has file output ala the astro package, default test operation is set to create the file.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Aug 28 00:26:58 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+TimeCandle source added as a class with a cxx file, GPS rocking method 
+changed to use appropriate astro methods, exposureAlg set up to use new inserted particle type "timetick"...
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Aug 28 00:26:58 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+TimeCandle source added as a class with a cxx file, GPS rocking method 
+changed to use appropriate astro methods, exposureAlg set up to use new inserted particle type "timetick"...
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Aug 28 00:26:57 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	ExposureAlg.cxx FluxAlg.cxx FluxMgr.cxx FluxSource.cxx 
+	FluxSvc.cxx GPS.cxx GPS.h 
+Added Files:
+	TimeCandle.cxx TimeCandle.h 
+Log Message:
+TimeCandle source added as a class with a cxx file, GPS rocking method 
+changed to use appropriate astro methods, exposureAlg set up to use new inserted particle type "timetick"...
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Aug 22 09:38:05 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Aug 22 09:38:05 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Aug 22 09:38:05 PDT 2002
+FluxSvc/src/Dll
+
+Modified Files:
+	FluxSvc_load.cxx 
+Log Message:
+
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Aug 22 09:38:04 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx GPS.cxx GPS.h 
+Added Files:
+	ExposureAlg.cxx ExposureAlg.h 
+Log Message:
+
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Aug 22 09:38:04 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+
+    *
+------------------------------------------------------------
+User: burnett  Tue Aug 20 06:43:35 PDT 2002
+FluxSvc/src/test
+
+Removed Files:
+	RockingTransform.cxx 
+Log Message:
+don't need this here: removing will hopefully fix unix run error
+    *
+------------------------------------------------------------
+User: burnett  Wed Aug 14 14:04:32 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tagging v5r10
+    *
+------------------------------------------------------------
+User: burnett  Wed Aug 14 14:04:32 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tagging v5r10
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Aug 12 11:56:54 PDT 2002
+FluxSvc/src/test
+
+Added Files:
+	RockingTransform.cxx 
+Log Message:
+RockingTransform tool created to return the rocking rotation, given an input time.
+
+    *
+------------------------------------------------------------
+User: burnett  Fri Aug  9 10:40:04 PDT 2002
+FluxSvc/src/test
+
+Added Files:
+	RegisterTest.cxx 
+Log Message:
+simple test, of register mechanism
+    *
+------------------------------------------------------------
+User: burnett  Fri Aug  9 10:23:06 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+do query interface directly to avoid error message
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Aug  7 17:02:39 PDT 2002
+FluxSvc/xml
+
+Added Files:
+	FluxSvcParams.dtd FluxSvcParams.xml 
+Log Message:
+FluxSource::flux altered to avoid possible "low-flux-from'spectrum" glitch, xml files added to encapsulate necessary data for fluxSvc(now holding logN/logS characteristic for diffuse emission model),diffuse model expanded and fixed, more documentation.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Aug  7 17:02:39 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx CompositeDiffuse.h CompositeSource.h 
+	EventSource.cxx FluxMgr.cxx FluxSource.cxx FluxSvc.cxx 
+	FluxSvc.h 
+Removed Files:
+	lognlogs.txt 
+Log Message:
+FluxSource::flux altered to avoid possible "low-flux-from'spectrum" glitch, xml files added to encapsulate necessary data for fluxSvc(now holding logN/logS characteristic for diffuse emission model),diffuse model expanded and fixed, more documentation.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Aug  3 17:52:45 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+orientation of the satellite can now be gotten from the service, time-expansion issue fixed in orbit (package should now work entirely on seconds), real logN/logS data added for diffuse model, more documentation in mainpage, standard sources documented, also jobOptions parameters in mainpage.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Aug  3 17:52:45 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx FluxMgr.h FluxSvc.cxx FluxSvc.h Orbit.cxx Orbit.h 
+	lognlogs.txt mainpage.h 
+Log Message:
+orientation of the satellite can now be gotten from the service, time-expansion issue fixed in orbit (package should now work entirely on seconds), real logN/logS data added for diffuse model, more documentation in mainpage, standard sources documented, also jobOptions parameters in mainpage.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Aug  3 17:52:44 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+orientation of the satellite can now be gotten from the service, time-expansion issue fixed in orbit (package should now work entirely on seconds), real logN/logS data added for diffuse model, more documentation in mainpage, standard sources documented, also jobOptions parameters in mainpage.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jul 24 22:18:59 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+mainpage now points to location of additional web documentation, more documentation about the tool structure, many updates made to documentation code blocks within implemenation of methods package-wide, diffuse model updated to take a file input for a logN/logS characteristic , test file added, test sources changed accordingly.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jul 24 22:18:59 PDT 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+mainpage now points to location of additional web documentation, more documentation about the tool structure, many updates made to documentation code blocks within implemenation of methods package-wide, diffuse model updated to take a file input for a logN/logS characteristic , test file added, test sources changed accordingly.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jul 24 22:18:59 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	AlbedoPSpectrum.h CHIMESpectrum.cxx CHIMESpectrum.h 
+	CompositeDiffuse.cxx CompositeDiffuse.h CompositeSource.cxx 
+	CompositeSource.h EventSource.cxx FILESpectrum.cxx Flux.cxx 
+	FluxAlg.cxx FluxMgr.cxx FluxSource.cxx FluxSvc.cxx GPS.cxx 
+	GalElSpectrum.h HeSpectrum.cxx Orbit.cxx Orbit.h Spectrum.cxx 
+	Spectrum.h mainpage.h 
+Added Files:
+	lognlogs.txt 
+Log Message:
+mainpage now points to location of additional web documentation, more documentation about the tool structure, many updates made to documentation code blocks within implemenation of methods package-wide, diffuse model updated to take a file input for a logN/logS characteristic , test file added, test sources changed accordingly.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jul 24 22:18:58 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IRegisterSource.h 
+Log Message:
+mainpage now points to location of additional web documentation, more documentation about the tool structure, many updates made to documentation code blocks within implemenation of methods package-wide, diffuse model updated to take a file input for a logN/logS characteristic , test file added, test sources changed accordingly.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jul 23 12:00:58 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source.dtd 
+Log Message:
+Possible "transcode" memory leak in FluxSource fixed, file with list of possible particles referenced in DTD, rocking angle transformation now works in opposite direction, mainpage.h changed to produce better output, JobOptions elements documented in FluxTestAlg, Class headers brought up to code across the board.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jul 23 12:00:58 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+Possible "transcode" memory leak in FluxSource fixed, file with list of possible particles referenced in DTD, rocking angle transformation now works in opposite direction, mainpage.h changed to produce better output, JobOptions elements documented in FluxTestAlg, Class headers brought up to code across the board.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jul 23 12:00:57 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	AlbedoPSpectrum.h CHIMESpectrum.h CompositeDiffuse.h 
+	CompositeSource.h FILESpectrum.h Flux.h FluxAlg.h 
+	FluxException.h FluxMgr.h FluxSource.cxx FluxSvc.h GPS.cxx 
+	GPS.h GalElSpectrum.h Geomag.h HeSpectrum.h Orbit.h 
+	SimpleSpectrum.h Spectrum.h SpectrumFactory.h 
+	SpectrumFactoryTable.h StaticOrbit.h mainpage.h 
+Log Message:
+Possible "transcode" memory leak in FluxSource fixed, file with list of possible particles referenced in DTD, rocking angle transformation now works in opposite direction, mainpage.h changed to produce better output, JobOptions elements documented in FluxTestAlg, Class headers brought up to code across the board.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jul 23 12:00:56 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+Possible "transcode" memory leak in FluxSource fixed, file with list of possible particles referenced in DTD, rocking angle transformation now works in opposite direction, mainpage.h changed to produce better output, JobOptions elements documented in FluxTestAlg, Class headers brought up to code across the board.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jul 23 12:00:56 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h FluxSource.h IFlux.h IFluxSvc.h ISpectrum.h 
+	ISpectrumFactory.h 
+Log Message:
+Possible "transcode" memory leak in FluxSource fixed, file with list of possible particles referenced in DTD, rocking angle transformation now works in opposite direction, mainpage.h changed to produce better output, JobOptions elements documented in FluxTestAlg, Class headers brought up to code across the board.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Jul 12 11:23:33 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+more code cleanup, mainpage moved to comply w/standards.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Jul 12 11:23:33 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Added Files:
+	mainpage.h 
+Log Message:
+more code cleanup, mainpage moved to comply w/standards.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Jul 12 11:23:32 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+more code cleanup, mainpage moved to comply w/standards.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Jul 12 11:23:32 PDT 2002
+FluxSvc/FluxSvc
+
+Removed Files:
+	mainpage.h 
+Log Message:
+more code cleanup, mainpage moved to comply w/standards.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jul  8 13:55:59 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx 
+Log Message:
+problem fixed in compositesource - "running" intervals now decrement in each call of the "event" function by the returned interval.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jul  8 12:27:05 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+MapSpectrum removed, to be given own package "MapFlux".
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jul  8 12:27:05 PDT 2002
+FluxSvc/src
+
+Removed Files:
+	MapSpectrum.cxx MapSpectrum.h 
+Log Message:
+MapSpectrum removed, to be given own package "MapFlux".
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jul  8 12:27:05 PDT 2002
+FluxSvc/doc
+
+Removed Files:
+	bremss_skymap_41p_222111 test.txt 
+Log Message:
+MapSpectrum removed, to be given own package "MapFlux".
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Jul  4 20:02:29 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx 
+Log Message:
+remove MapSpectrum
+    *
+------------------------------------------------------------
+User: burnett  Thu Jul  4 19:48:13 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tagging v5r8
+    *
+------------------------------------------------------------
+User: burnett  Thu Jul  4 19:48:13 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tagging v5r8
+    *
+------------------------------------------------------------
+User: burnett  Thu Jul  4 18:46:32 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+some documentation
+    *
+------------------------------------------------------------
+User: burnett  Thu Jul  4 18:46:32 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IRegisterSource.h mainpage.h 
+Log Message:
+some documentation
+    *
+------------------------------------------------------------
+User: burnett  Thu Jul  4 18:07:56 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+Add code to extract external source definitions from AlgTool factories
+    *
+------------------------------------------------------------
+User: burnett  Thu Jul  4 18:06:19 PDT 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	IRegisterSource.h 
+Log Message:
+New interface for registering external sources
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jul  4 02:11:31 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	composite_library.xml 
+Log Message:
+CompositeSpectrum altered to keep each particle until it is used before generating a new one from the associated spectrum.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jul  4 02:11:31 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+CompositeSpectrum altered to keep each particle until it is used before generating a new one from the associated spectrum.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jul  4 02:11:31 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx CompositeSource.h 
+Log Message:
+CompositeSpectrum altered to keep each particle until it is used before generating a new one from the associated spectrum.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jul  4 02:11:31 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+CompositeSpectrum altered to keep each particle until it is used before generating a new one from the associated spectrum.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jul  3 02:41:55 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	MapSpectrum.cxx MapSpectrum.h 
+Log Message:
+MapSpectrum alteres to take input from a FITS file image, bremsstrahlung data file from EGRET used as default.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jul  3 02:41:55 PDT 2002
+FluxSvc/doc
+
+Added Files:
+	bremss_skymap_41p_222111 
+Log Message:
+MapSpectrum alteres to take input from a FITS file image, bremsstrahlung data file from EGRET used as default.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jul  3 02:41:54 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+MapSpectrum alteres to take input from a FITS file image, bremsstrahlung data file from EGRET used as default.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Jun 30 13:57:26 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx CompositeDiffuse.h CompositeSource.h 
+	EventSource.cxx FluxMgr.cxx FluxSvc.cxx MapSpectrum.cxx 
+	Orbit.cxx Orbit.h Spectrum.cxx Spectrum.h 
+Log Message:
+code cleanup, additional d0xygen parameters explaining lat/lon and directional syntax.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Jun 30 13:57:26 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h IFluxSvc.h 
+Log Message:
+code cleanup, additional d0xygen parameters explaining lat/lon and directional syntax.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jun 27 14:56:51 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CHIMESpectrum.h FluxSource.cxx MapSpectrum.cxx 
+Log Message:
+galactic spectrum direction glitch fixed in FluxSource, extraneous sources CHIMEMin, Max, and Avg removed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jun 27 14:56:50 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	test.txt 
+Log Message:
+galactic spectrum direction glitch fixed in FluxSource, extraneous sources CHIMEMin, Max, and Avg removed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun 24 15:37:17 PDT 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootAngleHist.cxx rootEnergyHist.cxx rootHist.cxx rootplot.cxx 
+	roottest.cxx 
+Log Message:
+huge reformatting of code to be self-consistent in format, several function names altered to conform to capitalization standards.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun 24 15:37:16 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx 
+Log Message:
+huge reformatting of code to be self-consistent in format, several function names altered to conform to capitalization standards.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun 24 15:37:16 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	AlbedoPSpectrum.cxx AlbedoPSpectrum.h CHIMESpectrum.h 
+	CompositeDiffuse.cxx CompositeDiffuse.h CompositeSource.cxx 
+	CompositeSource.h EventSource.cxx FILESpectrum.cxx 
+	FILESpectrum.h Flux.cxx Flux.h FluxAlg.cxx FluxAlg.h 
+	FluxException.h FluxMgr.cxx FluxMgr.h FluxSource.cxx 
+	FluxSvc.cxx FluxSvc.h GPS.cxx GPS.h GalElSpectrum.cxx 
+	GalElSpectrum.h Geomag.cxx Geomag.h HeSpectrum.cxx 
+	HeSpectrum.h MapSpectrum.cxx MapSpectrum.h Orbit.cxx Orbit.h 
+	SimpleSpectrum.cxx SimpleSpectrum.h Spectrum.cxx Spectrum.h 
+	SpectrumFactoryTable.cxx SpectrumFactoryTable.h StaticOrbit.h 
+Log Message:
+huge reformatting of code to be self-consistent in format, several function names altered to conform to capitalization standards.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun 24 15:37:15 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h FluxSource.h IFlux.h IFluxSvc.h ISpectrum.h 
+	ISpectrumFactory.h 
+Log Message:
+huge reformatting of code to be self-consistent in format, several function names altered to conform to capitalization standards.
+
+    *
+------------------------------------------------------------
+User: burnett  Mon Jun 24 05:57:24 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tagging v5r7p1
+    *
+------------------------------------------------------------
+User: burnett  Mon Jun 24 05:57:24 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tagging v5r7p1
+    *
+------------------------------------------------------------
+User: burnett  Mon Jun 24 05:48:04 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+convert p to proton; check if particle name found
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Jun 22 13:00:33 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source.dtd 
+Log Message:
+vestigial "frametype" method entirely commented/removed from FluxSource and the xml.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Jun 22 13:00:33 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+vestigial "frametype" method entirely commented/removed from FluxSource and the xml.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Jun 22 13:00:33 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+vestigial "frametype" method entirely commented/removed from FluxSource and the xml.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Jun 21 12:54:24 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+MapSpectrum now works through the polymorphic method.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Jun 21 12:54:24 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx FluxSource.cxx FluxSvc.cxx MapSpectrum.cxx 
+Log Message:
+MapSpectrum now works through the polymorphic method.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jun 20 22:10:39 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source.dtd user_library.xml 
+Log Message:
+Map Spectrum, with test case, added - right now only works with TestMgr.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jun 20 22:10:39 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+Map Spectrum, with test case, added - right now only works with TestMgr.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jun 20 22:10:38 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Added Files:
+	MapSpectrum.cxx MapSpectrum.h 
+Log Message:
+Map Spectrum, with test case, added - right now only works with TestMgr.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jun 20 22:10:38 PDT 2002
+FluxSvc/doc
+
+Added Files:
+	test.txt 
+Log Message:
+Map Spectrum, with test case, added - right now only works with TestMgr.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jun 20 22:10:37 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+Map Spectrum, with test case, added - right now only works with TestMgr.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jun 18 00:14:19 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+FluxTestAlg restored after Exposure package made.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun 17 23:41:43 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+CompositeDiffuse sources made properly diffuse.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun 17 23:41:42 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+CompositeDiffuse sources made properly diffuse.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun 17 23:41:42 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx CompositeSource.cxx 
+Log Message:
+CompositeDiffuse sources made properly diffuse.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Jun 16 15:52:17 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+differential exposure histogram made prettier, problem with reconstruction of placement of galactic sources fixed by having FluxSource::event() implicitly find and set the interval to the next particle.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Jun 16 15:52:17 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+differential exposure histogram made prettier, problem with reconstruction of placement of galactic sources fixed by having FluxSource::event() implicitly find and set the interval to the next particle.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Jun 16 15:52:17 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+differential exposure histogram made prettier, problem with reconstruction of placement of galactic sources fixed by having FluxSource::event() implicitly find and set the interval to the next particle.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Jun 16 15:52:16 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+differential exposure histogram made prettier, problem with reconstruction of placement of galactic sources fixed by having FluxSource::event() implicitly find and set the interval to the next particle.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jun  6 19:19:54 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+Algorithm now is faster, can have arbitrary functions with respect to azimuth, zenith and energy, ands also has a facility for taking histograms of angular distance from GLAST to a galactic point to be watched, effectively generating differential exposure versus zenith angle for that direction.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jun  5 14:08:59 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+removed extraaneous vector-shunting formula, sped up process appreciably.  Also inplemented new exposure function, with arbitrary functions for exposure relative to angles, etc.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jun  5 01:53:02 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+made rocking angle modes as a function of orbits an option in the algorithm.  Tweaked aitoff-projection shading to be more realistic.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jun  5 01:53:01 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+made rocking angle modes as a function of orbits an option in the algorithm.  Tweaked aitoff-projection shading to be more realistic.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jun  5 01:06:50 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+glast-to-galactic transformation reordered, "rocking angle simulation" redone, rocking angle transformation tested to work properly now.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jun  5 01:06:50 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx 
+Log Message:
+glast-to-galactic transformation reordered, "rocking angle simulation" redone, rocking angle transformation tested to work properly now.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jun  5 01:06:49 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+glast-to-galactic transformation reordered, "rocking angle simulation" redone, rocking angle transformation tested to work properly now.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jun  5 00:42:30 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+lots of cleanup done on algorithm, also economized for time, where possible.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jun  4 17:58:45 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+hammer-aitoff usage fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jun  4 17:58:45 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+hammer-aitoff usage fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jun  4 17:28:35 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+facility added so that options (projection type, point spreading, and exposure type) can be mixed and matched - older Exposure Mode classification should be removed soon.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun  3 18:34:34 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml user_library.xml 
+Log Message:
+crab-galactic source introduced, "rocking angle" test put into FluxTestAlg to rock the craft north for an orbit, south the next, and so forth.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun  3 18:34:34 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+crab-galactic source introduced, "rocking angle" test put into FluxTestAlg to rock the craft north for an orbit, south the next, and so forth.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun  3 01:14:55 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+orbit dynamics altered, point-spread function simulated in FLuxTestAlg.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun  3 01:14:55 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+orbit dynamics altered, point-spread function simulated in FLuxTestAlg.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Jun  3 01:14:54 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	Orbit.cxx 
+Log Message:
+orbit dynamics altered, point-spread function simulated in FLuxTestAlg.
+
+    *
+------------------------------------------------------------
+User: burnett  Fri May 31 12:16:23 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+
+tagging v5r7
+    *
+------------------------------------------------------------
+User: burnett  Fri May 31 12:16:23 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tagging v5r7
+    *
+------------------------------------------------------------
+User: burnett  Fri May 31 12:16:22 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tagging v5r7
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May 30 14:33:01 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+"Standard Time Candle" source put into algorithm to advance the satellite a set amount of time each measurement.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May 30 02:36:21 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+actual equal-area cutoff angle created, gaussian falloff for exposure, hammer-aitoff equal-area projection possible for output.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May 29 02:16:23 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+Geometry altered for projection into galactic coordinates, extra test source added, display type altered for resolution and minimization of artifacts, extra check against exceptions put into algorithm, extra "gaussian with cutoff" exposure method put in to approximate real exposure.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May 29 02:16:23 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+Geometry altered for projection into galactic coordinates, extra test source added, display type altered for resolution and minimization of artifacts, extra check against exceptions put into algorithm, extra "gaussian with cutoff" exposure method put in to approximate real exposure.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May 29 02:16:22 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+Geometry altered for projection into galactic coordinates, extra test source added, display type altered for resolution and minimization of artifacts, extra check against exceptions put into algorithm, extra "gaussian with cutoff" exposure method put in to approximate real exposure.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue May 28 12:47:24 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+Another change to the galactic cartesian vector, more display modes added, geometry mapping fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue May 28 12:47:23 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+Another change to the galactic cartesian vector, more display modes added, geometry mapping fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue May 28 12:47:23 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx FluxSource.cxx 
+Log Message:
+Another change to the galactic cartesian vector, more display modes added, geometry mapping fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat May 25 16:26:06 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Removed Files:
+	GalacticHist.cxx GalacticHist.h 
+Log Message:
+Histogram infrastructure consolidated into one algorithm, aperture of exposure a joboptions variable now, also several "exposure modes" possible, to allow for sky mapping and exposure mapping.  Error regarding large aperture fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat May 25 14:08:58 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+superfluous debug output removed, diffuse xml declaration tuned, histogram resolution increased, proper galactic coordinates output, axes labeled/title in histogram display.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat May 25 14:08:58 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx GalacticHist.cxx jobOptions.txt 
+Log Message:
+superfluous debug output removed, diffuse xml declaration tuned, histogram resolution increased, proper galactic coordinates output, axes labeled/title in histogram display.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat May 25 14:08:57 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+superfluous debug output removed, diffuse xml declaration tuned, histogram resolution increased, proper galactic coordinates output, axes labeled/title in histogram display.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May 23 17:16:54 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx GalacticHist.cxx jobOptions.txt 
+Log Message:
+Flux can now return pointers to the current FluxSource and EventSource, for the sake of the GRB test function.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May 23 17:16:54 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	Flux.h 
+Log Message:
+Flux can now return pointers to the current FluxSource and EventSource, for the sake of the GRB test function.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May 23 17:16:53 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFlux.h 
+Log Message:
+Flux can now return pointers to the current FluxSource and EventSource, for the sake of the GRB test function.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May 22 18:00:36 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx 
+Log Message:
+input file now refreshes properly with every run of the exposure program.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May 22 17:44:36 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	GPS.cxx Orbit.cxx 
+Log Message:
+default time expansion in GPS changed to 1, so now orbittime is the same as time, and the lat/lon functions aren't wonky.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May 22 16:09:07 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx GalacticHist.cxx jobOptions.txt 
+Log Message:
+A problem with setting the proper direction when using the diffuse mechanism in FluxSource fixed.  ALso, sky mapping progressing.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May 22 16:09:07 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx FluxSource.cxx 
+Log Message:
+A problem with setting the proper direction when using the diffuse mechanism in FluxSource fixed.  ALso, sky mapping progressing.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May 22 16:09:07 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+A problem with setting the proper direction when using the diffuse mechanism in FluxSource fixed.  ALso, sky mapping progressing.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May 22 01:21:53 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Added Files:
+	GalacticHist.cxx GalacticHist.h 
+Log Message:
+crude 2D histogram display now in FluxTestAlg.
+
+    *
+------------------------------------------------------------
+User: burnett  Tue May 21 15:26:52 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tag v5r6p2
+    *
+------------------------------------------------------------
+User: burnett  Tue May 21 15:26:52 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tag v5r6p2
+    *
+------------------------------------------------------------
+User: burnett  Tue May 21 15:25:57 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+
+fix units for default source.
+    *
+------------------------------------------------------------
+User: srobinsn  Mon May 20 16:40:53 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+error fixed in IFluxSvc
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon May 20 16:19:27 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+current lat, lon coordinates of sattellite can be gotten through service
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon May 20 16:19:27 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx FluxSvc.h 
+Log Message:
+current lat, lon coordinates of sattellite can be gotten through service
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon May 20 16:19:27 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+current lat, lon coordinates of sattellite can be gotten through service
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun May 19 14:39:20 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+FluxTestAlg altered to find galactic directions (primitive exposure map) and generate a rather silly display.  This should and will be redone with root, and the exposure altered to reflect the real characteristics of the spacecraft.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat May 18 14:21:34 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	Flux.cxx Flux.h FluxMgr.cxx FluxMgr.h FluxSvc.cxx FluxSvc.h 
+	GPS.cxx GPS.h 
+Log Message:
+transformGlastToGalactic function created, usable from service.  This function handles the transformation from glast-local coordinates into galactic coordinates.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sat May 18 14:21:33 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFlux.h IFluxSvc.h 
+Log Message:
+transformGlastToGalactic function created, usable from service.  This function handles the transformation from glast-local coordinates into galactic coordinates.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May 16 22:15:01 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+diffuse altered to take a single source and expand to add more point sources, a single diffuse source is set up to do so in user_library.xml
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May 16 22:15:01 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx CompositeDiffuse.h 
+Log Message:
+diffuse altered to take a single source and expand to add more point sources, a single diffuse source is set up to do so in user_library.xml
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May 16 13:34:10 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeDiffuse.cxx CompositeDiffuse.h 
+Log Message:
+flux in diffuse model now randomized with the same algorithm originally used in diffuse project.
+
+    *
+------------------------------------------------------------
+User: burnett  Thu May 16 08:22:33 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+tag  v5r6p1 for changed McParticle
+    *
+------------------------------------------------------------
+User: burnett  Thu May 16 08:22:33 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+tag  v5r6p1 for changed McParticle
+    *
+------------------------------------------------------------
+User: riccardo  Wed May 15 05:01:34 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+Small fix to FluxAlg for the new McParticle
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue May 14 17:04:12 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx 
+Log Message:
+Particle name getting in FLuxTestAlg fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue May 14 12:30:22 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx Orbit.cxx 
+Log Message:
+x-axis of GLAST now faces east, and the y-axis points north.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon May 13 14:14:25 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source.dtd 
+Log Message:
+defaults on "patch" attribute in DTD multiplied by 10 to be in millimeters.
+
+    *
+------------------------------------------------------------
+User: richard  Fri May 10 11:01:55 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx 
+Log Message:
+GlastEvent namespace change
+    *
+------------------------------------------------------------
+User: richard  Fri May 10 11:01:33 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+GlastEvent namespace change
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May  9 22:50:53 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx FluxSvc.cxx 
+Log Message:
+FluxAlg set up to handle external changing of sources - length issue of direction vector.
+
+    *
+------------------------------------------------------------
+User: burnett  Thu May  9 19:25:21 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx 
+Log Message:
+more Event conversion
+    *
+------------------------------------------------------------
+User: burnett  Thu May  9 19:18:35 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+
+prepare for v5r6, following Event conversion
+    *
+------------------------------------------------------------
+User: burnett  Thu May  9 19:18:35 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+prepare for v5r6, following Event conversion
+    *
+------------------------------------------------------------
+User: burnett  Thu May  9 19:18:34 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+prepare for v5r6, following Event conversion
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May  9 14:39:16 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	Flux.cxx Flux.h FluxMgr.cxx FluxMgr.h FluxSource.cxx GPS.cxx 
+Log Message:
+Occluded() function fixed in FLuxSource, explanation given in code comments
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May  9 14:39:15 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h IFlux.h 
+Log Message:
+Occluded() function fixed in FLuxSource, explanation given in code comments
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May  9 12:59:30 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	Flux.cxx Flux.h FluxMgr.cxx FluxMgr.h FluxSvc.cxx FluxSvc.h 
+Log Message:
+setGlasAngles function changed to SetOrientation function, also getOrientationTransform available from IFlux.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May  9 12:59:29 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFlux.h IFluxSvc.h 
+Log Message:
+setGlasAngles function changed to SetOrientation function, also getOrientationTransform available from IFlux.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May  8 09:59:08 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	Flux.cxx FluxMgr.cxx FluxSource.cxx FluxSvc.cxx FluxSvc.h 
+	GPS.cxx GPS.h 
+Log Message:
+GLAST satellite tilting angles now reflected in output from fluxsource. documentation to follow.  demonstration use in FluxDisplay.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May  8 09:59:08 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h IFluxSvc.h 
+Log Message:
+GLAST satellite tilting angles now reflected in output from fluxsource. documentation to follow.  demonstration use in FluxDisplay.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue May  7 10:54:44 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+direction vector stored on TDS normalized when gotten, in FluxDisplayTest.  Maybe this should be looked at when it is put in in FluxDisplay.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon May  6 18:13:11 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx FluxSvc.h 
+Log Message:
+There is now a method for getting the name of the current flux directly from the service.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon May  6 18:13:11 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+There is now a method for getting the name of the current flux directly from the service.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun May  5 16:58:57 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	Flux.cxx Flux.h 
+Log Message:
+GpsTime function in Flux and IFlux now returns a double instead of an int.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun May  5 16:58:57 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFlux.h 
+Log Message:
+GpsTime function in Flux and IFlux now returns a double instead of an int.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri May  3 10:26:57 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFlux.h 
+Log Message:
+IFlux can now be asked for GPS time.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May  2 17:00:19 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx FluxSvc.h 
+Log Message:
+FluxSvc holds and returns a pointer to the "current" IFlux Object.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May  2 15:09:02 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+BFEM lines commented in joboptions to make work, external spectrums can now go to flux=0 without breaking things (though not forever)
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May  2 15:09:02 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+BFEM lines commented in joboptions to make work, external spectrums can now go to flux=0 without breaking things (though not forever)
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu May  2 15:09:01 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+BFEM lines commented in joboptions to make work, external spectrums can now go to flux=0 without breaking things (though not forever)
+
+    *
+------------------------------------------------------------
+User: burnett  Thu May  2 12:05:05 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+small fix to rootplot def
+    *
+------------------------------------------------------------
+User: burnett  Thu May  2 05:41:28 PDT 2002
+FluxSvc/src
+
+Removed Files:
+	CrElectron.cxx CrElectron.h CrElectronPrimary.cxx 
+	CrElectronPrimary.h CrElectronReentrant.cxx 
+	CrElectronReentrant.h CrElectronSplash.cxx CrElectronSplash.h 
+	CrProton.cxx CrProton.h CrProtonPrimary.cxx CrProtonPrimary.h 
+	CrProtonReentrant.cxx CrProtonReentrant.h CrProtonSplash.cxx 
+	CrProtonSplash.h CrSpectrum.cxx CrSpectrum.h 
+Log Message:
+removed Cr routines
+    *
+------------------------------------------------------------
+User: burnett  Wed May  1 19:55:50 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+clean up comments. 
+
+    *
+------------------------------------------------------------
+User: burnett  Wed May  1 19:55:50 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+clean up comments. 
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May  1 15:33:06 PDT 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootplot.h testMgr.cxx 
+Log Message:
+BFEM sources removed, put into BFEMflux package
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May  1 15:33:06 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+BFEM sources removed, put into BFEMflux package
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May  1 15:33:06 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx FluxSource.cxx Spectrum.cxx 
+Log Message:
+BFEM sources removed, put into BFEMflux package
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed May  1 15:33:05 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+BFEM sources removed, put into BFEMflux package
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Apr 29 14:26:03 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source.dtd 
+Log Message:
+output of launch points in detector now in mm ; xml sources understood to be declared in mm.  this is reflected in the DTD.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Apr 29 14:26:03 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+output of launch points in detector now in mm ; xml sources understood to be declared in mm.  this is reflected in the DTD.
+
+    *
+------------------------------------------------------------
+User: burnett  Sun Apr 28 21:52:25 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+
+fix conversion factors in FluxAlg
+    *
+------------------------------------------------------------
+User: burnett  Sun Apr 28 21:52:24 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+
+fix conversion factors in FluxAlg
+    *
+------------------------------------------------------------
+User: burnett  Sun Apr 28 21:52:24 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+fix conversion factors in FluxAlg
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Apr 28 14:08:10 PDT 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+Diffuse background model designed, CompositeDiffuse.cxx, .h implemented.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Apr 28 14:08:10 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.h FluxMgr.cxx FluxSource.cxx 
+Added Files:
+	CompositeDiffuse.cxx CompositeDiffuse.h 
+Log Message:
+Diffuse background model designed, CompositeDiffuse.cxx, .h implemented.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Sun Apr 28 14:08:09 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+Diffuse background model designed, CompositeDiffuse.cxx, .h implemented.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Apr 24 11:12:24 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	Orbit.cxx 
+Log Message:
+more orbit transform documentation.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Apr 22 17:09:13 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	Orbit.cxx 
+Log Message:
+Fixing galactic calculation.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Apr 22 13:50:14 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	Orbit.cxx 
+Log Message:
+orbital galactic transformation fixed....needs testing.
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Apr 20 20:08:59 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+fix include
+    *
+------------------------------------------------------------
+User: burnett  Sat Apr 20 19:37:37 PDT 2002
+FluxSvc/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+tag v5r4	
+
+    *
+------------------------------------------------------------
+User: burnett  Sat Apr 20 19:37:37 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+tag v5r4	
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr 19 13:15:19 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+earth occultation method checked and fixed now. Note that Flux updates the elapsed and orbital times every time a particle is called, and that it is expected that whatever is calling the FluxSource will do this.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr 19 13:15:18 PDT 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+earth occultation method checked and fixed now. Note that Flux updates the elapsed and orbital times every time a particle is called, and that it is expected that whatever is calling the FluxSource will do this.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr 19 13:15:18 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+earth occultation method checked and fixed now. Note that Flux updates the elapsed and orbital times every time a particle is called, and that it is expected that whatever is calling the FluxSource will do this.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr 19 13:15:17 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx FluxSource.cxx 
+Log Message:
+earth occultation method checked and fixed now. Note that Flux updates the elapsed and orbital times every time a particle is called, and that it is expected that whatever is calling the FluxSource will do this.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr 19 01:17:29 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx 
+Log Message:
+FLuxAlg now puts particledata in proper place on TDS ; method for handling earth occultation of galactic-coordinate sources implemented, need some testing.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr 19 01:17:29 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx FluxAlg.cxx FluxSource.cxx 
+Log Message:
+FLuxAlg now puts particledata in proper place on TDS ; method for handling earth occultation of galactic-coordinate sources implemented, need some testing.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr 19 01:17:29 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+FLuxAlg now puts particledata in proper place on TDS ; method for handling earth occultation of galactic-coordinate sources implemented, need some testing.
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Apr 18 18:10:30 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+
+next iteration.
+    *
+------------------------------------------------------------
+User: burnett  Thu Apr 18 17:36:52 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+
+fix setting Event/MC when no converter.
+    *
+------------------------------------------------------------
+User: burnett  Thu Apr 18 17:36:51 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+fix setting Event/MC when no converter.
+    *
+------------------------------------------------------------
+User: burnett  Thu Apr 18 11:02:21 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+unix fix
+    *
+------------------------------------------------------------
+User: burnett  Thu Apr 18 11:02:00 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.h CompositeSource.cxx 
+Log Message:
+unix fix, warnings
+    *
+------------------------------------------------------------
+User: burnett  Wed Apr 17 21:17:08 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+many changes to get to work putting primary particle on the TDS.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Apr 16 18:57:33 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source.dtd source_library.xml user_library.xml 
+Log Message:
+Service outputs Energies in MeV, but sources in XML can be either (they default to GeV for backwards-compatibility).
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Apr 16 18:57:33 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+Service outputs Energies in MeV, but sources in XML can be either (they default to GeV for backwards-compatibility).
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Apr 16 18:57:33 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+Service outputs Energies in MeV, but sources in XML can be either (they default to GeV for backwards-compatibility).
+
+    *
+------------------------------------------------------------
+User: burnett  Tue Apr 16 16:27:11 PDT 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+put versions on, make uses public
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Apr 16 15:51:57 PDT 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml user_library.xml 
+Added Files:
+	composite_library.xml 
+Log Message:
+xml source file added, "composite_library.xml" to hold nested sources, more sources moved to user_library.xml.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Apr 16 15:51:57 PDT 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+xml source file added, "composite_library.xml" to hold nested sources, more sources moved to user_library.xml.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Apr 16 11:30:57 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx 
+Log Message:
+output of test functions kludged to give position in millimeters - this needs proper fixing.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Apr 16 11:30:57 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+output of test functions kludged to give position in millimeters - this needs proper fixing.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Apr 16 11:20:58 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+TDS used to store particle information; FluxTestAlg designed to use the information stored from FLuxAlg.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Apr 16 11:20:57 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+TDS used to store particle information; FluxTestAlg designed to use the information stored from FLuxAlg.
+
+    *
+------------------------------------------------------------
+User: burnett  Mon Apr 15 14:54:24 PDT 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+
+remove McVertex, fix (almost) FluxAlg.
+    *
+------------------------------------------------------------
+User: burnett  Mon Apr 15 14:54:23 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+
+remove McVertex, fix (almost) FluxAlg.
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Apr 15 12:42:56 PDT 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+Made FLuxAlg code compile - still needs work.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr  5 16:05:45 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+rootplot can be called through FluxSvc from external packages.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr  5 16:05:45 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFluxSvc.h 
+Log Message:
+rootplot can be called through FluxSvc from external packages.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr  5 15:40:24 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	TimeDepSpectrum.cxx TimeDepSpectrum.h rootplot.cxx 
+Added Files:
+	rootplot.h roottest.cxx 
+Log Message:
+rootplot able to be called remotely.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr  5 15:40:23 PST 2002
+FluxSvc/src/test
+
+Removed Files:
+	GRBParam.txt 
+Log Message:
+rootplot able to be called remotely.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr  5 15:40:23 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx FluxSvc.h 
+Log Message:
+rootplot able to be called remotely.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr  5 15:40:22 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+rootplot able to be called remotely.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr  5 07:16:11 PST 2002
+FluxSvc/src/GRB
+
+Removed Files:
+	GRBConstants.cxx GRBConstants.h GRBShell.cxx GRBShell.h 
+	GRBShock.cxx GRBShock.h GRBSim.cxx GRBSim.h GRBSpectrum.cxx 
+	GRBSpectrum.h 
+Log Message:
+GRB files put into FluxDisplay.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Apr  5 07:16:09 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+GRB files put into FluxDisplay.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Apr  4 11:34:04 PST 2002
+FluxSvc/doc
+
+Added Files:
+	FluxSvcFig1.jpg FluxSvcFig2.jpg 
+Log Message:
+Images should be added properly.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Apr  4 11:10:28 PST 2002
+FluxSvc/doc
+
+Modified Files:
+	FluxSvcDoc2.htm 
+Added Files:
+	FluxSvcFig1.jpg FluxSvcFig2.jpg 
+Log Message:
+Documentation fixed and updated for external Spectrum creation.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Apr  4 11:10:28 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	mainpage.h 
+Log Message:
+Documentation fixed and updated for external Spectrum creation.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Apr  4 10:59:29 PST 2002
+FluxSvc/doc
+
+Removed Files:
+	FluxSvcFig2.jpg 
+Log Message:
+
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Apr  4 10:59:20 PST 2002
+FluxSvc/doc
+
+Removed Files:
+	FluxSvcFig1.jpg 
+Log Message:
+
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Apr  3 13:26:15 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootplot.cxx testMgr.cxx 
+Log Message:
+Added RemoteSpectrumFactory, external Spectrum declarations working.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Apr  3 13:26:14 PST 2002
+FluxSvc/src/GRB
+
+Modified Files:
+	GRBSpectrum.cxx GRBSpectrum.h 
+Log Message:
+Added RemoteSpectrumFactory, external Spectrum declarations working.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Apr  3 13:26:14 PST 2002
+FluxSvc/src
+
+Modified Files:
+	AlbedoPSpectrum.cxx AlbedoPSpectrum.h CHIMESpectrum.cxx 
+	CHIMESpectrum.h CrElectron.cxx CrElectron.h CrProton.cxx 
+	CrProton.h CrSpectrum.h FILESpectrum.cxx FILESpectrum.h 
+	FluxAlg.cxx FluxAlg.h FluxMgr.cxx FluxSource.cxx 
+	GalElSpectrum.cxx GalElSpectrum.h HeSpectrum.cxx HeSpectrum.h 
+	SimpleSpectrum.cxx SimpleSpectrum.h Spectrum.cxx 
+	SpectrumFactoryTable.cxx 
+Added Files:
+	Spectrum.h SpectrumFactory.h SpectrumFactoryTable.h 
+Log Message:
+Added RemoteSpectrumFactory, external Spectrum declarations working.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Apr  3 13:26:12 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h IFlux.h ISpectrumFactory.h 
+Added Files:
+	ISpectrum.h 
+Removed Files:
+	Spectrum.h SpectrumFactory.h SpectrumFactoryTable.h 
+Log Message:
+Added RemoteSpectrumFactory, external Spectrum declarations working.
+
+    *
+------------------------------------------------------------
+User: burnett  Fri Mar 29 06:07:45 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx 
+Log Message:
+remove bad include
+    *
+------------------------------------------------------------
+User: burnett  Wed Mar 27 10:41:25 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxAlg.cxx FluxAlg.h 
+Log Message:
+patch for new McParticle
+    *
+------------------------------------------------------------
+User: omodei  Fri Mar 22 06:38:37 PST 2002
+FluxSvc/src/test
+
+Modified Files:
+	GRBParam.txt 
+Log Message:
+The flux at time 0 is now correct
+    *
+------------------------------------------------------------
+User: omodei  Fri Mar 22 06:38:36 PST 2002
+FluxSvc/src/GRB
+
+Modified Files:
+	GRBShock.cxx GRBSim.cxx 
+Log Message:
+The flux at time 0 is now correct
+    *
+------------------------------------------------------------
+User: omodei  Fri Mar 22 06:38:36 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+The flux at time 0 is now correct
+    *
+------------------------------------------------------------
+User: cohen  Fri Mar 22 00:15:10 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+make use facilities public for FluxDisplay
+    *
+------------------------------------------------------------
+User: cohen  Thu Mar 21 01:54:22 PST 2002
+FluxSvc/src/GRB
+
+Modified Files:
+	GRBConstants.cxx GRBConstants.h GRBShell.cxx GRBShock.cxx 
+	GRBSim.cxx GRBSim.h GRBSpectrum.cxx 
+Log Message:
+clean up + new patches for Windows compilation
+    *
+------------------------------------------------------------
+User: cohen  Thu Mar 21 01:54:22 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+clean up + new patches for Windows compilation
+    *
+------------------------------------------------------------
+User: cohen  Tue Mar 19 09:23:30 PST 2002
+FluxSvc/src/GRB
+
+Modified Files:
+	GRBSim.cxx GRBSpectrum.cxx 
+Log Message:
+fixed last windows incompatibilities and replaced an exit() call by an exception handling
+    *
+------------------------------------------------------------
+User: cohen  Fri Mar 15 02:06:18 PST 2002
+FluxSvc/src/GRB
+
+Modified Files:
+	GRBSim.cxx 
+Log Message:
+Tried to fix Windows compilation errors
+    *
+------------------------------------------------------------
+User: cohen  Fri Mar 15 02:06:17 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxMgr.cxx 
+Log Message:
+Tried to fix Windows compilation errors
+    *
+------------------------------------------------------------
+User: omodei  Thu Mar 14 07:59:22 PST 2002
+FluxSvc/src/GRB
+
+Modified Files:
+	GRBSim.cxx 
+Log Message:
+Solve a problem with G4Generator
+    *
+------------------------------------------------------------
+User: omodei  Thu Mar 14 07:58:23 PST 2002
+FluxSvc/src/GRB
+
+Modified Files:
+	GRBSpectrum.cxx 
+Log Message:
+The rate could not be too low!
+    *
+------------------------------------------------------------
+User: omodei  Thu Mar 14 07:10:50 PST 2002
+FluxSvc/src/GRB
+
+Modified Files:
+	GRBConstants.cxx GRBConstants.h GRBShell.cxx GRBShell.h 
+	GRBShock.cxx GRBShock.h GRBSim.cxx GRBSim.h GRBSpectrum.cxx 
+	GRBSpectrum.h 
+Log Message:
+Add doxygen documentations, clean up the code
+    *
+------------------------------------------------------------
+User: cohen  Mon Mar 11 08:55:07 PST 2002
+FluxSvc/src
+
+Modified Files:
+	Flux.h FluxMgr.h FluxMgr.cxx 
+Log Message:
+added carriage return at end of files, and fixed a scope problem in FluxMgr.cxx
+    *
+------------------------------------------------------------
+User: cohen  Mon Mar 11 08:55:06 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFlux.h 
+Log Message:
+added carriage return at end of files, and fixed a scope problem in FluxMgr.cxx
+    *
+------------------------------------------------------------
+User: omodei  Thu Mar  7 03:25:49 PST 2002
+FluxSvc/src/GRB
+
+Added Files:
+	GRBConstants.cxx 
+Log Message:
+Added GRBConstant.cxx
+    *
+------------------------------------------------------------
+User: omodei  Wed Mar  6 10:05:22 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootplot.cxx 
+Removed Files:
+	GRBTest.cxx 
+Log Message:
+Remove any dependences from root in the GRB source program: GRBTest in FluxDiplay!
+    *
+------------------------------------------------------------
+User: omodei  Wed Mar  6 10:05:22 PST 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Added Files:
+	GRBParam.txt 
+Log Message:
+Remove any dependences from root in the GRB source program: GRBTest in FluxDiplay!
+    *
+------------------------------------------------------------
+User: omodei  Wed Mar  6 10:05:22 PST 2002
+FluxSvc/src/GRB
+
+Modified Files:
+	GRBConstants.h GRBShell.cxx GRBShell.h GRBShock.cxx GRBShock.h 
+	GRBSim.cxx GRBSim.h GRBSpectrum.cxx GRBSpectrum.h 
+Removed Files:
+	GRBUniverse.cxx GRBUniverse.h 
+Log Message:
+Remove any dependences from root in the GRB source program: GRBTest in FluxDiplay!
+    *
+------------------------------------------------------------
+User: omodei  Wed Mar  6 10:05:21 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+Remove any dependences from root in the GRB source program: GRBTest in FluxDiplay!
+    *
+------------------------------------------------------------
+User: als  Mon Feb 25 17:12:58 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+      Tag: v5r1-fix
+	requirements 
+Log Message:
+branch v5r1-fix, remove private declaration for linux compilation
+
+
+    *
+------------------------------------------------------------
+User: omodei  Fri Feb 15 07:59:59 PST 2002
+FluxSvc/src/test/flux
+
+Added Files:
+	GRBTest.cxx 
+Log Message:
+Added Gamma Ray Burst Spectrum for testing time dipendent spectrum
+    *
+------------------------------------------------------------
+User: omodei  Fri Feb 15 07:59:59 PST 2002
+FluxSvc/src/GRB
+
+Added Files:
+	GRBConstants.h GRBShell.cxx GRBShell.h GRBShock.cxx GRBShock.h 
+	GRBSim.cxx GRBSim.h GRBSpectrum.cxx GRBSpectrum.h 
+	GRBUniverse.cxx GRBUniverse.h 
+Log Message:
+Added Gamma Ray Burst Spectrum for testing time dipendent spectrum
+    *
+------------------------------------------------------------
+User: omodei  Fri Feb 15 07:52:46 PST 2002
+FluxSvc/src/GRB
+
+Log Message:
+Directory /nfs/slac/g/glast/ground/cvs/FluxSvc/src/GRB added to the repository
+
+    *
+------------------------------------------------------------
+User: omodei  Fri Feb 15 07:38:33 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootplot.cxx testMgr.cxx 
+Log Message:
+Added the GRBSpectrum as example of time dependent spectrum
+    *
+------------------------------------------------------------
+User: omodei  Fri Feb 15 07:38:33 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+Added the GRBSpectrum as example of time dependent spectrum
+    *
+------------------------------------------------------------
+User: omodei  Fri Feb 15 07:38:32 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+Added the GRBSpectrum as example of time dependent spectrum
+    *
+------------------------------------------------------------
+User: cohen  Thu Feb 14 08:00:06 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h Spectrum.h 
+Log Message:
+time is passed as argument to Spectrum::energySrc, so that randomly drawed kinetic energies of particles can be time dependant
+    *
+------------------------------------------------------------
+User: cohen  Thu Feb 14 08:00:06 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSource.cxx Spectrum.cxx 
+Log Message:
+time is passed as argument to Spectrum::energySrc, so that randomly drawed kinetic energies of particles can be time dependant
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Feb 13 13:03:18 PST 2002
+FluxSvc/src
+
+Modified Files:
+	Spectrum.cxx 
+Log Message:
+potential error in Spectrum::dir default implementation fixed, RandFlat used instead of rand().
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Feb 13 13:03:18 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+potential error in Spectrum::dir default implementation fixed, RandFlat used instead of rand().
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb  7 15:51:03 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+Flux Average checking lines in test programs.  Composite source interval() issue solved.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb  7 15:51:03 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+Flux Average checking lines in test programs.  Composite source interval() issue solved.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb  7 15:51:02 PST 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx 
+Log Message:
+Flux Average checking lines in test programs.  Composite source interval() issue solved.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb  7 15:51:02 PST 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx CompositeSource.h FluxMgr.cxx Spectrum.cxx 
+Log Message:
+Flux Average checking lines in test programs.  Composite source interval() issue solved.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb  7 15:51:02 PST 2002
+FluxSvc/doc
+
+Added Files:
+	FluxSvcDoc2.htm FluxSvcFig1.jpg FluxSvcFig2.jpg 
+Log Message:
+Flux Average checking lines in test programs.  Composite source interval() issue solved.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Feb  7 15:51:02 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h Spectrum.h 
+Log Message:
+Flux Average checking lines in test programs.  Composite source interval() issue solved.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Feb  1 17:33:27 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootplot.cxx testMgr.cxx 
+Added Files:
+	TimeDepSpectrum.cxx TimeDepSpectrum.h 
+Removed Files:
+	electrons.cxx protons.cxx 
+Log Message:
+JobOptions now holds proper source name variable, files relocated to conform to schema, electrons,protons.cxx removed, FluxMgr assert problem fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Feb  1 17:33:27 PST 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+JobOptions now holds proper source name variable, files relocated to conform to schema, electrons,protons.cxx removed, FluxMgr assert problem fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Feb  1 17:33:26 PST 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx Flux.cxx FluxAlg.cxx FluxMgr.cxx 
+	FluxSource.cxx FluxSvc.cxx SimpleSpectrum.cxx 
+Added Files:
+	CompositeSource.h FluxMgr.h FluxSvc.h SimpleSpectrum.h 
+Removed Files:
+	TimeDepSpectrum.cxx TimeDepSpectrum.h 
+Log Message:
+JobOptions now holds proper source name variable, files relocated to conform to schema, electrons,protons.cxx removed, FluxMgr assert problem fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Feb  1 17:33:25 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h 
+Removed Files:
+	CompositeSource.h FluxMgr.h FluxSvc.h SimpleSpectrum.h 
+Log Message:
+JobOptions now holds proper source name variable, files relocated to conform to schema, electrons,protons.cxx removed, FluxMgr assert problem fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 31 01:55:20 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+fixed time-dependent errors
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 31 01:55:20 PST 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx EventSource.cxx FluxMgr.cxx FluxSource.cxx 
+	Spectrum.cxx 
+Log Message:
+fixed time-dependent errors
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 31 01:55:20 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	CompositeSource.h EventSource.h FluxSource.h 
+Log Message:
+fixed time-dependent errors
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jan 29 17:36:45 PST 2002
+FluxSvc/src
+
+Modified Files:
+	CompositeSource.cxx EventSource.cxx Flux.cxx FluxMgr.cxx 
+	FluxSource.cxx Spectrum.cxx 
+Log Message:
+interval function put into Spectrum definition,
+generate(), flux() and rate() functions now take a time,
+further FluxMgr::test() output.  EventSource now holds current
+elapsed time.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jan 29 17:36:44 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	CompositeSource.h EventSource.h FluxSource.h Spectrum.h 
+Log Message:
+interval function put into Spectrum definition,
+generate(), flux() and rate() functions now take a time,
+further FluxMgr::test() output.  EventSource now holds current
+elapsed time.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Jan 25 01:02:26 PST 2002
+FluxSvc/src
+
+Modified Files:
+	Spectrum.cxx 
+Log Message:
+cleaned up extra variables/functions in Spectrum
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Jan 25 01:02:25 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	Spectrum.h 
+Log Message:
+cleaned up extra variables/functions in Spectrum
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 24 02:03:50 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootplot.cxx testMgr.cxx 
+Log Message:
+moved files to work with FLuxdisplay,
+transformation matrix can be gotten from Flux now.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 24 02:03:50 PST 2002
+FluxSvc/src
+
+Modified Files:
+	AlbedoPSpectrum.cxx AlbedoPSpectrum.h CHIMESpectrum.cxx 
+	CHIMESpectrum.h CrElectron.cxx CrElectron.h CrProton.cxx 
+	CrProton.h CrSpectrum.h FILESpectrum.cxx FILESpectrum.h 
+	Flux.cxx Flux.h FluxAlg.cxx FluxMgr.cxx FluxSource.cxx 
+	GalElSpectrum.cxx GalElSpectrum.h HeSpectrum.cxx HeSpectrum.h 
+	SimpleSpectrum.cxx Spectrum.cxx SpectrumFactoryTable.cxx 
+	TimeDepSpectrum.cxx TimeDepSpectrum.h 
+Removed Files:
+	Spectrum.h SpectrumFactory.h SpectrumFactoryTable.h 
+Log Message:
+moved files to work with FLuxdisplay,
+transformation matrix can be gotten from Flux now.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 24 02:03:47 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxMgr.h FluxSource.h IFlux.h ISpectrumFactory.h 
+Added Files:
+	Spectrum.h SpectrumFactory.h SpectrumFactoryTable.h 
+Log Message:
+moved files to work with FLuxdisplay,
+transformation matrix can be gotten from Flux now.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Jan 18 03:22:07 PST 2002
+FluxSvc/xml
+
+Modified Files:
+	user_library.xml 
+Log Message:
+returned flux is time-dependent.  added a TimeDepSpectrum for tests.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Jan 18 03:22:07 PST 2002
+FluxSvc/src
+
+Modified Files:
+	AlbedoPSpectrum.cxx AlbedoPSpectrum.h CHIMESpectrum.cxx 
+	CHIMESpectrum.h CrElectron.cxx CrElectron.h 
+	CrElectronPrimary.cxx CrElectronPrimary.h 
+	CrElectronReentrant.cxx CrElectronReentrant.h 
+	CrElectronSplash.cxx CrElectronSplash.h CrProton.cxx 
+	CrProton.h CrProtonPrimary.cxx CrProtonPrimary.h 
+	CrProtonReentrant.cxx CrProtonReentrant.h CrProtonSplash.cxx 
+	CrProtonSplash.h FluxMgr.cxx FluxSource.cxx GalElSpectrum.cxx 
+	GalElSpectrum.h HeSpectrum.cxx HeSpectrum.h Spectrum.cxx 
+	Spectrum.h 
+Added Files:
+	TimeDepSpectrum.cxx TimeDepSpectrum.h 
+Removed Files:
+	ExtraGalacticDiffuse.h 
+Log Message:
+returned flux is time-dependent.  added a TimeDepSpectrum for tests.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Jan 18 03:22:03 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+returned flux is time-dependent.  added a TimeDepSpectrum for tests.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 17 00:38:52 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootplot.cxx testMgr.cxx 
+Log Message:
+moved definition files into src directory, made necessary "include" changes
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 17 00:38:52 PST 2002
+FluxSvc/src
+
+Modified Files:
+	AlbedoPSpectrum.cxx CHIMESpectrum.cxx CrElectron.cxx 
+	CrElectron.h CrProton.cxx CrProton.h CrSpectrum.h 
+	EventSource.cxx FILESpectrum.cxx FILESpectrum.h Flux.cxx 
+	FluxAlg.cxx FluxMgr.cxx FluxSource.cxx GPS.cxx 
+	GalElSpectrum.cxx Geomag.cxx HeSpectrum.cxx Orbit.cxx 
+	SimpleSpectrum.cxx Spectrum.cxx SpectrumFactoryTable.cxx 
+Added Files:
+	AlbedoPSpectrum.h CHIMESpectrum.h GPS.h GalElSpectrum.h 
+	Geomag.h HeSpectrum.h Orbit.h Spectrum.h SpectrumFactory.h 
+	SpectrumFactoryTable.h StaticOrbit.h 
+Log Message:
+moved definition files into src directory, made necessary "include" changes
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 17 00:38:48 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	EventSource.h FluxSource.h IFlux.h ISpectrumFactory.h 
+	SimpleSpectrum.h 
+Removed Files:
+	AlbedoPSpectrum.h CHIMESpectrum.h GPS.h GalElSpectrum.h 
+	Geomag.h HeSpectrum.h Orbit.h Spectrum.h SpectrumFactory.h 
+	SpectrumFactoryTable.h StaticOrbit.h 
+Log Message:
+moved definition files into src directory, made necessary "include" changes
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 15:37:15 PST 2002
+FluxSvc/src/flux
+
+Removed Files:
+	AlbedoSpectrum.cxx ExtraGalacticDiffuse.cxx ProtonSpectrum.cxx 
+	TrappedProtonSpectrum.cxx TrappedProtonSpectrum.inc mainpage.h 
+Log Message:
+file pruning.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 15:37:14 PST 2002
+FluxSvc/FluxSvc
+
+Removed Files:
+	AlbedoSpectrum.h ProtonSpectrum.h TrappedProtonSpectrum.h 
+Log Message:
+file pruning.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 15:13:34 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+rootplot works now
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 15:13:34 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+rootplot works now
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Jan 16 14:28:05 PST 2002
+FluxSvc/src/test/flux
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+fix building of test program
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Jan 16 14:28:05 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+fix building of test program
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:28:48 PST 2002
+FluxSvc/xml
+
+Added Files:
+	user_library.xml 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:28:47 PST 2002
+FluxSvc/src/flux
+
+Added Files:
+	AlbedoSpectrum.cxx ExtraGalacticDiffuse.cxx ProtonSpectrum.cxx 
+	TrappedProtonSpectrum.cxx TrappedProtonSpectrum.inc mainpage.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:25:41 PST 2002
+FluxSvc/src/test/flux
+
+Added Files:
+	electrons.cxx protons.cxx rootAngleHist.cxx rootAngleHist.h 
+	rootEnergyHist.cxx rootEnergyHist.h rootHist.cxx rootHist.h 
+	rootplot.cxx testMgr.cxx 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:25:39 PST 2002
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:25:39 PST 2002
+FluxSvc/src
+
+Modified Files:
+	Flux.cxx FluxAlg.cxx FluxSvc.cxx 
+Added Files:
+	CrElectronPrimary.h CrElectronReentrant.cxx 
+	CrElectronReentrant.h CrElectronSplash.cxx CrElectronSplash.h 
+	CrProton.cxx CrProton.h CrProtonPrimary.cxx CrProtonPrimary.h 
+	CrProtonReentrant.cxx CrProtonReentrant.h CrProtonSplash.cxx 
+	CrProtonSplash.h CrSpectrum.cxx CrSpectrum.h EventSource.cxx 
+	ExtraGalacticDiffuse.h FILESpectrum.cxx FILESpectrum.h GPS.cxx 
+	GalElSpectrum.cxx Geomag.cxx Geomag.inc HeSpectrum.cxx 
+	HeSpectrum.inc Orbit.cxx SimpleSpectrum.cxx Spectrum.cxx 
+	SpectrumFactoryTable.cxx fluxException.h fluxMgr.cxx 
+	fluxSource.cxx 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:25:34 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:25:34 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	IFlux.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:22:45 PST 2002
+FluxSvc/src/test/flux
+
+Log Message:
+Directory /nfs/slac/g/glast/ground/cvs/FluxSvc/src/test/flux added to the repository
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:19:16 PST 2002
+FluxSvc/src/flux
+
+Log Message:
+Directory /nfs/slac/g/glast/ground/cvs/FluxSvc/src/flux added to the repository
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:14:54 PST 2002
+FluxSvc/src
+
+Added Files:
+	CrElectronPrimary.cxx 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:14:08 PST 2002
+FluxSvc/src
+
+Added Files:
+	CrElectron.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:13:11 PST 2002
+FluxSvc/src
+
+Added Files:
+	CrElectron.cxx 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:12:39 PST 2002
+FluxSvc/src
+
+Added Files:
+	CompositeSource.cxx 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:11:59 PST 2002
+FluxSvc/src
+
+Added Files:
+	CHIMESpectrum.inc 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:11:35 PST 2002
+FluxSvc/src
+
+Added Files:
+	CHIMESpectrum.cxx 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:10:57 PST 2002
+FluxSvc/src
+
+Added Files:
+	AlbedoPSpectrum.cxx 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:09:01 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	TrappedProtonSpectrum.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:08:22 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	StaticOrbit.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:07:43 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	SpectrumFactoryTable.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:07:15 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	SpectrumFactory.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:06:10 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	Spectrum.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:05:45 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	SimpleSpectrum.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:05:16 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	ProtonSpectrum.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:04:42 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	Orbit.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:03:27 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	ISpectrumFactory.h 
+Log Message:
+
+flux migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:01:49 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	HeSpectrum.h 
+Log Message:
+
+flux package migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:01:02 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	GPS.h 
+Log Message:
+
+flux package migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 04:00:25 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	Geomag.h 
+Log Message:
+
+flux package migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 03:59:55 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	GalElSpectrum.h 
+Log Message:
+
+flux package migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 03:59:09 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	FluxSource.h 
+Log Message:
+
+flux package migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 03:58:13 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	FluxMgr.h 
+Log Message:
+
+flux package migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 03:55:58 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	EventSource.h 
+Log Message:
+
+flux package migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 03:55:31 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	CompositeSource.h 
+Log Message:
+
+flux package migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 03:54:48 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	CHIMESpectrum.h 
+Log Message:
+
+flux package migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 03:53:13 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	AlbedoSpectrum.h 
+Log Message:
+
+flux package migration
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Jan 16 03:52:44 PST 2002
+FluxSvc/FluxSvc
+
+Added Files:
+	AlbedoPSpectrum.h 
+Log Message:
+
+flux package migration
+    *
+------------------------------------------------------------
+User: burnett  Tue Jan 15 09:12:41 PST 2002
+FluxSvc/xml
+
+Added Files:
+	source.dtd source_library.xml 
+Log Message:
+move xml files to here
+    *
+------------------------------------------------------------
+User: burnett  Tue Jan 15 09:12:41 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+move xml files to here
+    *
+------------------------------------------------------------
+User: burnett  Tue Jan 15 09:12:00 PST 2002
+FluxSvc/xml
+
+Log Message:
+Directory /nfs/slac/g/glast/ground/cvs/FluxSvc/xml added to the repository
+
+    *
+------------------------------------------------------------
+User: burnett  Mon Jan 14 15:22:40 PST 2002
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx defaultOptions.txt 
+Log Message:
+Implement setting dtd file as a property.
+
+    *
+------------------------------------------------------------
+User: burnett  Mon Jan 14 15:22:40 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+Implement setting dtd file as a property.
+
+    *
+------------------------------------------------------------
+User: burnett  Mon Jan 14 15:22:40 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSvc.h IFluxSvc.h 
+Log Message:
+Implement setting dtd file as a property.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 10 09:35:02 PST 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+
+properly.  THis allows time to pe passed explicitly from the client to FluxSvc.
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 10 09:35:01 PST 2002
+FluxSvc/src
+
+Modified Files:
+	Flux.h FluxSvc.cxx 
+Log Message:
+
+properly.  THis allows time to pe passed explicitly from the client to FluxSvc.
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Jan 10 09:35:01 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSvc.h IFlux.h IFluxSvc.h 
+Log Message:
+
+properly.  THis allows time to pe passed explicitly from the client to FluxSvc.
+    *
+------------------------------------------------------------
+User: burnett  Tue Jan  1 21:00:15 PST 2002
+FluxSvc/src/test
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+Start defining new alg to setup TDS from service.
+Define a default job options to be included.
+
+    *
+------------------------------------------------------------
+User: burnett  Tue Jan  1 21:00:15 PST 2002
+FluxSvc/src/Dll
+
+Modified Files:
+	FluxSvc_load.cxx 
+Log Message:
+Start defining new alg to setup TDS from service.
+Define a default job options to be included.
+
+    *
+------------------------------------------------------------
+User: burnett  Tue Jan  1 21:00:15 PST 2002
+FluxSvc/src
+
+Modified Files:
+	Flux.cxx Flux.h FluxSvc.cxx 
+Added Files:
+	FluxAlg.cxx FluxAlg.h defaultOptions.txt 
+Log Message:
+Start defining new alg to setup TDS from service.
+Define a default job options to be included.
+
+    *
+------------------------------------------------------------
+User: burnett  Tue Jan  1 21:00:14 PST 2002
+FluxSvc/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+Start defining new alg to setup TDS from service.
+Define a default job options to be included.
+
+    *
+------------------------------------------------------------
+User: burnett  Tue Jan  1 21:00:14 PST 2002
+FluxSvc/FluxSvc
+
+Modified Files:
+	FluxSvc.h IFlux.h IFluxSvc.h 
+Log Message:
+Start defining new alg to setup TDS from service.
+Define a default job options to be included.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Dec 13 00:47:01 PST 2001
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+
+Cleaned up mainpage.h, moved default for source library xml file to reside 
+in joboptions.txt
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Dec 13 00:47:01 PST 2001
+FluxSvc/doc
+
+Modified Files:
+	used_packages.html 
+Log Message:
+
+Cleaned up mainpage.h, moved default for source library xml file to reside 
+in joboptions.txt
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Dec 13 00:47:01 PST 2001
+FluxSvc/FluxSvc
+
+Modified Files:
+	mainpage.h 
+Log Message:
+
+Cleaned up mainpage.h, moved default for source library xml file to reside 
+in joboptions.txt
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Dec  7 15:20:16 PST 2001
+FluxSvc/src/test
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+
+Fixed xml file declaration method - default is set only if no files are declared -
+declaring source xml files overrides the default entirely, to give the user full
+control over source files....
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Dec  7 15:20:16 PST 2001
+FluxSvc/src
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+
+Fixed xml file declaration method - default is set only if no files are declared -
+declaring source xml files overrides the default entirely, to give the user full
+control over source files....
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Nov 27 14:39:09 PST 2001
+FluxSvc/src
+
+Modified Files:
+	Flux.cxx Flux.h 
+Log Message:
+
+Passed-through time functions from FluxMgr.
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 31 18:27:29 PST 2001
+FluxSvc/src/test jobOptions.txt
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+
+Have the test program demonstrate the extensibility of the XML description
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 31 18:27:28 PST 2001
+FluxSvc/cmt requirements
+
+Modified Files:
+	requirements 
+Log Message:
+
+Have the test program demonstrate the extensibility of the XML description
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 31 15:35:30 PST 2001
+FluxSvc/src FluxSvc.cxx
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+
+cleaned up fluxsvc.cxx
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 31 15:21:04 PST 2001
+FluxSvc/src/test jobOptions.txt
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+
+"default" xml file instantiation done - defaults to only source_library.xml
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 31 15:21:04 PST 2001
+FluxSvc/src FluxSvc.cxx
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+
+"default" xml file instantiation done - defaults to only source_library.xml
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 31 15:21:04 PST 2001
+FluxSvc/FluxSvc FluxSvc.h mainpage.h
+
+Modified Files:
+	FluxSvc.h mainpage.h 
+Log Message:
+
+"default" xml file instantiation done - defaults to only source_library.xml
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Oct 20 00:21:11 PDT 2001
+FluxSvc/src Flux.h
+
+Modified Files:
+	Flux.h 
+Log Message:
+
+Added more commenting.
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Oct 20 00:21:11 PDT 2001
+FluxSvc/FluxSvc FluxSvc.h IFlux.h IFluxSvc.h
+
+Modified Files:
+	FluxSvc.h IFlux.h IFluxSvc.h 
+Log Message:
+
+Added more commenting.
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 17 20:31:13 PDT 2001
+FluxSvc/src/Dll FluxSvc_dll.cxx FluxSvc_load.cxx
+
+Modified Files:
+	FluxSvc_dll.cxx FluxSvc_load.cxx 
+Log Message:
+
+added and fixed documentation
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 17 20:31:12 PDT 2001
+FluxSvc/src Flux.cxx Flux.h FluxSvc.cxx
+
+Modified Files:
+	Flux.cxx Flux.h FluxSvc.cxx 
+Log Message:
+
+added and fixed documentation
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 17 20:31:12 PDT 2001
+FluxSvc/doc used_packages.html
+
+Modified Files:
+	used_packages.html 
+Log Message:
+
+added and fixed documentation
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct 17 20:31:12 PDT 2001
+FluxSvc/FluxSvc FluxSvc.h IFlux.h IFluxSvc.h
+
+Modified Files:
+	FluxSvc.h IFlux.h IFluxSvc.h 
+Log Message:
+
+added and fixed documentation
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Oct 13 15:40:37 PDT 2001
+FluxSvc/src/test FluxTestAlg.cxx jobOptions.txt
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+
+testFluxMgr now uses both user_library.xml and source_library.xml, as a test of the method.
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Oct 13 15:40:36 PDT 2001
+FluxSvc/src Flux.h FluxSvc.cxx
+
+Modified Files:
+	Flux.h FluxSvc.cxx 
+Log Message:
+
+testFluxMgr now uses both user_library.xml and source_library.xml, as a test of the method.
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Oct 13 15:40:36 PDT 2001
+FluxSvc/doc used_packages.html
+
+Modified Files:
+	used_packages.html 
+Log Message:
+
+testFluxMgr now uses both user_library.xml and source_library.xml, as a test of the method.
+    *
+------------------------------------------------------------
+User: srobinsn  Sat Oct 13 15:40:36 PDT 2001
+FluxSvc/FluxSvc FluxSvc.h IFlux.h IFluxSvc.h mainpage.h
+
+Modified Files:
+	FluxSvc.h IFlux.h IFluxSvc.h mainpage.h 
+Log Message:
+
+testFluxMgr now uses both user_library.xml and source_library.xml, as a test of the method.
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Sep 27 21:38:05 PDT 2001
+FluxSvc/src/test jobOptions.txt
+
+Modified Files:
+	jobOptions.txt 
+Log Message:
+
+xml calling method updated, multiple files now possible.
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Sep 27 21:38:05 PDT 2001
+FluxSvc/src FluxSvc.cxx
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+
+xml calling method updated, multiple files now possible.
+    *
+------------------------------------------------------------
+User: srobinsn  Thu Sep 27 21:38:05 PDT 2001
+FluxSvc/FluxSvc FluxSvc.h
+
+Modified Files:
+	FluxSvc.h 
+Log Message:
+
+xml calling method updated, multiple files now possible.
+    *
+------------------------------------------------------------
+User: burnett  Thu Sep 27 14:36:51 PDT 2001
+FluxSvc/src/test TestMain.cxx
+
+Removed Files:
+	TestMain.cxx 
+Log Message:
+use pattern for test
+    *
+------------------------------------------------------------
+User: burnett  Thu Sep 27 14:36:51 PDT 2001
+FluxSvc/cmt requirements
+
+Modified Files:
+	requirements 
+Log Message:
+use pattern for test
+    *
+------------------------------------------------------------
+User: burnett  Thu Aug 23 14:08:42 PDT 2001
+FluxSvc/src/test FluxTestAlg.cxx jobOptions.txt
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+
+start of new interface for Iflux. not implemented fully.
+    *
+------------------------------------------------------------
+User: burnett  Thu Aug 23 14:08:42 PDT 2001
+FluxSvc/src/Dll FluxSvc_load.cxx
+
+Modified Files:
+	FluxSvc_load.cxx 
+Log Message:
+
+start of new interface for Iflux. not implemented fully.
+    *
+------------------------------------------------------------
+User: burnett  Thu Aug 23 14:08:41 PDT 2001
+FluxSvc/src Flux.h
+
+Modified Files:
+	Flux.h 
+Log Message:
+
+start of new interface for Iflux. not implemented fully.
+    *
+------------------------------------------------------------
+User: burnett  Thu Aug 23 14:08:41 PDT 2001
+FluxSvc/FluxSvc IFlux.h
+
+Modified Files:
+	IFlux.h 
+Log Message:
+
+start of new interface for Iflux. not implemented fully.
+    *
+------------------------------------------------------------
+User: burnett  Mon Aug 20 15:25:40 PDT 2001
+FluxSvc/src FluxSvc.cxx
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+
+Make source_library an attribute. Default is an empty string, interpreted by FluxMgr to mean load default.
+    *
+------------------------------------------------------------
+User: burnett  Mon Aug 20 15:25:40 PDT 2001
+FluxSvc/cmt requirements
+
+Modified Files:
+	requirements 
+Log Message:
+
+Make source_library an attribute. Default is an empty string, interpreted by FluxMgr to mean load default.
+    *
+------------------------------------------------------------
+User: burnett  Mon Aug 20 15:25:40 PDT 2001
+FluxSvc/FluxSvc FluxSvc.h IFluxSvc.h
+
+Modified Files:
+	FluxSvc.h IFluxSvc.h 
+Log Message:
+
+Make source_library an attribute. Default is an empty string, interpreted by FluxMgr to mean load default.
+    *
+------------------------------------------------------------
+User: burnett  Thu Aug  9 14:37:02 PDT 2001
+FluxSvc/doc release.notes
+
+Modified Files:
+	release.notes 
+Log Message:
+
+ready to tag
+    *
+------------------------------------------------------------
+User: burnett  Thu Aug  9 14:22:48 PDT 2001
+FluxSvc/src/Dll FluxSvc_load.cxx
+
+Modified Files:
+	FluxSvc_load.cxx 
+Log Message:
+
+added CREMESpectrum to list that can be instantiated. (Should be done in flux)
+    *
+------------------------------------------------------------
+User: burnett  Wed Aug  1 07:54:07 PDT 2001
+FluxSvc/doc release.notes
+
+Added Files:
+	release.notes 
+Log Message:
+
+new file
+    *
+------------------------------------------------------------
+User: burnett  Wed Aug  1 07:48:23 PDT 2001
+FluxSvc/cmt requirements
+
+Modified Files:
+	requirements 
+Log Message:
+clean up
+    *
+------------------------------------------------------------
+TAG activity
+User: burnett  Sun Jul 29 21:15:56 2001
+Tag name: v2r7
+Tag operation: mov
+Repository: /nfs/slac/g/glast/ground/cvs/FluxSvc/src
+File(s) and revision(s): Flux.cxx
+    *
+------------------------------------------------------------
+User: burnett  Sun Jul 29 21:15:39 PDT 2001
+FluxSvc/src Flux.cxx
+
+Modified Files:
+	Flux.cxx 
+Log Message:
+have to know what GPSTime is
+    *
+------------------------------------------------------------
+User: burnett  Sun Jul 29 20:58:15 PDT 2001
+FluxSvc/src Flux.cxx Flux.h FluxSvc.cxx
+
+Modified Files:
+	Flux.cxx Flux.h FluxSvc.cxx 
+Log Message:
+Provide access to the random number engine, so it can be shared with other algorithms.
+Undo attempt to impose the Gaudi version on flux.
+
+    *
+------------------------------------------------------------
+User: burnett  Sun Jul 29 20:58:15 PDT 2001
+FluxSvc/FluxSvc FluxSvc.h IFlux.h IFluxSvc.h
+
+Modified Files:
+	FluxSvc.h IFlux.h IFluxSvc.h 
+Log Message:
+Provide access to the random number engine, so it can be shared with other algorithms.
+Undo attempt to impose the Gaudi version on flux.
+
+    *
+------------------------------------------------------------
+User: burnett  Tue Jul 24 21:36:30 PDT 2001
+FluxSvc/src/Dll FluxSvc_load.cxx
+
+Modified Files:
+	FluxSvc_load.cxx 
+Log Message:
+
+remove obsolete Source.
+    *
+------------------------------------------------------------
+User: igable  Thu Jul 19 15:24:37 PDT 2001
+FluxSvc/cmt requirements
+
+Modified Files:
+	requirements 
+Log Message:
+Thomas Lindner style hack to requirements file
+    *
+------------------------------------------------------------
+User: kyoung  Wed Jul 18 13:25:27 PDT 2001
+FluxSvc/cmt requirements
+
+Modified Files:
+	requirements 
+Log Message:
+Added ld_library_path
+    *
+------------------------------------------------------------
+User: burnett  Mon Jul 16 06:26:13 PDT 2001
+FluxSvc/src/Dll FluxSvc_load.cxx
+
+Modified Files:
+	FluxSvc_load.cxx 
+Log Message:
+
+Restrict list of sources.
+    *
+------------------------------------------------------------
+User: igable  Sun Jul 15 13:48:31 PDT 2001
+FluxSvc/cmt requirements
+
+Modified Files:
+	requirements 
+Log Message:
+headers pattern
+    *
+------------------------------------------------------------
+User: burnett  Sat Jul 14 15:56:40 PDT 2001
+FluxSvc/src/test FluxTestAlg.cxx
+
+Modified Files:
+	FluxTestAlg.cxx 
+Log Message:
+remove pencil test.
+
+    *
+------------------------------------------------------------
+User: burnett  Fri Jul  6 18:27:10 PDT 2001
+FluxSvc/src/test FluxTestAlg.cxx
+
+Modified Files:
+	FluxTestAlg.cxx 
+Log Message:
+mods to add sources external to this package
+    *
+------------------------------------------------------------
+User: burnett  Fri Jul  6 18:27:10 PDT 2001
+FluxSvc/src Flux.cxx Flux.h FluxSvc.cxx
+
+Modified Files:
+	Flux.cxx Flux.h FluxSvc.cxx 
+Log Message:
+mods to add sources external to this package
+    *
+------------------------------------------------------------
+User: burnett  Fri Jul  6 18:27:09 PDT 2001
+FluxSvc/FluxSvc FluxSvc.h IFlux.h IFluxSvc.h
+
+Modified Files:
+	FluxSvc.h IFlux.h IFluxSvc.h 
+Log Message:
+mods to add sources external to this package
+    *
+------------------------------------------------------------
+User: burnett  Wed Jun 20 17:34:26 PDT 2001
+FluxSvc/src FluxSvc.cxx
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+
+Initialize local CLHEP random engine from Gaudi's random number service.
+    *
+------------------------------------------------------------
+User: kyoung  Wed Jun 20 15:07:08 PDT 2001
+FluxSvc/src/Dll FluxSvc_load.cxx
+
+Modified Files:
+	FluxSvc_load.cxx 
+Log Message:
+Changed IspectrumFactory.h to ISpectrumFactory.h
+    *
+------------------------------------------------------------
+User: burnett  Sat Jun 16 06:36:28 PDT 2001
+FluxSvc/cmt requirements
+
+Modified Files:
+	requirements 
+Log Message:
+
+remove explicit flux version
+    *
+------------------------------------------------------------
+User: burnett  Sat Jun 16 06:27:44 PDT 2001
+FluxSvc/src Flux.cxx Flux.h
+
+Modified Files:
+	Flux.cxx Flux.h 
+Log Message:
+identify source code
+    *
+------------------------------------------------------------
+User: burnett  Sat Jun 16 06:27:44 PDT 2001
+FluxSvc/FluxSvc IFlux.h
+
+Modified Files:
+	IFlux.h 
+Log Message:
+identify source code
+    *
+------------------------------------------------------------
+User: burnett  Thu May 24 20:04:02 PDT 2001
+FluxSvc/cmt requirements
+
+Modified Files:
+	requirements 
+Log Message:
+update for new flux v4
+
+    *
+------------------------------------------------------------
+User: burnett  Wed May 16 17:31:09 PDT 2001
+FluxSvc/src/test FluxTestAlg.cxx jobOptions.txt
+
+Modified Files:
+	FluxTestAlg.cxx jobOptions.txt 
+Log Message:
+added electron source
+
+    *
+------------------------------------------------------------
+User: burnett  Wed May 16 17:31:09 PDT 2001
+FluxSvc/src/Dll FluxSvc_load.cxx
+
+Modified Files:
+	FluxSvc_load.cxx 
+Log Message:
+added electron source
+
+    *
+------------------------------------------------------------
+User: burnett  Wed May 16 17:31:09 PDT 2001
+FluxSvc/cmt requirements
+
+Modified Files:
+	requirements 
+Log Message:
+added electron source
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Apr 19 08:01:37 PDT 2001
+FluxSvc/src Flux.cxx Flux.h FluxSvc.cxx
+
+Modified Files:
+	Flux.cxx Flux.h FluxSvc.cxx 
+Log Message:
+
+    *
+------------------------------------------------------------
+User: burnett  Thu Apr 19 08:01:37 PDT 2001
+FluxSvc/FluxSvc FluxSvc.h IFlux.h IFluxSvc.h
+
+Modified Files:
+	FluxSvc.h IFlux.h IFluxSvc.h 
+Log Message:
+
+    *
+------------------------------------------------------------
+User: burnett  Wed Apr 18 19:11:35 PDT 2001
+FluxSvc/src/test FluxTestAlg.cxx TestMain.cxx
+
+Modified Files:
+	FluxTestAlg.cxx TestMain.cxx 
+Log Message:
+switching to new Gaudi
+    *
+------------------------------------------------------------
+User: burnett  Wed Apr 18 19:11:35 PDT 2001
+FluxSvc/src/Dll FluxSvc_dll.cxx FluxSvc_load.cxx
+
+Modified Files:
+	FluxSvc_dll.cxx FluxSvc_load.cxx 
+Log Message:
+switching to new Gaudi
+    *
+------------------------------------------------------------
+User: burnett  Wed Apr 18 19:11:35 PDT 2001
+FluxSvc/src FluxSvc.cxx
+
+Modified Files:
+	FluxSvc.cxx 
+Log Message:
+switching to new Gaudi
+    *
+------------------------------------------------------------
+User: burnett  Wed Apr 18 19:11:35 PDT 2001
+FluxSvc/cmt requirements setup.bat
+
+Modified Files:
+	requirements 
+Removed Files:
+	setup.bat 
+Log Message:
+switching to new Gaudi
+    *
+------------------------------------------------------------
+User: burnett  Wed Apr 18 19:11:34 PDT 2001
+FluxSvc/FluxSvc FluxSvc.h IFluxSvc.h
+
+Modified Files:
+	FluxSvc.h IFluxSvc.h 
+Log Message:
+switching to new Gaudi
+    *
+------------------------------------------------------------
+User: burnett  Tue Jan 30 21:44:39 PST 2001
+FluxSvc - Imported sources
+
+Log Message:
+Initial version of package that defines a service to generate particle input to gismo or Geant4.
+
+Status:
+
+Vendor Tag:	GLAST
+Release Tags:	v1
+		
+U FluxSvc/.cvsignore
+U FluxSvc/ChangeLog
+U FluxSvc/cmt/Makefile
+U FluxSvc/cmt/requirements
+U FluxSvc/cmt/setup.bat
+U FluxSvc/doc/.cvsignore
+U FluxSvc/FluxSvc/FluxSvc.h
+U FluxSvc/FluxSvc/IFlux.h
+U FluxSvc/FluxSvc/IFluxSvc.h
+U FluxSvc/FluxSvc/mainpage.h
+U FluxSvc/src/Flux.cxx
+U FluxSvc/src/Flux.h
+U FluxSvc/src/FluxSvc.cxx
+U FluxSvc/src/Dll/FluxSvc_dll.cxx
+U FluxSvc/src/Dll/FluxSvc_load.cxx
+U FluxSvc/src/test/FluxTestAlg.cxx
+U FluxSvc/src/test/jobOptions.txt
+U FluxSvc/src/test/TestMain.cxx
+
+No conflicts created by this import
+
+    *
+Initial version.

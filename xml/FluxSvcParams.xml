@@ -1,0 +1,17 @@
+<data_library>
+
+
+<datatable name="logNlogScharacteristic2">
+<logNlogSdata logflux="-8.886" lognumsources="3.653"/>
+<logNlogSdata logflux="-7" lognumsources="1.929"/>
+</datatable>
+
+<datatable name="logNlogScharacteristic">
+<logNlogSdata logflux="-8.886" lognumsources="3.653"/>
+<logNlogSdata logflux="-8" lognumsources="3.041"/>
+<logNlogSdata logflux="-7.921" lognumsources="2.929"/>
+<logNlogSdata logflux="-7" lognumsources="1.929"/>
+</datatable>
+
+
+</data_library>

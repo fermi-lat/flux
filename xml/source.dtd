@@ -1,0 +1,88 @@
+<!--  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/xml/source.dtd,v 1.11 2003/02/20 21:39:04 burnett Exp $
+  DTD file for flux source definitions
+  -->
+<!ELEMENT source_library ((source)+ | (source_library)*) >
+<!ATTLIST source_library title CDATA "user" >
+
+<!-- a source has a spectrum (generated) or a list of sources  -->
+
+<!ELEMENT source (( spectrum )* | nestedSource*) >
+<!ATTLIST source name ID #REQUIRED
+                 flux CDATA "1.0">
+
+<!ELEMENT nestedSource EMPTY>
+<!ATTLIST nestedSource sourceRef  IDREF #REQUIRED>
+
+<!-- a spectrum: generator and angular generation instructions , followed by optional launch point-->
+<!ELEMENT spectrum ( (particle | SpectrumClass ) ,
+                     (direction | solid_angle | use_spectrum |                          			    galactic_dir | celestial_dir | galactic_spread ),
+			   (launch_point | patch)* ) >
+<!--Included is the "escale," or energy-scale attribute, which can be either MeV or GeV, and defaults to GeV.-->
+<!ATTLIST spectrum  flux CDATA "40"
+                    name CDATA "default"
+				escale CDATA #REQUIRED >
+
+<!--- special generic spectrum: name is the name of a Spectrum, params an optional comma-delimited list -->
+<!ELEMENT SpectrumClass EMPTY>
+<!ATTLIST SpectrumClass name CDATA #REQUIRED
+                        params CDATA " ">
+
+<!--- Here, the particle is declared, along with the name of the particle (we have assumed the name will not come from a Spectrum class).  See EXTLIB/LHCBDBASE/cdf/particle.cdf for a list of accepted names and their associated HEPID numbers.-->
+<!ELEMENT particle (energy | power_law)>
+<!ATTLIST particle name CDATA "gamma" >
+
+<!ELEMENT energy EMPTY>
+<!ATTLIST energy e CDATA "0.1">
+
+<!ELEMENT power_law EMPTY>
+<!ATTLIST power_law emin CDATA "0.1"  emax CDATA "100.0"  gamma CDATA "2" >
+
+<!-- for a specific direction: 
+     theta and phi in degrees, interpreted according to frame (polar angles if GLAST)
+     beam_radius [0] is the radius in mm of the of beam 
+ -->
+<!ELEMENT direction EMPTY>
+<!ATTLIST direction theta CDATA "0" 
+          phi CDATA "0" 
+          frame CDATA "GLAST" >
+
+<!-- for specifying a range of angles -->
+<!ELEMENT solid_angle EMPTY>
+<!ATTLIST solid_angle mincos CDATA "-0.4"  maxcos CDATA "1.0"
+                      theta  CDATA "0" phi CDATA "0">
+
+<!-- if this element exists, the Spectrum object will generate the angles 
+     - "earth" means we expect the spectrum to send an earth-based direction (costh,phi), 
+     and "galaxy" means we expect galactic coordinates (l,b) -->
+<!ELEMENT use_spectrum EMPTY>
+<!ATTLIST use_spectrum frame CDATA "earth">
+
+
+<!-- optional launch point description - dimensions in millimeters 
+    beam_radius defines a launch "disk": points will be uniformly distributed
+    on this disk perpendicular to the direction
+-->
+<!ELEMENT launch_point EMPTY>
+<!ATTLIST launch_point 
+        x CDATA "0" y CDATA "0" z CDATA "1000.0"
+        beam_radius CDATA "0" 
+>
+
+<!-- optional patch  description - factors given in millimeters -->
+<!ELEMENT patch EMPTY>
+<!ATTLIST patch xmin CDATA "-100" xmax CDATA "100" 
+                ymin CDATA "-100" ymax CDATA "100" 
+                zmin CDATA "1000" zmax CDATA "1000" >
+
+
+<!-- for a specific galactic direction (l and b in degrees -->
+<!ELEMENT galactic_dir EMPTY>
+<!ATTLIST galactic_dir l CDATA "0" b CDATA "0">
+
+<!-- for a specific celestial direction (ra and dec in degrees) -->
+<!ELEMENT celestial_dir EMPTY>
+<!ATTLIST celestial_dir ra CDATA "0" dec CDATA "0">
+
+<!-- for a diffuse source about a specific galactic direction -->
+<!ELEMENT galactic_spread EMPTY>
+<!ATTLIST galactic_spread l CDATA "0" b CDATA "0" degreespread CDATA "10">
