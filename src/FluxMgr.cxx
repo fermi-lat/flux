@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.10 2004/01/06 22:49:44 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.11 2004/01/07 02:18:58 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -266,7 +266,7 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
     cout << " --------------------------------" << std::endl;
     
     //testing rotateangles function
-    GPS::instance()->rotateAngles(std::make_pair<double,double>(0.0,0.3));
+    GPS::instance()->rotateAngles(std::make_pair<double,double>(0.0,0.0));
     EventSource* f;
     double totalinterval=0;
     for( int i = 0; i< count; ++i) {

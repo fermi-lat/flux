@@ -76,7 +76,7 @@ MapSpectrum::MapSpectrum(const std::string& params)
     
     int status=0;
     int fitsflag = 1; //1 if we have a FITS file, 0 if not
-    const char* flux_root = ::getenv("MAPFLUXROOT");
+    const char* flux_root = ::getenv("FLUXROOT");
     //define the file
     std::string doc_path2= (flux_root? std::string(flux_root)+"/" : "");
     std::string fileName2 = doc_path2+initialization_document;
