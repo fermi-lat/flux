@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
     @brief Implementation of FluxSource
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.7 2003/10/21 08:43:56 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.8 2003/11/03 09:41:21 srobinsn Exp $
 
   */
 #include "flux/FluxSource.h"
@@ -212,10 +212,10 @@ public:
     virtual void execute(double KE, double time){
         if(m_skydir){
             //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
-            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::CoordSystem::CELESTIAL);//->transformCelToGlast(time);
+            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::CELESTIAL);//->transformCelToGlast(time);
         }else{
         //otherwise, the direction is in the zenith system, and the rotation to GLAST is needed:
-            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::CoordSystem::ZENITH);
+            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::ZENITH);
         }
     }
 
@@ -296,7 +296,7 @@ public:
 
             //here, the direction is with respect to the zenith frame,
             //so we need the transformation from the zenith to GLAST.
-            HepRotation zenToGlast=GPS::instance()->transformToGlast(time,GPS::CoordSystem::ZENITH);
+            HepRotation zenToGlast=GPS::instance()->transformToGlast(time,GPS::ZENITH);
             
             HepVector3D dir(cos(phi)*sinth, sin(phi)*sinth, costh);
 
@@ -361,7 +361,7 @@ public:
 
             //here, we have a direction in the zenith direction, so we need the 
             //transformation from zenith to GLAST.
-            HepRotation zenToGlast = GPS::instance()->transformToGlast(time,GPS::CoordSystem::ZENITH);
+            HepRotation zenToGlast = GPS::instance()->transformToGlast(time,GPS::ZENITH);
 
             HepVector3D unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
 
@@ -379,7 +379,7 @@ public:
 		    m_zenithCos = -unrotated()*zenDir();
             //get the transformation matrix..
             //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
-            HepRotation celtoglast = GPS::instance()->transformToGlast(time,GPS::CoordSystem::CELESTIAL);
+            HepRotation celtoglast = GPS::instance()->transformToGlast(time,GPS::CELESTIAL);
 
             //and do the transform:
             setDir(celtoglast*(-unrotated()));
