@@ -1,6 +1,7 @@
 package flux
 
-version v7r0
+version v8r4p2
+author Sean Robinson <srobinsn@u.washington.edu>
 
 use xml
 use CLHEP v2* IExternal
