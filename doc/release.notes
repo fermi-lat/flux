@@ -3,6 +3,7 @@
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 02-dec-03  v8r4   THB  add 3EG sources
  * 28-nov-03  v8r3p4 SMR interpolation for position averages altitude as well.
  * 28-nov-03  v8r3p3 SMR interpolation "off the end" error message amended.
  * 25-nov-03  v8r3p2 SMR GPS interpolation cleaned up, satellite now rocks 
