@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Wed Aug 20 12:38:10 PDT 2003
+flux/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+GPS in-line with new pointing file format, check/error statements for out-of-bound times when using pointing file.
+
+    *
+------------------------------------------------------------
 User: srobinsn  Thu Aug 14 22:40:20 PDT 2003
 flux/src
 
