@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Fri Feb 13 14:11:20 PST 2004
+flux/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+provide some convenient access methods for uncovering the truth.
+    *
+------------------------------------------------------------
+User: burnett  Fri Feb 13 14:11:20 PST 2004
 flux/flux
 
 Modified Files:
