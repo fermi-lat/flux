@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Mon Dec 20 20:06:33 PST 2004
+flux/src/rootplot
+
+Modified Files:
+	rootAngleHist.cxx rootEnergyHist.cxx 
+Log Message:
+slight mods to create three pads in one canvas.
+    *
+------------------------------------------------------------
 User: burnett  Mon Dec 20 19:46:41 PST 2004
 flux/xml
 
