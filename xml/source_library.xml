@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.27 2004/11/11 02:14:47 hierath Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.28 2004/11/11 02:40:53 hierath Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -234,6 +234,18 @@
 <!-- ************************************************************************** -->
 <source_library title="background">
 
+<!-- The Earth from Dirk's code-->
+   <source name="Earth">
+      <spectrum escale="MeV">
+         <SpectrumClass name="Earth" params="565.,10.,10000."/>
+         <!-- param1: altitude (km)
+              param2: minimum energy (MeV)
+              param3: maximum energy (MeV)
+         -->
+         <use_spectrum frame="zenith"/>
+      </spectrum>
+   </source>
+
  
     <!-- the CHIME spectrum. angular dependence and rate are from the CHIME spectrum object 
          This is deprecated, since it is not supported, and gives wrong angular distributions.
@@ -370,6 +382,12 @@
             </particle>
             <solid_angle mincos="-0.405" maxcos="-0.395" theta="0"/>
         </spectrum>
+    </source>
+    <source name="albedo_gamma_total">
+	   <nestedSource sourceRef="albedo_gamma_upward_1"/>
+	   <nestedSource sourceRef="albedo_gamma_upward_2"/>
+	   <nestedSource sourceRef="albedo_gamma_upward_3"/>
+	   <nestedSource sourceRef="albedo_gamma"/>
     </source>
 
     <!-- source that represents the spalsh and re-entrant albedo electrons and positrons 

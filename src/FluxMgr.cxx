@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.18 2004/09/29 06:52:28 cohen Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.20 2004/11/10 20:25:11 jrb Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -105,6 +105,7 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
     DECLARE_SPECTRUM( SurfaceMuons);
     DECLARE_SPECTRUM( GalPulsars);
     DECLARE_SPECTRUM( VdgGamma);
+    DECLARE_SPECTRUM( Earth);
 
     // these are deprecated, will be replaced by Hiroshima group
     DECLARE_SPECTRUM( AlbedoPSpectrum);
