@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.8 2003/11/07 15:17:27 burnett Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.9 2003/12/10 21:01:14 jrb Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -110,6 +110,7 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
     DLL_DECL_SPECTRUM( AlbedoPSpectrum);
     DLL_DECL_SPECTRUM( CHIMESpectrum );
     DLL_DECL_SPECTRUM( GalElSpectrum);
+    DLL_DECL_SPECTRUM( MapSpectrum);
     
 }
 

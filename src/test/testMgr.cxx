@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/test/flux/testMgr.cxx,v 1.20 2003/03/02 06:30:57 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 
 //#include "FluxSvc/ISpectrumFactory.h"
 
@@ -14,6 +14,7 @@
 static int default_count = 10 ;
 //Testing
 static const char * default_source="default";
+//static const char * default_source="galdiffusemap";
 //Default
 //static const char * default_source="CrElectron";
 
@@ -55,6 +56,7 @@ void flux_load() {
     DECLARE_SPECTRUM( FILESpectrum);
     DECLARE_SPECTRUM( GalElSpectrum);
     DECLARE_SPECTRUM( SurfaceMuons);
+    DECLARE_SPECTRUM( MapSpectrum);
  }
 
 int main(int argn, char * argc[]) {
