@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Mon Nov  3 01:41:21 PST 2003
+flux/flux
+
+Modified Files:
+	Flux.h FluxMgr.h GPS.h IFlux.h 
+Log Message:
+transformToGalactic now the new (only) transformation function to be used outside of GPS.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Nov  3 01:41:21 PST 2003
 flux/cmt
 
 Modified Files:
