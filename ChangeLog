@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jrb  Wed Dec 10 13:01:14 PST 2003
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Log Message:
+Substitute call to facilities::Util::expandEnvVar for xml::IFile::extractEnvVar
+since the latter will someday disappear.
+
+    *
+------------------------------------------------------------
 User: burnett  Fri Dec  5 11:24:48 PST 2003
 flux/doc
 
