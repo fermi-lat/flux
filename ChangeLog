@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Wed Oct  1 18:10:14 PDT 2003
+flux/src
+
+Modified Files:
+	CHIMESpectrum.cxx 
+Log Message:
+Fixed problem created by previous fix.
+    *
+------------------------------------------------------------
 User: hierath  Wed Oct  1 17:52:48 PDT 2003
 flux/src
 
