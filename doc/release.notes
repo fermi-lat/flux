@@ -3,6 +3,8 @@
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 25-nov-03  v8r3p2 SMR GPS interpolation cleaned up, satellite now rocks 
+                     about orbital direction
  * 24-nov-03  v8r3p1 SMR "wraparound" issue fixed, vela relocated.
  * 07-nov-03  v8r3  THB add upward albedo gamma source;
  *                  SR  clean up pointing code        

@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.18 2003/11/03 09:41:21 srobinsn Exp $
+// $Id: GPS.cxx,v 1.19 2003/11/24 18:47:27 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -336,7 +336,7 @@ void GPS::getPointingCharacteristics(double inputTime){
 
     if(m_rockType != HISTORY){
         //rotate the x direction so that the x direction points along the orbital direction.
-        //dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
+        dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
     }
 
     // now, we want to find the proper transformation for the rocking angles:
@@ -478,7 +478,9 @@ void GPS::setInterpPoint(double time){
     double lat2=(*iter).second.lat;
     double lon2=(*iter).second.lon;
     Hep3Vector pos2=(*iter).second.position;
-    double time2=(*iter).first;	
+    double time2=(*iter).first;
+	astro::SkyDir dirZ2=(*iter).second.dirZ;
+	astro::SkyDir dirX2=(*iter).second.dirX;
 
     //then get the details from the previous point:
     iter--;
@@ -490,6 +492,8 @@ void GPS::setInterpPoint(double time){
     double lon1=(*iter).second.lon;
     Hep3Vector pos1=(*iter).second.position;
     double time1=(*iter).first;
+	astro::SkyDir dirZ1=(*iter).second.dirZ;
+	astro::SkyDir dirX1=(*iter).second.dirX;
 
     //the proportional distance between the first point and the interpolated point
     double prop;
@@ -521,23 +525,9 @@ void GPS::setInterpPoint(double time){
 		m_currentInterpPoint.lon=interpLon;
 	}
 
-	if(fabs(raz1-raz2) >= 330.){
-		//we have gone off one end of the right ascenion scale for the z axis.
-		double razlesser=std::max(raz1,raz2);
-		double razgreater=std::min(raz1,raz2)+360.;
-		double interpraz = razlesser+((razgreater-razlesser)*prop);
-		while(interpraz > 360.)interpraz -= 360.;
-		m_currentInterpPoint.dirZ=astro::SkyDir(interpraz,decz1+((decz2-decz1)*prop));
-	}
-
-	if(fabs(rax1-rax2) >= 330.){
-		//we have gone off one end of the right ascenion scale for the x axis.
-		double raxlesser=std::max(rax1,rax2);
-		double raxgreater=std::min(rax1,rax2)+360.;
-		double interprax = raxlesser+((raxgreater-raxlesser)*prop);
-		while(interprax > 360.)interprax -= 360.;
-		m_currentInterpPoint.dirX=astro::SkyDir(interprax,decx1+((decx2-decx1)*prop));
-	}
+	//now, find dirZ and X between the two nearest cases.
+	m_currentInterpPoint.dirZ=astro::SkyDir(dirZ1()+((dirZ2()-dirZ1())*prop));
+    m_currentInterpPoint.dirX=astro::SkyDir(dirX1()+((dirX2()-dirX1())*prop));
 
     //now regenerate X to be perpindicular to Z (ir should be almost there anyway).
     Hep3Vector dirY( m_currentInterpPoint.dirZ().cross(m_currentInterpPoint.dirX()) );
