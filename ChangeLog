@@ -1,5 +1,16 @@
 ------------------------------------------------------------
 User: hierath  Fri Oct 10 12:52:42 PDT 2003
+flux/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+Added "-stationary" option to rootplot to allow plotting of sources without the satellite moving.
+
+
+    *
+------------------------------------------------------------
+User: hierath  Fri Oct 10 12:52:42 PDT 2003
 flux/flux
 
 Modified Files:
