@@ -1,4 +1,92 @@
 ------------------------------------------------------------
+User: burnett  Tue Jul 29 11:22:20 PDT 2003
+flux
+
+Log Message:
+initial import of non-Gaudi portion of FluxSvc
+
+Status:
+
+Vendor Tag:	GLAST
+Release Tags:	v7r0
+		
+N flux/.cvsignore
+N flux/ChangeLog
+N flux/cmt/.cvsignore
+N flux/cmt/Makefile
+N flux/cmt/requirements
+N flux/doc/.cvsignore
+N flux/doc/Doxyfile
+N flux/doc/FluxSvcDoc2.htm
+N flux/doc/FluxSvcFig1.jpg
+N flux/doc/FluxSvcFig2.jpg
+N flux/doc/release.notes
+N flux/doc/used_packages.html
+N flux/flux/EventSource.h
+N flux/flux/Flux.h
+N flux/flux/FluxException.h
+N flux/flux/FluxMgr.h
+N flux/flux/FluxSource.h
+N flux/flux/GPS.h
+N flux/flux/IFlux.h
+N flux/flux/ISpectrum.h
+N flux/flux/ISpectrumFactory.h
+N flux/flux/rootplot.h
+N flux/flux/SimpleSpectrum.h
+N flux/flux/Spectrum.h
+N flux/flux/SpectrumFactory.h
+N flux/flux/SpectrumFactoryTable.h
+N flux/sources/albedop.txt
+N flux/sources/chimefile.txt
+N flux/sources/glast_smax_flx.txt
+N flux/sources/glast_smin_flx.txt
+N flux/sources/glast_wday_flx.txt
+N flux/sources/glast_wweek_flx.txt
+N flux/src/AlbedoPSpectrum.cxx
+N flux/src/AlbedoPSpectrum.h
+N flux/src/CHIMESpectrum.cxx
+N flux/src/CHIMESpectrum.h
+N flux/src/CHIMESpectrum.inc
+N flux/src/CompositeSource.cxx
+N flux/src/CompositeSource.h
+N flux/src/EventSource.cxx
+N flux/src/FILESpectrum.cxx
+N flux/src/FILESpectrum.h
+N flux/src/Flux.cxx
+N flux/src/FluxMgr.cxx
+N flux/src/FluxSource.cxx
+N flux/src/GalElSpectrum.cxx
+N flux/src/GalElSpectrum.h
+N flux/src/Geomag.cxx
+N flux/src/Geomag.h
+N flux/src/Geomag.inc
+N flux/src/GPS.cxx
+N flux/src/mainpage.h
+N flux/src/SimpleSpectrum.cxx
+N flux/src/Spectrum.cxx
+N flux/src/SpectrumFactoryTable.cxx
+N flux/src/SurfaceMuons.cxx
+N flux/src/TimeCandle.cxx
+N flux/src/TimeCandle.h
+N flux/src/rootplot/rootAngleHist.cxx
+N flux/src/rootplot/rootAngleHist.h
+N flux/src/rootplot/rootEnergyHist.cxx
+N flux/src/rootplot/rootEnergyHist.h
+N flux/src/rootplot/rootHist.cxx
+N flux/src/rootplot/rootHist.h
+N flux/src/rootplot/rootplot.cxx
+N flux/src/rootplot/test/roottest.cxx
+N flux/src/test/testMgr.cxx
+N flux/src/test/test_library.xml
+N flux/xml/FluxSvcParams.dtd
+N flux/xml/FluxSvcParams.xml
+N flux/xml/source.dtd
+N flux/xml/source_library.xml
+
+No conflicts created by this import
+
+    *
+------------------------------------------------------------
 User: burnett  Thu May 15 13:34:43 PDT 2003
 FluxSvc/src/test
 
