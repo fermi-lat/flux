@@ -69,8 +69,12 @@ GalPulsars::GalPulsars(const std::string& paramString)
    std::vector<std::string> params;
    facilities::Util::stringTokenize(paramString, ", ", params);
 
+   char fileName[1024];
+   const char* flux_root = ::getenv("FLUXROOT");
+   sprintf(fileName, "%s/sources/%s", flux_root, params[0].c_str());
+
    std::ifstream input_file;
-   input_file.open(params[0].c_str(), std::ios::in);
+   input_file.open(fileName, std::ios::in);
 
    if(!input_file.is_open())
    {
