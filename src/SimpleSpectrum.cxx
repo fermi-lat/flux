@@ -1,14 +1,14 @@
 /** @file SimpleSpectrum.cxx
     @brief definition of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.7 2004/04/13 01:16:57 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.8 2004/11/10 20:25:11 jrb Exp $
 */
 
 
 #include "flux/SimpleSpectrum.h"
 
 #include <xercesc/dom/DOMElement.hpp>
-#include "xml/Dom.h"
+#include "xmlBase/Dom.h"
 
 #include "flux/FluxException.h" // for FATAL_MACRO
 #include <utility>
@@ -50,18 +50,18 @@ SimpleSpectrum::SimpleSpectrum(const
                                bool useGeV)
 : m_useGeV(useGeV)
 {
-    m_name = xml::Dom::getAttribute(xelem, "name").c_str();
+    m_name = xmlBase::Dom::getAttribute(xelem, "name").c_str();
     
     const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* spectrum = 
-      xml::Dom::findFirstChildByName(xelem, "*");
+      xmlBase::Dom::findFirstChildByName(xelem, "*");
     
-    std::string tagName = xml::Dom::getTagName(spectrum);
+    std::string tagName = xmlBase::Dom::getTagName(spectrum);
     if( tagName == "power_law" ){
-        m_E0 =      xml::Dom::getDoubleAttribute(spectrum, "emin");
-        m_emax = xml::Dom::getDoubleAttribute(spectrum, "emax");
-        m_index =xml::Dom::getDoubleAttribute(spectrum, "gamma"); 
-        m_ebreak = xml::Dom::getDoubleAttribute(spectrum, "ebreak");
-        m_index2 =xml::Dom::getDoubleAttribute(spectrum, "gamma2");
+        m_E0 =      xmlBase::Dom::getDoubleAttribute(spectrum, "emin");
+        m_emax = xmlBase::Dom::getDoubleAttribute(spectrum, "emax");
+        m_index =xmlBase::Dom::getDoubleAttribute(spectrum, "gamma"); 
+        m_ebreak = xmlBase::Dom::getDoubleAttribute(spectrum, "ebreak");
+        m_index2 =xmlBase::Dom::getDoubleAttribute(spectrum, "gamma2");
 
         if( m_ebreak==0) {
             m_ebreak=m_emax;
@@ -74,13 +74,13 @@ SimpleSpectrum::SimpleSpectrum(const
         }
     }
     else if(tagName=="energy") {
-        m_E0 =xml::Dom::getDoubleAttribute(spectrum, "e");
+        m_E0 =xmlBase::Dom::getDoubleAttribute(spectrum, "e");
         m_emax = 100.0;
         m_index = 0.0;
     }
     else if( tagName == "exponential") {
-        m_E0 = xml::Dom::getDoubleAttribute(spectrum, "exponential");
-        m_index = xml::Dom::getDoubleAttribute(spectrum,"exponent");
+        m_E0 = xmlBase::Dom::getDoubleAttribute(spectrum, "exponential");
+        m_index = xmlBase::Dom::getDoubleAttribute(spectrum,"exponent");
         m_emax = 100.0;
         m_index = 0.0;
         FATAL_MACRO("exponential spectral component not implemented yet");
