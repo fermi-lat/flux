@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Wed Jun  2 15:12:51 PDT 2004
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+apply normaliztion to Hiro muon spectrum, add it to XML.
+    *
+------------------------------------------------------------
+User: burnett  Wed Jun  2 15:12:51 PDT 2004
 flux/src
 
 Modified Files:
