@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.13 2004/01/23 22:00:30 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.14 2004/01/28 23:52:25 hierath Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -80,15 +80,25 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
         DOM_Element toplevel = xml::Dom::getFirstChildElement(s_library);
         
         while (child != DOM_Element()) {
-            while (child.getAttribute("name") == DOMString()) {
+#if 0
+            while (child.getAttribute("name") == DOMString())
+#else
+            while (!(xml::Dom::hasAttribute(child, "name"))  )
+#endif
+            {
                 s_library = child;
                 child = xml::Dom::getFirstChildElement(s_library);
             }
             
             while (child != DOM_Element()) {
+#if 0
                 std::string name = xml::Dom::transToChar(child.getAttribute("name"));
                 //std::cout << name << std::endl;
                 std::string parentfilename = xml::Dom::transToChar(toplevel.getAttribute("title"));
+#else
+                std::string name = xml::Dom::getAttribute(child, "name");
+                std::string parentfilename = xml::Dom::getAttribute(toplevel, "title");
+#endif
                 m_sources[name]=std::make_pair<DOM_Element,std::string>(child,parentfilename);
                 child = xml::Dom::getSiblingElement(child);
             }
@@ -150,6 +160,7 @@ EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
     //Purpose: sourceFromXML - create a new EventSource from a DOM element
     //instantiated, e.g., from a description in source_library.xml
     //Input:  the element holding particle information.
+
     DOM_Node    childNode = src.getFirstChild();
     if (childNode == DOM_Node()) {
     /*
@@ -166,10 +177,20 @@ EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
         return 0;
     }
     // If we got here, should have legit child element
-    if ((sname.getTagName()).equals("spectrum")) {
+#if 0
+    if ((sname.getTagName()).equals("spectrum"))
+#else
+    if (xml::Dom::checkTagName(sname, "spectrum") )
+#endif
+    {
         return  new FluxSource(src);
     }
-    else if ((sname.getTagName()).equals("nestedSource")) {
+#if 0
+    else if ((sname.getTagName()).equals("nestedSource")) 
+#else
+    else if (xml::Dom::checkTagName(sname, "nestedSource"))
+#endif
+    {
         
         // Search for and process immediate child elements.  All must
         // be of type "nestedSource".  There may be more than one.
@@ -180,11 +201,22 @@ EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
             cs = new CompositeSource();
         do { 
             DOM_Element selem = 
+#if 0
                 getLibrarySource(sname.getAttribute("sourceRef"));
+#else
+                getLibrarySource(xml::Dom::getAttribute(sname, "sourceRef"));
+#endif
+
             if (selem == DOM_Element()) {
+#if 0
                 FATAL_MACRO("source name" << 
                     xml::Dom::transToChar(sname.getAttribute("sourceRef")) << 
                     "' not in source library");
+#else
+                FATAL_MACRO("source name" << 
+                    xml::Dom::getAttribute(sname, "sourceRef") <<
+                    "' not in source library");
+#endif
             }
             cs->addSource(getSourceFromXML(selem)); 
             sname = xml::Dom::getSiblingElement(sname);
@@ -193,16 +225,24 @@ EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
         return cs;
     }
     else {
-        FATAL_MACRO("Unexpected element: "<< 
+#if 0
+        FATAL_MACRO("Unexpected element: " << 
             xml::Dom::transToChar(sname.getTagName()) );
+#else 
+        FATAL_MACRO("Unexpected element: " << 
+            xml::Dom::getTagName(sname) );
+#endif
     }
     return 0;
 }
 
 
 
-
+#if 0
 DOM_Element    FluxMgr::getLibrarySource(const DOMString& id)
+#else
+DOM_Element    FluxMgr::getLibrarySource(const std::string& id)
+#endif
 {
     //Purpose: source library lookup.  Each source is uniquely identified
     // by its "name" attribute because "name" is of type ID
@@ -210,7 +250,11 @@ DOM_Element    FluxMgr::getLibrarySource(const DOMString& id)
     // quit if the library was unitialized
     if (s_library == DOM_Element() ) return DOM_Element(); 
     
+#if 0
     return m_library_doc.getElementById(id);
+#else
+    return xml::Dom::getElementById(m_library_doc, id);
+#endif
 }
 
 std::list<std::string> FluxMgr::sourceList() const
