@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Thu Mar 10 15:15:35 PST 2005
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+restore chimeavg in backgndavgpdr
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r14p4, operation: add
 Package: flux
