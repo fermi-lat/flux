@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.3 2003/09/30 20:19:33 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.4 2003/10/05 03:46:20 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -101,6 +101,8 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
     DLL_DECL_SPECTRUM( TimeCandle);
 
     DLL_DECL_SPECTRUM( SurfaceMuons);
+
+    DLL_DECL_SPECTRUM( VdgGamma);
 
     // these are deprecated, will be replaced by Hiroshima group
     DLL_DECL_SPECTRUM( AlbedoPSpectrum);
