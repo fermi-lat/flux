@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Mon Nov 24 10:47:27 PST 2003
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+vela location fixed, gps "wraparound" patch
+
+    *
+------------------------------------------------------------
+User: srobinsn  Mon Nov 24 10:47:27 PST 2003
 flux/src
 
 Modified Files:
