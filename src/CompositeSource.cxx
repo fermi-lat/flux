@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
-    @brief Define CompositeSource
+@brief Define CompositeSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.3 2003/10/01 22:21:50 srobinsn Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.4 2003/10/29 16:47:46 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -22,7 +22,7 @@ CompositeSource::CompositeSource (double aRate)
 CompositeSource::~CompositeSource()
 {
     for (std::vector<EventSource*>::iterator it = m_sourceList.begin();
-    it != m_sourceList.end(); ++it ) delete (*it);
+        it != m_sourceList.end(); ++it ) delete (*it);
 }
 
 void CompositeSource::addSource (EventSource* aSource)
@@ -38,61 +38,56 @@ EventSource* CompositeSource::event (double time)
 {
     int i=0; //for iterating through the m_unusedSource vector
     int winningsourcenum; //the number of the "winning" source
-    
+
     EventSource::setTime(time);
-    
+
     m_numofiters=0;
     double mr = rate(EventSource::time());
-    
-    if( m_sourceList.size()==1 || mr ==0) {
-        m_recent = m_sourceList.front();
-    }else {
-        
-        // more than one:: choose on basis of relative rates
-        std::vector<EventSource*>::iterator  now = m_sourceList.begin();
-        std::vector<EventSource*>::iterator  it = now;
-        
-        double intrval=0.,intrmin=100000.;
-	int q;
-        for (q=0 ; now != m_sourceList.end(); ++now) {
-            if(m_unusedSource[i]==1){
-                intrval=m_sourceTime[i]-time;
-            }else{
-                m_eventList[i] = (*now)->event(time); // to initialize particles, so that the real interval for the particle is gotten.
-                intrval=m_sourceList[i]->interval(time);
-                m_unusedSource[i]=1;
-                m_sourceTime[i]=time + intrval;
-            }
-            
-            if(intrval < intrmin){
-                //the present source is "winning" here
-                it=now;
-                intrmin=intrval;
-                m_numofiters=q;
-                winningsourcenum=i;
-            }
-            
-            m_recent = (*it);
-            q++;
-            i++;
+
+    // more than one:: choose on basis of relative rates
+    std::vector<EventSource*>::iterator  now = m_sourceList.begin();
+    std::vector<EventSource*>::iterator  it = now;
+
+    double intrval=0.,intrmin=100000.;
+    int q;
+    for (q=0 ; now != m_sourceList.end(); ++now) {
+        if(m_unusedSource[i]==1){
+            intrval=m_sourceTime[i]-time;
+        }else{
+            m_eventList[i] = (*now)->event(time); // to initialize particles, so that the real interval for the particle is gotten.
+            intrval=m_sourceList[i]->interval(time);
+            m_unusedSource[i]=1;
+            m_sourceTime[i]=time + intrval;
         }
-        //note:the internal interval() function takes absolute time.
-        setInterval(time+intrmin);
+
+        if(intrval < intrmin){
+            //the present source is "winning" here
+            it=now;
+            intrmin=intrval;
+            m_numofiters=q;
+            winningsourcenum=i;
+        }
+
+        m_recent = (*it);
+        q++;
+        i++;
     }
+    //note:the internal interval() function takes absolute time.
+    setInterval(time+intrmin);
     m_unusedSource[winningsourcenum]=0; //the current "winning" source is getting used...
-	//now, check to see if this source is occulted:
-	m_occulted=m_eventList[winningsourcenum]->occulted();
+    //now, check to see if this source is occulted:
+    m_occulted=m_eventList[winningsourcenum]->occulted();
     // now ask the chosen one to return the event.
-   return m_eventList[winningsourcenum];
+    return m_eventList[winningsourcenum];
 }
 
 std::string CompositeSource::fullTitle () const
 {
     std::strstream  s;
     std::vector<EventSource*>::const_iterator	it = m_sourceList.begin();
-    
+
     while (it != m_sourceList.end()) {
-        
+
         s << (*it)->fullTitle() << " ";
         ++it;
         if (it != m_sourceList.end())    s << "+ ";
@@ -123,15 +118,15 @@ double CompositeSource::rate(double time) const
 void CompositeSource::printOn(std::ostream& out)const
 {
     out << "Source(s), total rate="<< rate(EventSource::time()) << std::endl;
-    
+
     for( std::vector<EventSource*>::const_iterator it = m_sourceList.begin();
-    it != m_sourceList.end();++it)	{
-        out <<  std::setw(8) << std::setprecision(4) << (*it)->rate(EventSource::time()) <<" Hz, "
-            << '#' << std::setw(6) << (*it)->eventNumber() <<' '
-            << (*it)->name() << ' '<< (*it)->fullTitle() << std::endl;
-        
-    }
-    
+        it != m_sourceList.end();++it)	{
+            out <<  std::setw(8) << std::setprecision(4) << (*it)->rate(EventSource::time()) <<" Hz, "
+                << '#' << std::setw(6) << (*it)->eventNumber() <<' '
+                << (*it)->name() << ' '<< (*it)->fullTitle() << std::endl;
+
+        }
+
 }
 
 std::string CompositeSource::findSource()const
