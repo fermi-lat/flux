@@ -1,7 +1,7 @@
 /** @file CompositeSource.h
     @brief CompositeSource declaration
     
-  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/CompositeSource.h,v 1.16 2003/03/20 19:55:32 burnett Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.1 2003/09/30 20:19:32 srobinsn Exp $
 */
 
 #ifndef CompositeSource_h
@@ -14,7 +14,7 @@
 * "which source" it is representing this time.  Old particles are held, along with the
 * time of their arrival, until use.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/CompositeSource.h,v 1.16 2003/03/20 19:55:32 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.1 2003/09/30 20:19:32 srobinsn Exp $
 */
 
 #include "flux/EventSource.h"
@@ -74,6 +74,9 @@ public:
     /// return how many sources are in the sourcelist
     int howManySources(){return m_sourceList.size();}
 
+	/// is the most recent photon occulted?
+	bool occulted(){return m_occulted;}
+
     
 protected:
     
@@ -90,6 +93,8 @@ protected:
     //vector of recorded arrival times of held sources.
     std::vector<double> m_sourceTime;
     EventSource*  m_recent;
+	//is the photon from the most recent source occulted?
+	bool m_occulted;
 };
 
 inline std::vector< EventSource* >& CompositeSource::sourceList ()
