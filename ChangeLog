@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: cohen  Wed Sep 29 11:27:47 PDT 2004
+flux/flux
+
+Modified Files:
+	ISpectrum.h Spectrum.h 
+Log Message:
+modification to generalize FILESpectrum internals and allow for more complete use of XML description attributes 
+
+    *
+------------------------------------------------------------
 User: cohen  Tue Sep 28 23:52:28 PDT 2004
 flux/src
 
