@@ -1,9 +1,10 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.21 2004/01/26 23:19:39 srobinsn Exp $
+  $Id: release.notes,v 1.22 2004/02/13 22:15:12 burnett Exp $
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 19-feb-04  v8r7p1 SMR Add MapSpectrum scaling index (used through xml).
  * 13-feb-04  v8r6   THB Add convenient access functions for truth study
  * 26-jan-04  v8r5p6 SMR equatorial coordinates possible for Spectrum objects like AGN.
  * 23-jan-04  v8r5p5 SMR AGNSpectrum added.

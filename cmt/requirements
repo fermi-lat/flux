@@ -1,6 +1,6 @@
 package flux
 
-version v8r7
+version v8r7p1
 author Sean Robinson <srobinsn@u.washington.edu>
 
 use xml
