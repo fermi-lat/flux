@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: hierath  Thu Jun 17 12:05:21 PDT 2004
+flux/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+Added caprice_surface_muons to xml and to SurfaceMuons class
+    *
+------------------------------------------------------------
+User: hierath  Thu Jun 17 12:05:21 PDT 2004
 flux/src
 
 Modified Files:
