@@ -1,7 +1,7 @@
 /** @file Flux.cxx
     @brief Implementation of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.4 2003/10/05 03:46:20 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.5 2003/11/03 09:41:21 srobinsn Exp $
 
   Original author: T. Burnett
 */
@@ -37,7 +37,7 @@ std::string Flux::name() const
 /// full title of the flux
 std::string Flux::title()const 
 {
-    return m_event->fullTitle();
+    return m_event!=0? m_event->fullTitle() : "?";
 }
 
 
@@ -96,7 +96,7 @@ HepVector3D Flux::launchDir()const
 // rate ( /mm**2 /s)
 double Flux::rate()const
 {
-    return m_event->rate(time());
+   return  m_event!=0?  m_event->rate(time()) : -1;;
 }
 
 /// set the area of the target
