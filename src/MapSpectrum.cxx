@@ -42,6 +42,7 @@ MapSpectrum::MapSpectrum()
 MapSpectrum::MapSpectrum(const std::string& params)
 :m_mapE0(parseParamList(params,0)),m_extrapE0(parseParamList(params,1)),
 	m_EMax(parseParamList(params,2)),m_defaultIndex(parseParamList(params,3))
+    ,m_scaleFactor(parseParamList(params,4))
 {
     m_binSize = 0.5; //this should come from FITS file instead!
     //let's set the map to zero right off the bat:
@@ -68,8 +69,8 @@ MapSpectrum::MapSpectrum(const std::string& params)
 
 // Assume the fifth element, if it exists, is the map filename,
 // otherwise use the default.
-   if (paramVector.size() == 5) {
-      initialization_document = paramVector[4];
+   if (paramVector.size() == 6) {
+      initialization_document = paramVector[5];
    } else {
       initialization_document = "src/sources/gas.gal.gz";
    }
@@ -150,7 +151,7 @@ MapSpectrum::MapSpectrum(const std::string& params)
 				//the 1E4 is due to the map being held in 
 				//particles/s*cm^2*sr in stead of p/s*m^2*sr
 				//do the extrapolation down to lower energy here
-			    m_testCatalog[trig].intensity = curint*(pow(double(m_extrapE0/m_mapE0),(1.0-curind)))*1E4;
+			    m_testCatalog[trig].intensity = m_scaleFactor * curint*(pow(double(m_extrapE0/m_mapE0),(1.0-curind)))*1E4;
 				m_testCatalog[trig].index = curind;
           
                 //          std::cout << (int)curl << ", " << (int)curb << ", " << m_catalog[std::make_pair<int,int>(curl,curb)].intensity*100000. << std::endl;
@@ -188,7 +189,7 @@ MapSpectrum::MapSpectrum(const std::string& params)
 
 				//the 1E4 is due to the map being held in 
 				//particles/s*cm^2*sr in stead of p/s*m^2*sr
-			    m_testCatalog[trig].intensity = curint*(pow(double(m_extrapE0/m_mapE0),(1.0-curind)))*1E4;
+			    m_testCatalog[trig].intensity = m_scaleFactor * curint*(pow(double(m_extrapE0/m_mapE0),(1.0-curind)))*1E4;
 				m_testCatalog[trig].index = curind;
             }
         }

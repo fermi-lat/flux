@@ -101,6 +101,7 @@ private:
 	float m_mapE0; //lowest energy (contained in map).
 	float m_extrapE0; // lowest energy (to be used - extrapolated).
 	float m_EMax; // highest energy (cutoff for sending photons)
+    float m_scaleFactor; //factor by which to scale all the flux bins(hence,the whole flux)
     
     
 	//default spectral index
