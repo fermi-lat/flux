@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Fri Nov 28 12:54:27 PST 2003
+flux/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+interpolation exception message fixed to reflect error.
+
+    *
+------------------------------------------------------------
 User: srobinsn  Tue Nov 25 14:13:25 PST 2003
 flux/src
 
