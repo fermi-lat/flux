@@ -3,7 +3,7 @@ package flux
 version v8r7p1
 author Sean Robinson <srobinsn@u.washington.edu>
 
-use xml
+use xml  v4r*
 use CLHEP v2* IExternal
 use astro v0r*
 use cfitsio * IExternal
