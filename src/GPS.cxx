@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.15 2003/10/06 20:10:00 srobinsn Exp $
+// $Id: GPS.cxx,v 1.16 2003/10/21 08:43:57 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -166,7 +166,7 @@ HepRotation GPS::rockingAngleTransform(double seconds){
         rockRot.rotateX(m_rotangles.first).rotateZ(m_rotangles.second);
     }else{
         //don't do anything - the new pointing characteristics have already been taken account of
-		//in getPointingCharacteristics().
+        //in getPointingCharacteristics().
         rockRot.rotateX(0.0);
     }
 
@@ -254,12 +254,12 @@ void GPS::getPointingCharacteristics(double inputTime){
         astro::EarthCoordinate earthpos(m_position,time);
         m_lat = earthpos.latitude();
         m_lon = earthpos.longitude();
-		//now set the zenith direction before the rocking.
+        //now set the zenith direction before the rocking.
         m_RAZenith = tempDirZ.ra();
         m_DECZenith = tempDirZ.dec();
     }else if(m_rockType == HISTORY){
         setInterpPoint(inputTime);
-		SkyDir dirZenith(m_currentInterpPoint.position);
+        SkyDir dirZenith(m_currentInterpPoint.position.unit());
         SkyDir dirZ(m_currentInterpPoint.dirZ);
         SkyDir dirX(m_currentInterpPoint.dirX);
         lZ=dirZ.l();
@@ -268,7 +268,7 @@ void GPS::getPointingCharacteristics(double inputTime){
         decX=dirX.dec();
         m_lat = m_currentInterpPoint.lat;
         m_lon = m_currentInterpPoint.lon;
-		//now set the zenith direction before the rocking.
+        //now set the zenith direction before the rocking.
         m_RAZenith = dirZenith.ra();
         m_DECZenith = dirZenith.dec();
     }else{
@@ -281,7 +281,7 @@ void GPS::getPointingCharacteristics(double inputTime){
         astro::EarthCoordinate earthpos(m_position,time);
         m_lat = earthpos.latitude();
         m_lon = earthpos.longitude();
-		//now set the zenith direction before the rocking.
+        //now set the zenith direction before the rocking.
         m_RAZenith = tempDirZ.ra();
         m_DECZenith = tempDirZ.dec();
     }
@@ -316,8 +316,8 @@ void GPS::getPointingCharacteristics(double inputTime){
         while(orbitPhase >2.*M_2PI) {orbitPhase -= 2.*M_2PI;}
         if(orbitPhase <= M_2PI) rockNorth *= -1.;
     }else{
-		//important - this includes EXPLICIT rocking angles - they
-		//are currently still handled by rockingTransform().
+        //important - this includes EXPLICIT rocking angles - they
+        //are currently still handled by rockingTransform().
         rockNorth = 0.;
     }
 
