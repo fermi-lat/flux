@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.5 2003/08/29 08:01:04 srobinsn Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.6 2003/08/29 09:08:16 srobinsn Exp $
 
 #if !defined(_H_GPS_CLASS)
 #define _H_GPS_CLASS
@@ -24,7 +24,7 @@
 * \class GPS
 * \brief Models the Global Positoning System for a spacecraft. Handles time, position, and orientation for the instrument as a whole.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.5 2003/08/29 08:01:04 srobinsn Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.6 2003/08/29 09:08:16 srobinsn Exp $
  Represents the Global Positioning System on-board the spacecraft. An Orbit
   object is used to compute the spacecraft's position and pointing characteristics.
 Time is tracked through this object, and synchronized with the Scheduler for 
@@ -77,9 +77,16 @@ public:
     /// GPS synchronized time for the satellite
     GPStime	time () const; 
     /// present latitude
-    double	lat () const; 
+	double lat()const;//{getPointingCharacteristics(time);return m_lat;} 
     /// present longitude
-    double	lon () const;  
+    double lon()const;//{getPointingCharacteristics(time);return m_lon;}  
+	/// pointing characteristics
+	double RAX()const;//{getPointingCharacteristics(time);return m_RAX;}
+    double RAZ()const;//{getPointingCharacteristics(time);return m_RAZ;}
+    double DECX()const;//{getPointingCharacteristics(time);return m_DECX;}
+    double DECZ()const;//{getPointingCharacteristics(time);return m_DECZ;}
+    double RAZenith()const;//{getPointingCharacteristics(time);return m_RAZenith;}
+    double DECZenith()const;//{getPointingCharacteristics(time);return m_DECZenith;}
     /// expansion of the current orbit
     double      expansion () const; 
     /// sample interval for random orbit distribution
@@ -93,7 +100,7 @@ public:
     // set data
     
     /// get the pointing characteristics of the satellite, given a location and rocking angle.
-    void getPointingCharacteristics(double seconds);
+    void getPointingCharacteristics(double inputTime);
     
     /// pass a specific amount of time
     void    pass ( double );
@@ -139,15 +146,10 @@ public:
                                               m_rockDegrees = rockDegrees;
                                               return ret;}
     
-    int setRockType(RockType rockType);//{m_rockType = rockType;}
-    int setRockType(int rockType);//{m_rockType = rockType;}
+    int setRockType(RockType rockType);
+    int setRockType(int rockType);
 
-    double RAX()const{return m_RAX;}
-    double RAZ()const{return m_RAZ;}
-    double DECX()const{return m_DECX;}
-    double DECZ()const{return m_DECZ;}
-    double RAZenith()const{return m_RAZenith;}
-    double DECZenith()const{return m_DECZenith;}
+	void    time ( GPStime );// set time
 
     Hep3Vector position(double seconds)const{
 		if(m_rockType == HISTORY){
@@ -163,7 +165,6 @@ public:
         GPS();
         virtual ~GPS();
         
-        void    time ( GPStime );       // set time
         std::pair<double,double> m_rotangles;  //angles for coordinate rotation (rocking angle)
         
         // friends
@@ -177,7 +178,9 @@ public:
 
         double  m_expansion;    // orbit expansion factor
         GPStime m_time;	    // global time
+		double m_lastQueriedTime; //the last time that was asked for
         double  m_sampleintvl;  // interval to sample for each pt. in the orbit - to normalize spectra
+		double m_lat,m_lon; //position characteristics
         double m_RAX,m_RAZ,m_DECX,m_DECZ; //pointing characteristics.
         double m_RAZenith,m_DECZenith;  //pointing characteristic of the zenith direction.
         Hep3Vector m_position; //current vector position of the LAT.

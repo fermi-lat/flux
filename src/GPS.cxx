@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.8 2003/08/29 17:19:35 srobinsn Exp $
+// $Id: GPS.cxx,v 1.9 2003/09/08 22:49:04 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -20,6 +20,7 @@ GPS::GPS()
 m_earthOrbit(new astro::EarthOrbit),
 m_expansion(1.),    // default expansion:regular orbit for now
 m_time(0.), 
+m_lastQueriedTime(-1.),
 m_sampleintvl(30.), // update position every 30 seconds
 m_rockDegrees(35.),
 m_rockType(NONE)
@@ -61,43 +62,16 @@ void GPS::synch ()
 
 }
 
-double GPS::lat () const
-{
-	//before anything, check to see if we are using a history file:
-	if(m_rockType == HISTORY){
-		instance()->setInterpPoint(time());
-		return m_currentInterpPoint.lat;
-	}
-
-	double currentTime = time(); 
-	double julianDate = m_earthOrbit->dateFromSeconds(currentTime);
-
-	//and here the pointing characteristics of the LAT.
-	GPS::instance()->getPointingCharacteristics(currentTime);
-	Hep3Vector location = position(currentTime);
-
-	astro::EarthCoordinate earthpos(location,julianDate);
-	return earthpos.latitude();
-}
-
-double	GPS::lon () const
-{ 
-	//before anything, check to see if we are using a history file:
-	if(m_rockType == HISTORY){
-	instance()->setInterpPoint(time());
-	return m_currentInterpPoint.lon;
-	}
-
-	double currentTime = time();
-	double julianDate = m_earthOrbit->dateFromSeconds(currentTime);
-
-	//and here the pointing characteristics of the LAT.
-	GPS::instance()->getPointingCharacteristics(currentTime);
-	Hep3Vector location = position(currentTime);
-
-	astro::EarthCoordinate earthpos(location,julianDate);
-	return earthpos.longitude();
-}
+double GPS::lat()const{GPS::instance()->getPointingCharacteristics(m_time);return m_lat;}     
+/// present longitude    
+double GPS::lon()const{GPS::instance()->getPointingCharacteristics(m_time);return m_lon;}  	
+/// pointing characteristics	
+double GPS::RAX()const{GPS::instance()->getPointingCharacteristics(m_time);return m_RAX;}    
+double GPS::RAZ()const{GPS::instance()->getPointingCharacteristics(m_time);return m_RAZ;}    
+double GPS::DECX()const{GPS::instance()->getPointingCharacteristics(m_time);return m_DECX;}    
+double GPS::DECZ()const{GPS::instance()->getPointingCharacteristics(m_time);return m_DECZ;}    
+double GPS::RAZenith()const{GPS::instance()->getPointingCharacteristics(m_time);return m_RAZenith;}    
+double GPS::DECZenith()const{GPS::instance()->getPointingCharacteristics(m_time);return m_DECZenith;}
 
 GPStime	GPS::time ()  const
 { 
@@ -125,6 +99,7 @@ void GPS::expansion ( double e )
 void GPS::time ( GPStime t )
 {
 	m_time = t;
+	GPS::instance()->getPointingCharacteristics(t);
 }
 
 GPS*	GPS::instance() 
@@ -182,30 +157,17 @@ HepRotation GPS::rockingAngleTransform(double seconds){
 	///Output:  3x3 rocking-angle transformation matrix.
 	using namespace astro;
 
+	// set the needed pointing/location variables:
+	getPointingCharacteristics(seconds);
+
 	double time = m_earthOrbit->dateFromSeconds(seconds);
 
 	double inclination = m_earthOrbit->inclination();
 	double orbitPhase = m_earthOrbit->phase(time);
 	m_position = m_earthOrbit->position(time);
 
-	double lZ,bZ,raX,decX;
-	//before anything, check to see if we are using a history file:
-	if(m_rockType == HISTORY){
-		setInterpPoint(seconds);
-		lZ=m_currentInterpPoint.dirZ.l();
-		bZ=m_currentInterpPoint.dirZ.b();
-		raX=m_currentInterpPoint.dirX.ra();
-		decX=m_currentInterpPoint.dirX.dec();
-	}else{
-	SkyDir tempdirZ(m_position.unit());
-	lZ = tempdirZ.l();
-	bZ = tempdirZ.b();
-	raX = tempdirZ.ra()-90.;
-	decX=0.0;
-	}
-
-	SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
-	SkyDir dirX(raX,decX);
+	SkyDir dirZ(m_RAZ,m_DECZ,SkyDir::CELESTIAL);
+	SkyDir dirX(m_RAX,m_DECX);
 
 	//rotate the x direction so that the x direction points along the orbital direction.
 	dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
@@ -252,6 +214,9 @@ HepRotation GPS::CELTransform(double seconds){
 	/// coordinate system to a local coordinate system.
 	double degsPerRad = 180./M_PI;
 
+	// set the needed pointing/location variables:
+	getPointingCharacteristics(seconds);
+
 	//cel is the matrix which rotates (cartesian)local coordinates into (cartesian)celestial ones
 	HepRotation cel(transformCelToGlast(seconds).inverse());
 
@@ -272,38 +237,15 @@ HepRotation GPS::transformCelToGlast(double seconds){
 	using namespace astro;
 	double degsPerRad = 180./M_PI;
 
+	// set the needed pointing/location variables:
+	getPointingCharacteristics(seconds);
+
 	double time = m_earthOrbit->dateFromSeconds(seconds);
 
 	m_position = m_earthOrbit->position(time);
 
-	//first make the directions for the x and Z axes, as well as the zenith direction.
-	double lZ,bZ,raX,decX;
-	//before rotation, the z axis points along the zenith:
-	if(m_rockType == POINT){
-		lZ=m_rotangles.first;
-		bZ=m_rotangles.second;
-		SkyDir tempDirZ(lZ,bZ,astro::SkyDir::GALACTIC);
-		raX = tempDirZ.ra()-90.0;
-		decX = 0.;
-	}else if(m_rockType == HISTORY){
-		setInterpPoint(seconds);
-		SkyDir dirZ(m_currentInterpPoint.dirZ);
-		SkyDir dirX(m_currentInterpPoint.dirX);
-		lZ=dirZ.l();
-		bZ=dirZ.b();
-		raX=dirX.ra();
-		decX=dirX.dec();
-	}else{
-		//ok, get the pointing from earthOrbit.
-		SkyDir tempDirZ(m_position.unit());
-		lZ=tempDirZ.l();
-		bZ=tempDirZ.b();
-		raX = tempDirZ.ra()-90.0;
-		decX = 0.;
-	}
-
-	SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
-	SkyDir dirX(raX,decX);
+	SkyDir dirZ(m_RAZ,m_DECZ,SkyDir::CELESTIAL);
+	SkyDir dirX(m_RAX,m_DECX);
 
 	//so now we know where the x and z axes of the zenith-pointing frame point in the celestial frame.
 	//what we want now is to make cel, where
@@ -316,18 +258,35 @@ HepRotation GPS::transformGlastToGalactic(double seconds){
 	return (CELTransform(seconds).inverse())*(rockingAngleTransform(seconds).inverse());
 }
 
-void GPS::getPointingCharacteristics(double seconds){
+void GPS::getPointingCharacteristics(double inputTime){
 	//this is being used by exposureAlg right now, and should be reworked
 	//to use the rest of this class.
 	using namespace astro;
 
+	//if the time is not the default (-1), then a time was actually sent, do nothing.
+	//however, if it is -1, then just use the current time from time().
+	double seconds;
+	if(time != -1){
+		seconds=inputTime;
+	}else{
+		seconds=GPS::instance()->time();
+	}
+
+	//decide if the time has changed;  if it has not, we have already calculated all of the following information:
+	if(m_lastQueriedTime==seconds)return;
+
+	//if not, set the last time to this one:
+	m_lastQueriedTime=seconds;
+
+	//and then get the appropriate julian date:
 	double time = m_earthOrbit->dateFromSeconds(seconds);
+	
 
 	double inclination = m_earthOrbit->inclination();
 	double orbitPhase = m_earthOrbit->phase(time);
 	m_position = m_earthOrbit->position(time);
 
-	//first make the directions for the x and Z axes, as well as the zenith direction.
+	//first make the directions for the x and Z axes, as well as the zenith direction, and latitude/longitude
 	double lZ,bZ,raX,decX;
 	//before rotation, the z axis points along the zenith:
 	if(m_rockType == POINT){
@@ -336,6 +295,9 @@ void GPS::getPointingCharacteristics(double seconds){
 		SkyDir tempDirZ(lZ,bZ,astro::SkyDir::GALACTIC);
 		raX = tempDirZ.ra()-90.0;
 		decX = 0.;
+		astro::EarthCoordinate earthpos(m_position,time);
+		m_lat = earthpos.latitude();
+		m_lon = earthpos.longitude();
 	}else if(m_rockType == HISTORY){
 		setInterpPoint(seconds);
 		SkyDir dirZ(m_currentInterpPoint.dirZ);
@@ -344,6 +306,8 @@ void GPS::getPointingCharacteristics(double seconds){
 		bZ=dirZ.b();
 		raX=dirX.ra();
 		decX=dirX.dec();
+		m_lat = m_currentInterpPoint.lat;
+		m_lon = m_currentInterpPoint.lon;
 	}else{
 		//ok, get the pointing from earthOrbit.
 		SkyDir tempDirZ(m_position.unit());
@@ -351,6 +315,9 @@ void GPS::getPointingCharacteristics(double seconds){
 		bZ=tempDirZ.b();
 		raX = tempDirZ.ra()-90.0;
 		decX = 0.;
+		astro::EarthCoordinate earthpos(m_position,time);
+		m_lat = earthpos.latitude();
+		m_lon = earthpos.longitude();
 	}
 
 	SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
@@ -400,6 +367,7 @@ void GPS::getPointingCharacteristics(double seconds){
 	//a test - to ensure the rotation went properly
 	//std::cout << " degrees between xhat and zhat directions: " <<
 	//    dirZ.difference(dirX)*180./M_PI << std::endl;
+
 }
 
 int GPS::setRockType(int rockType){
