@@ -2,7 +2,7 @@
 * @file FILESpectrum.cxx
 * @brief Implementation of FILESpectrum
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/users/cohen/flux/src/FILESpectrum.cxx,v 1.2 2004/09/27 21:43:09 cohen Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FILESpectrum.cxx,v 1.2 2004/09/29 18:27:48 cohen Exp $
 */
 
 #include "FILESpectrum.h"
@@ -94,7 +94,7 @@ float FILESpectrum::operator() (float r)const
 //    if(!m_inGeV) scale = 0.001;
     if(m_inLog)
       {
-        return scale*pow(10, raw_e);
+        return scale*pow(10., raw_e);
       }
     else
       {
