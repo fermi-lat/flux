@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.17 2004/02/13 22:11:20 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.18 2004/03/16 18:53:49 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -444,7 +444,11 @@ FluxSource::FluxSource(const DOM_Element& xelem )
     if (spec == DOM_Element()) {
 
         // source has no imbedded spectrum element: expect a name
+#if 0
         class_name = xml::Dom::transToChar(xelem.getAttribute("name"));
+#else
+        class_name = xml::Dom::getAttribute(xelem, "name");
+#endif
     } else {
         // process spectrum element
         DOM_NodeList children = spec.getChildNodes();
@@ -457,10 +461,18 @@ FluxSource::FluxSource(const DOM_Element& xelem )
             specType = (DOM_Element &) childNode;
         }
         else specType = xml::Dom::getSiblingElement(childNode);
-
+#if 0
         DOMString   typeTagName = specType.getTagName();
+#else
+        std::string typeTagName = xml::Dom::getTagName(specType);
+#endif
+#if 0
         std::string spectrum_name = xml::Dom::transToChar(spec.getAttribute("name"));
         std::string spectrum_energyscale = xml::Dom::transToChar(spec.getAttribute("escale"));
+#else
+        std::string spectrum_name = xml::Dom::getAttribute(spec, "name");
+        std::string spectrum_energyscale = xml::Dom::getAttribute(spec, "escale");
+#endif
 
         if(spectrum_energyscale == "GeV"){ m_energyscale=GeV;
         }else if(spectrum_energyscale == "MeV"){ m_energyscale=MeV;
@@ -469,16 +481,29 @@ FluxSource::FluxSource(const DOM_Element& xelem )
                 << spectrum_energyscale << " , exiting.";
             return;} //this line "just in case"
 
-
+#if 0
         if (typeTagName.equals("particle")) s = new SimpleSpectrum(specType,  m_energyscale==GeV );
         else if (typeTagName.equals("SpectrumClass")) {
+#else
+        if (typeTagName=="particle") s = new SimpleSpectrum(specType,  m_energyscale==GeV );
+        else if (typeTagName=="SpectrumClass") {
+#endif
             // attribute "name" is the class name
+#if 0
             class_name = xml::Dom::transToChar(specType.getAttribute("name"));
             source_params= xml::Dom::transToChar(specType.getAttribute("params"));
+#else
+            class_name = xml::Dom::getAttribute(specType, "name");
+            source_params= xml::Dom::getAttribute(specType, "params");
+#endif
         }
         else {
             // no, the tag itself
+#if 0
             class_name = xml::Dom::transToChar(typeTagName);//.transcode();
+#else
+            class_name = typeTagName;//.transcode();
+#endif
         }
 
         //if s is still 0, we need to create the internal spectrum object.
