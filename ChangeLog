@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Tue Sep 30 20:23:01 PDT 2003
+flux/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+GPS streamlined to remove redundant code.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Sep 30 20:23:01 PDT 2003
 flux/flux
 
 Modified Files:
