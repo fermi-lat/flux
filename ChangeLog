@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Thu Aug 14 22:40:20 PDT 2003
+flux/flux
+
+Modified Files:
+	FluxSource.h 
+Log Message:
+occultation methos into fluxSource.
+
+    *
+------------------------------------------------------------
 User: srobinsn  Wed Aug 13 13:38:27 PDT 2003
 flux/src
 
