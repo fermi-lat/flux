@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jrb  Tue Mar 16 17:10:35 PST 2004
+flux/src
+
+Modified Files:
+	EventSource.cxx FluxMgr.cxx 
+Log Message:
+FluxMgr.cxx: Changes for Stage 1 of Xerces conversion
+EventSource.cxx Get rid of unnecessary includes
+
+    *
+------------------------------------------------------------
 User: jrb  Tue Mar 16 17:09:53 PST 2004
 flux/flux
 
