@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.12 2003/10/01 22:21:50 srobinsn Exp $
+// $Id: GPS.cxx,v 1.13 2003/10/02 15:42:32 burnett Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -265,24 +265,14 @@ void GPS::getPointingCharacteristics(double inputTime){
     //to use the rest of this class.
     using namespace astro;
 
-    //if the time is not the default (-1), then a time was actually sent, do nothing.
-    //however, if it is -1, then just use the current time from time().
-    double seconds;
-    if(time != -1){
-        seconds=inputTime;
-    }else{
-        seconds=this->time();
-    }
-
     //decide if the time has changed;  if it has not, we have already calculated all of the following information:
-    if(m_lastQueriedTime==seconds)return;
+    if(m_lastQueriedTime==inputTime)return;
 
     //if not, set the last time to this one:
-    m_lastQueriedTime=seconds;
+    m_lastQueriedTime=inputTime;
 
     //and then get the appropriate julian date:
-    double time = m_earthOrbit->dateFromSeconds(seconds);
-
+    double time = m_earthOrbit->dateFromSeconds(inputTime);
 
     double inclination = m_earthOrbit->inclination();
     double orbitPhase = m_earthOrbit->phase(time);
@@ -301,7 +291,7 @@ void GPS::getPointingCharacteristics(double inputTime){
         m_lat = earthpos.latitude();
         m_lon = earthpos.longitude();
     }else if(m_rockType == HISTORY){
-        setInterpPoint(seconds);
+        setInterpPoint(inputTime);
         SkyDir dirZ(m_currentInterpPoint.dirZ);
         SkyDir dirX(m_currentInterpPoint.dirX);
         lZ=dirZ.l();
@@ -459,9 +449,11 @@ void GPS::setInterpPoint(double time){
     if((time< (*(m_pointingHistory.begin())).first )){
         timeTooEarly=true;
         std::cerr << "WARNING: Time (" << time << ") out of range of times in the pointing database - closest record being used." << std::endl;
+        throw "Time out of Range!";
     }else if(iter==m_pointingHistory.end()){
         timeTooLate=true;
         std::cerr << "WARNING: Time (" << time << ") out of range of times in the pointing database - closest record being used." << std::endl;
+        throw "Time out of Range!";
     }
     //get the point after "time"
     double rax2=(*iter).second.dirX.ra();
