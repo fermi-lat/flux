@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.cxx,v 1.2 2004/04/20 21:29:34 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.cxx,v 1.3 2005/02/08 04:40:25 burnett Exp $
 
 
 #include "TimeCandle.h"
@@ -19,6 +19,7 @@ TimeCandle::TimeCandle()
 TimeCandle::TimeCandle(const std::string& params)
 : m_T0(parseParamList(params,0)) 
 , m_name("TimeTick")
+, m_first(true)
 {}
 
 
@@ -26,17 +27,18 @@ TimeCandle::TimeCandle(const std::string& params)
 std::string TimeCandle::title()const
 {
     std::stringstream s;
-    s << particleName() << '(' << 1 << " GeV";
-    s << ")" << '\0';
+    s << "TimeTick("<< m_T0 << ")" ;
     std::string t(s.str()); 
     return t;
 }
 
-float
-TimeCandle::operator()(float f)
-{
-    return 1.;
+
+
+double TimeCandle::energy( double time)
+{     m_first=false;  
+return 0.;
 }
+
 
 const char*
 TimeCandle::particleName() const
@@ -56,3 +58,10 @@ float TimeCandle::parseParamList(std::string input, int index)
     } 
     return output[index];
 }
+
+double TimeCandle::interval (double time)
+    {  
+        if( m_first){return 1e-9;}
+        return m_T0;
+    }
+
