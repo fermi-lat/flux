@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Oct 29 08:47:46 PST 2003
+flux/flux
+
+Modified Files:
+	CompositeSource.h EventSource.h FluxSource.h 
+Log Message:
+change definition of source id to allow spec of composite within composite
+    *
+------------------------------------------------------------
 User: burnett  Wed Oct 29 06:05:49 PST 2003
 flux/xml
 
