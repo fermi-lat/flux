@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Tue Jan  6 22:07:37 PST 2004
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+spread implemented in galactic and celestial sources
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jan  6 22:07:37 PST 2004
 flux/src
 
 Modified Files:
