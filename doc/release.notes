@@ -4,8 +4,8 @@
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
- * 25-may-04  v8r8p5 THB, bug fix in SurfaceMuons, uninitialized variable (Thanks to Xin) 
- * 11-may-04         SMR, extra time-initialization of GPS in rootplots.
+ * 25-may-04  v8r8p6 THB, bug fix in SurfaceMuons, uninitialized variable (Thanks to Xin) 
+ * 11-may-04  v8r8p5 SMR, extra time-initialization of GPS in rootplots.
  * 10-may-04  v8r8p4 THB, restore VdgGamma; clean up after XML change 
  * 20-apr-04  v8r8p3 THB, remove a few Linux warnings
  * 12-apr-04  v8r8p2 THB, catch bug introduced in simplespectrum by XML change.
