@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.3 2003/08/12 06:02:58 srobinsn Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.4 2003/08/13 01:32:27 srobinsn Exp $
 
 #if !defined(_H_GPS_CLASS)
 #define _H_GPS_CLASS
@@ -24,7 +24,7 @@
 * \class GPS
 * \brief Models the Global Positoning System for a spacecraft. Handles time, position, and orientation for the instrument as a whole.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.3 2003/08/12 06:02:58 srobinsn Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.4 2003/08/13 01:32:27 srobinsn Exp $
  Represents the Global Positioning System on-board the spacecraft. An Orbit
   object is used to compute the spacecraft's position and pointing characteristics.
 Time is tracked through this object, and synchronized with the Scheduler for 
@@ -168,6 +168,8 @@ public:
         static GPS* s_instance;
         astro::EarthOrbit* m_earthOrbit; //orbital position object, from the astro package.
          
+		void setInterpPoint(double time);
+
         double  m_expansion;    // orbit expansion factor
         GPStime m_time;	    // global time
         double  m_sampleintvl;  // interval to sample for each pt. in the orbit - to normalize spectra
@@ -179,7 +181,8 @@ public:
         double m_rockDegrees; //number of degrees to "rock" the spacecraft, along the local x axis.  
         RockType m_rockType;//current rocking scheme
 		std::string m_pointingHistoryFile;//pointing/livetime database history file to use.
-		std::map<double,POINTINFO> m_pointingHistory;
+		std::map<double,POINTINFO> m_pointingHistory;//pointing/livetime database history
+		POINTINFO m_currentInterpPoint; //holder object for currently interpotated pointing information
 };
 
 inline std::istream&    operator>>(std::istream& i, GPS::Coords& c) {
