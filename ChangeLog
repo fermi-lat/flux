@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: cohen  Tue Sep 28 23:15:56 PDT 2004
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+fix an oops on cremeavg and in rootplot
+
+    *
+------------------------------------------------------------
 User: hierath  Tue Sep 28 14:55:10 PDT 2004
 flux/sources
 
