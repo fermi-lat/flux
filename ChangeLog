@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Fri Jun 11 10:18:03 PDT 2004
+flux/src
+
+Modified Files:
+	SurfaceMuons.cxx 
+Log Message:
+catch low energy apparent linux bug
+    *
+------------------------------------------------------------
 User: hierath  Wed Jun  9 13:52:21 PDT 2004
 flux/src/rootplot
 
