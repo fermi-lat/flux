@@ -1,4 +1,4 @@
-// $Id: AlbedoPSpectrum.cxx,v 1.11 2003/02/23 02:08:22 burnett Exp $
+// $Id: AlbedoPSpectrum.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 
 
 #include "AlbedoPSpectrum.h"
@@ -7,7 +7,7 @@
 #include <algorithm>
 #include <functional>
 #include "CLHEP/Random/Random.h"
-#include "flux/GPS.h"
+#include "astro/GPS.h"
 #include "Geomag.h"
 #include "flux/SpectrumFactory.h"
 

@@ -1,13 +1,13 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.12 2004/01/13 22:09:54 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.13 2004/01/23 22:00:30 srobinsn Exp $
 */
 
 #include "flux/FluxMgr.h"
 #include "flux/EventSource.h"
 #include "flux/SpectrumFactoryTable.h"
-#include "flux/GPS.h"
+#include "astro/GPS.h"
 #include "flux/FluxException.h" // defines FATAL_MACRO
 #include "flux/CompositeSource.h"
 

@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.3 2003/10/05 03:46:20 burnett Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.4 2003/11/03 09:41:21 srobinsn Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -19,7 +19,7 @@
 * $Header $
 */
 
-#include "GPS.h"
+#include "astro/GPS.h"
 
 #include "FluxSource.h"
 

@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.2 2003/11/03 09:41:21 srobinsn Exp $
 
 #ifndef _H_IFlux_
 #define _H_IFlux_
@@ -8,7 +8,7 @@
 #include "CLHEP/Geometry/Point3D.h"
 #include "CLHEP/Geometry/Vector3D.h"
 #include "CLHEP/Vector/Rotation.h"
-#include "flux/GPS.h"
+#include "astro/GPS.h"
 
 class ParticleProperty;
 class EventSource;
@@ -23,7 +23,7 @@ class ISpectrumFactory;
 * 
   Abstract interface for an object that generates particles, Flux
 
-  * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
+  * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.2 2003/11/03 09:41:21 srobinsn Exp $
 */
 class IFlux {
 public:
