@@ -1,0 +1,63 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Language" content="en-us">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+<title>Multiple</title>
+</head>
+
+<body>
+
+<p><font size="6"><b>Broken</b></font><b><font size="6"> power law:</font></b></p>
+<p>We
+examine a
+test source &quot;multipower&quot; defined thus:</p>
+<font SIZE="2">
+<div style="width: 630; height: 107; border-style: solid; border-width: 1; padding-left: 4; padding-right: 4; padding-top: 1; padding-bottom: 1">
+  </font><font SIZE="2" COLOR="#0000ff">&lt;</font><font SIZE="2" COLOR="#800000">source</font><font SIZE="2" COLOR="#ff00ff">
+</font><font SIZE="2" COLOR="#ff0000">name</font><font SIZE="2" COLOR="#0000ff">=&quot;multipower&quot;</font><font SIZE="2" COLOR="#ff00ff">
+</font><font SIZE="2" COLOR="#ff0000">flux</font><font SIZE="2" COLOR="#0000ff">=&quot;1.0&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;</font><font SIZE="2" COLOR="#800000">spectrum</font><font SIZE="2" COLOR="#ff00ff">
+</font><font SIZE="2" COLOR="#ff0000">escale</font><font SIZE="2" COLOR="#0000ff">=&quot;GeV&quot;&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</font><font SIZE="2" COLOR="#800000">particle</font><font SIZE="2" COLOR="#ff00ff">
+</font><font SIZE="2" COLOR="#ff0000">name</font><font SIZE="2" COLOR="#0000ff">=&quot;gamma&quot;&gt;</font><font SIZE="2">
+</font><font SIZE="2" COLOR="#0000ff">&lt;</font><font SIZE="2" COLOR="#800000">power_law</font><font SIZE="2" COLOR="#ff00ff">
+</font><font SIZE="2" COLOR="#ff0000">emin</font><font SIZE="2" COLOR="#0000ff">=&quot;0.01&quot;</font><font SIZE="2" COLOR="#ff00ff">
+</font><font SIZE="2" COLOR="#ff0000">emax</font><font SIZE="2" COLOR="#0000ff">=&quot;10.0&quot;</font><font SIZE="2" COLOR="#ff00ff">
+</font><font SIZE="2" COLOR="#ff0000">ebreak</font><font SIZE="2" COLOR="#0000ff">=&quot;0.5&quot;</font><font SIZE="2" COLOR="#ff00ff">
+</font><font SIZE="2" COLOR="#ff0000">gamma</font><font SIZE="2" COLOR="#0000ff">=&quot;2&quot;</font><font SIZE="2" COLOR="#ff00ff">
+</font><font SIZE="2" COLOR="#ff0000">gamma2</font><font SIZE="2" COLOR="#0000ff">=&quot;4&quot;/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/</font><font SIZE="2" COLOR="#800000">particle</font><font SIZE="2" COLOR="#0000ff">&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;</font><font SIZE="2" COLOR="#800000">solid_angle</font><font SIZE="2" COLOR="#ff00ff">
+</font><font SIZE="2" COLOR="#ff0000">mincos</font><font SIZE="2" COLOR="#0000ff">=&quot;0&quot;</font><font SIZE="2" COLOR="#ff00ff">
+</font><font SIZE="2" COLOR="#ff0000">maxcos</font><font SIZE="2" COLOR="#0000ff">=&quot;1.0&quot;/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/</font><font SIZE="2" COLOR="#800000">spectrum</font><font SIZE="2" COLOR="#0000ff">&gt;<br>
+&lt;/</font><font SIZE="2" COLOR="#800000">source</font><font SIZE="2" COLOR="#0000ff">&gt;
+</font>
+</div>
+<p>Note that, normally, the &quot;power_law&quot; element is declared with a
+minimum and maximum, and a single power law index
+&quot;gamma.&quot;.&nbsp;&nbsp;<br>
+The &quot;ebreak&quot; option allows for the two &quot;gamma&quot; variables to
+apply above and below the break.. If ebreak is not specified, it defaults to 
+zero, for no break.</p>
+<p>We run the standard flux tests on the above &quot;multipower&quot; source, and find a rate (after 10,000 events) of
+37.6892, or&nbsp;<br>
+ about 1*2PI*6, where 1 is&nbsp;the rate (s<sup>-1</sup> m<sup>-2</sup> sr<sup>-1</sup>), the diffuse source is
+declared over 2PI steradians, and the 6 is the&nbsp;<br>
+ area of the detector circle, in m<sup>2</sup>.</p>
+<p>Running a set of rootplots on the same source gives results like this:<br>
+<img src="../doc/multipower1.JPG" border="0" width="577" height="380"><br>
+<p>as expected, the break in the power law happens at 0.5 GeV, with an index of
+2 before and an index of 4 afterward.</p>
+<p>It should be noted that this allows for other &quot;bumpy&quot; spectra
+outside of a simple hardening at higher energies.&nbsp; For instance, <br>
+if the first energy index in &quot;multipower&quot; becomes a -2, then we have a
+spectrum that looks like this:<br>
+<img src="../doc/multipower4.JPG" border="0" width="577" height="380"></p>
+
+</body>
+
+</html>
