@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Tue Mar 16 15:43:36 PST 2004
+flux/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+Remainder (maybe) of changes for Xerces conversion, stage 1
+
+    *
+------------------------------------------------------------
 User: jrb  Tue Mar 16 15:42:58 PST 2004
 flux/cmt
 
