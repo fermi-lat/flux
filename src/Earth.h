@@ -6,7 +6,7 @@
  * (see http://xxx.lanl.gov/abs/astro-ph/0410487 )
  * @author D. Petry
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/terrestrialSources/Earth/Earth/Earth.h,v 1.2 2004/12/14 23:37:57 petry Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Earth.h,v 1.1 2004/12/21 03:46:41 burnett Exp $
  */
 
 #ifndef mySpectrum_MapSource_h
@@ -26,7 +26,7 @@
  * (see http://xxx.lanl.gov/abs/astro-ph/0410487 )
  * @author D. Petry
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/terrestrialSources/Earth/Earth/Earth.h,v 1.2 2004/12/14 23:37:57 petry Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Earth.h,v 1.1 2004/12/21 03:46:41 burnett Exp $
  */
 
 class Earth : public Spectrum {
@@ -39,10 +39,7 @@ public:
 
    virtual ~Earth(){}
 
-   /// @return Particle energy in MeV.
-   /// @param xi Uniform random deviate on the unit interval.
-   //   virtual float operator() (float xi) const;
-
+ 
    /// @return Particle type, "gamma".
    virtual const char * particleName() const {return "gamma";}
 

@@ -51,7 +51,7 @@ m_l(l),m_b(b),m_flux(flux),m_index(index),m_flareMult(flareMult),m_flareAdd(flar
 
 AGNSpectrum::~AGNSpectrum(){}
 
-float AGNSpectrum::operator()(float r)const{
+float AGNSpectrum::operator()(float r){
     double index;
     //double E0=0.1;
     //double emax=100.;

@@ -55,7 +55,7 @@ public:
     virtual double interval(double time);
 
     /// sample a single particle energy from the spectrum
-    virtual float operator() (float)const;
+    virtual float operator() (float);
 
     ///this returns a galactic direction, in the form (l,b)
     std::pair<double,double> dir(double energy);

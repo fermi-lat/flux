@@ -1,4 +1,4 @@
-// $Id: AlbedoPSpectrum.h,v 1.11 2003/02/23 02:08:22 burnett Exp $
+// $Id: AlbedoPSpectrum.h,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 // File: AlbedoPSpectrum.h
 #ifndef ALBEDO_P_SPECTRUM_H
 #define ALBEDO_P_SPECTRUM_H
@@ -54,7 +54,7 @@ public:
     virtual float flux(std::pair<double, double> coords) const;
     
     /// sample a single particle energy from the spectrum
-    virtual float operator() (float)const;
+    virtual float operator() (float);
     
     /// move to a new position and do the necessary initialization
     virtual void setPosition(float lat, float lon);

@@ -1,4 +1,4 @@
-// $Id: AlbedoPSpectrum.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
+// $Id: AlbedoPSpectrum.cxx,v 1.2 2004/01/28 23:52:25 hierath Exp $
 
 
 #include "AlbedoPSpectrum.h"
@@ -107,7 +107,7 @@ float AlbedoPSpectrum::flux( std::pair<double,double> coords) const {
 /// Return a random value of energy sampled from the spectrum.
 /// A simple analytical formula that's consistent with the spectrum
 /// measured by AMS.
-float AlbedoPSpectrum::operator() (float x) const{
+float AlbedoPSpectrum::operator() (float x) {
     double v1,v2, alf1, alf2, emin, emax, Ejoin;
     fitParams(m_lat, m_lon, alf1, alf2, emin, emax, v1, v2, Ejoin);
     double split = v1/(v1+v2);

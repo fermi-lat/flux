@@ -300,7 +300,7 @@ std::pair<double,double> MapSpectrum::dir(double /*energy */){
 }
 
 /// sample a single particle energy from the spectrum
-float MapSpectrum::operator() (float f)const
+float MapSpectrum::operator() (float f)
 {
     double index = m_index;
     //double m_emax = 100;
