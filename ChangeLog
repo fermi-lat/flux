@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Jun  2 15:12:51 PDT 2004
+flux/src
+
+Modified Files:
+	SurfaceMuons.cxx 
+Log Message:
+apply normaliztion to Hiro muon spectrum, add it to XML.
+    *
+------------------------------------------------------------
 User: burnett  Tue May 25 16:35:31 PDT 2004
 flux/doc
 
