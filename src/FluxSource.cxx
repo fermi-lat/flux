@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.11 2004/01/07 02:17:01 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.12 2004/01/07 06:07:37 srobinsn Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -75,8 +75,9 @@ public:
     virtual void execute(const HepVector3D& dir){
         HepRotation r_pln;
 
+        //create rotation to take x-y plane to be perpendicular to incoming direction
         double ly = dir.y(), lx = dir.x();
-        if( lx !=0 || ly !=0 ) { 
+        if( fabs( lx) +fabs(ly) >1e-8) {  // leave as identity 
             r_pln.rotate(acos(dir.z()),  HepVector3D(-ly, lx, 0.));
         }
 
