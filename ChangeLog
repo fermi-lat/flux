@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Mon Nov 24 10:47:27 PST 2003
+flux/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+vela location fixed, gps "wraparound" patch
+
+    *
+------------------------------------------------------------
 User: burnett  Sat Nov  8 02:27:20 PST 2003
 flux/src
 
