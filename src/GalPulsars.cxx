@@ -111,8 +111,11 @@ GalPulsars::GalPulsars(const std::string& paramString)
       input_file.getline(buffer,1024,'\t');
       m_t0.push_back(2400000.5+std::atof(buffer));
 
+      input_file.getline(buffer,1024,'\t');
+      int numbins = std::atoi(buffer);
+
       std::vector<double> temp_lc;
-      for(int i = 0; i < 20; i++)
+      for(int i = 0; i < numbins - 1; i++)
       {
          input_file.getline(buffer,1024,'\t');
          temp_lc.push_back(std::atof(buffer));
@@ -189,7 +192,6 @@ void GalPulsars::updateIntervals(double current_time, double time_decrement)
 
          double traveltime = orbit.calcTravelTime(tdb,s_dir);
 
-         // Todo:  Check whether another tdb -> tt conversion is needed
          double cycle_fraction = fmod(m_freq[i]*dt + 0.5 * m_freq_dot[i]*dt*dt
             + orbit.calcShapiroDelay(tdb,s_dir) + orbit.calcTravelTime(tdb,s_dir), current_period);
 
@@ -229,7 +231,6 @@ void GalPulsars::updateIntervals(double current_time, double time_decrement)
          m_interval[i] -= time_decrement;
    }
 } 
-
 
 double GalPulsars::period(double jd, int pulsarIndex) const {
    return 1./m_freq[pulsarIndex] + (-m_freq_dot[pulsarIndex]/(m_freq[pulsarIndex]*m_freq[pulsarIndex]))*(jd - m_t0[pulsarIndex])*86400;
