@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
     @brief Implementation of FluxSource
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.5 2003/10/02 21:00:47 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.6 2003/10/18 19:00:54 srobinsn Exp $
 
   */
 #include "flux/FluxSource.h"
@@ -238,6 +238,16 @@ public:
         return t.str();
     }
 
+	/// return the cosine of the angle between the incoming direction and the earth's zenith
+	virtual double zenithCosine()const{
+		if(m_skydir){
+		astro::SkyDir zenDir(GPS::instance()->RAZenith(),GPS::instance()->DECZenith());
+		return -m_dir*zenDir();
+		}
+		//if the direction is local
+		return 1.0;
+	}
+
 private:
     HepRotation m_celtoglast;
     HepVector3D m_dir;
@@ -325,6 +335,7 @@ public:
     SourceDirection(ISpectrum* spectrum, bool galactic)
         : m_spectrum(spectrum)
         , m_galactic(galactic)
+		, m_zenithCos(1.0)
     {}
 
     void execute(double ke, double time){
@@ -347,6 +358,9 @@ public:
                 b = direction.second;
             //then set up this direction:
             astro::SkyDir unrotated(l,b,astro::SkyDir::GALACTIC);
+			//get teh zenith cosine:
+			astro::SkyDir zenDir(GPS::instance()->RAZenith(),GPS::instance()->DECZenith());
+		    m_zenithCos = -unrotated()*zenDir();
             //get the transformation matrix..
             HepRotation celtoglast
                 =GPS::instance()->transformCelToGlast(time);
@@ -365,9 +379,13 @@ public:
         return "(use_spectrum)";
     }
 
+	/// return the cosine of the angle between the incoming direction and the earth's zenith
+	virtual double zenithCosine()const{return m_zenithCos;}
+
 private:
     ISpectrum* m_spectrum;
     bool   m_galactic;
+	double m_zenithCos;
 };
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                   FluxSource constructor
@@ -376,6 +394,7 @@ FluxSource::FluxSource(const DOM_Element& xelem )
 : EventSource ()
 , m_spectrum(0)
 , m_occultable(true)
+, m_zenithCosTheta(1.0) //won't be occulted by default
 {
     static double d2r = M_PI/180.;
 
@@ -601,6 +620,9 @@ void FluxSource::computeLaunch (double time)
     // set launch direction , position (perhaps depending on direction)
     m_launch_dir->execute(m_energy, time);
     m_launchDir  = (*m_launch_dir)();
+
+	//get the off-zenith angle cosine, for occultation purposes:
+	m_zenithCosTheta = m_launch_dir->zenithCosine();
     
     //  rotate by Glast orientation transformation
     HepRotation correctForTilt =GPS::instance()->rockingAngleTransform(time);
@@ -651,14 +673,12 @@ bool FluxSource::occulted(){
     //Output:  "yes" or "no"
     //REMEMBER:  the earth is directly below the satellite, so, to determine occlusion,
     // we must assume the frame to be checked against is zenith-pointing, and hence, we want 
-    //the direction of the particle BEFORE it is compensated for tilt angles.  
-    double cosTheta, minCosTheta;
-
-	//this should be open-ended, not wired in!
-	minCosTheta = -0.4;
-
-    cosTheta=-m_launchDir.z()/m_launchDir.mag();
+    //the direction of the particle relative to the GLAST zenith direction, calculated in the 
+	//LaunchDirection classes.
     
-    return (m_occultable) && (cosTheta < minCosTheta);
+	//this should probably be open-ended, not wired in!
+	double minCosTheta= -0.4;
+
+    return (m_occultable) && (m_zenithCosTheta < minCosTheta);
 
 }
