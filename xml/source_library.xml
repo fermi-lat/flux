@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/grouFnd/cvs/flux/xml/source_library.xml,v 1.30 2005/03/04 04:22:38 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.31 2005/03/04 06:25:18 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -406,6 +406,7 @@
 
     <!--average flux for pdr studies -->
     <source name="backgndavgpdr">
+        <nestedSource sourceRef="chimeavg"/>
 	<nestedSource sourceRef="albedo_proton_avg" /> 
 	<nestedSource sourceRef="albedo_gamma" /> 
 	<nestedSource sourceRef="electronavg" />  
