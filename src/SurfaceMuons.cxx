@@ -2,7 +2,7 @@
 * @file SurfaceMuons.cxx
 * @brief declaration and definition of SurfaceMuons
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.8 2004/06/11 20:49:38 burnett Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.9 2004/06/17 19:05:21 hierath Exp $
 */
 #include "flux/Spectrum.h"
 #include "flux/SpectrumFactory.h"
@@ -18,7 +18,7 @@
 * \brief Spectrum representing cosmic ray muon flux at the Earth's surface
 * \author T. Burnett
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.8 2004/06/11 20:49:38 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.9 2004/06/17 19:05:21 hierath Exp $
 */
 //
 
@@ -59,6 +59,7 @@ private:
   // 0 (default): use the spectrum as a function of E*cos(theta)
   // 1: use Hiro's analytic form, which is independent of angle, see analyticSpectrum()
   // 2: use data from Caprice94 experiment (PRL 83, 21:  22 Nov. 1999)
+  // 3: use data from Caprice97 experiment (PRL 83, 21:  22 Nov. 1999)
   int m_option;
 
 
@@ -151,7 +152,7 @@ double SurfaceMuons::energy( double time )
     m_costh = pow(r*cube(m_cosmax)+(1-r)*cube(m_cosmin), third);
 
     if(m_option == 1) return analyticSpectrum(time);
-    if(m_option == 2) return capriceSpectrum(time);
+    if(m_option == 2 || m_option == 3) return capriceSpectrum(time);
 
 
     // select an energy by inverting the integral distribution
@@ -189,26 +190,37 @@ double SurfaceMuons::energy( double time )
 
 double SurfaceMuons::capriceSpectrum(double time) const
 {
+   // Data taken from J. Kremer, et. al., Measurements of Ground-Level Muons at Two Geomagnetic Locations
+   // PRL Vol 83, Num. 21, 22 November 1999
+
    // Kinetic energy in GeV
    double ke[] = {1.2054e-001,  2.1240e-001,  3.0806e-001,  4.5440e-001,  6.0227e-001,  7.5088e-001,  8.9991e-001,
                   1.0990e+000,  1.2983e+000,  1.4978e+000,  1.9970e+000,  2.8362e+000,  4.0157e+000,  5.3954e+000,  
                   6.8951e+000,  9.8949e+000,  1.5395e+001,  2.2895e+001,  3.0995e+001,  4.3494e+001,  6.0994e+001,
                   8.5494e+001,  1.1989e+002};
-//#define CAPRICE94
-#ifdef CAPRICE94
-   // Integrated mu+ and mu- flux from Caprice94 data
+
+   double *integ_flux;
+
+   // Integrated mu+ and mu- flux from Caprice94 data (Manitoba, Canada at atmospheric depth of 1000 g/cm^2)
    // (m^2 sr s)^-1
-   double integ_flux[] = {2.5000e+000,  5.5400e+000,  1.0280e+001,  1.4795e+001,  1.9130e+001,  2.3165e+001, 
+   double integ_flux94[] = {2.5000e+000,  5.5400e+000,  1.0280e+001,  1.4795e+001,  1.9130e+001,  2.3165e+001, 
       2.7965e+001,  3.2385e+001,  3.6165e+001,  4.4365e+001,  5.4277e+001,  6.3127e+001,
       6.9351e+001,  7.3641e+001,  7.8411e+001,  8.2250e+001,  8.4095e+001, 8.4978e+001,
       8.5565e+001,  8.5863e+001,  8.6024e+001,  8.6114e+001};
-#else
-   // Integrated mu+ and mu- flux from Caprice97 data
-   double integ_flux[] = {2.2700e+000,  5.4900e+000,  1.1220e+001,  1.7190e+001,  2.2890e+001,  2.8230e+001,
+
+   // Integrated mu+ and mu- flux from Caprice97 data (New Mexico at atmospheric depth of 886 g/cm^2)
+   // Note:  One measurement was missing in the 10th bin for mu+ in the paper (corresponding to p=1.84 GeV/c.  
+   // The mu- value was multiplied by 1.2 to obtain a guess for the mu+ value. This value
+   // was then used used in generating this array.
+   double integ_flux97[] = {2.2700e+000,  5.4900e+000,  1.1220e+001,  1.7190e+001,  2.2890e+001,  2.8230e+001,
       3.4730e+001,  4.0390e+001,  4.5450e+001,  5.5550e+001,  6.6218e+001,  7.6437e+001,
       8.3682e+001,  8.8407e+001,  9.3807e+001,  9.7844e+001,  9.9869e+001,  1.0075e+002,
       1.0136e+002,  1.0167e+002,  1.0185e+002,  1.0194e+002 };
-#endif 
+
+   if(m_option == 2)
+      integ_flux = integ_flux94;
+   else
+      integ_flux = integ_flux97;
 
    double target = RandFlat::shoot(integ_flux[21]);
    double m = 0, b = 0;
@@ -226,7 +238,7 @@ double SurfaceMuons::capriceSpectrum(double time) const
       }
    }
     
-   return m * target + b;
+   return (m * target + b)/m_costh;
 
 }
 
