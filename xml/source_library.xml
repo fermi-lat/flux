@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/xml/source_library.xml,v 1.31 2003/03/25 22:00:08 xchen Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.7 2003/12/02 15:05:50 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -225,6 +225,16 @@
          <spectrum escale="GeV"> <SpectrumClass name="AlbedoPSpectrum" params="19.6,37.99"/>  <solid_angle mincos="-1.0" maxcos="1.0"/>
          </spectrum>
 	</source>
+	
+    <!-- testing new broken power law: this should be the same as albedo_electronpositron_total -->
+    <source name="aep" flux="146.">
+        <spectrum escale="GeV">
+            <particle name="e+" >
+                <power_law emin="0.010" ebreak="0.1" gamma="1.0"  emax="100"  gamma2="3.2" />
+            </particle>
+            <solid_angle mincos="-1.0" maxcos="1.0"/>
+        </spectrum>
+    </source>
 
     <source name="albedo_electronpositronlow" flux="146.">
         <spectrum escale="GeV">
@@ -262,14 +272,37 @@
     </source>
 
 
-    <!-- source that represents the Earth horizon albedo with Glast zenith pointing
+    <!-- source that represents the Earth horizon and upward albedo 
      Numbers are based on Thompson et al., JGR 86, 1265
-     Flux starts with total of 920/m/s at 115 degrees, extrapolated down to 10 MeV using
-     E^-2 spectrum and assuming isotropic in phi:
-     920/(2.*3.14159*0.01) = 1.464226713225e+004
-     Note that the angle theta below is the pitch angle of the space craft.
-     -->
-    <source name="albedo_gamma" flux="14642">
+     Represent as two components, extrapolated to 10 MeV
+     The upward component is a combination of three angular bins
+   -->
+    <source name="albedo_gamma_upward_1" flux="754">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.010" emax="10" gamma="2.4"/></particle>
+            <solid_angle mincos="-0.42" maxcos="-0.67" />
+        </spectrum>
+    </source>
+    <source name="albedo_gamma_upward_2" flux="352">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.010" emax="10" gamma="2.4"/></particle>
+            <solid_angle mincos="-0.67" maxcos="-0.92" />
+        </spectrum>
+    </source>
+    <source name="albedo_gamma_upward_3" flux="226">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.010" emax="10" gamma="2.4"/></particle>
+            <solid_angle mincos="-0.92" maxcos="-1.0" />
+        </spectrum>
+    </source>
+
+	<source name="albedo_gamma_upward">
+	   <nestedSource sourceRef="albedo_gamma_upward_1"/>
+	   <nestedSource sourceRef="albedo_gamma_upward_2"/>
+	   <nestedSource sourceRef="albedo_gamma_upward_3"/>
+	</source>
+
+	<source name="albedo_gamma" flux="14642">
         <spectrum escale="GeV">
             <particle name="gamma" >
                 <power_law emin="0.010" gamma="2"/>
@@ -339,31 +372,43 @@
 
  <source_library title="galactic">
 
-    <!-- diffuse extraglactic from 10 MeV: from APJ 494:523
-            1.45E-5 /cm^2/s E> 100 MeV, so (1.45E-5)*(1e4 cm^2/m^2)*(100/10)^1.1 = 1.83
+
+    <!-- diffuse extraglactic from20 MeV to 1 TeV: from APJ 494:523
+            1.45E-5 /cm^2/s E> 100 MeV, so (1.45E-5)*(1e4 cm^2/m^2)*(100/20)^1.1 = 0.85 /s/sr/m^2
             -->
-    <source name="diffuse" flux="1.83">
+ 
+    <source name="diffuse-20mev" flux="0.85">
         <spectrum escale="GeV">
-            <particle name="gamma">  <power_law emin="0.01" gamma="2.1"/></particle>
+            <particle name="gamma">  <power_law emin="0.02" emax="1e3" gamma="2.1"/></particle>
             <solid_angle mincos="-0.4" maxcos="1.0"/>
         </spectrum>
     </source>
 
-	 <!-- Test source at the galactic origin -->
-     <source name="galcenter" flux="0.05">
-          <spectrum escale="GeV">
-              <particle name="gamma"> <energy e="0.1"/> </particle>
-               <galactic_dir l="0" b="0"/>
-          </spectrum>
-     </source>
 
     <!-- diffuse extraglactic from 100 MeV: see above for numbers-->
-    <source name="diffuse-100mev" flux="0.145">
+    <source name="diffuse" flux="0.145">
         <spectrum escale="GeV">
             <particle name="gamma">  <power_law emin="0.1" gamma="2.1"/></particle>
             <solid_angle mincos="-0.4" maxcos="1.0"/>
         </spectrum>
     </source>
+
+    <source name="diffuse-30mev" flux="0.545">
+       <spectrum escale="MeV">
+          <particle name="gamma">
+             <power_law emin="30." emax="100000." gamma="2.1"/>
+          </particle>
+          <solid_angle mincos="-0.4" maxcos="1."/>
+       </spectrum>
+    </source>
+
+	 <!-- Test source at the galactic origin -->
+     <source name="galcenter" flux="5e-4">
+          <spectrum escale="GeV">
+              <particle name="gamma"> <energy e="110."/> </particle>
+               <galactic_dir l="0" b="0"/>
+          </spectrum>
+     </source>
 
     <!--the Crab, pulsed portion, with pointed observation, for photons above 100 MeV,
         based on Nolan APJ 409:697
@@ -397,12 +442,27 @@
     -->
     <source name="vela" flux="0.00928">
         <spectrum escale="MeV">
-            <particle name="gamma"> <power_law emin="100.0" emax="100000." gamma="1.62"/>
+            <particle name="gamma"> <power_law emin="30.0" emax="100000." gamma="1.62"/>
             </particle>
-            <celestial_dir ra="45.4." dec="26.2."/>
+            <celestial_dir ra="128.73" dec="-45.2"/>
         </spectrum>
 
     </source>
 
 </source_library>
 
+<source_library title="MapFlux">
+
+<!-- the Format of the params variable for the below sources is:
+"Minimun Energy Used in Map,
+Extrapolated minimum to be used,
+High-Energy Cutoff,
+Energy Index,
+Map File to Use" -->
+
+	<!-- the Map of the modeled galactic diffuse gamma-ray emission -->
+    <source name="galdiffusemap" >
+        <spectrum escale="GeV"> <SpectrumClass name="MapSpectrum" params="0.1,0.03,1000.0,2,../sources/gas_gal.fits"/> <use_spectrum frame="galaxy"/> </spectrum>
+    </source>
+
+</source_library>
