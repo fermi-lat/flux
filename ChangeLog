@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Tue Nov 25 14:13:25 PST 2003
+flux/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+interpolation cleaned up in GPS, rocking now about orbital direction.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Nov 25 14:13:25 PST 2003
 flux/doc
 
 Modified Files:
