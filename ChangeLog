@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Mon Sep  8 15:49:04 PDT 2003
+flux/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+redundancy in CELTransform removed, also J2000 euler angles from SkyDir used.
+
+    *
+------------------------------------------------------------
 User: srobinsn  Fri Aug 29 10:19:35 PDT 2003
 flux/src
 
