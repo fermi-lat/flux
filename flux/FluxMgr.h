@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.4 2003/11/03 09:41:21 srobinsn Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.5 2004/01/28 23:52:25 hierath Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -107,8 +107,11 @@ private:
     
     /// source library lookup.  Each source is uniquely identified
     /// by its "name" attribute because "name" is of type ID
+#if 0
     DOM_Element  getLibrarySource(const DOMString& id);
-    
+#else
+    DOM_Element  getLibrarySource(const std::string& id);
+#endif
     
     
     void defaultFile();
