@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: mcenery  Thu Apr  1 16:47:25 PST 2004
+flux/flux
+
+Modified Files:
+	Flux.h FluxMgr.h 
+Log Message:
+little fixes for compilation with gcc3.3
+
+    *
+------------------------------------------------------------
 User: srobinsn  Tue Mar 30 14:18:35 PST 2004
 flux/xml
 
