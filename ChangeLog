@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Wed Oct 13 20:15:03 PDT 2004
+flux/sources
+
+Modified Files:
+	vela.txt 
+Log Message:
+Changed high energy cutoff for Vela to a more realistic value.
+    *
+------------------------------------------------------------
 User: hierath  Wed Oct 13 17:34:12 PDT 2004
 flux/src
 
