@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sat Mar 26 19:00:48 PST 2005
+flux/src
+
+Modified Files:
+	AlbedoPSpectrum.cxx 
+Log Message:
+get Geomag from astro
+    *
+------------------------------------------------------------
 User: burnett  Sat Mar 26 19:00:23 PST 2005
 flux/src/rootplot
 
