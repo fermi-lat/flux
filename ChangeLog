@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Mon Mar 29 12:33:28 PST 2004
+flux/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+XML conversion step 1; tagging v8r8
+    *
+------------------------------------------------------------
+User: burnett  Mon Mar 29 12:33:28 PST 2004
 flux/cmt
 
 Modified Files:
