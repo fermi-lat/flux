@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Tue Jan 13 14:09:54 PST 2004
+flux/src/test
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+teste to galctic sources file location for mapSpectrum fixed.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jan 13 14:09:54 PST 2004
 flux/src
 
 Modified Files:
