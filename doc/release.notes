@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.37 2005/01/03 20:00:55 jrb Exp $
+  $Id: release.notes,v 1.38 2005/02/08 04:43:49 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     EOH
 
+   v8r14p1 26-feg-2005 thb missed that CHIMEspectrum had const operator(); fixed. removed \0 from titles.
    v8r14   3-Jan-2005  thb slight changes to interface to remove obsolete methods, make operator() not const
    v8r13   3-Jan-2005  jrb Use xmlBase package rather than xml
  * 20-dec-04  v8r12  thb  add Earth
