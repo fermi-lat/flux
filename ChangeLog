@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Thu Jun 17 15:16:25 PDT 2004
+flux/src
+
+Modified Files:
+	SurfaceMuons.cxx 
+Log Message:
+Added simple energy scaling with angle and access to both Caprice 94 and 97 muon spectra.
+    *
+------------------------------------------------------------
 User: hierath  Thu Jun 17 12:05:21 PDT 2004
 flux/xml
 
