@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
     @brief Implementation of FluxSource
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.2 2003/07/31 23:56:17 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.3 2003/08/15 05:40:20 srobinsn Exp $
 
   */
 #include "flux/FluxSource.h"
@@ -556,21 +556,10 @@ EventSource* FluxSource::event(double time)
     // Purpose and Method: generate a new incoming particle
     // Inputs  - current time
     // Outputs - pointer to the "current" fluxSource object.
-	double timeUnderOccultation=0.;
-	int times=0;
-	do{
-		times++;
-		if(times>1){
-			double temp=1.;}
-		m_interval = calculateInterval(time+timeUnderOccultation);
-		computeLaunch(time+m_interval+timeUnderOccultation);
-		timeUnderOccultation += m_interval;
-	}while(occulted());
+	m_interval = calculateInterval(time);
+	computeLaunch(time+m_interval);
     //now set the actual interval to be what FluxMgr will get
-    EventSource::setTime(time+timeUnderOccultation);
-	//and ensure that the interval is also set up to be correct after occultation:
-	m_interval=timeUnderOccultation;
-
+    EventSource::setTime(time+m_interval);
     return this;
 }
 

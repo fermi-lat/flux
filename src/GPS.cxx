@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.10 2003/10/01 03:23:01 srobinsn Exp $
+// $Id: GPS.cxx,v 1.11 2003/10/01 04:46:38 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -194,7 +194,7 @@ HepRotation GPS::rockingAngleTransform(double seconds){
 		while(orbitPhase >2.*M_2PI){ orbitPhase -= 2.*M_2PI;}
 		if(orbitPhase <= M_2PI) rockNorth *= -1.;
 	}else{
-		//for safety and EXPLICIT and POINT
+		//for safety and EXPLICIT, POINT and HISTORY
 		rockNorth = 0.;
 	}
 	// now, we want to find the proper transformation for the rocking angles:
@@ -450,8 +450,17 @@ void GPS::setUpHistory(){
 }
 
 void GPS::setInterpPoint(double time){
+	//is the current time out of range?
+	bool timeTooEarly=false;
+	bool timeTooLate=false;
 	std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(time);
-	if((time< (*(m_pointingHistory.begin())).first )||iter==m_pointingHistory.end()) std::cerr << "WARNING: Time out of scope of pointing database" << std::endl;
+	if((time< (*(m_pointingHistory.begin())).first )){//||iter==m_pointingHistory.end()){
+		timeTooEarly=true;
+		std::cerr << "WARNING: Time (" << time << ") out of range of times in the pointing database - closest record being used." << std::endl;
+	}else if(iter==m_pointingHistory.end()){
+		timeTooLate=true;
+		std::cerr << "WARNING: Time (" << time << ") out of range of times in the pointing database - closest record being used." << std::endl;
+	}
 	//get the point after "time"
 	double rax2=(*iter).second.dirX.ra();
 	double decx2=(*iter).second.dirX.dec();
@@ -474,7 +483,17 @@ void GPS::setInterpPoint(double time){
 	double time1=(*iter).first;
 
 	//the proportional distance between the first point and the interpolated point
-	double prop=1.0 - ((time2-time)/(time2-time1));
+	double prop;
+	if(timeTooEarly){
+		//use the later point(first in database)
+		prop=1.0;
+	}else if(timeTooLate){
+		//use the earlier point(last in database)
+		prop=0.0;
+	}else{
+		//do the interpolation
+	prop= 1.0 - ((time2-time)/(time2-time1));
+	}
 
 	m_currentInterpPoint.position=pos1+((pos2-pos1)*prop);
 	m_currentInterpPoint.lat=lat1+((lat2-lat1)*prop);

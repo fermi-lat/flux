@@ -1,7 +1,7 @@
 /** @file Flux.cxx
     @brief Implementation of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.2 2003/08/28 18:31:12 burnett Exp $
 
   Original author: T. Burnett
 */
@@ -41,9 +41,11 @@ void Flux::generate()
     // Purpose and Method: generate a new entry trajectory, set FluxSource, time
     // Inputs  - none
     // Outputs - none
+	do{
     m_flux = m_event->event(time());
     double timepass = m_event->interval(time());
     pass(timepass);
+	}while(m_event->occulted());
 }
 
 // the particle generated 
