@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Wed Oct  1 15:21:50 PDT 2003
+flux/src
+
+Modified Files:
+	CompositeSource.cxx Flux.cxx FluxSource.cxx GPS.cxx 
+Log Message:
+GPS interpolation set to use endpoints when time is out of range,occultation method moved to Flux.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Wed Oct  1 15:21:50 PDT 2003
 flux/flux
 
 Modified Files:
