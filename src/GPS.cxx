@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.4 2003/08/13 20:38:27 srobinsn Exp $
+// $Id: GPS.cxx,v 1.5 2003/08/20 19:38:10 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -64,9 +64,9 @@ void GPS::synch ()
 double GPS::lat () const
 {
 	//before anything, check to see if we are using a history file:
-	if(m_rockType == HISTORY){std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(time());
-	iter--;
-		return (*iter).second.lat;
+	if(m_rockType == HISTORY){
+		instance()->setInterpPoint(time());
+		return m_currentInterpPoint.lat;
 	}
 
 	double currentTime = time(); 
@@ -83,9 +83,9 @@ double GPS::lat () const
 double	GPS::lon () const
 { 
 	//before anything, check to see if we are using a history file:
-	if(m_rockType == HISTORY){std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(time());
-	iter--;
-		return (*iter).second.lon;
+	if(m_rockType == HISTORY){
+	instance()->setInterpPoint(time());
+	return m_currentInterpPoint.lon;
 	}
 
 	double currentTime = time();
@@ -191,13 +191,11 @@ HepRotation GPS::rockingAngleTransform(double seconds){
 	double lZ,bZ,raX,decX;
 	//before anything, check to see if we are using a history file:
 	if(m_rockType == HISTORY){
-		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
-		if((seconds< (*(m_pointingHistory.begin())).first )||iter==m_pointingHistory.end()) std::cerr << "WARNING: Time out of scope of pointing database" << std::endl;
-		iter--;
-		lZ=(*iter).second.dirZ.l();
-		bZ=(*iter).second.dirZ.b();
-		raX=(*iter).second.dirX.ra();
-		decX=(*iter).second.dirX.dec();
+		setInterpPoint(seconds);
+		lZ=m_currentInterpPoint.dirZ.l();
+		bZ=m_currentInterpPoint.dirZ.b();
+		raX=m_currentInterpPoint.dirX.ra();
+		decX=m_currentInterpPoint.dirX.dec();
 	}else{
 	SkyDir tempdirZ(m_position.unit());
 	lZ = tempdirZ.l();
@@ -269,11 +267,9 @@ HepRotation GPS::CELTransform(double seconds){
 		raX = tempDirZ.ra()-90.0;
 		decX = 0.;
 	}else if(m_rockType == HISTORY){
-		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
-		if((seconds< (*(m_pointingHistory.begin())).first )||iter==m_pointingHistory.end()) std::cerr << "WARNING: Time out of scope of pointing database" << std::endl;
-		iter--;
-		SkyDir dirZ((*iter).second.dirZ);
-		SkyDir dirX((*iter).second.dirX);
+		setInterpPoint(seconds);
+		SkyDir dirZ(m_currentInterpPoint.dirZ);
+		SkyDir dirX(m_currentInterpPoint.dirX);
 		lZ=dirZ.l();
 		bZ=dirZ.b();
 		raX=dirX.ra();
@@ -326,11 +322,9 @@ HepRotation GPS::transformCelToGlast(double seconds){
 		raX = tempDirZ.ra()-90.0;
 		decX = 0.;
 	}else if(m_rockType == HISTORY){
-		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
-		if((seconds< (*(m_pointingHistory.begin())).first )||iter==m_pointingHistory.end()) std::cerr << "WARNING: Time out of scope of pointing database" << std::endl;
-		iter--;
-		SkyDir dirZ((*iter).second.dirZ);
-		SkyDir dirX((*iter).second.dirX);
+		setInterpPoint(seconds);
+		SkyDir dirZ(m_currentInterpPoint.dirZ);
+		SkyDir dirX(m_currentInterpPoint.dirX);
 		lZ=dirZ.l();
 		bZ=dirZ.b();
 		raX=dirX.ra();
@@ -379,11 +373,9 @@ void GPS::getPointingCharacteristics(double seconds){
 		raX = tempDirZ.ra()-90.0;
 		decX = 0.;
 	}else if(m_rockType == HISTORY){
-		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
-		if((seconds< (*(m_pointingHistory.begin())).first )||iter==m_pointingHistory.end()) std::cerr << "WARNING: Time out of scope of pointing database" << std::endl;
-		iter--;
-		SkyDir dirZ((*iter).second.dirZ);
-		SkyDir dirX((*iter).second.dirZ);
+		setInterpPoint(seconds);
+		SkyDir dirZ(m_currentInterpPoint.dirZ);
+		SkyDir dirX(m_currentInterpPoint.dirX);
 		lZ=dirZ.l();
 		bZ=dirZ.b();
 		raX=dirX.ra();
@@ -495,7 +487,7 @@ void GPS::setUpHistory(){
 	}
 	else
 	{
-		double intrvalstart,intrvalend,posx,posy,posz,raz,decz,rax,decx,razenith,deczenith,lon,lat,alt;
+		double intrvalstart,posx,posy,posz,raz,decz,rax,decx,razenith,deczenith,lon,lat,alt;
 		//initialize the key structure:
 		while (!input_file.eof()){
 			input_file >> intrvalstart;
@@ -522,4 +514,35 @@ void GPS::setUpHistory(){
 
 		}
 	}
+}
+
+void GPS::setInterpPoint(double time){
+	std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(time);
+	if((time< (*(m_pointingHistory.begin())).first )||iter==m_pointingHistory.end()) std::cerr << "WARNING: Time out of scope of pointing database" << std::endl;
+	//get the point after "time"
+	double rax2=(*iter).second.dirX.ra();
+	double decx2=(*iter).second.dirX.dec();
+	double raz2=(*iter).second.dirZ.ra();
+	double decz2=(*iter).second.dirZ.dec();
+	double lat2=(*iter).second.lat;
+	double lon2=(*iter).second.lon;
+	double time2=(*iter).first;	
+	
+	//then get the details from the previous point:
+	iter--;
+	double rax1=(*iter).second.dirX.ra();
+	double decx1=(*iter).second.dirX.dec();
+	double raz1=(*iter).second.dirZ.ra();
+	double decz1=(*iter).second.dirZ.dec();
+	double lat1=(*iter).second.lat;
+	double lon1=(*iter).second.lon;
+	double time1=(*iter).first;
+
+	//the proportional distance between the first point and the interpolated point
+	double prop=(time2-time)/(time2-time1);
+
+	m_currentInterpPoint.lat=lat1+((lat2-lat1)*prop);
+	m_currentInterpPoint.lon=lon1+((lon2-lon1)*prop);;	
+	m_currentInterpPoint.dirZ=astro::SkyDir(raz1+((raz2-raz1)*prop),decz1+((decz2-decz1)*prop));
+	m_currentInterpPoint.dirX=astro::SkyDir(rax1+((rax2-rax1)*prop),decx1+((decx2-decx1)*prop));
 }
