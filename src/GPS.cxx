@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.6 2003/08/29 08:01:04 srobinsn Exp $
+// $Id: GPS.cxx,v 1.7 2003/08/29 09:08:16 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -542,7 +542,7 @@ void GPS::setInterpPoint(double time){
 	double time1=(*iter).first;
 
 	//the proportional distance between the first point and the interpolated point
-	double prop=(time2-time)/(time2-time1);
+	double prop=1.0 - ((time2-time)/(time2-time1));
 
 	m_currentInterpPoint.position=pos1+((pos2-pos1)*prop);
 	m_currentInterpPoint.lat=lat1+((lat2-lat1)*prop);
