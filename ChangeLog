@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Tue Aug 10 09:15:08 PDT 2004
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+GalPulsars now reads in t0 from source files.  Minor fixes.
+    *
+------------------------------------------------------------
 User: hierath  Tue Aug 10 09:15:07 PDT 2004
 flux/sources
 
