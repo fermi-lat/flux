@@ -1,7 +1,7 @@
 /** @file Flux.h
     @brief Declaration of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.2 2003/08/28 18:31:12 burnett Exp $
 
   Original author: T. Burnett
 */
@@ -23,6 +23,8 @@
 #include "IFlux.h"
 #include "CLHEP/Vector/Rotation.h"
 
+#include <vector>
+
 // forward declarations
 class FluxMgr;
 class EventSource;
@@ -31,6 +33,9 @@ class Flux : public IFlux {
 public:
     /// ctor, select the name
     Flux(std::string name);
+
+    Flux(std::vector<std::string> names);
+
     virtual ~Flux();
     
     /// name of the flux

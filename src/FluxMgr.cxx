@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.2 2003/08/12 06:02:58 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.3 2003/09/30 20:19:33 srobinsn Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -124,6 +124,22 @@ EventSource* FluxMgr::source(std::string name)
     return getSourceFromXML(m_sources[name].first);
 }
 
+EventSource* FluxMgr::compositeSource(std::vector<std::string> names)
+{
+    //Purpose: to return a pointer to a source, referenced by a list of names.
+    //Input: the names of the desired sources.
+
+    CompositeSource* comp = new CompositeSource();
+    for( std::vector<std::string>::const_iterator it= names.begin(); it!=names.end(); ++it){
+        const std::string& name = *it;
+        if( m_sources.find(name)==m_sources.end() ) {
+            delete comp;
+            return 0;
+        }
+        comp->addSource(getSourceFromXML(m_sources[name].first));
+    }
+    return comp;
+}
 
 EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
 {

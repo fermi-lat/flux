@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.2 2003/08/12 06:02:58 srobinsn Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -43,6 +43,10 @@ public:
     
     /// create and return a source by name.
     EventSource* source(std::string name);
+
+    /// create a composite source from the list of names
+    EventSource* compositeSource(std::vector<std::string> names);
+
     
     /// access to the source list
     std::list<std::string> sourceList() const;
