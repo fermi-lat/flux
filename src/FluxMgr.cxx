@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.20 2004/11/10 20:25:11 jrb Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.21 2004/12/21 03:46:40 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -13,7 +13,7 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.20 2004/11/10 20:
 
 // #include <xercesc/dom/DOMDocument.hpp>   already included by .h file
 // #include <xercesc/dom/DOMElement.hpp>
-#include "xml/Dom.h"
+#include "xmlBase/Dom.h"
 #include "facilities/Util.h"     // for expandEnvVar
 
 #include "astro/PointingTransform.h"
@@ -53,7 +53,7 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
     //the named xml files.
     std::string fileName;
 
-    xml::XmlParser parser;
+    xmlBase::XmlParser parser;
 
     std::string xmlFileIn = writeXmlFile(fileList);
 
@@ -76,24 +76,24 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
     // loop through the source elements to create a map of names, DOMElements
     if (s_library != 0) {
 
-        DOMElement* child = xml::Dom::getFirstChildElement(s_library);
-        DOMElement* toplevel = xml::Dom::getFirstChildElement(s_library);
+        DOMElement* child = xmlBase::Dom::getFirstChildElement(s_library);
+        DOMElement* toplevel = xmlBase::Dom::getFirstChildElement(s_library);
 
         while (child != 0) {
-            while (!(xml::Dom::hasAttribute(child, "name"))  )
+            while (!(xmlBase::Dom::hasAttribute(child, "name"))  )
             {
                 s_library = child;
-                child = xml::Dom::getFirstChildElement(s_library);
+                child = xmlBase::Dom::getFirstChildElement(s_library);
             }
 
             while (child != 0) {
-                std::string name = xml::Dom::getAttribute(child, "name");
-                std::string parentfilename = xml::Dom::getAttribute(toplevel, "title");
+                std::string name = xmlBase::Dom::getAttribute(child, "name");
+                std::string parentfilename = xmlBase::Dom::getAttribute(toplevel, "title");
                 m_sources[name]=std::make_pair<DOMElement*,std::string>(child,parentfilename);
-                child = xml::Dom::getSiblingElement(child);
+                child = xmlBase::Dom::getSiblingElement(child);
             }
 
-            child = xml::Dom::getSiblingElement(toplevel);
+            child = xmlBase::Dom::getSiblingElement(toplevel);
             toplevel=child;
         }
 
@@ -166,17 +166,17 @@ EventSource*  FluxMgr::getSourceFromXML(const DOMElement* src)
         return  new FluxSource(src);
     }
 
-    DOMElement* sname = xml::Dom::getFirstChildElement(src);
+    DOMElement* sname = xmlBase::Dom::getFirstChildElement(src);
     if (sname == 0 ) {
         FATAL_MACRO("Improperly formed XML event source");
         return 0;
     }
     // If we got here, should have legit child element
-    if (xml::Dom::checkTagName(sname, "spectrum") )
+    if (xmlBase::Dom::checkTagName(sname, "spectrum") )
     {
         return  new FluxSource(src);
     }
-    else if (xml::Dom::checkTagName(sname, "nestedSource"))
+    else if (xmlBase::Dom::checkTagName(sname, "nestedSource"))
     {
 
         // Search for and process immediate child elements.  All must
@@ -188,22 +188,22 @@ EventSource*  FluxMgr::getSourceFromXML(const DOMElement* src)
         cs = new CompositeSource();
         do { 
             DOMElement* selem = 
-                getLibrarySource(xml::Dom::getAttribute(sname, "sourceRef"));
+                getLibrarySource(xmlBase::Dom::getAttribute(sname, "sourceRef"));
 
             if (selem == 0) {
                 FATAL_MACRO("source name" << 
-                    xml::Dom::getAttribute(sname, "sourceRef") <<
+                    xmlBase::Dom::getAttribute(sname, "sourceRef") <<
                     "' not in source library");
             }
             cs->addSource(getSourceFromXML(selem)); 
-            sname = xml::Dom::getSiblingElement(sname);
+            sname = xmlBase::Dom::getSiblingElement(sname);
         } 
         while (sname != 0 );
         return cs;
     }
     else {
         FATAL_MACRO("Unexpected element: " << 
-            xml::Dom::getTagName(sname) );
+            xmlBase::Dom::getTagName(sname) );
     }
     return 0;
 }
@@ -218,7 +218,7 @@ DOMElement*    FluxMgr::getLibrarySource(const std::string& id)
     // quit if the library was unitialized
     if (s_library == 0 ) return 0; 
 
-    return xml::Dom::getElementById(m_library_doc, id);
+    return xmlBase::Dom::getElementById(m_library_doc, id);
 }
 
 std::list<std::string> FluxMgr::sourceList() const

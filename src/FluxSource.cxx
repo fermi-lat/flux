@@ -1,13 +1,13 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.24 2004/09/29 18:27:48 cohen Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.25 2004/11/10 20:25:11 jrb Exp $
 
 */
 #include "flux/FluxSource.h"
 
 #include <xercesc/dom/DOMElement.hpp>
-#include "xml/Dom.h"
+#include "xmlBase/Dom.h"
 #include "CLHEP/Random/RandFlat.h"
 
 #include "astro/SkyDir.h"
@@ -442,22 +442,22 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
     std::string class_name;
     std::string source_params; 
     // this is a default flux, from the flux="123" in the source element
-    setFlux(atof (xml::Dom::getAttribute(xelem, "flux").c_str()));
+    setFlux(atof (xmlBase::Dom::getAttribute(xelem, "flux").c_str()));
 
 
-    DOMElement*   spec = xml::Dom::findFirstChildByName(xelem, "spectrum");
+    DOMElement*   spec = xmlBase::Dom::findFirstChildByName(xelem, "spectrum");
 
     if (spec == 0) {
 
         // source has no imbedded spectrum element: expect a name
-        class_name = xml::Dom::getAttribute(xelem, "name");
+        class_name = xmlBase::Dom::getAttribute(xelem, "name");
     } else {
         // process spectrum element
-        DOMElement* specType = xml::Dom::getFirstChildElement(spec);
+        DOMElement* specType = xmlBase::Dom::getFirstChildElement(spec);
 
-        std::string typeTagName = xml::Dom::getTagName(specType);
-        std::string spectrum_name = xml::Dom::getAttribute(spec, "particle_name");
-        std::string spectrum_energyscale = xml::Dom::getAttribute(spec, "escale");
+        std::string typeTagName = xmlBase::Dom::getTagName(specType);
+        std::string spectrum_name = xmlBase::Dom::getAttribute(spec, "particle_name");
+        std::string spectrum_energyscale = xmlBase::Dom::getAttribute(spec, "escale");
 
         if(spectrum_energyscale == "GeV"){ m_energyscale=GeV;
         }else if(spectrum_energyscale == "MeV"){ m_energyscale=MeV;
@@ -469,8 +469,8 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
         if (typeTagName=="particle") s = new SimpleSpectrum(specType,  m_energyscale==GeV );
         else if (typeTagName=="SpectrumClass") {
             // attribute "name" is the class name
-            class_name = xml::Dom::getAttribute(specType, "name");
-            source_params= xml::Dom::getAttribute(specType, "params");
+            class_name = xmlBase::Dom::getAttribute(specType, "name");
+            source_params= xmlBase::Dom::getAttribute(specType, "params");
         }
         else {
             // no, the tag itself
@@ -490,7 +490,7 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
                 FATAL_MACRO("Unknown Spectrum: "<< class_name);
                 return;
             }
-	    std:: string flux = xml::Dom::getAttribute(spec, "flux");
+	    std:: string flux = xmlBase::Dom::getAttribute(spec, "flux");
 	    if(flux!="")
 	      { s->setFlux(atof(flux.c_str())); }
 	    s->setInGeV(spectrum_energyscale == "GeV");
@@ -501,33 +501,33 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
 	
 
         // second child element is angle
-        DOMElement* angles = xml::Dom::getSiblingElement(specType);
-        std::string anglesTag = xml::Dom::getTagName(angles);
+        DOMElement* angles = xmlBase::Dom::getSiblingElement(specType);
+        std::string anglesTag = xmlBase::Dom::getTagName(angles);
         if (anglesTag == "solid_angle") 
         {
             m_occultable=false;
             m_launch_dir = new RandomDirection(
-                xml::Dom::getDoubleAttribute(angles, "mincos"),
-                xml::Dom::getDoubleAttribute(angles, "maxcos"),
-                xml::Dom::getDoubleAttribute(angles, "theta") * d2r,
-                xml::Dom::getDoubleAttribute(angles, "phi")*d2r);
+                xmlBase::Dom::getDoubleAttribute(angles, "mincos"),
+                xmlBase::Dom::getDoubleAttribute(angles, "maxcos"),
+                xmlBase::Dom::getDoubleAttribute(angles, "theta") * d2r,
+                xmlBase::Dom::getDoubleAttribute(angles, "phi")*d2r);
 
         }
         else if (anglesTag == "direction") 
         {
             //m_occultable=false;
-            std::string frame = xml::Dom::getAttribute(angles, "frame");
+            std::string frame = xmlBase::Dom::getAttribute(angles, "frame");
             m_occultable=(frame=="zenith");
             m_launch_dir = new LaunchDirection(
-                xml::Dom::getDoubleAttribute(angles, "theta") * d2r,
-                xml::Dom::getDoubleAttribute(angles, "phi")*d2r,
+                xmlBase::Dom::getDoubleAttribute(angles, "theta") * d2r,
+                xmlBase::Dom::getDoubleAttribute(angles, "phi")*d2r,
                 frame);
         }
         else if (anglesTag == "use_spectrum")
         {
             std::string frame = 
-                xml::Dom::getAttribute(angles, "frame");
-                // xml::Dom::transToChar(angles->getAttribute("frame"));
+                xmlBase::Dom::getAttribute(angles, "frame");
+                // xmlBase::Dom::transToChar(angles->getAttribute("frame"));
             m_occultable=(frame=="galaxy" || frame=="equatorial");
             m_launch_dir = new SourceDirection(m_spectrum, frame); 
         }
@@ -536,11 +536,11 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
             m_occultable=true;
             m_launch_dir = new LaunchDirection(
                 astro::SkyDir(
-                xml::Dom::getDoubleAttribute(angles, "l") ,
-                xml::Dom::getDoubleAttribute(angles, "b") ,
+                xmlBase::Dom::getDoubleAttribute(angles, "l") ,
+                xmlBase::Dom::getDoubleAttribute(angles, "b") ,
                 astro::SkyDir::GALACTIC
                 ),
-               xml::Dom::getDoubleAttribute(angles, "radius") 
+               xmlBase::Dom::getDoubleAttribute(angles, "radius") 
 
                 );
         }
@@ -550,11 +550,11 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
             m_occultable=true;
             m_launch_dir = new LaunchDirection(
                 astro::SkyDir(
-                xml::Dom::getDoubleAttribute(angles, "ra")  ,
-                xml::Dom::getDoubleAttribute(angles, "dec")
+                xmlBase::Dom::getDoubleAttribute(angles, "ra")  ,
+                xmlBase::Dom::getDoubleAttribute(angles, "dec")
 
                 ),
-               xml::Dom::getDoubleAttribute(angles, "radius") 
+               xmlBase::Dom::getDoubleAttribute(angles, "radius") 
                 );
 
         }
@@ -570,28 +570,28 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
         }
 
         // third child element is optional launch spec
-        DOMElement* launch = xml::Dom::getSiblingElement(angles);
+        DOMElement* launch = xmlBase::Dom::getSiblingElement(angles);
 
         if(launch != 0) {
-            std::string launchTag = xml::Dom::getTagName(launch);
+            std::string launchTag = xmlBase::Dom::getTagName(launch);
 
             if (launchTag == "launch_point")
             {
                 m_launch_pt = new FixedPoint(HepPoint3D(
-                    xml::Dom::getDoubleAttribute(launch, "x"),
-                    xml::Dom::getDoubleAttribute(launch, "y"),
-                    xml::Dom::getDoubleAttribute(launch, "z")),
-                    xml::Dom::getDoubleAttribute(launch, "beam_radius") );
+                    xmlBase::Dom::getDoubleAttribute(launch, "x"),
+                    xmlBase::Dom::getDoubleAttribute(launch, "y"),
+                    xmlBase::Dom::getDoubleAttribute(launch, "z")),
+                    xmlBase::Dom::getDoubleAttribute(launch, "beam_radius") );
             }
             else if (launchTag == "patch")
             {
                 m_launch_pt = new Patch(
-                    xml::Dom::getDoubleAttribute(launch, "xmax"),
-                    xml::Dom::getDoubleAttribute(launch, "xmin"),
-                    xml::Dom::getDoubleAttribute(launch, "ymax"),
-                    xml::Dom::getDoubleAttribute(launch, "ymin"),
-                    xml::Dom::getDoubleAttribute(launch, "zmax"),
-                    xml::Dom::getDoubleAttribute(launch, "zmin") );
+                    xmlBase::Dom::getDoubleAttribute(launch, "xmax"),
+                    xmlBase::Dom::getDoubleAttribute(launch, "xmin"),
+                    xmlBase::Dom::getDoubleAttribute(launch, "ymax"),
+                    xmlBase::Dom::getDoubleAttribute(launch, "ymin"),
+                    xmlBase::Dom::getDoubleAttribute(launch, "zmax"),
+                    xmlBase::Dom::getDoubleAttribute(launch, "zmin") );
             }else {
                 FATAL_MACRO("Unknown launch specification in Flux::Flux \""
                     << launchTag << "\"" );
