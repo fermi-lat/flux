@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: hierath  Tue Sep 28 14:55:10 PDT 2004
+flux/sources
+
+Removed Files:
+	glast_smax_flx.txt glast_smin_flx.txt glast_wday_flx.txt 
+	glast_wweek_flx.txt 
+Log Message:
+Removed deprecated creme spectrum.
+    *
+------------------------------------------------------------
 User: hierath  Tue Sep 28 14:53:46 PDT 2004
 flux/xml
 
