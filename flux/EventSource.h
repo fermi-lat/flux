@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/EventSource.h,v 1.3 2003/03/20 19:55:32 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
 */
 
 #ifndef EventSource_h
@@ -17,7 +17,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/EventSource.h,v 1.3 2003/03/20 19:55:32 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
 */
 
 
@@ -67,7 +67,9 @@ public:
     ///    area 
     static double	totalArea ();
     static void	totalArea ( double value );
-    
+
+	/// Is the current particle occulted?
+	virtual bool occulted() = 0;
     
     /// virtual event number: should be filled in by subclass
     virtual int eventNumber()const{return -1;} 

@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/GPS.h,v 1.16 2003/03/19 06:31:04 srobinsn Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.6 2003/08/29 09:08:16 srobinsn Exp $
 
 #if !defined(_H_GPS_CLASS)
 #define _H_GPS_CLASS
@@ -17,13 +17,14 @@
 #include "CLHEP/Vector/Rotation.h"
 
 #include <iostream>
+#include <string>
 
 
 /** 
 * \class GPS
 * \brief Models the Global Positoning System for a spacecraft. Handles time, position, and orientation for the instrument as a whole.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/GPS.h,v 1.16 2003/03/19 06:31:04 srobinsn Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.6 2003/08/29 09:08:16 srobinsn Exp $
  Represents the Global Positioning System on-board the spacecraft. An Orbit
   object is used to compute the spacecraft's position and pointing characteristics.
 Time is tracked through this object, and synchronized with the Scheduler for 
@@ -43,8 +44,17 @@ public:
             UPDOWN, //! Satellite will be rocked toward the north pole in the northern hemisphere, opposite in the south.
             SLEWING, //! (experimental) like UPDOWN, except that rotation at equator happens gradually.
             ONEPERORBIT, //! LAT rocked northward for one orbit, southward for the next.
-            EXPLICIT //!  Explicit angles given - this is used only if rotAngles get set.
+            EXPLICIT, //!  Explicit angles given - this is used only if rotAngles get set.
+			POINT, //!  The Lat points in a given direction.  Here, m_rotangles is in (l,b) format for pointing.
+			HISTORY //! This setting is for using a previously generated pointing database to represent the orbit.
         };
+
+	typedef struct{
+		astro::SkyDir dirZ;
+		astro::SkyDir dirX;
+		double lat,lon;
+		Hep3Vector position;
+	}POINTINFO;
 
     class Coords {
     public:
@@ -67,9 +77,16 @@ public:
     /// GPS synchronized time for the satellite
     GPStime	time () const; 
     /// present latitude
-    double	lat () const; 
+	double lat()const;//{getPointingCharacteristics(time);return m_lat;} 
     /// present longitude
-    double	lon () const;  
+    double lon()const;//{getPointingCharacteristics(time);return m_lon;}  
+	/// pointing characteristics
+	double RAX()const;//{getPointingCharacteristics(time);return m_RAX;}
+    double RAZ()const;//{getPointingCharacteristics(time);return m_RAZ;}
+    double DECX()const;//{getPointingCharacteristics(time);return m_DECX;}
+    double DECZ()const;//{getPointingCharacteristics(time);return m_DECZ;}
+    double RAZenith()const;//{getPointingCharacteristics(time);return m_RAZenith;}
+    double DECZenith()const;//{getPointingCharacteristics(time);return m_DECZenith;}
     /// expansion of the current orbit
     double      expansion () const; 
     /// sample interval for random orbit distribution
@@ -83,7 +100,7 @@ public:
     // set data
     
     /// get the pointing characteristics of the satellite, given a location and rocking angle.
-    void getPointingCharacteristics(double seconds);
+    void getPointingCharacteristics(double inputTime);
     
     /// pass a specific amount of time
     void    pass ( double );
@@ -97,6 +114,12 @@ public:
     void    ascendingLon(double);   
     /// set m_rotangles
     void    rotateAngles(std::pair<double,double> coords); 
+
+	/// set the desired pointing history file to use:
+    void setPointingHistoryFile(std::string fileName);
+
+	/// write the explicit history data for re-creation of orbit.
+	void setUpHistory();
     
     /// print time & position
     void    printOn(std::ostream& out) const; 
@@ -123,17 +146,16 @@ public:
                                               m_rockDegrees = rockDegrees;
                                               return ret;}
     
-    int setRockType(RockType rockType);//{m_rockType = rockType;}
-    int setRockType(int rockType);//{m_rockType = rockType;}
+    int setRockType(RockType rockType);
+    int setRockType(int rockType);
 
-    double RAX()const{return m_RAX;}
-    double RAZ()const{return m_RAZ;}
-    double DECX()const{return m_DECX;}
-    double DECZ()const{return m_DECZ;}
-    double RAZenith()const{return m_RAZenith;}
-    double DECZenith()const{return m_DECZenith;}
+	void    time ( GPStime );// set time
 
     Hep3Vector position(double seconds)const{
+		if(m_rockType == HISTORY){
+			instance()->setInterpPoint(seconds);
+			return m_currentInterpPoint.position;
+		}
         double time = m_earthOrbit->dateFromSeconds(seconds);
         return m_earthOrbit->position(time);
         /*return m_position;*/} //interface to EarthOrbit::position()
@@ -143,7 +165,6 @@ public:
         GPS();
         virtual ~GPS();
         
-        void    time ( GPStime );       // set time
         std::pair<double,double> m_rotangles;  //angles for coordinate rotation (rocking angle)
         
         // friends
@@ -153,9 +174,13 @@ public:
         static GPS* s_instance;
         astro::EarthOrbit* m_earthOrbit; //orbital position object, from the astro package.
          
+		void setInterpPoint(double time);
+
         double  m_expansion;    // orbit expansion factor
         GPStime m_time;	    // global time
+		double m_lastQueriedTime; //the last time that was asked for
         double  m_sampleintvl;  // interval to sample for each pt. in the orbit - to normalize spectra
+		double m_lat,m_lon; //position characteristics
         double m_RAX,m_RAZ,m_DECX,m_DECZ; //pointing characteristics.
         double m_RAZenith,m_DECZenith;  //pointing characteristic of the zenith direction.
         Hep3Vector m_position; //current vector position of the LAT.
@@ -163,6 +188,9 @@ public:
         Subject    m_notification; 
         double m_rockDegrees; //number of degrees to "rock" the spacecraft, along the local x axis.  
         RockType m_rockType;//current rocking scheme
+		std::string m_pointingHistoryFile;//pointing/livetime database history file to use.
+		std::map<double,POINTINFO> m_pointingHistory;//pointing/livetime database history
+		POINTINFO m_currentInterpPoint; //holder object for currently interpotated pointing information
 };
 
 inline std::istream&    operator>>(std::istream& i, GPS::Coords& c) {
