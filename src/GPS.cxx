@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.7 2003/08/29 09:08:16 srobinsn Exp $
+// $Id: GPS.cxx,v 1.8 2003/08/29 17:19:35 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -250,56 +250,20 @@ HepRotation GPS::rockingAngleTransform(double seconds){
 HepRotation GPS::CELTransform(double seconds){
 	/// Purpose:  Return the 3x3 matrix which transforms a vector from a galactic 
 	/// coordinate system to a local coordinate system.
-	using namespace astro;
 	double degsPerRad = 180./M_PI;
-	HepRotation gal;//,cel;
-	double time = m_earthOrbit->dateFromSeconds(seconds);
 
-	m_position = m_earthOrbit->position(time);
-
-	//first make the directions for the x and Z axes, as well as the zenith direction.
-	double lZ,bZ,raX,decX;
-	//before rotation, the z axis points along the zenith:
-	if(m_rockType == POINT){
-		lZ=m_rotangles.first;
-		bZ=m_rotangles.second;
-		SkyDir tempDirZ(lZ,bZ,astro::SkyDir::GALACTIC);
-		raX = tempDirZ.ra()-90.0;
-		decX = 0.;
-	}else if(m_rockType == HISTORY){
-		setInterpPoint(seconds);
-		SkyDir dirZ(m_currentInterpPoint.dirZ);
-		SkyDir dirX(m_currentInterpPoint.dirX);
-		lZ=dirZ.l();
-		bZ=dirZ.b();
-		raX=dirX.ra();
-		decX=dirX.dec();
-	}else{
-		//ok, get the pointing from earthOrbit.
-		SkyDir tempDirZ(m_position.unit());
-		lZ=tempDirZ.l();
-		bZ=tempDirZ.b();
-		raX = tempDirZ.ra()-90.0;
-		decX = 0.;
-	}
-
-	SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
-	SkyDir dirX(raX,decX);
-
-	//so now we know where the x and z axes of the zenith-pointing frame point in the celestial frame.
-	//what we want now is to make cel, where
 	//cel is the matrix which rotates (cartesian)local coordinates into (cartesian)celestial ones
-	HepRotation cel(dirX() , dirZ().cross(dirX()) , dirZ());
+	HepRotation cel(transformCelToGlast(seconds).inverse());
 
 	//std::cout << "time is " << seconds << std::endl;
 	//m_orbit->displayRotation(cel);
 
 	//gal is the matrix which rotates (cartesian)celestial coordiantes into (cartesian)galactic ones
-	gal.rotateZ(-282.25/degsPerRad).rotateX(-62.6/degsPerRad).rotateZ(33./degsPerRad);
+	HepRotation gal;
+	gal.rotateZ(-282.8592/degsPerRad).rotateX(-62.8717/degsPerRad).rotateZ(32.93224/degsPerRad);
 	//so gal*cel should be the matrix that makes local coordiates into galactic ones.
 	HepRotation glstToGal=gal*cel;
 	return glstToGal.inverse();
-
 }
 
 HepRotation GPS::transformCelToGlast(double seconds){
