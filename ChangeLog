@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Wed Oct  6 16:11:16 PDT 2004
+flux/src
+
+Modified Files:
+	FILESpectrum.cxx 
+Log Message:
+Minor change resolving type ambiguity  to allow compilation under visual studio.
+    *
+------------------------------------------------------------
 User: cohen  Wed Sep 29 11:27:48 PDT 2004
 flux/xml
 
