@@ -162,7 +162,7 @@ void rootplot::init(std::vector<const char*> argv)
     
     rootEnergyHist energy_hist(num_bins,energy_min,energy_max);
     rootAngleHist angle_hist(num_bins);
-    
+
     // Process all the sources
     for(int i = 0; i < num_sources; i++)
     {
@@ -186,7 +186,12 @@ void rootplot::init(std::vector<const char*> argv)
             angle_hist.reset();
         }
         
+		// Make sure positions are initialized
+		GPS::instance()->synch();
+        fm.pass(0.);
+
         EventSource *e = fm.source(sources[i]);
+
 
         if(longterm){
             fm.pass(2.);
@@ -233,15 +238,14 @@ void rootplot::init(std::vector<const char*> argv)
         angle_hist.setThetaYLabel("Particles");
         
 
-      // Make sure positions are initialized
-		GPS::instance()->synch();
-      fm.pass(0.);
+
 
 		std::cout << sources[i] << std::endl;
 
         GPS::instance()->getPointingCharacteristics(time);
         std::pair<double,double> loc=fm.location();
 		std::cout << "Lat/Lon:  " << loc.first << "   " << loc.second << std::endl;
+
         //	  std::cout << "orbit angle=" << GPS::instance()-> << "orbit phase=" << << std::endl;
 
         std::cout << "Initial (p/s/m^2): " << e->rate(time)/e->totalArea() << std::endl;
