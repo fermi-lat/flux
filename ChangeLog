@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Wed Oct 29 08:47:46 PST 2003
+flux/src
+
+Modified Files:
+	CompositeSource.cxx 
+Log Message:
+change definition of source id to allow spec of composite within composite
+    *
+------------------------------------------------------------
+User: burnett  Wed Oct 29 08:47:46 PST 2003
 flux/flux
 
 Modified Files:
