@@ -162,7 +162,7 @@ void GalPulsars::updateIntervals(double current_time, double time_decrement)
          astro::EarthOrbit orbit;
          astro::JulianDate tt(orbit.dateFromSeconds(current_time));
 
-         // Convert times to tdb since pulsar times are usually given in tdb time system
+         // Convert times to tdb since pulsar times are given in tdb time system
          double tdb = tt + orbit.tdb_minus_tt(tt)/86400.;
          double dt = (tdb - m_t0[i])*86400;
 
@@ -178,7 +178,17 @@ void GalPulsars::updateIntervals(double current_time, double time_decrement)
          m_interval[i] = current_period * num_cycles;
 
          // Determine phase of the pulsar for the current time
-         double cycle_fraction = fmod(m_freq[i]*dt + 0.5 * m_freq_dot[i]*dt*dt,current_period);
+         // Todo:  Check signs of correction (+/-) 
+
+         // Get source direction for Shapiro delay and geometric delay calculations
+         std::pair<double,double> lb;
+         lb = dir(0.);
+         astro::SkyDir s_dir(lb.first,lb.second,astro::SkyDir::GALACTIC);
+
+         double traveltime = orbit.calcTravelTime(tdb,s_dir);
+
+         double cycle_fraction = fmod(m_freq[i]*dt + 0.5 * m_freq_dot[i]*dt*dt
+            + orbit.calcShapiroDelay(tdb,s_dir) + orbit.calcTravelTime(tdb,s_dir), current_period);
              
          int phase_index = (int) floor(cycle_fraction * m_lc[i].size());
          if(phase_index == m_lc[i].size()) 
