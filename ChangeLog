@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sat Mar 26 19:01:46 PST 2005
+flux/src
+
+Modified Files:
+	SurfaceMuons.cxx 
+Log Message:
+use anon. namespace for cube
+    *
+------------------------------------------------------------
 User: burnett  Sat Mar 26 19:00:48 PST 2005
 flux/src
 
