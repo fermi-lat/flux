@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.29 2004/12/21 03:46:41 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/grouFnd/cvs/flux/xml/source_library.xml,v 1.30 2005/03/04 04:22:38 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -238,10 +238,6 @@
    <source name="Earth">
       <spectrum escale="MeV">
          <SpectrumClass name="Earth" params="565.,10.,10000."/>
-         <!-- param1: altitude (km)
-              param2: minimum energy (MeV)
-              param3: maximum energy (MeV)
-         -->
          <use_spectrum frame="zenith"/>
       </spectrum>
    </source>
