@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: hierath  Wed Jan 28 15:52:25 PST 2004
+flux/flux
+
+Modified Files:
+	FluxMgr.h IFlux.h 
+Log Message:
+
+Moved GPS class to astro.
+    *
+------------------------------------------------------------
 User: hierath  Wed Jan 28 15:42:23 PST 2004
 flux/src
 
