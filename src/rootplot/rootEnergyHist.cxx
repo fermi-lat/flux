@@ -230,7 +230,8 @@ void rootEnergyHist::draw(double scale_factor, std::string mode, int current_plo
             
             out_file << 
                 "{\n"
-                "   gROOT->Reset();\n";
+                "   gROOT->Reset();\n"
+                "   gStyle->SetMarkerSize(0.5);\n";
         }
         else
         {
