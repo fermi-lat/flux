@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.9 2003/12/10 21:01:14 jrb Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.10 2004/01/06 22:49:44 srobinsn Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -19,7 +19,7 @@
 #include "astro/PointingTransform.h"
 
 #include <sstream>
-
+#include <map>
 #define DLL_DECL_SPECTRUM(x)   extern const ISpectrumFactory& x##Factory; x##Factory.addRef();
 #define DECLARE_SPECTRUM(x)   extern const ISpectrumFactory& x##Factory; x##Factory.addRef();
 
@@ -103,8 +103,6 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
     DLL_DECL_SPECTRUM( TimeCandle);
 
     DLL_DECL_SPECTRUM( SurfaceMuons);
-
-    DLL_DECL_SPECTRUM( VdgGamma);
 
     // these are deprecated, will be replaced by Hiroshima group
     DLL_DECL_SPECTRUM( AlbedoPSpectrum);
@@ -257,16 +255,8 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
     double time=0.;
     
     const int howMany = e->howManySources();
-    //int counts[howMany] = 0;
-    std::vector<int> counts;
+    std::map<int,int> counts;
     
-    //std::vector<int>::const_iterator countIter = counts.begin();
-    
-    int q;
-    for(q=0 ; q<=howMany+2 ; q++){
-        counts.push_back(0);
-        //  countIter++;
-    }
     
     cout << "running source: " << e->fullTitle() << std::endl;
     cout << " Total rate is: " << e->rate(time) << " Hz into " << e->totalArea() << " m^2" << std::endl;
@@ -315,8 +305,8 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
         << "Average rate = " << count/totalinterval <<std::endl;
     
     cout << "Source Statistics: " << std::endl;
-    for(q=0 ; q<howMany ; q++){
-        cout << "source #" << q+1 << ": " << counts[q] << " events counted." << std::endl;
+    for( std::map<int,int>::const_iterator q=counts.begin() ; q!= counts.end() ; ++q){
+        cout << "source #" << q->first << ": " << q->second << " events counted." << std::endl;
     }
     
     
