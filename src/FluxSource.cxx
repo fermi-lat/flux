@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.21 2004/03/29 20:33:28 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.22 2004/03/30 22:18:34 srobinsn Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -391,7 +391,7 @@ public:
             setDir(zenToGlast*(-unrotated));
 
         }else {
-            // iterpret direction as l,b for a galactic or celestial source
+            // interpret direction as l,b for a galactic or celestial source
             double  l = direction.first,
                 b = direction.second;
             //then set up this direction, either in galactic or celestial coordinates:    
@@ -622,9 +622,9 @@ EventSource* FluxSource::event(double time)
     // Inputs  - current time
     // Outputs - pointer to the "current" fluxSource object.
     m_interval = calculateInterval(time);
-    computeLaunch(time+m_interval);
+    computeLaunch(time + m_interval);
     //now set the actual interval to be what FluxMgr will get
-    EventSource::setTime(time+m_interval);
+    EventSource::setTime(time + m_interval);
     return this;
 }
 

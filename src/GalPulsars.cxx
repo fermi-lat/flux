@@ -39,17 +39,17 @@ private:
    double power_law( double r, double e1, double e2, double gamma) const;
    void initLightCurve(void);
 
-   std::vector< std::vector<double> > m_lc;
-   std::vector< std::string > m_name;
-   std::vector<double> m_spectralIndex;
-   std::vector<double> m_highCutoff;
-   std::vector<double> m_lowCutoff;
-   std::vector<double> m_flux;
-   std::vector<double> m_freq_dot;
-   std::vector<double> m_freq;
-   std::vector<double> m_lat;
-   std::vector<double> m_lon;
-   std::vector<double> m_t0;
+   std::vector< std::vector<double> > m_lc; // Light Curves
+   std::vector< std::string > m_name;  // Name of source
+   std::vector<double> m_spectralIndex;  // Spectral Index of power law
+   std::vector<double> m_highCutoff; // High energy cutoff in GeV
+   std::vector<double> m_lowCutoff; // Low energy cutoff in GeV
+   std::vector<double> m_flux;  // Flux in particles/cm^2/s
+   std::vector<double> m_freq_dot; // Rate of change in frequency at reference time
+   std::vector<double> m_freq; // Frequency at reference time
+   std::vector<double> m_lat; // Galactic B coordinate
+   std::vector<double> m_lon; // Galactic L coordinate
+   std::vector<double> m_t0;  // Reference time for phase zero given as JD
 
    std::vector<double> m_interval;
    int m_changed;
@@ -79,12 +79,10 @@ GalPulsars::GalPulsars(const std::string& paramString)
    while(!input_file.eof())
    {
       input_file.getline(buffer,1024,'\t');
-      if(buffer[0] != 'G')
+      if(!isalnum(buffer[0]))
          break;
 
       m_name.push_back(buffer);
-
-
 
       input_file.getline(buffer,1024,'\t'); 
       m_lat.push_back(std::atof(buffer));
@@ -109,7 +107,8 @@ GalPulsars::GalPulsars(const std::string& paramString)
       input_file.getline(buffer,1024,'\t');
       m_spectralIndex.push_back(std::atof(buffer));
 
-      m_t0.push_back(2400000.5+51595.370251);
+      input_file.getline(buffer,1024,'\t');
+      m_t0.push_back(2400000.5+std::atof(buffer));
 
       std::vector<double> temp_lc;
       for(int i = 0; i < 20; i++)
@@ -192,7 +191,7 @@ void GalPulsars::updateIntervals(double current_time, double time_decrement)
                             * area * (current_period / m_lc[i].size());
 
          // Find out which bin corresponds to the target
-         for(int j = 0; j < 2 * m_lc[i].size() + 1; j++)
+         for(unsigned int j = 0; j < 2 * m_lc[i].size() + 1; j++)
          {
             // For each bin add rate * bin-time 
             phase_sum += m_lc[i][phase_index] * area * (current_period / m_lc[i].size());
@@ -263,12 +262,12 @@ void GalPulsars::initLightCurve(void)
    for(unsigned int i = 0; i < m_lc.size(); i++)
    {
       double rate = 0;
-      for(int j = 0; j < m_lc[i].size(); j++)
+      for(unsigned int j = 0; j < m_lc[i].size(); j++)
          rate += m_lc[i][j] / m_lc[i].size();
 
       double scaling_factor = m_flux[i] / rate;
 
-      for(int k = 0; k < m_lc[i].size(); k++)
+      for(unsigned int k = 0; k < m_lc[i].size(); k++)
          m_lc[i][k] *= scaling_factor;
    }
 }

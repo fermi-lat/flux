@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.20 2004/07/09 21:25:25 heather Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.21 2004/07/29 22:01:05 hierath Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -534,7 +534,12 @@ mmas-->
             </particle>
             <celestial_dir ra="128.73" dec="-45.2"/>
         </spectrum>
-
+    </source>
+    
+    <source name="vela-galactic">
+		<spectrum escale="GeV">
+		   <SpectrumClass name="GalPulsars" params="../sources/vela.txt"/> <use_spectrum frame="galaxy"/>
+		</spectrum>
     </source>
     
     <source name="galactic-pulsars">
