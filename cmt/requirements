@@ -1,8 +1,8 @@
 package flux
 
-version v8r8p7
+version v8r9
 author Sean Robinson <srobinsn@u.washington.edu>
-# $Id: requirements,v 1.31 2004/05/25 23:35:30 burnett Exp $
+# $Id: requirements,v 1.32 2004/06/02 22:16:25 burnett Exp $
 
 use xml  v4r*
 use CLHEP v2* IExternal
