@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Mon Jan  3 11:21:47 PST 2005
+flux/flux
+
+Modified Files:
+	FluxMgr.h 
+Log Message:
+Use xmlBase package rather than xml (change #include and namespace refs)
+
+    *
+------------------------------------------------------------
 User: jrb  Mon Jan  3 11:21:14 PST 2005
 flux/cmt
 
