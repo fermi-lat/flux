@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Thu Feb  5 15:15:02 PST 2004
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+equatorial/celestial fix for new astro package.
+
+    *
+------------------------------------------------------------
 User: hierath  Wed Jan 28 15:52:25 PST 2004
 flux/src/test
 
