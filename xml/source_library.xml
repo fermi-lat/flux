@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.31 2005/03/04 06:25:18 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.32 2005/03/10 23:15:35 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -213,9 +213,9 @@
 
 <source_library title="clocks" >
 
-    <!-- the TimeCandle spectrum  -->
-    <source name="timetick">
-         <spectrum escale="GeV"> <SpectrumClass name="TimeCandle" params="57.338"/>  
+    <!-- the default clock  -->
+    <source name="clock">
+         <spectrum escale="GeV"> <SpectrumClass name="TimeCandle" params="30.0"/>  
 		 <use_spectrum/>
                  <launch_point />
          </spectrum>
