@@ -1,7 +1,7 @@
 /** @file Flux.h
     @brief Declaration of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/Flux.h,v 1.26 2003/03/20 19:55:32 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.4 2003/11/03 09:41:21 srobinsn Exp $
 
   Original author: T. Burnett
 */
@@ -23,6 +23,8 @@
 #include "IFlux.h"
 #include "CLHEP/Vector/Rotation.h"
 
+#include <vector>
+
 // forward declarations
 class FluxMgr;
 class EventSource;
@@ -31,6 +33,9 @@ class Flux : public IFlux {
 public:
     /// ctor, select the name
     Flux(std::string name);
+
+    Flux(std::vector<std::string> names);
+
     virtual ~Flux();
     
     /// name of the flux
@@ -63,8 +68,8 @@ public:
     /// pass a specific amount of time
     virtual void pass ( double t);
     
-    /// Get the time as held by GPS
-    /*GPStime*//*int*/double gpsTime () const;
+    /// Get the time as held by GPS (same: here for backward compatibility
+    double gpsTime () const;
     
     /// rate ( /mm**2 /s)
     virtual double rate()const;
@@ -93,9 +98,12 @@ public:
     
     ///get the transformation matrix due to orientation of the spacecraft.
     virtual HepRotation orientTransform(double time)const;
+
+    /// get the transformtation matrix - the rest of these functions are now deprecated
+    virtual HepRotation transformToGlast(double seconds,GPS::CoordSystem index)const;
     
     ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
-    HepRotation Flux::transformGlastToGalactic(double time)const;
+    HepRotation transformGlastToGalactic(double time)const;
     
     //    insert(std::make_pair<std::string, const ISpectrumFactory*>(name, factory));
     
@@ -107,7 +115,6 @@ public:
 private:
     
     EventSource* m_event;  
-    double m_time;  // elapsed time: here for now.
     EventSource* m_flux; // actual FluxSource used 
 
     static FluxMgr* s_mgr;
