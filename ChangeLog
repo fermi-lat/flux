@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Mon Jan  3 11:21:14 PST 2005
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+Use xmlBase rather than xml
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r12, operation: add
 Package: flux
