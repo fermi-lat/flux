@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Tue Jan  6 14:49:44 PST 2004
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+MapSpectrum migrated into flux.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jan  6 14:49:44 PST 2004
 flux/src/test
 
 Modified Files:
