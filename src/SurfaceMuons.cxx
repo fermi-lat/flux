@@ -2,7 +2,7 @@
 * @file SurfaceMuons.cxx
 * @brief declaration and definition of SurfaceMuons
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.2 2004/04/20 21:29:34 burnett Exp $
 */
 #include "flux/Spectrum.h"
 #include "flux/SpectrumFactory.h"
@@ -19,7 +19,7 @@
 * \brief Spectrum representing cosmic ray muon flux at the Earth's surface
 * \author T. Burnett
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.2 2004/04/20 21:29:34 burnett Exp $
 */
 //
 
@@ -88,6 +88,7 @@ const ISpectrumFactory& SurfaceMuonsFactory = factory;
 SurfaceMuons::SurfaceMuons(const std::string& paramstring)
 : m_index(2.71)
 , m_emax(1000)
+, m_total(0)
 {
     //Purpose: Initializes parameters during construction
     
