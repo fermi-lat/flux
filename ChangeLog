@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Thu Jul 29 14:43:06 PDT 2004
+flux/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+Fix stationary keyword to allow for proper flux scaling
+    *
+------------------------------------------------------------
 User: heather  Fri Jul  9 14:25:25 PDT 2004
 flux/xml
 
