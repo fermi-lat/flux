@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
     @brief Implementation of FluxSource
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.6 2003/10/18 19:00:54 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.7 2003/10/21 08:43:56 srobinsn Exp $
 
   */
 #include "flux/FluxSource.h"
@@ -211,7 +211,11 @@ public:
         */
     virtual void execute(double KE, double time){
         if(m_skydir){
-            m_celtoglast = GPS::instance()->transformCelToGlast(time);
+            //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
+            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::CoordSystem::CELESTIAL);//->transformCelToGlast(time);
+        }else{
+        //otherwise, the direction is in the zenith system, and the rotation to GLAST is needed:
+            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::CoordSystem::ZENITH);
         }
     }
 
@@ -219,7 +223,7 @@ public:
 
     virtual const HepVector3D& dir()const {
         static HepVector3D correctedDir;
-        correctedDir = m_celtoglast * m_dir;
+        correctedDir = m_rottoglast * m_dir;
         return correctedDir;
     }
 
@@ -249,7 +253,7 @@ public:
 	}
 
 private:
-    HepRotation m_celtoglast;
+    HepRotation m_rottoglast;
     HepVector3D m_dir;
     bool  m_skydir;
     HepVector3D m_t;
@@ -285,10 +289,14 @@ public:
 
     }
 
-    virtual void execute(double, double){
+    virtual void execute(double ke, double time){
             double  costh = -RandFlat::shoot(m_minCos, m_maxCos),
                     sinth = sqrt(1.-costh*costh),
                     phi = RandFlat::shoot(m_minPhi, m_maxPhi);
+
+            //here, the direction is with respect to the zenith frame,
+            //so we need the transformation from the zenith to GLAST.
+            HepRotation zenToGlast=GPS::instance()->transformToGlast(time,GPS::CoordSystem::ZENITH);
             
             HepVector3D dir(cos(phi)*sinth, sin(phi)*sinth, costh);
 
@@ -296,7 +304,7 @@ public:
             // confusing)
             // keep x-axis perpendicular to zenith direction
             if (m_theta != 0.0) dir.rotateX(m_theta).rotateZ(m_phi);
-            setDir(dir);
+            setDir(zenToGlast*dir);
 
     }
        //! solid angle
@@ -350,7 +358,15 @@ public:
             double  costh = direction.first,
                 sinth = sqrt(1.-costh*costh),
                 phi = direction.second;
-            setDir(-HepVector3D(cos(phi)*sinth, sin(phi)*sinth, costh));
+
+            //here, we have a direction in the zenith direction, so we need the 
+            //transformation from zenith to GLAST.
+            HepRotation zenToGlast = GPS::instance()->transformToGlast(time,GPS::CoordSystem::ZENITH);
+
+            HepVector3D unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
+
+            //setDir(-HepVector3D(cos(phi)*sinth, sin(phi)*sinth, costh));
+            setDir(zenToGlast*(-unrotated));
 
         }else {
             // iterpret direction as l,b for a galactic source
@@ -358,12 +374,12 @@ public:
                 b = direction.second;
             //then set up this direction:
             astro::SkyDir unrotated(l,b,astro::SkyDir::GALACTIC);
-			//get teh zenith cosine:
+			//get the zenith cosine:
 			astro::SkyDir zenDir(GPS::instance()->RAZenith(),GPS::instance()->DECZenith());
 		    m_zenithCos = -unrotated()*zenDir();
             //get the transformation matrix..
-            HepRotation celtoglast
-                =GPS::instance()->transformCelToGlast(time);
+            //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
+            HepRotation celtoglast = GPS::instance()->transformToGlast(time,GPS::CoordSystem::CELESTIAL);
 
             //and do the transform:
             setDir(celtoglast*(-unrotated()));
@@ -625,8 +641,8 @@ void FluxSource::computeLaunch (double time)
 	m_zenithCosTheta = m_launch_dir->zenithCosine();
     
     //  rotate by Glast orientation transformation
-    HepRotation correctForTilt =GPS::instance()->rockingAngleTransform(time);
-    m_correctedDir = correctForTilt*m_launchDir;
+    //HepRotation correctForTilt =GPS::instance()->rockingAngleTransform(time);
+    m_correctedDir = /*correctForTilt*/m_launchDir;
     
     // now set the launch point, which may depend on the direction
     

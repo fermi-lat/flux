@@ -1,7 +1,7 @@
 /** @file Flux.h
     @brief Declaration of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.2 2003/08/28 18:31:12 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.3 2003/10/05 03:46:20 burnett Exp $
 
   Original author: T. Burnett
 */
@@ -98,6 +98,9 @@ public:
     
     ///get the transformation matrix due to orientation of the spacecraft.
     virtual HepRotation orientTransform(double time)const;
+
+    /// get the transformtation matrix - the rest of these functions are now deprecated
+    virtual HepRotation transformToGlast(double seconds,GPS::CoordSystem index)const;
     
     ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
     HepRotation Flux::transformGlastToGalactic(double time)const;
