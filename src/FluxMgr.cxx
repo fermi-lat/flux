@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/FluxMgr.cxx,v 1.49 2003/03/21 19:14:37 jrb Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.2 2003/08/12 06:02:58 srobinsn Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -9,7 +9,7 @@
 #include "flux/SpectrumFactoryTable.h"
 #include "flux/GPS.h"
 #include "flux/FluxException.h" // defines FATAL_MACRO
-#include "CompositeSource.h"
+#include "flux/CompositeSource.h"
 
 #include <xercesc/dom/DOM_Document.hpp>
 #include <xercesc/dom/DOM_Element.hpp>
@@ -312,6 +312,11 @@ void FluxMgr::setExplicitRockingAngles(std::pair<double,double> ang){
 
 std::pair<double,double> FluxMgr::getExplicitRockingAngles(){
     return GPS::instance()->rotateAngles();
+}
+
+/// set the desired pointing history file to use:
+void FluxMgr::setPointingHistoryFile(std::string fileName){
+	GPS::instance()->setPointingHistoryFile(fileName);
 }
 
 void FluxMgr::setExpansion (double p){

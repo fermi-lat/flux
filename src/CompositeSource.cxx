@@ -1,10 +1,10 @@
 /** @file CompositeSource.cxx
     @brief Define CompositeSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/CompositeSource.cxx,v 1.20 2003/03/20 19:55:32 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.2 2003/09/30 20:19:33 srobinsn Exp $
 */
 
-#include "CompositeSource.h"  
+#include "flux/CompositeSource.h"  
 
 
 #include <strstream>
@@ -15,7 +15,7 @@
 #include <cmath>
 
 CompositeSource::CompositeSource (double aRate)
-: EventSource(aRate),m_numofiters(0), m_recent(0)
+: EventSource(aRate),m_numofiters(0), m_recent(0),m_occulted(false)
 {
 }
 
@@ -79,7 +79,9 @@ EventSource* CompositeSource::event (double time)
         //note:the internal interval() function takes absolute time.
         setInterval(time+intrmin);
     }
-    m_unusedSource[winningsourcenum]=0; //the current "winning" source is getting used..
+    m_unusedSource[winningsourcenum]=0; //the current "winning" source is getting used...
+	//now, check to see if this source is occulted:
+	m_occulted=m_eventList[winningsourcenum]->occulted();
     // now ask the chosen one to return the event.
    return m_eventList[winningsourcenum];
 }
