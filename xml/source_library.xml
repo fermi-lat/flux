@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.3 2003/10/29 00:58:47 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.4 2003/10/29 13:54:53 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -272,14 +272,37 @@
     </source>
 
 
-    <!-- source that represents the Earth horizon albedo with Glast zenith pointing
+    <!-- source that represents the Earth horizon and upward albedo 
      Numbers are based on Thompson et al., JGR 86, 1265
-     Flux starts with total of 920/m/s at 115 degrees, extrapolated down to 10 MeV using
-     E^-2 spectrum and assuming isotropic in phi:
-     920/(2.*3.14159*0.01) = 1.464226713225e+004
-     Note that the angle theta below is the pitch angle of the space craft.
-     -->
-    <source name="albedo_gamma" flux="14642">
+     Represent as two components, extrapolated to 10 MeV
+     The upward component is a combination of three angular bins
+   -->
+    <source name="albedo_gamma_upward_1" flux="754">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.010" emax="10" gamma="2.4"/></particle>
+            <solid_angle mincos="-0.42" maxcos="-0.67" />
+        </spectrum>
+    </source>
+    <source name="albedo_gamma_upward_2" flux="352">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.010" emax="10" gamma="2.4"/></particle>
+            <solid_angle mincos="-0.67" maxcos="-0.92" />
+        </spectrum>
+    </source>
+    <source name="albedo_gamma_upward_3" flux="226">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.010" emax="10" gamma="2.4"/></particle>
+            <solid_angle mincos="-0.92" maxcos="-1.0" />
+        </spectrum>
+    </source>
+
+	<source name="albedo_gamma_upward">
+	   <nestedSource sourceRef="albedo_gamma_upward_1"/>
+	   <nestedSource sourceRef="albedo_gamma_upward_2"/>
+	   <nestedSource sourceRef="albedo_gamma_upward_3"/>
+	</source>
+
+	<source name="albedo_gamma" flux="14642">
         <spectrum escale="GeV">
             <particle name="gamma" >
                 <power_law emin="0.010" gamma="2"/>
@@ -349,26 +372,34 @@
 
  <source_library title="galactic">
 
-    <!-- Extragalactic diffuse inferred by EGRET 
-	copied from observationSim. need to understand rate
-    -->
-    <source name="extragalactic" flux="0.545">
-       <spectrum escale="MeV">
-          <particle name="gamma">
-             <power_law emin="30." emax="100000." gamma="2.1"/>
-          </particle>
-          <solid_angle mincos="-1." maxcos="1."/>
-       </spectrum>
-    </source>
 
     <!-- diffuse extraglactic from 10 MeV: from APJ 494:523
-            1.45E-5 /cm^2/s E> 100 MeV, so (1.45E-5)*(1e4 cm^2/m^2)*(100/10)^1.1 = 1.83
+            1.45E-5 /cm^2/s E> 100 MeV, so (1.45E-5)*(1e4 cm^2/m^2)*(100/10)^1.1 = 1.83 /s/sr/m^2
             -->
+ 
     <source name="diffuse" flux="1.83">
         <spectrum escale="GeV">
             <particle name="gamma">  <power_law emin="0.01" gamma="2.1"/></particle>
             <solid_angle mincos="-0.4" maxcos="1.0"/>
         </spectrum>
+    </source>
+
+
+    <!-- diffuse extraglactic from 100 MeV: see above for numbers-->
+    <source name="diffuse-100mev" flux="0.145">
+        <spectrum escale="GeV">
+            <particle name="gamma">  <power_law emin="0.1" gamma="2.1"/></particle>
+            <solid_angle mincos="-0.4" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+    <source name="diffuse-30mev" flux="0.545">
+       <spectrum escale="MeV">
+          <particle name="gamma">
+             <power_law emin="30." emax="100000." gamma="2.1"/>
+          </particle>
+          <solid_angle mincos="-0.4" maxcos="1."/>
+       </spectrum>
     </source>
 
 	 <!-- Test source at the galactic origin -->
@@ -378,14 +409,6 @@
                <galactic_dir l="0" b="0"/>
           </spectrum>
      </source>
-
-    <!-- diffuse extraglactic from 100 MeV: see above for numbers-->
-    <source name="diffuse-100mev" flux="0.145">
-        <spectrum escale="GeV">
-            <particle name="gamma">  <power_law emin="0.1" gamma="2.1"/></particle>
-            <solid_angle mincos="-0.4" maxcos="1.0"/>
-        </spectrum>
-    </source>
 
     <!--the Crab, pulsed portion, with pointed observation, for photons above 100 MeV,
         based on Nolan APJ 409:697
