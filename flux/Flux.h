@@ -1,7 +1,7 @@
 /** @file Flux.h
     @brief Declaration of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/Flux.h,v 1.26 2003/03/20 19:55:32 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.2 2003/08/28 18:31:12 burnett Exp $
 
   Original author: T. Burnett
 */
@@ -23,6 +23,8 @@
 #include "IFlux.h"
 #include "CLHEP/Vector/Rotation.h"
 
+#include <vector>
+
 // forward declarations
 class FluxMgr;
 class EventSource;
@@ -31,6 +33,9 @@ class Flux : public IFlux {
 public:
     /// ctor, select the name
     Flux(std::string name);
+
+    Flux(std::vector<std::string> names);
+
     virtual ~Flux();
     
     /// name of the flux
@@ -63,8 +68,8 @@ public:
     /// pass a specific amount of time
     virtual void pass ( double t);
     
-    /// Get the time as held by GPS
-    /*GPStime*//*int*/double gpsTime () const;
+    /// Get the time as held by GPS (same: here for backward compatibility
+    double gpsTime () const;
     
     /// rate ( /mm**2 /s)
     virtual double rate()const;
@@ -107,7 +112,6 @@ public:
 private:
     
     EventSource* m_event;  
-    double m_time;  // elapsed time: here for now.
     EventSource* m_flux; // actual FluxSource used 
 
     static FluxMgr* s_mgr;
