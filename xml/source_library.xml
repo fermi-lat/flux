@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.23 2004/09/28 21:53:45 hierath Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.24 2004/09/29 06:15:56 cohen Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -209,24 +209,6 @@
     
 </source_library>
     
-<!-- ************************************************************************** -->
-
-<source_library title="cosmic ray surface protons" >
-    <source name="surface_protons_xml" flux="0.9">
-        <spectrum escale="GeV">
-            <particle name="p"> <power_law emin="1.37" gamma="2.9"  emax="100" /> </particle>
-            <solid_angle mincos="0" maxcos="1.0"/>
-	</spectrum>
-    </source>
-
-    
-    <source name="surface_protons">
-       <spectrum escale="MeV"> <SpectrumClass name="SurfaceProtons" params=""/> <use_spectrum/> </spectrum>
-    </source>
-    
-    
-</source_library>
-
 <!-- ************************************************************************** -->
 
 <source_library title="clocks" >
