@@ -1,7 +1,7 @@
 /** @file Spectrum.h
     @brief declaration of Spectrum
  
-   $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/Spectrum.h,v 1.12 2003/03/02 06:30:57 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Spectrum.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
 */
 
 #ifndef GLAST_SPECTRUM_H
@@ -23,7 +23,7 @@
  Class for holding function definitions of Spectrums - i.e. HeSpectrum, SimpleSpectrum, etc...
  Basically an abstract base class for these classes.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/Spectrum.h,v 1.12 2003/03/02 06:30:57 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Spectrum.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
 */
 class Spectrum : public ISpectrum {
 public:
@@ -77,18 +77,23 @@ public:
     */
     virtual std::pair<double,double> dir(double energy);
     
-    
+    void setParticleName(const std::string& value){m_particle_name=value;}
+    void setInGeV(const bool value){m_inGeV=value;}
+    void setFlux(double value){m_flux=value;}
     
     
 protected:
     Spectrum(const std::vector<float>& /*params*/){};
     Spectrum(){}
-        // all constructors protected to ensure an abstract class
-        
-        virtual void parseParamList(std::string input, std::vector<float>& output) const;
+    // all constructors protected to ensure an abstract class
+    
+    virtual void parseParamList(std::string input, std::vector<float>& output) const;
     
     double m_currentInterval; // so we only find the interval for each particle once.
     
+    double m_flux;
+    std::string m_particle_name;
+    bool m_inGeV;
 };
 
 #endif    
