@@ -1,8 +1,8 @@
 package flux
 
-version v8r9
+version v8r9p1
 author Sean Robinson <srobinsn@u.washington.edu>
-# $Id: requirements,v 1.32 2004/06/02 22:16:25 burnett Exp $
+# $Id: requirements,v 1.33 2004/06/05 01:33:01 burnett Exp $
 
 use xml  v4r*
 use CLHEP v2* IExternal
@@ -11,6 +11,7 @@ use cfitsio * IExternal
 
 apply_pattern package_include
 apply_pattern package_linkopts
+apply_pattern package_stamps
 
 
 #=============================================================
@@ -27,9 +28,11 @@ library flux -no_share\
  $(xml_files) \
  -s=rootplot $(source)
 
+
 # test programs
 
-application testMgr test/testMgr.cxx   
+application test_flux test/testMgr.cxx 
+  
 
 application rootplots rootplot/test/roottest.cxx  
 

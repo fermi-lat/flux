@@ -1,10 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.32 2004/06/02 22:16:25 burnett Exp $
+  $Id: release.notes,v 1.33 2004/06/05 01:33:01 burnett Exp $
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
- * 04-jun-04  v8r8p7 THB, add low energy muon source 
+ * 04-jun-04  v8r9p1 THB  protect against linux STL behaviour 
+ * 04-jun-04  v8r9   THB  add low energy muon source 
  * 02-jun-04  v8r8p7 THB, apply normalization to hiro SurfaceMuons 
  * 25-may-04  v8r8p6 THB, bug fix in SurfaceMuons, uninitialized variable (Thanks to Xin) 
  * 11-may-04  v8r8p5 SMR, extra time-initialization of GPS in rootplots.
