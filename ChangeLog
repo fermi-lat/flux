@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sun Feb 27 07:23:01 PST 2005
+flux/flux
+
+Modified Files:
+	AGNSpectrum.h MapSpectrum.h 
+Log Message:
+fix the rest of the operator() function definitions, removing const's
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r14p1, operation: add
 Package: flux
