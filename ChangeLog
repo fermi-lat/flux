@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: burnett  Sat Feb 26 15:56:45 PST 2005
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+fix bug in CHIIMEspectrum introduced by operator() interface change
+remove "\0' character from title
+direct some test output to stdout for inclusion in the unit test log.
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r14, operation: add
 Package: flux
