@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Tue Nov 25 14:13:25 PST 2003
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+interpolation cleaned up in GPS, rocking now about orbital direction.
+
+    *
+------------------------------------------------------------
 User: srobinsn  Mon Nov 24 13:50:30 PST 2003
 flux/doc
 
