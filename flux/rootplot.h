@@ -1,7 +1,7 @@
 // Flux test program that generates a ROOT macro to plot the flux
 //
 
-// $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/rootplot/rootplot.h,v 1.4 2003/03/20 19:55:33 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/rootplot.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
 
 // Original author: Theodore Hierath
 
@@ -51,6 +51,7 @@ public:
             "      '-graph <log | semilogx | semilogy | linear>'\n"
             "      '-longsrc <sourcename>' for long-term energy averaging\n"
             "      '-time <time in seconds>' for the flux at time\n"
+            "      '-stationary' keeps the satellite from moving\n"
             "      '-help' for this help"
             << std::endl;
     }
