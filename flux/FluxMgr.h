@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.5 2004/01/28 23:52:25 hierath Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.6 2004/03/17 01:09:53 jrb Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -98,7 +98,7 @@ public:
     HepRotation orientTransform(double time);
     
     ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
-    HepRotation FluxMgr::transformGlastToGalactic(double time);
+    HepRotation transformGlastToGalactic(double time);
 
     ///this sets the rocking mode in GPS.
     std::vector<double> setRockType(GPS::RockType rockType, double rockAngle);
