@@ -1,9 +1,9 @@
 /** @file FluxSource.cxx
-    @brief Implementation of FluxSource
+@brief Implementation of FluxSource
 
-  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/FluxSource.cxx,v 1.61 2003/04/03 19:44:50 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.20 2004/03/16 23:43:36 jrb Exp $
 
-  */
+*/
 #include "flux/FluxSource.h"
 
 #include <xercesc/dom/DOM_Element.hpp>
@@ -17,7 +17,7 @@
 #include "flux/SimpleSpectrum.h"
 
 #include "flux/FluxException.h" // for FATAL_MACRO
-#include "flux/GPS.h"
+#include "astro/GPS.h"
 
 #include <algorithm>
 #include <sstream>
@@ -28,9 +28,9 @@ namespace {
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class LaunchPoint
-    @brief nested launch strategy base class for point determination
-    
-    The virtual base class manages the point itself
+@brief nested launch strategy base class for point determination
+
+The virtual base class manages the point itself
 */
 class FluxSource::LaunchPoint  { 
 public:
@@ -60,9 +60,9 @@ private:
 };
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class RandomPoint
-    @brief nested launch strategy derived class
-    This is the standard strategy, which takes a direction and creates a point in
-    a disk centered at the origin with area 6 m^2 (or so)
+@brief nested launch strategy derived class
+This is the standard strategy, which takes a direction and creates a point in
+a disk centered at the origin with area 6 m^2 (or so)
 */
 class FluxSource::RandomPoint : public LaunchPoint{ 
 public:
@@ -75,8 +75,9 @@ public:
     virtual void execute(const HepVector3D& dir){
         HepRotation r_pln;
 
+        //create rotation to take x-y plane to be perpendicular to incoming direction
         double ly = dir.y(), lx = dir.x();
-        if( lx !=0 || ly !=0 ) { 
+        if( fabs( lx) +fabs(ly) >1e-8) {  // leave as identity 
             r_pln.rotate(acos(dir.z()),  HepVector3D(-ly, lx, 0.));
         }
 
@@ -112,10 +113,10 @@ private:
 }; 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class FixedPoint
-    @brief nested launch strategy derived class
-    
-    This strategy uses a fixed launch point for a pencil beam. If the radius is nonzero,
-    the beam will be spread out uniformly on a disk perpendicular to the incoming direction
+@brief nested launch strategy derived class
+
+This strategy uses a fixed launch point for a pencil beam. If the radius is nonzero,
+the beam will be spread out uniformly on a disk perpendicular to the incoming direction
 */
 class FluxSource::FixedPoint : public LaunchPoint{ 
 public:
@@ -127,7 +128,7 @@ public:
 
     virtual void execute(const HepVector3D& dir){
         if(m_disk_radius==0) return; // just use 
-    
+
         HepRotation r_pln;
 
         double ly = dir.y(), lx = dir.x();
@@ -154,13 +155,13 @@ private:
 };  
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class Patch
-    @brief nested launch strategy derived class
-    Gets a point randomly from a box
+@brief nested launch strategy derived class
+Gets a point randomly from a box
 */
 class FluxSource::Patch : public FluxSource::LaunchPoint{ 
 public:
     Patch( double xmin, double xmax, double ymin, double ymax, double zmin, double zmax)
-       :m_xmin(xmin), m_dx(xmax-xmin), 
+        :m_xmin(xmin), m_dx(xmax-xmin), 
         m_ymin(ymin), m_dy(ymax-ymin), 
         m_zmin(zmin), m_dz(zmax-zmin)
     {
@@ -186,41 +187,55 @@ private:
 }; 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class LaunchDirection
-    @brief nested launch strategy base class
+@brief nested launch strategy base class
 */
 class FluxSource::LaunchDirection  {
 public:
-    LaunchDirection():m_skydir(false){}
+    LaunchDirection():m_skydir(false),m_radius(0){}
 
     virtual ~LaunchDirection(){}
 
-    LaunchDirection(double theta, double phi)
+    LaunchDirection(double theta, double phi, double radius=0)
         :m_skydir(false)
+        , m_radius(radius*M_PI/180)
     {
         HepVector3D dir(sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta));
         setDir(-dir); // minus due to z axis pointing UP!
     }
-    LaunchDirection(astro::SkyDir sky)
+    LaunchDirection(astro::SkyDir sky, double radius=0)
         :m_skydir(true)
+        , m_radius(radius*M_PI/180)
     {
-        m_dir = sky.dir();
+        m_dir = -sky.dir();
     }
     /** @brief choose a direction
-        @param KE kinetic energy
-        @param time mission time
-        */
+    @param KE kinetic energy
+    @param time mission time
+    */
     virtual void execute(double KE, double time){
         if(m_skydir){
-            m_celtoglast = GPS::instance()->transformCelToGlast(time);
+            //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
+            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::CELESTIAL);//->transformCelToGlast(time);
+        }else{
+            //otherwise, the direction is in the zenith system, and the rotation to GLAST is needed:
+            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::ZENITH);
         }
     }
 
     const HepVector3D& operator()()const {return dir();}
 
     virtual const HepVector3D& dir()const {
-        static HepVector3D correctedDir;
-        correctedDir = m_celtoglast * m_dir;
-        return correctedDir;
+        static HepVector3D rdir;
+        rdir = m_rottoglast * m_dir;
+        if( m_radius>0 ) {
+            // spread uniformly about a disk
+            // rotate about perpendicular then about the original 
+            HepVector3D t(rdir);
+            t.rotate( m_radius*(sqrt(RandFlat::shoot())),  rdir.orthogonal()),  // rotate about the orthogonal
+            t.rotate( RandFlat::shoot( 2*M_PI ), rdir); // rotate about the original direction
+            rdir = t; //replace 
+        }
+        return rdir;
     }
 
     void setDir(const HepVector3D& dir){m_dir=dir;}
@@ -235,20 +250,34 @@ public:
     virtual std::string title()const{
         std::stringstream t;
         t << " dir" << m_dir ;
+        if( m_radius>0 ) { t << " radius " << m_radius ;}
         return t.str();
     }
 
+    /// return the cosine of the angle between the incoming direction and the earth's zenith
+    virtual double zenithCosine()const{
+        if(m_skydir){
+            astro::SkyDir zenDir(GPS::instance()->RAZenith(),GPS::instance()->DECZenith());
+            return -m_dir*zenDir();
+        }
+        //if the direction is local
+        return 1.0;
+    }
+
+    virtual const HepVector3D& skyDirection()const { return m_dir; }
+
 private:
-    HepRotation m_celtoglast;
+    HepRotation m_rottoglast;
     HepVector3D m_dir;
     bool  m_skydir;
     HepVector3D m_t;
+    double m_radius;
 
 };
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class RandomDirection
-    @brief nested launch strategy derived class
-    Assigns a random direction from a range of cos theta, optionally rotated
+@brief nested launch strategy derived class
+Assigns a random direction from a range of cos theta, optionally rotated
 */
 class FluxSource::RandomDirection : public FluxSource::LaunchDirection{ 
 public:
@@ -262,8 +291,8 @@ public:
         : m_theta(theta)
         , m_phi(phi)
     {
-    using std::min;
-    using std::max;
+        using std::min;
+        using std::max;
 
         // require _maxCos > _minCos for solid angle calculation
         m_minCos   = min(minc,maxc);
@@ -275,21 +304,25 @@ public:
 
     }
 
-    virtual void execute(double, double){
-            double  costh = -RandFlat::shoot(m_minCos, m_maxCos),
-                    sinth = sqrt(1.-costh*costh),
-                    phi = RandFlat::shoot(m_minPhi, m_maxPhi);
-            
-            HepVector3D dir(cos(phi)*sinth, sin(phi)*sinth, costh);
+    virtual void execute(double ke, double time){
+        double  costh = -RandFlat::shoot(m_minCos, m_maxCos),
+            sinth = sqrt(1.-costh*costh),
+            phi = RandFlat::shoot(m_minPhi, m_maxPhi);
 
-           // extra rotation in case not zenith pointing (beware, might be
-            // confusing)
-            // keep x-axis perpendicular to zenith direction
-            if (m_theta != 0.0) dir.rotateX(m_theta).rotateZ(m_phi);
-            setDir(dir);
+        //here, the direction is with respect to the zenith frame,
+        //so we need the transformation from the zenith to GLAST.
+        HepRotation zenToGlast=GPS::instance()->transformToGlast(time,GPS::ZENITH);
+
+        HepVector3D dir(cos(phi)*sinth, sin(phi)*sinth, costh);
+
+        // extra rotation in case not zenith pointing (beware, might be
+        // confusing)
+        // keep x-axis perpendicular to zenith direction
+        if (m_theta != 0.0) dir.rotateX(m_theta).rotateZ(m_phi);
+        setDir(zenToGlast*dir);
 
     }
-       //! solid angle
+    //! solid angle
     virtual double solidAngle()const {
         return 2*M_PI*(m_maxCos-m_minCos);
     }
@@ -309,12 +342,12 @@ private:
     double m_minCos, m_maxCos;
     double m_minPhi, m_maxPhi;
     double m_theta, m_phi;
-    
+
 }; 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class SourceDirection
-    @brief nested launch strategy derived class
-    Gets a direction from the ISpectrum class
+@brief nested launch strategy derived class
+Gets a direction from the ISpectrum class
 */
 class FluxSource::SourceDirection : public FluxSource::LaunchDirection{ 
 public:
@@ -322,9 +355,11 @@ public:
     @param spectrum pointer to the ISpectrum object that will provide the direction
     @param galactic if true, interpret pair as l,b (in degrees); otherwise costh, phi
     */
-    SourceDirection(ISpectrum* spectrum, bool galactic)
+    SourceDirection(ISpectrum* spectrum, std::string frame /*bool galactic*/)
         : m_spectrum(spectrum)
-        , m_galactic(galactic)
+        , m_galactic(frame=="galaxy")
+        , m_equatorial(frame=="equatorial")
+        , m_zenithCos(1.0)
     {}
 
     void execute(double ke, double time){
@@ -332,27 +367,39 @@ public:
         std::pair<float,float> direction 
             = m_spectrum->dir(ke);
 
-        if( !m_galactic) {
+        if( !(m_galactic||m_equatorial) ) {
             // special option that gets direction from the spectrum object
             // note extra - sign since direction corresponds to *from*, not *to*
 
             double  costh = direction.first,
                 sinth = sqrt(1.-costh*costh),
                 phi = direction.second;
-            setDir(-HepVector3D(cos(phi)*sinth, sin(phi)*sinth, costh));
+
+            //here, we have a direction in the zenith direction, so we need the 
+            //transformation from zenith to GLAST.
+            HepRotation zenToGlast = GPS::instance()->transformToGlast(time,GPS::ZENITH);
+
+            HepVector3D unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
+
+            //setDir(-HepVector3D(cos(phi)*sinth, sin(phi)*sinth, costh));
+            setDir(zenToGlast*(-unrotated));
 
         }else {
-            // iterpret direction as l,b for a galactic source
+            // iterpret direction as l,b for a galactic or celestial source
             double  l = direction.first,
                 b = direction.second;
-            //then set up this direction:
-            astro::SkyDir unrotated(l,b,astro::SkyDir::GALACTIC);
-            //get the transformation matrix..
-            HepRotation celtoglast
-                =GPS::instance()->transformCelToGlast(time);
+            //then set up this direction, either in galactic or celestial coordinates:    
+            astro::SkyDir unrotated(l,b,m_galactic? astro::SkyDir::GALACTIC : astro::SkyDir::EQUATORIAL);
 
-            //and do the transform:
-            setDir(celtoglast*unrotated());
+            //get the zenith cosine:
+            astro::SkyDir zenDir(GPS::instance()->RAZenith(),GPS::instance()->DECZenith());
+            m_zenithCos = unrotated()*zenDir();
+            //get the transformation matrix..
+            //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
+            HepRotation celtoglast = GPS::instance()->transformToGlast(time,GPS::CELESTIAL);
+
+            //and do the transform, finally reversing the direction to correspond to the incoming particle
+            setDir( - (celtoglast * unrotated()) );
         }
     }
 
@@ -365,9 +412,13 @@ public:
         return "(use_spectrum)";
     }
 
+    /// return the cosine of the angle between the incoming direction and the earth's zenith
+    virtual double zenithCosine()const{return m_zenithCos;}
+
 private:
     ISpectrum* m_spectrum;
-    bool   m_galactic;
+    bool   m_galactic,m_equatorial;
+    double m_zenithCos;
 };
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                   FluxSource constructor
@@ -375,6 +426,8 @@ private:
 FluxSource::FluxSource(const DOM_Element& xelem )
 : EventSource ()
 , m_spectrum(0)
+, m_occultable(true)
+, m_zenithCosTheta(1.0) //won't be occulted by default
 {
     static double d2r = M_PI/180.;
 
@@ -385,47 +438,37 @@ FluxSource::FluxSource(const DOM_Element& xelem )
     // this is a default flux, from the flux="123" in the source element
     setFlux(atof (xml::Dom::getAttribute(xelem, "flux").c_str()));
 
-    
+
     DOM_Element   spec = xml::Dom::findFirstChildByName(xelem, "spectrum");
-    
+
     if (spec == DOM_Element()) {
-        
+
         // source has no imbedded spectrum element: expect a name
-        class_name = xml::Dom::transToChar(xelem.getAttribute("name"));
+        class_name = xml::Dom::getAttribute(xelem, "name");
     } else {
         // process spectrum element
-        DOM_NodeList children = spec.getChildNodes();
-        
-        // First child element is type of spectrum
-        DOM_Node    childNode = children.item(0);
-        DOM_Element specType;
-        
-        if (childNode.getNodeType() == DOM_Node::ELEMENT_NODE) {
-            specType = (DOM_Element &) childNode;
-        }
-        else specType = xml::Dom::getSiblingElement(childNode);
-        
-        DOMString   typeTagName = specType.getTagName();
-        std::string spectrum_name = xml::Dom::transToChar(spec.getAttribute("name"));
-        std::string spectrum_energyscale = xml::Dom::transToChar(spec.getAttribute("escale"));
-        
+        DOM_Element specType = xml::Dom::getFirstChildElement(spec);
+
+        std::string typeTagName = xml::Dom::getTagName(specType);
+        std::string spectrum_name = xml::Dom::getAttribute(spec, "name");
+        std::string spectrum_energyscale = xml::Dom::getAttribute(spec, "escale");
+
         if(spectrum_energyscale == "GeV"){ m_energyscale=GeV;
         }else if(spectrum_energyscale == "MeV"){ m_energyscale=MeV;
         }else{
             std::cout << "bad energy scale declaration on spectrum:"
                 << spectrum_energyscale << " , exiting.";
             return;} //this line "just in case"
-        
-        
-        if (typeTagName.equals("particle")) s = new SimpleSpectrum(specType,  m_energyscale==GeV );
-        else if (typeTagName.equals("SpectrumClass")) {
+
+        if (typeTagName=="particle") s = new SimpleSpectrum(specType,  m_energyscale==GeV );
+        else if (typeTagName=="SpectrumClass") {
             // attribute "name" is the class name
-            class_name = xml::Dom::transToChar(specType.getAttribute("name"));
-            source_params= xml::Dom::transToChar(specType.getAttribute("params"));
+            class_name = xml::Dom::getAttribute(specType, "name");
+            source_params= xml::Dom::getAttribute(specType, "params");
         }
         else {
             // no, the tag itself
-            class_name = xml::Dom::transToChar(typeTagName);//.transcode();
+            class_name = typeTagName;//.transcode();
         }
 
         //if s is still 0, we need to create the internal spectrum object.
@@ -433,7 +476,7 @@ FluxSource::FluxSource(const DOM_Element& xelem )
             //		std::vector<float> paramvec; parseParamList(source_params, paramvec);
             s = SpectrumFactoryTable::instance()->instantiate(class_name, source_params);
             if(s==0){
-                
+
                 std::cerr << "List of known Spectrum classes:\n" ;
                 std::list<std::string>list= SpectrumFactoryTable::instance()->spectrumList();
                 for( std::list<std::string>::iterator i = list.begin(); i!=list.end(); ++i)
@@ -447,81 +490,95 @@ FluxSource::FluxSource(const DOM_Element& xelem )
 
         // second child element is angle
         DOM_Element angles = xml::Dom::getSiblingElement(specType);
-        DOMString anglesTag = angles.getTagName();
-        
-        if (anglesTag.equals("solid_angle") ) {
+        std::string anglesTag = xml::Dom::getTagName(angles);
+        if (anglesTag == "solid_angle") 
+        {
+            m_occultable=false;
             m_launch_dir = new RandomDirection(
-                atof(xml::Dom::transToChar(angles.getAttribute("mincos"))),
-                atof(xml::Dom::transToChar(angles.getAttribute("maxcos"))),
-                atof(xml::Dom::transToChar(angles.getAttribute("theta"))) * d2r, 
-                atof(xml::Dom::transToChar(angles.getAttribute("phi"))) *d2r);
+                xml::Dom::getDoubleAttribute(angles, "mincos"),
+                xml::Dom::getDoubleAttribute(angles, "maxcos"),
+                xml::Dom::getDoubleAttribute(angles, "theta") * d2r,
+                xml::Dom::getDoubleAttribute(angles, "phi")*d2r);
 
         }
-        else if (anglesTag.equals("direction") ) {
+        else if (anglesTag == "direction") 
+        {
+            m_occultable=false;
             m_launch_dir = new LaunchDirection(
-                atof(xml::Dom::transToChar(angles.getAttribute("theta"))) * d2r, 
-                atof(xml::Dom::transToChar(angles.getAttribute("phi"))) *d2r);
+                xml::Dom::getDoubleAttribute(angles, "theta") * d2r,
+                xml::Dom::getDoubleAttribute(angles, "phi")*d2r);
         }
-        else if (anglesTag.equals("use_spectrum") ) {
+        else if (anglesTag == "use_spectrum")
+        {
             std::string frame = xml::Dom::transToChar(angles.getAttribute("frame"));
-            m_launch_dir = new SourceDirection(m_spectrum, frame=="galaxy"); 
+            m_occultable=(frame=="galaxy" || frame=="equatorial");
+            m_launch_dir = new SourceDirection(m_spectrum, frame); 
         }
-        else if(anglesTag.equals("galactic_dir")){
+        else if (anglesTag == "galactic_dir")
+        {
+            m_occultable=true;
             m_launch_dir = new LaunchDirection(
                 astro::SkyDir(
-                    atof(xml::Dom::transToChar(angles.getAttribute("l"))),
-                    atof(xml::Dom::transToChar(angles.getAttribute("b"))), 
-                    astro::SkyDir::GALACTIC
-                    ) 
+                xml::Dom::getDoubleAttribute(angles, "l") ,
+                xml::Dom::getDoubleAttribute(angles, "b") ,
+                astro::SkyDir::GALACTIC
+                ),
+               xml::Dom::getDoubleAttribute(angles, "radius") 
+
                 );
         }
-        else if(anglesTag.equals("celestial_dir")){
+        else if (anglesTag == "celestial_dir")
+
+        {
+            m_occultable=true;
             m_launch_dir = new LaunchDirection(
                 astro::SkyDir(
-                    atof(xml::Dom::transToChar(angles.getAttribute("ra"))),
-                    atof(xml::Dom::transToChar(angles.getAttribute("dec"))), 
-                    astro::SkyDir::CELESTIAL 
-                    ) 
+                xml::Dom::getDoubleAttribute(angles, "ra")  ,
+                xml::Dom::getDoubleAttribute(angles, "dec")
+
+                ),
+               xml::Dom::getDoubleAttribute(angles, "radius") 
                 );
 
         }
-        else if(anglesTag.equals("galactic_spread")){
+        else if (anglesTag == "galactic_spread")
+        {
+            m_occultable=true;
             FATAL_MACRO("not implemented");
         }
         else {
             FATAL_MACRO("Unknown angle specification in Flux::Flux \""
-                << xml::Dom::transToChar(anglesTag) << "\"" );
+                << anglesTag << "\"" );
+
         }
-        
+
         // third child element is optional launch spec
         DOM_Element launch = xml::Dom::getSiblingElement(angles);
-        
-        if(launch !=DOM_Element()) {
-            DOMString launchTag = launch.getTagName();
-            
-             if(launchTag.equals("launch_point")){
-                m_launch_pt = new FixedPoint(
-                    HepPoint3D(
-                        atof(xml::Dom::transToChar(launch.getAttribute("x"))),
-                        atof(xml::Dom::transToChar(launch.getAttribute("y"))),
-                        atof(xml::Dom::transToChar(launch.getAttribute("z"))) ),
-                    atof(xml::Dom::transToChar(launch.getAttribute("beam_radius")))
-                    );
 
-                
-            }else if(launchTag.equals("patch")){
-                m_launch_pt = new Patch( 
-                    atof(xml::Dom::transToChar(launch.getAttribute("xmax"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("xmin"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("ymax"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("ymin"))), 
-                    atof(xml::Dom::transToChar(launch.getAttribute("zmax"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("zmin"))) 
-                    );
-                
+        if(launch !=DOM_Element()) {
+            std::string launchTag = xml::Dom::getTagName(launch);
+
+            if (launchTag == "launch_point")
+            {
+                m_launch_pt = new FixedPoint(HepPoint3D(
+                    xml::Dom::getDoubleAttribute(launch, "x"),
+                    xml::Dom::getDoubleAttribute(launch, "y"),
+                    xml::Dom::getDoubleAttribute(launch, "z")),
+                    xml::Dom::getDoubleAttribute(launch, "beam_radius") );
+            }
+            else if (launchTag == "patch")
+            {
+                m_launch_pt = new Patch(
+                    xml::Dom::getDoubleAttribute(launch, "xmax"),
+                    xml::Dom::getDoubleAttribute(launch, "xmin"),
+                    xml::Dom::getDoubleAttribute(launch, "ymax"),
+                    xml::Dom::getDoubleAttribute(launch, "ymin"),
+                    xml::Dom::getDoubleAttribute(launch, "zmax"),
+                    xml::Dom::getDoubleAttribute(launch, "zmin") );
             }else {
                 FATAL_MACRO("Unknown launch specification in Flux::Flux \""
-                    << xml::Dom::transToChar(launchTag) << "\"" );
+                    << launchTag << "\"" );
+
             }
         } else {
             // default: the target sphere.
@@ -559,7 +616,6 @@ EventSource* FluxSource::event(double time)
     computeLaunch(time+m_interval);
     //now set the actual interval to be what FluxMgr will get
     EventSource::setTime(time+m_interval);
-
     return this;
 }
 
@@ -597,19 +653,22 @@ void FluxSource::computeLaunch (double time)
     if(m_energyscale==GeV){
         m_energy *= 1000.;
     }
-    
+
     // set launch direction , position (perhaps depending on direction)
     m_launch_dir->execute(m_energy, time);
     m_launchDir  = (*m_launch_dir)();
-    
+
+    //get the off-zenith angle cosine, for occultation purposes:
+    m_zenithCosTheta = m_launch_dir->zenithCosine();
+
     //  rotate by Glast orientation transformation
-    HepRotation correctForTilt =GPS::instance()->rockingAngleTransform(GPS::instance()->time());
-    m_correctedDir = correctForTilt*m_launchDir;
-    
+    //HepRotation correctForTilt =GPS::instance()->rockingAngleTransform(time);
+    m_correctedDir = /*correctForTilt*/m_launchDir;
+
     // now set the launch point, which may depend on the direction
-    
+
     m_launch_pt->execute(m_correctedDir);
-    
+
     m_launchPoint = (*m_launch_pt)();
 
 }
@@ -643,4 +702,24 @@ std::string FluxSource::title () const
 std::string FluxSource::particleName()
 {
     return spectrum()->particleName();
+}
+
+
+bool FluxSource::occulted(){
+    //Purpose:  to determine whether or not the current incoming particle will be blocked by the earth.
+    //Output:  "yes" or "no"
+    //REMEMBER:  the earth is directly below the satellite, so, to determine occlusion,
+    // we must assume the frame to be checked against is zenith-pointing, and hence, we want 
+    //the direction of the particle relative to the GLAST zenith direction, calculated in the 
+    //LaunchDirection classes.
+
+    //this should probably be open-ended, not wired in!
+    double minCosTheta= -0.4;
+
+    return (m_occultable) && (m_zenithCosTheta < minCosTheta);
+
+}
+const HepVector3D& FluxSource::skyDirection()const
+{
+    return m_launch_dir->skyDirection();
 }
