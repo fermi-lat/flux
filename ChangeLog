@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sat Mar 26 19:00:23 PST 2005
+flux/src/rootplot
+
+Modified Files:
+	rootAngleHist.cxx rootEnergyHist.cxx rootHist.cxx rootplot.cxx 
+Log Message:
+rearrange the TPads a bit.
+    *
+------------------------------------------------------------
 User: burnett  Sat Mar 26 18:49:00 PST 2005
 flux/src
 
