@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.21 2004/07/29 22:01:05 hierath Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.22 2004/08/10 16:15:08 hierath Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -277,13 +277,6 @@ mmas-->
         <spectrum escale="GeV"> <SpectrumClass name="CHIMESpectrum" params="10.0, 144.37"/> <use_spectrum/> </spectrum>
     </source>
 
-    <!-- default creme is the orbit average -->   
-    <source name="cremeavg" >
-        <spectrum escale="GeV"> <SpectrumClass name="FILESpectrum" params="sources/glast_smin_flx.txt"/> 
-            <solid_angle mincos="-0.4" maxcos="1.0"/>
-        </spectrum>
-    </source>
-
     <!-- galactic electron spectrum -->
     <source name="electron">
         <spectrum escale="GeV"> <SpectrumClass name="GalElSpectrum"/> <use_spectrum/> </spectrum>
@@ -536,18 +529,26 @@ mmas-->
         </spectrum>
     </source>
     
+    <!-- Vela source simulated using GalPulsars class. Flux used is the same as in the above source.  
+         The light curve was obtained from Ramanamurth, et. al.: "A Long Term Study of 
+         High Energy Gamma-Ray Emission from the Vela, Geminga, and Crab Pulsars", ApJ 
+         450: 791-804, 1994 Sept 10.
+    -->
     <source name="vela-galactic">
 		<spectrum escale="GeV">
 		   <SpectrumClass name="GalPulsars" params="../sources/vela.txt"/> <use_spectrum frame="galaxy"/>
 		</spectrum>
     </source>
     
+    <!-- Random population of pulsars simulated using GalPulsars class.
+    -->
     <source name="galactic-pulsars">
 	   <spectrum escale="GeV">
 	      <SpectrumClass name="GalPulsars" params="../sources/pulsars.txt"/> <use_spectrum frame="galaxy"/>
 	   </spectrum>
     </source>
     
+    <!-- Single simulated pulsar source using GalPulsars. -->
     <source name="GRS01369">
        <spectrum escale="GeV">
           <SpectrumClass name="GalPulsars" params="../sources/GRS01369.txt"/> <use_spectrum frame="galaxy"/>
