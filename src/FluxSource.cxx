@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.25 2004/11/10 20:25:11 jrb Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.26 2005/01/03 19:22:01 jrb Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -22,7 +22,7 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.25 2004/11/10 
 #include <sstream>
 namespace {
     // this is the (wired-in) distance to back off from the target sphere.
-    const double backoff_distance=1500.;
+    const double backoff_distance=2000.;
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -91,10 +91,15 @@ public:
         // the cross-section of the sphere containing the instrument) and a 
         // second to describe the distance along the normal between the launch 
         // point and that plane.
+#if 1 // standard
         HepPoint3D posLaunch(rad*cos(azimuth), rad*sin(azimuth), 0.);
 
         // define actual launch point
         setPoint( r_pln*posLaunch - m_backoff*dir);
+#else // patch for Atwood calorimeter study
+        HepPoint3D posLaunch(RandFlat::shoot(180.), 180., -56.);
+	setPoint( posLaunch - m_backoff*dir);
+#endif
     }
 
     /// return info, 
