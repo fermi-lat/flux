@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.21 2004/12/21 03:46:40 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.22 2005/01/03 19:22:01 jrb Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -184,8 +184,7 @@ EventSource*  FluxMgr::getSourceFromXML(const DOMElement* src)
         // Content model for nestedSource is EMPTY, so can omit check
         // for that in the code
 
-        CompositeSource* cs;
-        cs = new CompositeSource();
+        CompositeSource* cs = new CompositeSource();
         do { 
             DOMElement* selem = 
                 getLibrarySource(xmlBase::Dom::getAttribute(sname, "sourceRef"));
