@@ -1,5 +1,16 @@
 ------------------------------------------------------------
 User: burnett  Mon Feb  7 20:40:25 PST 2005
+flux/src
+
+Modified Files:
+	FILESpectrum.cxx FILESpectrum.h GalElSpectrum.cxx 
+	GalElSpectrum.h GalPulsars.cxx SimpleSpectrum.cxx Spectrum.cxx 
+	TimeCandle.cxx TimeCandle.h 
+Log Message:
+clean up for external clients.
+    *
+------------------------------------------------------------
+User: burnett  Mon Feb  7 20:40:25 PST 2005
 flux/flux
 
 Modified Files:
