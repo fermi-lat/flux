@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Fri Nov  7 07:17:27 PST 2003
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Log Message:
+fix for gcc
+    *
+------------------------------------------------------------
 User: burnett  Fri Nov  7 05:03:14 PST 2003
 flux/doc
 
