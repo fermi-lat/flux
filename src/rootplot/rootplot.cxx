@@ -239,6 +239,7 @@ void rootplot::init(std::vector<const char*> argv)
 
 		std::cout << sources[i] << std::endl;
 
+        GPS::instance()->getPointingCharacteristics(time);
         std::pair<double,double> loc=fm.location();
 		std::cout << "Lat/Lon:  " << loc.first << "   " << loc.second << std::endl;
         //	  std::cout << "orbit angle=" << GPS::instance()-> << "orbit phase=" << << std::endl;
