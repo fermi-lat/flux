@@ -193,7 +193,7 @@ void GalPulsars::updateIntervals(double current_time, double time_decrement)
          double traveltime = orbit.calcTravelTime(tdb,s_dir);
 
          double cycle_fraction = fmod(m_freq[i]*dt + 0.5 * m_freq_dot[i]*dt*dt
-            + orbit.calcShapiroDelay(tdb,s_dir) + orbit.calcTravelTime(tdb,s_dir), current_period);
+            + (orbit.calcShapiroDelay(tdb,s_dir) + orbit.calcTravelTime(tdb,s_dir))/current_period, 1.);
 
          // Determine phase of the pulsar for the current time
          int phase_index = (int) floor(cycle_fraction * m_lc[i].size());
