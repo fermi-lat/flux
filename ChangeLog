@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Tue Jan  6 22:07:36 PST 2004
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+spread implemented in galactic and celestial sources
+
+    *
+------------------------------------------------------------
 User: burnett  Tue Jan  6 18:24:27 PST 2004
 flux/src
 
