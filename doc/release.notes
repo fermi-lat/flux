@@ -1,9 +1,10 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.29 2004/05/12 02:56:42 srobinsn Exp $
+  $Id: release.notes,v 1.31 2004/05/25 23:35:31 burnett Exp $
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 02-jun-04  v8r8p7 THB, apply normalization to hiro SurfaceMuons 
  * 25-may-04  v8r8p6 THB, bug fix in SurfaceMuons, uninitialized variable (Thanks to Xin) 
  * 11-may-04  v8r8p5 SMR, extra time-initialization of GPS in rootplots.
  * 10-may-04  v8r8p4 THB, restore VdgGamma; clean up after XML change 
