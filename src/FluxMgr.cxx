@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.16 2004/05/10 18:42:33 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.17 2004/07/29 22:01:05 hierath Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -295,7 +295,7 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
 
         totalinterval+=interval;
         cout << f->particleName()
-            << "(" << f->energy()<< " GeV)"
+            << "(" << f->energy()<< " MeV)"
             << ", Launch: "  << f->launchPoint() 
             << ", Dir "      << f->launchDir() 
             << ", Flux="     << f->flux(time) 
