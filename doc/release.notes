@@ -1,8 +1,24 @@
 /** @file release.notes
  * @brief Package flux 
+  $Id:$
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 05-dec-03  v8r4p1 THB  fix external source occultation
+ * 02-dec-03  v8r4   THB  add 3EG sources
+ * 28-nov-03  v8r3p4 SMR interpolation for position averages altitude as well.
+ * 28-nov-03  v8r3p3 SMR interpolation "off the end" error message amended.
+ * 25-nov-03  v8r3p2 SMR GPS interpolation cleaned up, satellite now rocks 
+                     about orbital direction
+ * 24-nov-03  v8r3p1 SMR "wraparound" issue fixed, vela relocated.
+ * 07-nov-03  v8r3  THB add upward albedo gamma source;
+ *                  SR  clean up pointing code        
+ * 21-oct-03  v8r2  THB revise rocking treatment
+ * 02-oct-03  v8r0p0 CompositeSource.h moved to /flux.
+ * 04-oct-03  v8r1 THB new inteface to specify a list of source names
+ * 01-oct-03  v7r4 fixes for driving by a pointing file
+ * 28-aug-03  v7r3 removed separate time in the Flux class.
+ * 28-aug-03  v7r2 (unknown changes -- see the log)
  * 29-jul-03  v7r0 Inital import of the non-Gaudi portion of FluxSvc. See old archives for the
                    original version of this package  
  @endverbatim 
