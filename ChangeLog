@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Thu Jul 31 16:56:17 PDT 2003
+flux/src
+
+Modified Files:
+	FluxSource.cxx 
+Log Message:
+FluxSource change to fix point and patch issues.
+
+    *
+------------------------------------------------------------
 User: burnett  Tue Jul 29 11:22:20 PDT 2003
 flux
 
