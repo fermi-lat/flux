@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.9 2003/09/08 22:49:04 srobinsn Exp $
+// $Id: GPS.cxx,v 1.10 2003/10/01 03:23:01 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -62,16 +62,16 @@ void GPS::synch ()
 
 }
 
-double GPS::lat()const{GPS::instance()->getPointingCharacteristics(m_time);return m_lat;}     
+double GPS::lat()const{return m_lat;}     
 /// present longitude    
-double GPS::lon()const{GPS::instance()->getPointingCharacteristics(m_time);return m_lon;}  	
+double GPS::lon()const{return m_lon;}  	
 /// pointing characteristics	
-double GPS::RAX()const{GPS::instance()->getPointingCharacteristics(m_time);return m_RAX;}    
-double GPS::RAZ()const{GPS::instance()->getPointingCharacteristics(m_time);return m_RAZ;}    
-double GPS::DECX()const{GPS::instance()->getPointingCharacteristics(m_time);return m_DECX;}    
-double GPS::DECZ()const{GPS::instance()->getPointingCharacteristics(m_time);return m_DECZ;}    
-double GPS::RAZenith()const{GPS::instance()->getPointingCharacteristics(m_time);return m_RAZenith;}    
-double GPS::DECZenith()const{GPS::instance()->getPointingCharacteristics(m_time);return m_DECZenith;}
+double GPS::RAX()const{return m_RAX;}    
+double GPS::RAZ()const{return m_RAZ;}    
+double GPS::DECX()const{return m_DECX;}    
+double GPS::DECZ()const{return m_DECZ;}    
+double GPS::RAZenith()const{return m_RAZenith;}    
+double GPS::DECZenith()const{return m_DECZenith;}
 
 GPStime	GPS::time ()  const
 { 
