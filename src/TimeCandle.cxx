@@ -1,5 +1,9 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.cxx,v 1.3 2005/02/08 04:40:25 burnett Exp $
+/**
+ * @file TimeCandle.cxx
+ * @brief Implementation of class TImeCandle.cxx: a source that ticks 
 
+ * $Header$
+ */
 
 #include "TimeCandle.h"
 
@@ -35,8 +39,9 @@ std::string TimeCandle::title()const
 
 
 double TimeCandle::energy( double time)
-{     m_first=false;  
-return 0.;
+{     
+    m_first=false;  
+    return 0.;
 }
 
 
@@ -60,8 +65,8 @@ float TimeCandle::parseParamList(std::string input, int index)
 }
 
 double TimeCandle::interval (double time)
-    {  
-        if( m_first){return 1e-9;}
-        return m_T0;
-    }
+{  
+    if( m_first){return 1e-30;} // epsilon to be greater than zero
+    return m_T0;
+}
 
