@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Mon Nov  3 01:41:21 PST 2003
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+transformToGalactic now the new (only) transformation function to be used outside of GPS.
+
+    *
+------------------------------------------------------------
 User: srobinsn  Wed Oct 29 12:58:22 PST 2003
 flux/src
 
