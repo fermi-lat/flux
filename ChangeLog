@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Fri Aug  1 19:17:29 PDT 2003
+flux/src
+
+Modified Files:
+	Geomag.cxx 
+Log Message:
+Fixed problem with negative longitudes causing array indices to be out of bounds.
+    *
+------------------------------------------------------------
 User: srobinsn  Thu Jul 31 16:56:17 PDT 2003
 flux/src
 
