@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Tue Aug 10 09:10:07 PDT 2004
+flux/src
+
+Modified Files:
+	FluxSource.cxx GalPulsars.cxx 
+Log Message:
+GalPulsars now reads in t0 from source files.  Minor fixes.
+    *
+------------------------------------------------------------
 User: hierath  Mon Aug  9 12:47:25 PDT 2004
 flux/src
 
