@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Tue Jan  6 14:49:43 PST 2004
+flux/flux
+
+Added Files:
+	MapSpectrum.h 
+Log Message:
+MapSpectrum migrated into flux.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Tue Jan  6 14:49:43 PST 2004
 flux/doc
 
 Modified Files:
