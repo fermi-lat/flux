@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.5 2003/10/06 16:58:16 xchen Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.6 2003/10/22 23:59:37 srobinsn Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -367,6 +367,11 @@ std::pair<double,double> FluxMgr::location(){
     return std::make_pair<double,double>(GPS::instance()->lat(),GPS::instance()->lon());
 }
 
+//get the transformtation matrix - the rest of these functions are now deprecated
+HepRotation FluxMgr::transformToGlast(double seconds,GPS::CoordSystem index){
+    return GPS::instance()->transformToGlast(seconds, index);
+}
+
 //get the transformation matrix.
 HepRotation FluxMgr::CELTransform(double time){
     return GPS::instance()->CELTransform(time);
@@ -375,16 +380,18 @@ HepRotation FluxMgr::CELTransform(double time){
 //get the transformation matrix.
 HepRotation FluxMgr::orientTransform(double time){
 	//make the transformtion that turns zenith coordinates into local coordinates.
+    HepRotation ret;
+    ret = GPS::instance()->transformToGlast(time,GPS::CoordSystem::ZENITH);
 	//note:  this transformation is only used by FluxDisplay to tell where the earth's horizon is.
 	//it will rotate zenith coordinates into a frame where the "upwards direction" becomes the direction of the
 	//zenith in spacecraft coordinates, but is not more specific than that.
-	astro::SkyDir dirZ( GPS::instance()->RAZ() , GPS::instance()->DECZ() );
-	astro::SkyDir dirX( GPS::instance()->RAX() , GPS::instance()->DECX() );
-	astro::SkyDir dirZenith( GPS::instance()->RAZenith() , GPS::instance()->DECZenith() );
-	astro::PointingTransform point(dirZ,dirX);
-	Hep3Vector localZenith((point.localToCelestial().inverse())*dirZenith());
-	Hep3Vector perp1(localZenith.orthogonal());
-	HepRotation ret(perp1,localZenith.cross(perp1),localZenith);
+	//astro::SkyDir dirZ( GPS::instance()->RAZ() , GPS::instance()->DECZ() );
+	//astro::SkyDir dirX( GPS::instance()->RAX() , GPS::instance()->DECX() );
+	//astro::SkyDir dirZenith( GPS::instance()->RAZenith() , GPS::instance()->DECZenith() );
+	//astro::PointingTransform point(dirZ,dirX);
+	//Hep3Vector localZenith((point.localToCelestial().inverse())*dirZenith());
+	//Hep3Vector perp1(localZenith.orthogonal());
+	//HepRotation ret(perp1,localZenith.cross(perp1),localZenith);
 	return ret;
 }
 

@@ -1,7 +1,7 @@
 /** @file Flux.cxx
     @brief Implementation of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.3 2003/10/01 22:21:50 srobinsn Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.4 2003/10/05 03:46:20 burnett Exp $
 
   Original author: T. Burnett
 */
@@ -140,6 +140,13 @@ HepRotation Flux::transformGlastToGalactic(double time)const{
     
     return s_mgr->transformGlastToGalactic(time);
 }
+
+//get the transformtation matrix - the rest of these functions are now deprecated
+HepRotation Flux::transformToGlast(double seconds,GPS::CoordSystem index)const{
+    return s_mgr->transformToGlast(seconds, index);
+}
+  
+
 
 void Flux::writeSourceCharacteristic(std::ostream& out){
     m_event->writeSourceCharacteristic(out);

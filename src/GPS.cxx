@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.16 2003/10/21 08:43:57 srobinsn Exp $
+// $Id: GPS.cxx,v 1.17 2003/10/21 13:48:29 burnett Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -23,7 +23,8 @@ m_time(0.),
 m_lastQueriedTime(-1.),
 m_sampleintvl(30.), // update position every 30 seconds
 m_rockDegrees(35.),
-m_rockType(NONE)
+m_rockType(NONE),
+m_rockNorth(0)
 {}
 
 GPS::Coords::Coords( double alat, double alon, double apitch
@@ -150,6 +151,33 @@ void GPS::setPointingHistoryFile(std::string fileName){
     setUpHistory();
 }
 
+HepRotation GPS::transformToGlast(double seconds,CoordSystem index){
+    ///Purpose:  return the rotation from a given system to
+    ///the satellite system.  this should eventually be the
+    ///only function used external to GPS!
+
+    ///Input:  Current time, and a "coordinate system" index:
+    ///0: The original direction is in the GLAST frame already
+    ///1: rotate from the earth-zenith frame to GLAST
+    ///2: rotate from the cartesian celestial coordinate system (like a SkyDir)
+
+    ///Output:  3x3 rocking-angle transformation matrix.
+    HepRotation trans;
+
+    if(index==0){
+        //do nothing - we are already in the GLAST frame.
+    }else if(index==1){
+        //earth-zenith to GLAST - just the rocking rotation.
+        trans=rockingAngleTransform(seconds);
+    }else if(index==2){
+        //SkyDir to GLAST - the transformCELToGlast
+        trans=transformCelToGlast(seconds);
+    }else{
+        throw "index out of range in GPS transformtaion matrix function!";
+    }
+    
+    return trans;
+}
 
 HepRotation GPS::rockingAngleTransform(double seconds){
     ///Purpose:  return the rotation to correct for satellite rocking.
@@ -167,7 +195,18 @@ HepRotation GPS::rockingAngleTransform(double seconds){
     }else{
         //don't do anything - the new pointing characteristics have already been taken account of
         //in getPointingCharacteristics().
-        rockRot.rotateX(0.0);
+        //rockRot.rotateX(m_rockNorth);
+        SkyDir dirZenith(m_RAZenith,m_DECZenith,SkyDir::CELESTIAL);
+        SkyDir dirXZenith(m_RAXZenith,m_DECXZenith);
+
+    // orthogonalize, since interpolation and transformations destory orthogonality (limit is 10E-8)
+    Hep3Vector xhat = dirXZenith() -  (dirXZenith().dot(dirZenith())) * dirZenith() ;
+    //so now we know where the x and z axes of the zenith-pointing frame point in the celestial frame.
+    //what we want now is to make cel, where
+    //cel is the matrix which rotates (cartesian)local coordinates into (cartesian)celestial ones
+    HepRotation cel(xhat , dirZenith().cross(xhat) , dirZenith());
+    HepRotation temp = transformCelToGlast(seconds) * cel;
+    rockRot=temp;
     }
 
     return rockRot;
@@ -176,6 +215,7 @@ HepRotation GPS::rockingAngleTransform(double seconds){
 HepRotation GPS::CELTransform(double seconds){
     /// Purpose:  Return the 3x3 matrix which transforms a vector from a galactic 
     /// coordinate system to a local coordinate system.
+    //THIS FUNCTION SHOULD BE REMOVED!  IT IS ONLY USED IN A FEW PLACES!!
     double degsPerRad = 180./M_PI;
 
     // set the needed pointing/location variables:
@@ -225,8 +265,8 @@ HepRotation GPS::transformGlastToGalactic(double seconds){
 }
 
 void GPS::getPointingCharacteristics(double inputTime){
-    //this is being used by exposureAlg right now, and should be reworked
-    //to use the rest of this class.
+    //this function calculates all the relevant satellite data. Note that the rocking is done here as well, 
+    //so that pointing characteristics come out right.
     using namespace astro;
 
     //decide if the time has changed;  if it has not, we have already calculated all of the following information:
@@ -290,38 +330,41 @@ void GPS::getPointingCharacteristics(double inputTime){
     SkyDir dirX(raX,decX);
     //before rotation, the z axis points along the zenith:
     SkyDir dirZenith(dirZ.dir());
+    //also, before Rotation, set the characteristics of the zenith x-direction:
+    m_RAXZenith = raX;
+    m_DECXZenith = decX;
 
     if(m_rockType != HISTORY){
         //rotate the x direction so that the x direction points along the orbital direction.
-        dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
+        //dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
     }
 
     // now, we want to find the proper transformation for the rocking angles:
-    //HepRotation rockRot(Hep3Vector(0,0,1).cross(dirZ.dir()) , rockNorth);    
+    //HepRotation rockRot(Hep3Vector(0,0,1).cross(dirZ.dir()) , m_rockNorth);    
     //and apply the transformation to dirZ and dirX:
-    double rockNorth = m_rockDegrees*M_PI/180;
+    m_rockNorth = m_rockDegrees*M_PI/180;
     //here's where we decide how much to rock about the x axis.  this depends on the 
     //rocking mode.
     if(m_rockType == NONE){
-        rockNorth = 0.;
+        m_rockNorth = 0.;
     }else if(m_rockType == UPDOWN){
-        if(m_DECZenith <= 0) rockNorth *= -1.;
+        if(m_DECZenith <= 0) m_rockNorth *= -1.;
     }else if(m_rockType == SLEWING){
         //slewing is experimental
-        if(m_DECZenith <= 0) rockNorth *= -1.;
+        if(m_DECZenith <= 0) m_rockNorth *= -1.;
         if(m_DECZenith >= -5.5 && m_DECZenith <= 5.5){
-            rockNorth -= rockNorth*((5.5-fabs(m_DECZenith))/5.5);
+            m_rockNorth -= m_rockNorth*((5.5-fabs(m_DECZenith))/5.5);
         }
     }else if(m_rockType == ONEPERORBIT){
         while(orbitPhase >2.*M_2PI) {orbitPhase -= 2.*M_2PI;}
-        if(orbitPhase <= M_2PI) rockNorth *= -1.;
+        if(orbitPhase <= M_2PI) m_rockNorth *= -1.;
     }else{
         //important - this includes EXPLICIT rocking angles - they
         //are currently still handled by rockingTransform().
-        rockNorth = 0.;
+        m_rockNorth = 0.;
     }
 
-    dirZ().rotate(dirX.dir() , rockNorth);
+    dirZ().rotate(dirX.dir() , m_rockNorth);
 
     m_RAX = dirX.ra();
     m_RAZ = dirZ.ra();

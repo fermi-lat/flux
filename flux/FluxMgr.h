@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.2 2003/08/12 06:02:58 srobinsn Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.3 2003/10/05 03:46:20 burnett Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -89,6 +89,7 @@ public:
     /// get the current satellite location
     std::pair<double,double> location();
     
+    HepRotation transformToGlast(double seconds,GPS::CoordSystem index);
     
     ///get the transformation matrix due to orientation of the Galaxy
     HepRotation CELTransform(double time);
