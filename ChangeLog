@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: jrb  Tue Mar 16 17:09:53 PST 2004
+flux/flux
+
+Modified Files:
+	FluxMgr.h 
+Log Message:
+Changes for Stage 1 of Xerces conversion
+
+    *
+------------------------------------------------------------
 User: burnett  Tue Mar 16 16:10:28 PST 2004
 flux/src
 
