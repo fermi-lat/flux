@@ -62,8 +62,8 @@ float AGNSpectrum::operator()(float r)const{
     }else{
         index=m_index;
     }
-    float x = 1 - exp((1-index)*log(m_Emax/m_Emin));
-    return m_Emin*exp(log(1-x*rand)/(1-index));
+    float x = 1 - exp((1-index)*log(m_Emax/0.5/*m_Emin*/));
+    return 0.5/*m_Emin*/*exp(log(1-x*rand)/(1-index));
 }
 
 double AGNSpectrum::flux (double time ) const {
@@ -107,7 +107,8 @@ double AGNSpectrum::interval (double time)
     double r;
     double calculatedInterval=1E8;
 
-    r = (solidAngle()*flux(time)*60000./*EventSource::totalArea()*/);
+	double ECutoffMult=pow(1.0/m_Emin,-1.0*(m_index-1));
+    r = (solidAngle()*flux(time)*ECutoffMult*60000./*EventSource::totalArea()*/);
 
     if (r == 0){ return -1.;
     }else{  
