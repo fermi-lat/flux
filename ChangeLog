@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: srobinsn  Fri Nov 28 20:24:50 PST 2003
+flux/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+interpolation over position in GPS corrects for average altitude.
+
+    *
+------------------------------------------------------------
+User: srobinsn  Fri Nov 28 20:24:50 PST 2003
 flux/doc
 
 Modified Files:
