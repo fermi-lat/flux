@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.22 2004/08/10 16:15:08 hierath Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.23 2004/09/28 21:53:45 hierath Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -16,12 +16,10 @@
           </spectrum>
      </source>
 
-     <!-- E^-1 spectrum from 18 MeV to 180 GeV and 0-90 degrees to weight all ga
-mmas-->
+     <!-- E^-1 spectrum from 18 MeV to 180 GeV and 0-90 degrees to weight all gammas-->
     <source name="all_gamma_180GeV" flux="1.0">
         <spectrum escale="GeV">
-            <particle name="gamma"> <power_law emin="0.01778" emax="177.8" gamma
-="1"/>
+            <particle name="gamma"> <power_law emin="0.01778" emax="177.8" gamma="1"/>
             </particle>
             <solid_angle mincos="0" maxcos="1.0"/>
         </spectrum>
@@ -412,7 +410,6 @@ mmas-->
 
     <!--average flux for pdr studies -->
     <source name="backgndavgpdr">
-	<nestedSource sourceRef="cremeavg" /> 
 	<nestedSource sourceRef="albedo_proton_avg" /> 
 	<nestedSource sourceRef="albedo_gamma" /> 
 	<nestedSource sourceRef="electronavg" />  
