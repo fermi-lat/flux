@@ -1,7 +1,7 @@
 /** @file Flux.cxx
     @brief Implementation of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.2 2003/08/28 18:31:12 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.3 2003/10/01 22:21:50 srobinsn Exp $
 
   Original author: T. Burnett
 */
@@ -14,6 +14,11 @@ Flux::Flux(std::string name)
 :  m_flux(0)
 {
     m_event = s_mgr->source(name);
+}
+Flux::Flux(std::vector<std::string> names) 
+:  m_flux(0)
+{
+    m_event = s_mgr->compositeSource(names);
 }
 Flux::~Flux() 
 {
