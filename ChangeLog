@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Tue Jan  6 18:24:27 PST 2004
+flux/src
+
+Modified Files:
+	MapSpectrum.cxx 
+Log Message:
+fix for vc7.1
+    *
+------------------------------------------------------------
 User: burnett  Tue Jan  6 18:18:58 PST 2004
 flux/src
 
