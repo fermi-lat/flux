@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.9 2004/01/07 06:07:37 srobinsn Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.10 2004/01/13 22:09:54 srobinsn Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -97,6 +97,16 @@
                <galactic_dir l="10" b="10" radius="10"/>
           </spectrum>
      </source>    
+
+    <!-- Test source, an AGN with extreme parameters -->
+    <!-- AGN source parameters are as follows:
+    l,b, flux, index, flareMult, flareAdd,flareDuty,flarePeriod, Emin, Emax -->
+	<source name="AGN">
+        <spectrum escale="GeV"> 
+            <SpectrumClass name="AGNSpectrum" params="10 , 10 , 0.001 , 2.0 , 100.0 , 0.1 , 0.05 , 0.1 , 0.1 , 100"/> 
+            <use_spectrum frame="galaxy"/>
+        </spectrum>
+    </source>
 
 </source_library>
 

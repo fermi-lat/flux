@@ -1,9 +1,10 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.18 2004/01/13 22:09:54 srobinsn Exp $
+  $Id: release.notes,v 1.19 2004/01/15 12:27:03 burnett Exp $
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 23-jan-04  v8r5p5 SMR AGNSpectrum added.
  * 15-jan-04  v8r5p4 THB close small numerical hole affecting nearly vertical incoming.
  * 12-jan-04  v8r5p2 SMR Small Fix to galactic map file location, added galactic tests.
  * 06-jan-04  v8r5p1 SMR THB's "radius" parameter added to galactic sources.
