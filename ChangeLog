@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Tue Jan  6 18:17:02 PST 2004
+flux/xml
+
+Modified Files:
+	source.dtd 
+Log Message:
+add capability for directions to spread out uniformly as a disk, with radius attributes (in degrees)
+    *
+------------------------------------------------------------
 User: burnett  Tue Jan  6 18:17:01 PST 2004
 flux/src
 
