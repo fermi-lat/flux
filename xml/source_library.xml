@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.19 2004/06/17 22:16:25 hierath Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.20 2004/07/09 21:25:25 heather Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -180,7 +180,7 @@ mmas-->
     </source>
     
     <!-- 
-       SurfaceMuons based off of Caprice 94 data (Manitoba)
+       SurfaceMuons based off of Caprice 94 data
     -->
     <source name="caprice94_surface_muons">
        <spectrum escale="GeV">
@@ -190,7 +190,7 @@ mmas-->
 	</source>   
 	
 	<!-- 
-       SurfaceMuons based off of Caprice 97 data (New Mexico)
+       SurfaceMuons based off of Caprice 97 data
     -->
     <source name="caprice_surface_muons">
        <spectrum escale="GeV">
@@ -210,7 +210,24 @@ mmas-->
     </source>
     
 </source_library>
+    
+<!-- ************************************************************************** -->
 
+<source_library title="cosmic ray surface protons" >
+    <source name="surface_protons_xml" flux="0.9">
+        <spectrum escale="GeV">
+            <particle name="p"> <power_law emin="1.37" gamma="2.9"  emax="100" /> </particle>
+            <solid_angle mincos="0" maxcos="1.0"/>
+	</spectrum>
+    </source>
+
+    
+    <source name="surface_protons">
+       <spectrum escale="MeV"> <SpectrumClass name="SurfaceProtons" params=""/> <use_spectrum/> </spectrum>
+    </source>
+    
+    
+</source_library>
 
 <!-- ************************************************************************** -->
 
@@ -518,6 +535,18 @@ mmas-->
             <celestial_dir ra="128.73" dec="-45.2"/>
         </spectrum>
 
+    </source>
+    
+    <source name="galactic-pulsars">
+	   <spectrum escale="GeV">
+	      <SpectrumClass name="GalPulsars" params="../sources/pulsars.txt"/> <use_spectrum frame="galaxy"/>
+	   </spectrum>
+    </source>
+    
+    <source name="GRS01369">
+       <spectrum escale="GeV">
+          <SpectrumClass name="GalPulsars" params="../sources/GRS01369.txt"/> <use_spectrum frame="galaxy"/>
+       </spectrum>
     </source>
 
 </source_library>
