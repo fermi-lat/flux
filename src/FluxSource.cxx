@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.13 2004/01/15 12:27:03 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.14 2004/01/26 23:19:39 srobinsn Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -17,7 +17,7 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.13 2004/01/15 
 #include "flux/SimpleSpectrum.h"
 
 #include "flux/FluxException.h" // for FATAL_MACRO
-#include "flux/GPS.h"
+#include "astro/GPS.h"
 
 #include <algorithm>
 #include <sstream>

@@ -1,11 +1,11 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.5 2004/01/14 16:58:09 cohen Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.6 2004/01/26 23:19:40 srobinsn Exp $
 
 //#include "FluxSvc/ISpectrumFactory.h"
 
 #include "flux/EventSource.h"
 #include "flux/SpectrumFactoryTable.h"
 #include "flux/FluxMgr.h"
-#include "flux/GPS.h"
+#include "astro/GPS.h"
 
 #include <iostream>
 #include <fstream>

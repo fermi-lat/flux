@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CHIMESpectrum.cxx,v 1.2 2003/10/02 00:52:48 hierath Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CHIMESpectrum.cxx,v 1.3 2003/10/02 01:10:14 hierath Exp $
 
 
 #include "CHIMESpectrum.h"
@@ -9,7 +9,7 @@
 #include <algorithm>
 #include <functional>
 #include "CLHEP/Random/Random.h"
-#include "flux/GPS.h"
+#include "astro/GPS.h"
 
 // this is needed to include in the executable or dll
 #include "flux/SpectrumFactory.h"
