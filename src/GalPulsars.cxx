@@ -8,6 +8,7 @@
 #include "flux/SpectrumFactory.h"
 #include "flux/EventSource.h"
 #include "astro/EarthOrbit.h"
+#include "astro/jplephem.h"
 #include "CLHEP/Random/RandFlat.h"
 #include "facilities/Util.h"
 #include <string>
@@ -56,6 +57,7 @@ private:
    std::vector<double> m_lat; // Galactic B coordinate
    std::vector<double> m_lon; // Galactic L coordinate
    std::vector<double> m_t0;  // Reference time for phase zero given as JD
+   std::vector<bool> m_binary; // Flag true if pulsar is in a binary system
 
    std::vector<double> m_interval;
    int m_changed;
@@ -69,12 +71,8 @@ GalPulsars::GalPulsars(const std::string& paramString)
    std::vector<std::string> params;
    facilities::Util::stringTokenize(paramString, ", ", params);
 
-   char fileName[1024];
-   const char* flux_root = ::getenv("FLUXROOT");
-   sprintf(fileName, "%s/sources/%s", flux_root, params[0].c_str());
-
-   std::ifstream input_file;
-   input_file.open(fileName, std::ios::in);
+   facilities::Util::expandEnvVar(&params[0]);
+   std::ifstream input_file(params[0].c_str(), std::ios::in);
 
    if(!input_file.is_open())
    {
@@ -111,15 +109,22 @@ GalPulsars::GalPulsars(const std::string& paramString)
       m_flux.push_back(std::atof(buffer));
 
       input_file.getline(buffer,1024,'\t');
-      m_highCutoff.push_back(std::atof(buffer));
+      m_lowCutoff.push_back(std::atof(buffer));
 
-      m_lowCutoff.push_back(0.03);
+      input_file.getline(buffer,1024,'\t');
+      m_highCutoff.push_back(std::atof(buffer));
 
       input_file.getline(buffer,1024,'\t');
       m_spectralIndex.push_back(std::atof(buffer));
 
       input_file.getline(buffer,1024,'\t');
       m_t0.push_back(2400000.5+std::atof(buffer));
+
+      input_file.getline(buffer,1024,'\t');
+      if(buffer[0] == 'Y' || buffer[0] == 'y')
+         m_binary.push_back(true);
+      else
+         m_binary.push_back(false);
 
       input_file.getline(buffer,1024,'\t');
       int numbins = std::atoi(buffer);
@@ -144,7 +149,7 @@ GalPulsars::GalPulsars(const std::string& paramString)
    initLightCurve();
 
    // Test function
-//   writeCorrections();
+   writeCorrections();
 }
 
 
@@ -300,17 +305,19 @@ void GalPulsars::initLightCurve(void)
    }
 }
 
+
 /// Writes out time, JD, Barycenter Location, TDB-TT, Shapiro Delay, and Geometric Delay
 void GalPulsars::writeCorrections(void)
 {
+   /**** Commented out until changes in astro are finished
+
    std::ofstream cFile;
    cFile.open("timings.txt",std::ios::out);
 
    // Start at mission start and write out corrections once per day for 1 year with a test source
    // located at galactic center.
-
    astro::EarthOrbit orbit;
-   astro::SolarSystem solsys;
+   astro::jplephem ephemeris;
    Hep3Vector barycenter;
    double tdb_minus_tt;
    double shapiroDelay;
@@ -325,7 +332,7 @@ void GalPulsars::writeCorrections(void)
    for(double time = 0; time < 86400 * 365; time += 86400)
    {
       astro::JulianDate tt(orbit.dateFromSeconds(time));
-      barycenter = solsys.getBarycenter(tt);
+      barycenter = ephemeris.getBarycenter(tt);
       tdb_minus_tt = orbit.tdb_minus_tt(tt);
       shapiroDelay = orbit.calcShapiroDelay(tt,galCenter);
       geometricDelay = orbit.calcTravelTime(tt,galCenter);
@@ -340,4 +347,6 @@ void GalPulsars::writeCorrections(void)
    }
    
    cFile.close();
+*/
 }
+
