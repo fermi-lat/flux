@@ -16,6 +16,9 @@
 #include <vector>
 #include <fstream>
 
+// Used only for the testing function "writeCorrections"
+#include "astro/SolarSystem.h"
+
 class GalPulsars : public Spectrum
 {
 public:
@@ -33,6 +36,9 @@ public:
    inline  const char * nameOf() const {return "GalPulsars";}
 
 private:
+   
+   /// Writes out time, JD, Barycenter Location, TDB-TT, Shapiro Delay, and Geometric Delay
+   void writeCorrections(void);
 
    void updateIntervals(double current_time, double time_decrement);
    double period(double jd, int pulsarIndex) const;
@@ -132,6 +138,9 @@ GalPulsars::GalPulsars(const std::string& paramString)
    m_interval.resize(m_flux.size());
 
    initLightCurve();
+
+   // Test function
+   writeCorrections();
 }
 
 
@@ -285,4 +294,46 @@ void GalPulsars::initLightCurve(void)
       for(unsigned int k = 0; k < m_lc[i].size(); k++)
          m_lc[i][k] *= scaling_factor;
    }
+}
+
+/// Writes out time, JD, Barycenter Location, TDB-TT, Shapiro Delay, and Geometric Delay
+void GalPulsars::writeCorrections(void)
+{
+   std::ofstream cFile;
+   cFile.open("timings.txt",std::ios::out);
+
+   // Start at mission start and write out corrections once per day for 1 year with a test source
+   // located at galactic center.
+
+   astro::EarthOrbit orbit;
+   astro::SolarSystem solsys;
+   Hep3Vector barycenter;
+   double tdb_minus_tt;
+   double shapiroDelay;
+   double geometricDelay;
+
+   astro::SkyDir galCenter(0.0,0.0,astro::SkyDir::GALACTIC);
+
+   std::cout << "Galactic Center RA/DEC: " << galCenter.ra() << "\t" << galCenter.dec() << std::endl;
+
+   cFile << "Time TT BaryRA   BaryDec  TDB-TT   Shapiro  Geometric" << std::endl;
+
+   for(double time = 0; time < 86400 * 365; time += 86400)
+   {
+      astro::JulianDate tt(orbit.dateFromSeconds(time));
+      barycenter = solsys.getBarycenter(tt);
+      tdb_minus_tt = orbit.tdb_minus_tt(tt);
+      shapiroDelay = orbit.calcShapiroDelay(tt,galCenter);
+      geometricDelay = orbit.calcTravelTime(tt,galCenter);
+      double ra = atan2(barycenter.y(),barycenter.x()) * 180. / M_PI;
+      double dec = atan2(barycenter.z(), sqrt(barycenter.x()*barycenter.x()
+                         + barycenter.y()*barycenter.y())) * 180. / M_PI;
+
+      cFile.precision(14);
+      cFile.setf(std::ios::scientific);
+      cFile << time << "\t" << tt << "\t" << ra << "\t" << dec << "\t" << tdb_minus_tt << "\t" 
+         << shapiroDelay << "\t"  << geometricDelay << std::endl;
+   }
+   
+   cFile.close();
 }
