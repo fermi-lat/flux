@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Tue Jan 13 20:12:57 PST 2004
+flux/src/test
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+GPS included to fix linux build failure in test program.
+
+    *
+------------------------------------------------------------
 User: srobinsn  Tue Jan 13 14:09:54 PST 2004
 flux/xml
 
