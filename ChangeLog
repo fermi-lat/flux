@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Wed Oct  1 17:52:48 PDT 2003
+flux/src
+
+Modified Files:
+	CHIMESpectrum.cxx 
+Log Message:
+Fixed Stormer Cone calculation problem caused by GeV->MeV change.
+    *
+------------------------------------------------------------
 User: srobinsn  Wed Oct  1 15:21:50 PDT 2003
 flux/src
 
