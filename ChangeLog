@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Wed Oct  6 17:59:42 PDT 2004
+flux/src
+
+Modified Files:
+	GalPulsars.cxx 
+Log Message:
+Fixed problem with calculation of initial phase.
+    *
+------------------------------------------------------------
 User: hierath  Wed Oct  6 16:29:18 PDT 2004
 flux/sources
 
