@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.4 2003/08/13 01:32:27 srobinsn Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.5 2003/08/29 08:01:04 srobinsn Exp $
 
 #if !defined(_H_GPS_CLASS)
 #define _H_GPS_CLASS
@@ -24,7 +24,7 @@
 * \class GPS
 * \brief Models the Global Positoning System for a spacecraft. Handles time, position, and orientation for the instrument as a whole.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.4 2003/08/13 01:32:27 srobinsn Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.5 2003/08/29 08:01:04 srobinsn Exp $
  Represents the Global Positioning System on-board the spacecraft. An Orbit
   object is used to compute the spacecraft's position and pointing characteristics.
 Time is tracked through this object, and synchronized with the Scheduler for 
@@ -53,6 +53,7 @@ public:
 		astro::SkyDir dirZ;
 		astro::SkyDir dirX;
 		double lat,lon;
+		Hep3Vector position;
 	}POINTINFO;
 
     class Coords {
@@ -149,6 +150,10 @@ public:
     double DECZenith()const{return m_DECZenith;}
 
     Hep3Vector position(double seconds)const{
+		if(m_rockType == HISTORY){
+			instance()->setInterpPoint(seconds);
+			return m_currentInterpPoint.position;
+		}
         double time = m_earthOrbit->dateFromSeconds(seconds);
         return m_earthOrbit->position(time);
         /*return m_position;*/} //interface to EarthOrbit::position()

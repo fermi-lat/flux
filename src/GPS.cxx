@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.5 2003/08/20 19:38:10 srobinsn Exp $
+// $Id: GPS.cxx,v 1.6 2003/08/29 08:01:04 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -509,6 +509,7 @@ void GPS::setUpHistory(){
 			temp.dirX=astro::SkyDir(rax,decx);
 			temp.lat=lat;
 			temp.lon=lon;
+			temp.position=Hep3Vector(posx,posy,posz);
 
 			m_pointingHistory[intrvalstart]=temp;
 
@@ -526,6 +527,7 @@ void GPS::setInterpPoint(double time){
 	double decz2=(*iter).second.dirZ.dec();
 	double lat2=(*iter).second.lat;
 	double lon2=(*iter).second.lon;
+	Hep3Vector pos2=(*iter).second.position;
 	double time2=(*iter).first;	
 	
 	//then get the details from the previous point:
@@ -536,13 +538,15 @@ void GPS::setInterpPoint(double time){
 	double decz1=(*iter).second.dirZ.dec();
 	double lat1=(*iter).second.lat;
 	double lon1=(*iter).second.lon;
+	Hep3Vector pos1=(*iter).second.position;
 	double time1=(*iter).first;
 
 	//the proportional distance between the first point and the interpolated point
 	double prop=(time2-time)/(time2-time1);
 
+	m_currentInterpPoint.position=pos1+((pos2-pos1)*prop);
 	m_currentInterpPoint.lat=lat1+((lat2-lat1)*prop);
-	m_currentInterpPoint.lon=lon1+((lon2-lon1)*prop);;	
+	m_currentInterpPoint.lon=lon1+((lon2-lon1)*prop);	
 	m_currentInterpPoint.dirZ=astro::SkyDir(raz1+((raz2-raz1)*prop),decz1+((decz2-decz1)*prop));
 	m_currentInterpPoint.dirX=astro::SkyDir(rax1+((rax2-rax1)*prop),decx1+((decx2-decx1)*prop));
 }
