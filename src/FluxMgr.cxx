@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.4 2003/10/05 03:46:20 burnett Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.5 2003/10/06 16:58:16 xchen Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -15,6 +15,8 @@
 #include <xercesc/dom/DOM_Element.hpp>
 #include "xml/Dom.h"
 #include "xml/IFile.h"
+
+#include "astro/PointingTransform.h"
 
 #include <sstream>
 
@@ -372,7 +374,18 @@ HepRotation FluxMgr::CELTransform(double time){
 
 //get the transformation matrix.
 HepRotation FluxMgr::orientTransform(double time){
-    return GPS::instance()->rockingAngleTransform(time);
+	//make the transformtion that turns zenith coordinates into local coordinates.
+	//note:  this transformation is only used by FluxDisplay to tell where the earth's horizon is.
+	//it will rotate zenith coordinates into a frame where the "upwards direction" becomes the direction of the
+	//zenith in spacecraft coordinates, but is not more specific than that.
+	astro::SkyDir dirZ( GPS::instance()->RAZ() , GPS::instance()->DECZ() );
+	astro::SkyDir dirX( GPS::instance()->RAX() , GPS::instance()->DECX() );
+	astro::SkyDir dirZenith( GPS::instance()->RAZenith() , GPS::instance()->DECZenith() );
+	astro::PointingTransform point(dirZ,dirX);
+	Hep3Vector localZenith((point.localToCelestial().inverse())*dirZenith());
+	Hep3Vector perp1(localZenith.orthogonal());
+	HepRotation ret(perp1,localZenith.cross(perp1),localZenith);
+	return ret;
 }
 
 ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors

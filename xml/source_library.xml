@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/xml/source_library.xml,v 1.31 2003/03/25 22:00:08 xchen Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.1.1.1 2003/07/29 18:22:20 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -397,7 +397,7 @@
     -->
     <source name="vela" flux="0.00928">
         <spectrum escale="MeV">
-            <particle name="gamma"> <power_law emin="100.0" emax="100000." gamma="1.62"/>
+            <particle name="gamma"> <power_law emin="30.0" emax="100000." gamma="1.62"/>
             </particle>
             <celestial_dir ra="45.4." dec="26.2."/>
         </spectrum>
