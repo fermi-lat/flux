@@ -1,4 +1,4 @@
-<!--  $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source.dtd,v 1.4 2004/01/07 02:17:02 burnett Exp $
+<!--  $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source.dtd,v 1.5 2004/01/26 23:19:40 srobinsn Exp $
   DTD file for flux source definitions
   -->
 <!ELEMENT source_library ((source)+ | (source_library)*) >
@@ -43,13 +43,14 @@
 <!ATTLIST  exponential emin  CDATA "0.1" escale  CDATA "1">
 
 <!-- for a specific direction: 
-     theta and phi in degrees, interpreted according to frame (polar angles if GLAST)
+     theta and phi in degrees, interpreted according to frame (polar angles if glast,
+     relative to the earth zenith if "zenith")
      beam_radius [0] is the radius in mm of the of beam 
  -->
 <!ELEMENT direction EMPTY>
 <!ATTLIST direction theta CDATA "0" 
           phi CDATA "0" 
-          frame CDATA "GLAST" 
+          frame CDATA "glast" 
           radius  CDATA "0" >
 
 <!-- for specifying a range of angles -->
