@@ -1,4 +1,4 @@
-// $Id: AlbedoPSpectrum.cxx,v 1.2 2004/01/28 23:52:25 hierath Exp $
+// $Id: AlbedoPSpectrum.cxx,v 1.3 2005/02/27 15:23:01 burnett Exp $
 
 
 #include "AlbedoPSpectrum.h"
@@ -8,7 +8,7 @@
 #include <functional>
 #include "CLHEP/Random/Random.h"
 #include "astro/GPS.h"
-#include "Geomag.h"
+#include "astro/EarthCoordinate.h"
 #include "flux/SpectrumFactory.h"
 
 static SpectrumFactory<AlbedoPSpectrum> factory;
@@ -190,7 +190,8 @@ void AlbedoPSpectrum::fitParams(const double lat, const double lon,
                                 double& alf1, double& alf2, double& emin, double& emax, 
                                 double& v1, double &v2, double& Ejoin) const
 {
-    double theta = abs(Geomag::geolat(lat,lon)) * M_PI / 180.;
+    double geolat = astro::EarthCoordinate(lat,lon).geolat();
+    double theta = abs(geolat) * M_PI / 180.;
     double e1 = .2;  // pivot point of lower power law
     double e2 = 1.;  // pivot point of higher power law
     emin = .01;      
