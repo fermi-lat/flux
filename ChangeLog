@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: mcenery  Wed Mar 10 08:12:18 PST 2004
+flux/xml
+
+Added Files:
+	test_sources.xml 
+Log Message:
+Move the test sources xml file to the flux package.
+
+    *
+------------------------------------------------------------
 User: srobinsn  Thu Feb 19 15:03:46 PST 2004
 flux/xml
 
