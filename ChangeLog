@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Tue Oct 28 16:58:47 PST 2003
+flux/src
+
+Modified Files:
+	SimpleSpectrum.cxx 
+Log Message:
+Implement addition to power_law XML element to allow for broken power law
+    *
+------------------------------------------------------------
+User: burnett  Tue Oct 28 16:58:47 PST 2003
 flux/flux
 
 Modified Files:
