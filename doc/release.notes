@@ -1,8 +1,10 @@
 /** @file release.notes
  * @brief Package flux 
+  $Id:$
 
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
+ * 05-dec-03  v8r4p1 THB  fix external source occultation
  * 02-dec-03  v8r4   THB  add 3EG sources
  * 28-nov-03  v8r3p4 SMR interpolation for position averages altitude as well.
  * 28-nov-03  v8r3p3 SMR interpolation "off the end" error message amended.
