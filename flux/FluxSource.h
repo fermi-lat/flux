@@ -1,6 +1,6 @@
 /** @file FluxSource.h
-    @brief FluxSource declaration
-    */
+@brief FluxSource declaration
+*/
 #ifndef FluxSource_h
 #define FluxSource_h 1
 
@@ -11,17 +11,17 @@ class ISpectrum;
 
 // 
 /** @class FluxSource
-    @brief class which manages to compute flux from various particle source configurations
-    It is initialized from a xml description
+@brief class which manages to compute flux from various particle source configurations
+It is initialized from a xml description
 
-    $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/FluxSource.h,v 1.2 2003/03/20 19:55:32 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.4 2003/10/29 16:47:46 burnett Exp $
 */
 class FluxSource : public EventSource  
 {
 public:      
     /**  constructor
-      @param xelem The xml description for this source
-      */
+    @param xelem The xml description for this source
+    */
     FluxSource ( const DOM_Element& xelem );
 
     ///    destructor
@@ -64,8 +64,12 @@ public:
     virtual double energy()const { return m_energy;}
     virtual const HepVector3D& launchDir()const {return m_correctedDir;}
     virtual const HepPoint3D&  launchPoint()const { return m_launchPoint;}
-    virtual std::string particleName();
+    virtual const HepVector3D& skyDirection()const;
 
+    virtual std::string particleName();
+    /// this function decides if the current incoming photon would be occulted
+    /// by the earth
+    bool occulted();
 
 private:
 
@@ -104,7 +108,11 @@ private:
     double explicitInterval (double time);
     ///    getLaunch - compute launch point, direction, & energy
     virtual void computeLaunch (double time=0);
+    ///flag showing whether the current spectrum can be occulted by the earth.
+    bool m_occultable;
 
+    ///cosine of angle between zenith direction and incoming particle direction.
+    double m_zenithCosTheta;
 
 };
 #endif
