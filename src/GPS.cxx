@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.2 2003/08/03 22:08:21 srobinsn Exp $
+// $Id: GPS.cxx,v 1.3 2003/08/12 06:02:58 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -65,6 +65,7 @@ double GPS::lat () const
 {
 	//before anything, check to see if we are using a history file:
 	if(m_rockType == HISTORY){std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(time());
+	iter--;
 		return (*iter).second.lat;
 	}
 
@@ -83,6 +84,7 @@ double	GPS::lon () const
 { 
 	//before anything, check to see if we are using a history file:
 	if(m_rockType == HISTORY){std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(time());
+	iter--;
 		return (*iter).second.lon;
 	}
 
@@ -190,6 +192,7 @@ HepRotation GPS::rockingAngleTransform(double seconds){
 	//before anything, check to see if we are using a history file:
 	if(m_rockType == HISTORY){
 		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		iter--;
 		lZ=(*iter).second.dirZ.l();
 		bZ=(*iter).second.dirZ.b();
 		raX=(*iter).second.dirX.ra();
@@ -266,6 +269,7 @@ HepRotation GPS::CELTransform(double seconds){
 		decX = 0.;
 	}else if(m_rockType == HISTORY){
 		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		iter--;
 		SkyDir dirZ((*iter).second.dirZ);
 		SkyDir dirX((*iter).second.dirX);
 		lZ=dirZ.l();
@@ -321,6 +325,7 @@ HepRotation GPS::transformCelToGlast(double seconds){
 		decX = 0.;
 	}else if(m_rockType == HISTORY){
 		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		iter--;
 		SkyDir dirZ((*iter).second.dirZ);
 		SkyDir dirX((*iter).second.dirX);
 		lZ=dirZ.l();
@@ -372,6 +377,7 @@ void GPS::getPointingCharacteristics(double seconds){
 		decX = 0.;
 	}else if(m_rockType == HISTORY){
 		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		iter--;
 		SkyDir dirZ((*iter).second.dirZ);
 		SkyDir dirX((*iter).second.dirZ);
 		lZ=dirZ.l();
