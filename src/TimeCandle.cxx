@@ -1,11 +1,11 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/TimeCandle.cxx,v 1.2 2003/03/01 23:14:56 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.cxx,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 
 
 #include "TimeCandle.h"
 
 #include "flux/FluxException.h" // for FATAL_MACRO
 #include <utility>
-#include <strstream>
+#include <sstream>
 #include <cmath>
 #include "flux/SpectrumFactory.h"
 
@@ -13,22 +13,22 @@ static SpectrumFactory<TimeCandle> factory;
 const ISpectrumFactory& TimeCandleFactory = factory;
 
 TimeCandle::TimeCandle()
-:m_name("TimeTick")
-,m_T0(30.)
+: m_T0(30.)
+, m_name("TimeTick")
 {}//default constructor
 TimeCandle::TimeCandle(const std::string& params)
-:m_name("TimeTick")
-,m_T0(parseParamList(params,0))
+: m_T0(parseParamList(params,0)) 
+, m_name("TimeTick")
 {}
 
 
 
 std::string TimeCandle::title()const
 {
-    std::strstream s;
+    std::stringstream s;
     s << particleName() << '(' << 1 << " GeV";
     s << ")" << '\0';
-    std::string t(s.str()); s.freeze(false);
+    std::string t(s.str()); 
     return t;
 }
 
