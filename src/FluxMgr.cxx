@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
     @brief Implementation of FluxMgr
 
-  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/FluxMgr.cxx,v 1.49 2003/03/21 19:14:37 jrb Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.4 2003/10/05 03:46:20 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -9,7 +9,7 @@
 #include "flux/SpectrumFactoryTable.h"
 #include "flux/GPS.h"
 #include "flux/FluxException.h" // defines FATAL_MACRO
-#include "CompositeSource.h"
+#include "flux/CompositeSource.h"
 
 #include <xercesc/dom/DOM_Document.hpp>
 #include <xercesc/dom/DOM_Element.hpp>
@@ -102,6 +102,8 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
 
     DLL_DECL_SPECTRUM( SurfaceMuons);
 
+    DLL_DECL_SPECTRUM( VdgGamma);
+
     // these are deprecated, will be replaced by Hiroshima group
     DLL_DECL_SPECTRUM( AlbedoPSpectrum);
     DLL_DECL_SPECTRUM( CHIMESpectrum );
@@ -124,6 +126,22 @@ EventSource* FluxMgr::source(std::string name)
     return getSourceFromXML(m_sources[name].first);
 }
 
+EventSource* FluxMgr::compositeSource(std::vector<std::string> names)
+{
+    //Purpose: to return a pointer to a source, referenced by a list of names.
+    //Input: the names of the desired sources.
+
+    CompositeSource* comp = new CompositeSource();
+    for( std::vector<std::string>::const_iterator it= names.begin(); it!=names.end(); ++it){
+        const std::string& name = *it;
+        if( m_sources.find(name)==m_sources.end() ) {
+            delete comp;
+            return 0;
+        }
+        comp->addSource(getSourceFromXML(m_sources[name].first));
+    }
+    return comp;
+}
 
 EventSource*  FluxMgr::getSourceFromXML(const DOM_Element& src)
 {
@@ -312,6 +330,11 @@ void FluxMgr::setExplicitRockingAngles(std::pair<double,double> ang){
 
 std::pair<double,double> FluxMgr::getExplicitRockingAngles(){
     return GPS::instance()->rotateAngles();
+}
+
+/// set the desired pointing history file to use:
+void FluxMgr::setPointingHistoryFile(std::string fileName){
+	GPS::instance()->setPointingHistoryFile(fileName);
 }
 
 void FluxMgr::setExpansion (double p){
