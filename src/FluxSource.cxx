@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.16 2004/02/05 23:15:02 srobinsn Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.17 2004/02/13 22:11:20 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -505,17 +505,29 @@ FluxSource::FluxSource(const DOM_Element& xelem )
         if (anglesTag.equals("solid_angle") ) {
             m_occultable=false;
             m_launch_dir = new RandomDirection(
+#if 0
                 atof(xml::Dom::transToChar(angles.getAttribute("mincos"))),
                 atof(xml::Dom::transToChar(angles.getAttribute("maxcos"))),
                 atof(xml::Dom::transToChar(angles.getAttribute("theta"))) * d2r, 
                 atof(xml::Dom::transToChar(angles.getAttribute("phi"))) *d2r);
+#else
+                xml::Dom::getDoubleAttribute(angles, "mincos"),
+                xml::Dom::getDoubleAttribute(angles, "maxcos"),
+                xml::Dom::getDoubleAttribute(angles, "theta") * d2r,
+                xml::Dom::getDoubleAttribute(angles, "phi")*d2r);
+#endif
 
         }
         else if (anglesTag.equals("direction") ) {
             m_occultable=false;
             m_launch_dir = new LaunchDirection(
+#if 0
                 atof(xml::Dom::transToChar(angles.getAttribute("theta"))) * d2r, 
                 atof(xml::Dom::transToChar(angles.getAttribute("phi"))) *d2r);
+#else
+                xml::Dom::getDoubleAttribute(angles, "theta") * d2r,
+                xml::Dom::getDoubleAttribute(angles, "phi")*d2r);
+#endif
         }
         else if (anglesTag.equals("use_spectrum") ) {
             std::string frame = xml::Dom::transToChar(angles.getAttribute("frame"));
@@ -526,23 +538,42 @@ FluxSource::FluxSource(const DOM_Element& xelem )
             m_occultable=true;
             m_launch_dir = new LaunchDirection(
                 astro::SkyDir(
+#if 0
                 atof(xml::Dom::transToChar(angles.getAttribute("l"))),
                 atof(xml::Dom::transToChar(angles.getAttribute("b"))), 
+#else
+                xml::Dom::getDoubleAttribute(angles, "l") ,
+                xml::Dom::getDoubleAttribute(angles, "b") ,
+#endif
                 astro::SkyDir::GALACTIC
                 ),
+#if 0
                 atof(xml::Dom::getAttribute(angles, "radius").c_str())
+#else
+               xml::Dom::getDoubleAttribute(angles, "radius") 
+
+#endif
                 );
         }
         else if(anglesTag.equals("celestial_dir")){
             m_occultable=true;
             m_launch_dir = new LaunchDirection(
                 astro::SkyDir(
+#if 0
                 atof(xml::Dom::transToChar(angles.getAttribute("ra"))),
                 atof(xml::Dom::transToChar(angles.getAttribute("dec"))), 
                 astro::SkyDir::EQUATORIAL 
-                ),
+#else
+                xml::Dom::getDoubleAttribute(angles, "ra")  ,
+                xml::Dom::getDoubleAttribute(angles, "dec")
 
+#endif
+                ),
+#if 0
                 atof(xml::Dom::getAttribute(angles, "radius").c_str())
+#else
+               xml::Dom::getDoubleAttribute(angles, "radius") 
+#endif
                 );
 
         }
@@ -562,12 +593,21 @@ FluxSource::FluxSource(const DOM_Element& xelem )
             DOMString launchTag = launch.getTagName();
 
             if(launchTag.equals("launch_point")){
+#if 0
                 double float1=atof(xml::Dom::transToChar(launch.getAttribute("x")));
                 double float2=atof(xml::Dom::transToChar(launch.getAttribute("y")));
                 double float3=atof(xml::Dom::transToChar(launch.getAttribute("z")));
                 m_launch_pt = new FixedPoint(HepPoint3D(float1,float2,float3),
                     atof(xml::Dom::transToChar(launch.getAttribute("beam_radius"))) );
+#else
+                m_launch_pt = new FixedPoint(HepPoint3D(
+                    xml::Dom::getDoubleAttribute(launch, "x"),
+                    xml::Dom::getDoubleAttribute(launch, "y"),
+                    xml::Dom::getDoubleAttribute(launch, "z")),
+                    xml::Dom::getDoubleAttribute(launch, "beam_radius") );
+#endif
             }else if(launchTag.equals("patch")){
+#if 0
                 float num1=atof(xml::Dom::transToChar(launch.getAttribute("xmax")));
                 float num2=atof(xml::Dom::transToChar(launch.getAttribute("xmin")));
                 float num3=atof(xml::Dom::transToChar(launch.getAttribute("ymax")));
@@ -575,6 +615,15 @@ FluxSource::FluxSource(const DOM_Element& xelem )
                 float num5=atof(xml::Dom::transToChar(launch.getAttribute("zmax")));
                 float num6=atof(xml::Dom::transToChar(launch.getAttribute("zmin")));
                 m_launch_pt = new Patch(num1,num2,num3,num4,num5,num6);
+#else
+                m_launch_pt = new Patch(
+                    xml::Dom::getDoubleAttribute(launch, "xmax"),
+                    xml::Dom::getDoubleAttribute(launch, "xmin"),
+                    xml::Dom::getDoubleAttribute(launch, "ymax"),
+                    xml::Dom::getDoubleAttribute(launch, "ymin"),
+                    xml::Dom::getDoubleAttribute(launch, "zmax"),
+                    xml::Dom::getDoubleAttribute(launch, "zmin") );
+#endif
             }else {
                 FATAL_MACRO("Unknown launch specification in Flux::Flux \""
                     << xml::Dom::transToChar(launchTag) << "\"" );
