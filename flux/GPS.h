@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.2 2003/08/03 22:08:20 srobinsn Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.3 2003/08/12 06:02:58 srobinsn Exp $
 
 #if !defined(_H_GPS_CLASS)
 #define _H_GPS_CLASS
@@ -17,13 +17,14 @@
 #include "CLHEP/Vector/Rotation.h"
 
 #include <iostream>
+#include <string>
 
 
 /** 
 * \class GPS
 * \brief Models the Global Positoning System for a spacecraft. Handles time, position, and orientation for the instrument as a whole.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.2 2003/08/03 22:08:20 srobinsn Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/GPS.h,v 1.3 2003/08/12 06:02:58 srobinsn Exp $
  Represents the Global Positioning System on-board the spacecraft. An Orbit
   object is used to compute the spacecraft's position and pointing characteristics.
 Time is tracked through this object, and synchronized with the Scheduler for 
