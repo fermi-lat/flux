@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Tue Oct 21 06:48:29 PDT 2003
+flux/src
+
+Modified Files:
+	GPS.cxx 
+Log Message:
+fix zenith calculation when in history mode
+    *
+------------------------------------------------------------
 User: srobinsn  Tue Oct 21 01:43:57 PDT 2003
 flux/src
 
