@@ -2,7 +2,7 @@
 * @file FILESpectrum.cxx
 * @brief Implementation of FILESpectrum
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FILESpectrum.cxx,v 1.2 2004/09/29 18:27:48 cohen Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FILESpectrum.cxx,v 1.3 2004/10/06 23:11:16 hierath Exp $
 */
 
 #include "FILESpectrum.h"
@@ -157,7 +157,7 @@ std::vector<std::pair<double,double> > FILESpectrum::readFile(std::ifstream& inp
     {
       std::string line(buffer);
       std::vector<std::string> entries;
-      if(line.find('\%')!= std::string::npos)
+      if(line.find('%')!= std::string::npos)
       	{
 	  //This is taken to be a comment line
 	  continue;
