@@ -1,5 +1,5 @@
 // GPS.cxx: implementation of the GPS class.
-// $Id: GPS.cxx,v 1.27 2003/05/09 20:48:31 hierath Exp $
+// $Id: GPS.cxx,v 1.2 2003/08/03 22:08:21 srobinsn Exp $
 //////////////////////////////////////////////////////////////////////
 
 #include "flux/GPS.h"
@@ -26,9 +26,9 @@ m_rockType(NONE)
 {}
 
 GPS::Coords::Coords( double alat, double alon, double apitch
-                    , double ayaw, double aroll, GPStime atime, double aphase) 
-                    : m_time(atime), m_lat(alat), m_lon(alon), 
-                    m_pitch(apitch), m_yaw(ayaw), m_roll(aroll), m_phase(aphase)
+					, double ayaw, double aroll, GPStime atime, double aphase) 
+					: m_time(atime), m_lat(alat), m_lon(alon), 
+					m_pitch(apitch), m_yaw(ayaw), m_roll(aroll), m_phase(aphase)
 {}
 
 GPS::Coords::Coords(){}
@@ -40,79 +40,89 @@ GPS::~GPS ()
 
 void GPS::synch ()
 {
-    static bool first=true;
-    bool changed=  false;
-    static GPStime  last_time = time();
-    
-	if (Scheduler::instance()->running()) {
-        time( Scheduler::instance()->elapsed_time() );
-        changed = true; // maybe have threshold before nofitying?
-    }
+	static bool first=true;
+	bool changed=  false;
+	static GPStime  last_time = time();
 
-	// If elapsed time exceeds interval then update
-    if ((time() - last_time) > m_sampleintvl) {
-       last_time = time();
-       changed = true;    
+	if (Scheduler::instance()->running()) {
+		time( Scheduler::instance()->elapsed_time() );
+		changed = true; // maybe have threshold before nofitying?
 	}
 
-    // notify observers if changed (or first time thru)
-    if( changed || first) notifyObservers();
-    first=false;
-    
+	// If elapsed time exceeds interval then update
+	if ((time() - last_time) > m_sampleintvl) {
+		last_time = time();
+		changed = true;    
+	}
+
+	// notify observers if changed (or first time thru)
+	if( changed || first) notifyObservers();
+	first=false;
+
 }
 
 double GPS::lat () const
 {
-    double currentTime = time(); 
-    double julianDate = m_earthOrbit->dateFromSeconds(currentTime);
+	//before anything, check to see if we are using a history file:
+	if(m_rockType == HISTORY){std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(time());
+		return (*iter).second.lat;
+	}
 
-    //and here the pointing characteristics of the LAT.
-    GPS::instance()->getPointingCharacteristics(currentTime);
-    Hep3Vector location = position(currentTime);
-    
-    astro::EarthCoordinate earthpos(location,julianDate);
-    return earthpos.latitude();
+	double currentTime = time(); 
+	double julianDate = m_earthOrbit->dateFromSeconds(currentTime);
+
+	//and here the pointing characteristics of the LAT.
+	GPS::instance()->getPointingCharacteristics(currentTime);
+	Hep3Vector location = position(currentTime);
+
+	astro::EarthCoordinate earthpos(location,julianDate);
+	return earthpos.latitude();
 }
 
 double	GPS::lon () const
 { 
-    double currentTime = time();
-    double julianDate = m_earthOrbit->dateFromSeconds(currentTime);
+	//before anything, check to see if we are using a history file:
+	if(m_rockType == HISTORY){std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(time());
+		return (*iter).second.lon;
+	}
 
-    //and here the pointing characteristics of the LAT.
-    GPS::instance()->getPointingCharacteristics(currentTime);
-    Hep3Vector location = position(currentTime);
-    
-    astro::EarthCoordinate earthpos(location,julianDate);
-    return earthpos.longitude();
+	double currentTime = time();
+	double julianDate = m_earthOrbit->dateFromSeconds(currentTime);
+
+	//and here the pointing characteristics of the LAT.
+	GPS::instance()->getPointingCharacteristics(currentTime);
+	Hep3Vector location = position(currentTime);
+
+	astro::EarthCoordinate earthpos(location,julianDate);
+	return earthpos.longitude();
 }
 
 GPStime	GPS::time ()  const
 { 
-    return m_time;
+	return m_time;
 }
 
 
 double   GPS::expansion () const
 {
-    return m_expansion;
+	return m_expansion;
 }
 
 void GPS::pass ( double t )
 { 
-    if (!Scheduler::instance()->running())	{
-        time(time() + t);
-    }   // cannot pass when scheduler is in control!
+	if (!Scheduler::instance()->running())	{
+		time(time() + t);
+	}   // cannot pass when scheduler is in control!
 }
 
 void GPS::expansion ( double e )
 {
-    m_expansion = e; 
+	m_expansion = e; 
 }
 
 void GPS::time ( GPStime t )
 {
-    m_time = t;
+	m_time = t;
 }
 
 GPS*	GPS::instance() 
@@ -120,240 +130,405 @@ GPS*	GPS::instance()
 
 void GPS::kill()
 {
-    delete s_instance;
-    s_instance = 0;
+	delete s_instance;
+	s_instance = 0;
 }
 
 void    GPS::sampleintvl ( GPStime s )
 {
-    m_sampleintvl = s;
+	m_sampleintvl = s;
 }
 
 GPStime  GPS::sampleintvl () const
 {
-    return m_sampleintvl;
+	return m_sampleintvl;
 }
 
 
 void    GPS::printOn(std::ostream& out) const
 {
-    out << "GPS: time=" << time() 
-        << ", lat, lon=" 
-        << std::setprecision(4) << lat() << ", " << lon() 
-        << std::endl;
+	out << "GPS: time=" << time() 
+		<< ", lat, lon=" 
+		<< std::setprecision(4) << lat() << ", " << lon() 
+		<< std::endl;
 }
 
 
 //access m_rotangles
 std::pair<double,double> GPS::rotateAngles(){
-    return m_rotangles;
-    
+	return m_rotangles;
+
 }
 
 //set m_rotangles
 void GPS::rotateAngles(std::pair<double,double> coords){
-    m_rotangles=coords;
-    m_rockType = EXPLICIT;
+	m_rotangles=coords;
+	//m_rockType = EXPLICIT;
+}
+
+/// set the desired pointing history file to use:
+void GPS::setPointingHistoryFile(std::string fileName){
+	m_pointingHistoryFile = fileName;
+	m_rockType = HISTORY;
+	setUpHistory();
 }
 
 
 HepRotation GPS::rockingAngleTransform(double seconds){
-    ///Purpose:  return the rotation to correct for satellite rocking.
-    ///Input:  Current time
-    ///Output:  3x3 rocking-angle transformation matrix.
-    using namespace astro;
-    
-    double time = m_earthOrbit->dateFromSeconds(seconds);
-    
-    double inclination = m_earthOrbit->inclination();
-    double orbitPhase = m_earthOrbit->phase(time);
-    m_position = m_earthOrbit->position(time);
-    
-    SkyDir dirZ(m_position.unit());
-    SkyDir dirX(dirZ.ra()-90., 0.0);
-    
-    //rotate the x direction so that the x direction points along the orbital direction.
-    dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
-    
-    //now set the zenith direction to do the rocking properly.
-    m_RAZenith = dirZ.ra();
-    m_DECZenith = dirZ.dec();
+	///Purpose:  return the rotation to correct for satellite rocking.
+	///Input:  Current time
+	///Output:  3x3 rocking-angle transformation matrix.
+	using namespace astro;
 
-    double rockNorth = m_rockDegrees*M_PI/180;
-    
-    //here's where we decide how much to rock about the x axis.  this depends on the 
-    //rocking mode.
-    if(m_rockType == NONE){
-        rockNorth = 0.;
-    }else if(m_rockType == UPDOWN){
-        if(m_DECZenith <= 0) rockNorth *= -1.;
-    }else if(m_rockType == SLEWING){
-        //slewing is experimental
-        if(m_DECZenith <= 0) rockNorth *= -1.;
-        if(m_DECZenith >= -5.5 && m_DECZenith <= 5.5){
-            rockNorth -= rockNorth*((5.5-fabs(m_DECZenith))/5.5);
-        }
-    }else if(m_rockType == ONEPERORBIT){
-        while(orbitPhase >2.*M_2PI){ orbitPhase -= 2.*M_2PI;}
-        if(orbitPhase <= M_2PI) rockNorth *= -1.;
-    }else{
-        //for safety and EXPLICIT
-        rockNorth = 0.;
-    }
-    // now, we want to find the proper transformation for the rocking angles:
-    HepRotation rockRot;
-    if(m_rockType == EXPLICIT){
-        rockRot.rotateX(m_rotangles.first).rotateZ(m_rotangles.second);
-    }else{
-        //just rock north or south by the desired amount.
-    rockRot./*rotateZ(inclination*cos(orbitPhase)).*/rotateX(rockNorth);
-    }
+	double time = m_earthOrbit->dateFromSeconds(seconds);
 
-    return rockRot;
+	double inclination = m_earthOrbit->inclination();
+	double orbitPhase = m_earthOrbit->phase(time);
+	m_position = m_earthOrbit->position(time);
+
+	double lZ,bZ,raX,decX;
+	//before anything, check to see if we are using a history file:
+	if(m_rockType == HISTORY){
+		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		lZ=(*iter).second.dirZ.l();
+		bZ=(*iter).second.dirZ.b();
+		raX=(*iter).second.dirX.ra();
+		decX=(*iter).second.dirX.dec();
+	}else{
+	SkyDir tempdirZ(m_position.unit());
+	lZ = tempdirZ.l();
+	bZ = tempdirZ.b();
+	raX = tempdirZ.ra()-90.;
+	decX=0.0;
+	}
+
+	SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
+	SkyDir dirX(raX,decX);
+
+	//rotate the x direction so that the x direction points along the orbital direction.
+	dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
+
+	//now set the zenith direction to do the rocking properly.
+	m_RAZenith = dirZ.ra();
+	m_DECZenith = dirZ.dec();
+
+	double rockNorth = m_rockDegrees*M_PI/180;
+
+	//here's where we decide how much to rock about the x axis.  this depends on the 
+	//rocking mode.
+	if(m_rockType == NONE){
+		rockNorth = 0.;
+	}else if(m_rockType == UPDOWN){
+		if(m_DECZenith <= 0) rockNorth *= -1.;
+	}else if(m_rockType == SLEWING){
+		//slewing is experimental
+		if(m_DECZenith <= 0) rockNorth *= -1.;
+		if(m_DECZenith >= -5.5 && m_DECZenith <= 5.5){
+			rockNorth -= rockNorth*((5.5-fabs(m_DECZenith))/5.5);
+		}
+	}else if(m_rockType == ONEPERORBIT){
+		while(orbitPhase >2.*M_2PI){ orbitPhase -= 2.*M_2PI;}
+		if(orbitPhase <= M_2PI) rockNorth *= -1.;
+	}else{
+		//for safety and EXPLICIT and POINT
+		rockNorth = 0.;
+	}
+	// now, we want to find the proper transformation for the rocking angles:
+	HepRotation rockRot;
+	if(m_rockType == EXPLICIT){
+		rockRot.rotateX(m_rotangles.first).rotateZ(m_rotangles.second);
+	}else{
+		//just rock north or south by the desired amount.
+		rockRot./*rotateZ(inclination*cos(orbitPhase)).*/rotateX(rockNorth);
+	}
+
+	return rockRot;
 }
 
 HepRotation GPS::CELTransform(double seconds){
-    /// Purpose:  Return the 3x3 matrix which transforms a vector from a galactic 
-    /// coordinate system to a local coordinate system.
-    using namespace astro;
-    double degsPerRad = 180./M_PI;
-    HepRotation gal;//,cel;
-    double time = m_earthOrbit->dateFromSeconds(seconds);
-    
-    m_position = m_earthOrbit->position(time);
-    
-    //first make the directions for the x and Z axes, as well as the zenith direction.
-    //before rotation, the z axis points along the zenith:
-    SkyDir dirZ(m_position.unit());
-    SkyDir dirX(dirZ.ra()-90., 0.0);
+	/// Purpose:  Return the 3x3 matrix which transforms a vector from a galactic 
+	/// coordinate system to a local coordinate system.
+	using namespace astro;
+	double degsPerRad = 180./M_PI;
+	HepRotation gal;//,cel;
+	double time = m_earthOrbit->dateFromSeconds(seconds);
 
-    //so now we know where the x and z axes of the zenith-pointing frame point in the celestial frame.
-    //what we want now is to make cel, where
-    //cel is the matrix which rotates (cartesian)local coordinates into (cartesian)celestial ones
-    HepRotation cel(dirX() , dirZ().cross(dirX()) , dirZ());
+	m_position = m_earthOrbit->position(time);
 
-    //std::cout << "time is " << seconds << std::endl;
-    //m_orbit->displayRotation(cel);
+	//first make the directions for the x and Z axes, as well as the zenith direction.
+	double lZ,bZ,raX,decX;
+	//before rotation, the z axis points along the zenith:
+	if(m_rockType == POINT){
+		lZ=m_rotangles.first;
+		bZ=m_rotangles.second;
+		SkyDir tempDirZ(lZ,bZ,astro::SkyDir::GALACTIC);
+		raX = tempDirZ.ra()-90.0;
+		decX = 0.;
+	}else if(m_rockType == HISTORY){
+		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		SkyDir dirZ((*iter).second.dirZ);
+		SkyDir dirX((*iter).second.dirX);
+		lZ=dirZ.l();
+		bZ=dirZ.b();
+		raX=dirX.ra();
+		decX=dirX.dec();
+	}else{
+		//ok, get the pointing from earthOrbit.
+		SkyDir tempDirZ(m_position.unit());
+		lZ=tempDirZ.l();
+		bZ=tempDirZ.b();
+		raX = tempDirZ.ra()-90.0;
+		decX = 0.;
+	}
 
-    //gal is the matrix which rotates (cartesian)celestial coordiantes into (cartesian)galactic ones
-    gal.rotateZ(-282.25/degsPerRad).rotateX(-62.6/degsPerRad).rotateZ(33./degsPerRad);
-    //so gal*cel should be the matrix that makes local coordiates into galactic ones.
-    HepRotation glstToGal=gal*cel;
-    return glstToGal.inverse();
+	SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
+	SkyDir dirX(raX,decX);
+
+	//so now we know where the x and z axes of the zenith-pointing frame point in the celestial frame.
+	//what we want now is to make cel, where
+	//cel is the matrix which rotates (cartesian)local coordinates into (cartesian)celestial ones
+	HepRotation cel(dirX() , dirZ().cross(dirX()) , dirZ());
+
+	//std::cout << "time is " << seconds << std::endl;
+	//m_orbit->displayRotation(cel);
+
+	//gal is the matrix which rotates (cartesian)celestial coordiantes into (cartesian)galactic ones
+	gal.rotateZ(-282.25/degsPerRad).rotateX(-62.6/degsPerRad).rotateZ(33./degsPerRad);
+	//so gal*cel should be the matrix that makes local coordiates into galactic ones.
+	HepRotation glstToGal=gal*cel;
+	return glstToGal.inverse();
 
 }
 
 HepRotation GPS::transformCelToGlast(double seconds){
-    /// Purpose:  Return the 3x3 matrix which transforms a vector from a celestial 
-    /// coordinate system (like a SkyDir vector) to a local coordinate system (like the FluxSvc output).
-    using namespace astro;
-    double degsPerRad = 180./M_PI;
+	/// Purpose:  Return the 3x3 matrix which transforms a vector from a celestial 
+	/// coordinate system (like a SkyDir vector) to a local coordinate system (like the FluxSvc output).
+	using namespace astro;
+	double degsPerRad = 180./M_PI;
 
-    double time = m_earthOrbit->dateFromSeconds(seconds);
-    
-    m_position = m_earthOrbit->position(time);
-    
-    //first make the directions for the x and Z axes, as well as the zenith direction.
-    //before rotation, the z axis points along the zenith:
-    SkyDir dirZ(m_position.unit());
-    SkyDir dirX(dirZ.ra()-90., 0.0);
+	double time = m_earthOrbit->dateFromSeconds(seconds);
 
-    //so now we know where the x and z axes of the zenith-pointing frame point in the celestial frame.
-    //what we want now is to make cel, where
-    //cel is the matrix which rotates (cartesian)local coordinates into (cartesian)celestial ones
-    HepRotation cel(dirX() , dirZ().cross(dirX()) , dirZ());
-    return cel.inverse();
+	m_position = m_earthOrbit->position(time);
+
+	//first make the directions for the x and Z axes, as well as the zenith direction.
+	double lZ,bZ,raX,decX;
+	//before rotation, the z axis points along the zenith:
+	if(m_rockType == POINT){
+		lZ=m_rotangles.first;
+		bZ=m_rotangles.second;
+		SkyDir tempDirZ(lZ,bZ,astro::SkyDir::GALACTIC);
+		raX = tempDirZ.ra()-90.0;
+		decX = 0.;
+	}else if(m_rockType == HISTORY){
+		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		SkyDir dirZ((*iter).second.dirZ);
+		SkyDir dirX((*iter).second.dirX);
+		lZ=dirZ.l();
+		bZ=dirZ.b();
+		raX=dirX.ra();
+		decX=dirX.dec();
+	}else{
+		//ok, get the pointing from earthOrbit.
+		SkyDir tempDirZ(m_position.unit());
+		lZ=tempDirZ.l();
+		bZ=tempDirZ.b();
+		raX = tempDirZ.ra()-90.0;
+		decX = 0.;
+	}
+
+	SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
+	SkyDir dirX(raX,decX);
+
+	//so now we know where the x and z axes of the zenith-pointing frame point in the celestial frame.
+	//what we want now is to make cel, where
+	//cel is the matrix which rotates (cartesian)local coordinates into (cartesian)celestial ones
+	HepRotation cel(dirX() , dirZ().cross(dirX()) , dirZ());
+	return cel.inverse();
 }
 
 HepRotation GPS::transformGlastToGalactic(double seconds){
-    return (CELTransform(seconds).inverse())*(rockingAngleTransform(seconds).inverse());
+	return (CELTransform(seconds).inverse())*(rockingAngleTransform(seconds).inverse());
 }
 
 void GPS::getPointingCharacteristics(double seconds){
-    //this is being used by exposureAlg right now, and should be reworked
-    //to use the rest of this class.
-    using namespace astro;
-    
-    double time = m_earthOrbit->dateFromSeconds(seconds);
-    
-    double inclination = m_earthOrbit->inclination();
-    double orbitPhase = m_earthOrbit->phase(time);
-    m_position = m_earthOrbit->position(time);
-    
-    //first make the directions for the x and Z axes, as well as the zenith direction.
-    SkyDir dirZenith(m_position.unit());
-    //before rotation, the z axis points along the zenith:
-    SkyDir dirZ(m_position.unit());
-    SkyDir dirX(dirZ.ra()-90., 0.0);
-    
-    //rotate the x direction so that the x direction points along the orbital direction.
-    dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
-    
-    //now set the zenith direction before the rocking.
-    m_RAZenith = dirZ.ra();
-    m_DECZenith = dirZ.dec();
+	//this is being used by exposureAlg right now, and should be reworked
+	//to use the rest of this class.
+	using namespace astro;
 
-    // now, we want to find the proper transformation for the rocking angles:
-    //HepRotation rockRot(Hep3Vector(0,0,1).cross(dirZ.dir()) , rockNorth);    
-    //and apply the transformation to dirZ and dirX:
-    double rockNorth = m_rockDegrees*M_PI/180;
-    //here's where we decide how much to rock about the x axis.  this depends on the 
-    //rocking mode.
-    if(m_rockType == NONE){
-        rockNorth = 0.;
-    }else if(m_rockType == UPDOWN){
-        if(m_DECZenith <= 0) rockNorth *= -1.;
-    }else if(m_rockType == SLEWING){
-        //slewing is experimental
-        if(m_DECZenith <= 0) rockNorth *= -1.;
-        if(m_DECZenith >= -5.5 && m_DECZenith <= 5.5){
-            rockNorth -= rockNorth*((5.5-fabs(m_DECZenith))/5.5);
-        }
-    }else if(m_rockType == ONEPERORBIT){
-        while(orbitPhase >2.*M_2PI) {orbitPhase -= 2.*M_2PI;}
-        if(orbitPhase <= M_2PI) rockNorth *= -1.;
-    }
-    
-    dirZ().rotate(dirX.dir() , rockNorth);
-    
-    m_RAX = dirX.ra();
-    m_RAZ = dirZ.ra();
-    m_DECX = dirX.dec();
-    m_DECZ = dirZ.dec();
-    
-    //a test - to ensure the rotation went properly
-    //std::cout << " degrees between xhat and zhat directions: " <<
-    //    dirZ.difference(dirX)*180./M_PI << std::endl;
+	double time = m_earthOrbit->dateFromSeconds(seconds);
+
+	double inclination = m_earthOrbit->inclination();
+	double orbitPhase = m_earthOrbit->phase(time);
+	m_position = m_earthOrbit->position(time);
+
+	//first make the directions for the x and Z axes, as well as the zenith direction.
+	double lZ,bZ,raX,decX;
+	//before rotation, the z axis points along the zenith:
+	if(m_rockType == POINT){
+		lZ=m_rotangles.first;
+		bZ=m_rotangles.second;
+		SkyDir tempDirZ(lZ,bZ,astro::SkyDir::GALACTIC);
+		raX = tempDirZ.ra()-90.0;
+		decX = 0.;
+	}else if(m_rockType == HISTORY){
+		std::map<double,POINTINFO>::const_iterator iter=m_pointingHistory.upper_bound(seconds);
+		SkyDir dirZ((*iter).second.dirZ);
+		SkyDir dirX((*iter).second.dirZ);
+		lZ=dirZ.l();
+		bZ=dirZ.b();
+		raX=dirX.ra();
+		decX=dirX.dec();
+	}else{
+		//ok, get the pointing from earthOrbit.
+		SkyDir tempDirZ(m_position.unit());
+		lZ=tempDirZ.l();
+		bZ=tempDirZ.b();
+		raX = tempDirZ.ra()-90.0;
+		decX = 0.;
+	}
+
+	SkyDir dirZ(lZ,bZ,SkyDir::GALACTIC);
+	SkyDir dirX(raX,decX);
+	//before rotation, the z axis points along the zenith:
+	SkyDir dirZenith(dirZ.dir());
+
+	if(m_rockType != HISTORY){
+	//rotate the x direction so that the x direction points along the orbital direction.
+	dirX().rotate(dirZ.dir() , inclination*cos(orbitPhase));
+	}
+
+	//now set the zenith direction before the rocking.
+	m_RAZenith = dirZ.ra();
+	m_DECZenith = dirZ.dec();
+
+	// now, we want to find the proper transformation for the rocking angles:
+	//HepRotation rockRot(Hep3Vector(0,0,1).cross(dirZ.dir()) , rockNorth);    
+	//and apply the transformation to dirZ and dirX:
+	double rockNorth = m_rockDegrees*M_PI/180;
+	//here's where we decide how much to rock about the x axis.  this depends on the 
+	//rocking mode.
+	if(m_rockType == NONE){
+		rockNorth = 0.;
+	}else if(m_rockType == UPDOWN){
+		if(m_DECZenith <= 0) rockNorth *= -1.;
+	}else if(m_rockType == SLEWING){
+		//slewing is experimental
+		if(m_DECZenith <= 0) rockNorth *= -1.;
+		if(m_DECZenith >= -5.5 && m_DECZenith <= 5.5){
+			rockNorth -= rockNorth*((5.5-fabs(m_DECZenith))/5.5);
+		}
+	}else if(m_rockType == ONEPERORBIT){
+		while(orbitPhase >2.*M_2PI) {orbitPhase -= 2.*M_2PI;}
+		if(orbitPhase <= M_2PI) rockNorth *= -1.;
+	}else{
+		rockNorth = 0.;
+	}
+
+	dirZ().rotate(dirX.dir() , rockNorth);
+
+	m_RAX = dirX.ra();
+	m_RAZ = dirZ.ra();
+	m_DECX = dirX.dec();
+	m_DECZ = dirZ.dec();
+
+	//a test - to ensure the rotation went properly
+	//std::cout << " degrees between xhat and zhat directions: " <<
+	//    dirZ.difference(dirX)*180./M_PI << std::endl;
 }
 
 int GPS::setRockType(int rockType){
-    //get the current state
-    int ret;
-    if(m_rockType == NONE)ret = 0;
-    if(m_rockType == UPDOWN)ret = 1;
-    if(m_rockType == SLEWING)ret = 2;
-    if(m_rockType == ONEPERORBIT)ret = 3;
-    if(m_rockType == EXPLICIT)ret = 4;
+	//get the current state
+	int ret;
+	if(m_rockType == NONE)ret = 0;
+	if(m_rockType == UPDOWN)ret = 1;
+	if(m_rockType == SLEWING)ret = 2;
+	if(m_rockType == ONEPERORBIT)ret = 3;
+	if(m_rockType == EXPLICIT)ret = 4;
+	if(m_rockType == POINT)ret = 5;
+	if(m_rockType == HISTORY)ret = 6;
 
 
-    m_rockType = NONE;
-    if(rockType == 1) m_rockType = UPDOWN;
-    if(rockType == 2) m_rockType = SLEWING;
-    if(rockType == 3) m_rockType = ONEPERORBIT;
-    if(rockType == 4) m_rockType = EXPLICIT;
+	m_rockType = NONE;
+	if(rockType == 1) m_rockType = UPDOWN;
+	if(rockType == 2) m_rockType = SLEWING;
+	if(rockType == 3) m_rockType = ONEPERORBIT;
+	if(rockType == 4) m_rockType = EXPLICIT;
+	if(rockType == 5) m_rockType = POINT;
+	if(rockType == 6) m_rockType = HISTORY;
 
-    return ret;
+	return ret;
 }
 
 int GPS::setRockType(RockType rockType){
-    //get the current state
-    int ret;
-    if(m_rockType == NONE)ret = 0;
-    if(m_rockType == UPDOWN)ret = 1;
-    if(m_rockType == SLEWING)ret = 2;
-    if(m_rockType == ONEPERORBIT)ret = 3;
-    if(m_rockType == EXPLICIT)ret = 4;
+	//get the current state
+	int ret;
+	if(m_rockType == NONE)ret = 0;
+	if(m_rockType == UPDOWN)ret = 1;
+	if(m_rockType == SLEWING)ret = 2;
+	if(m_rockType == ONEPERORBIT)ret = 3;
+	if(m_rockType == EXPLICIT)ret = 4;
+	if(m_rockType == POINT)ret = 5;
+	if(m_rockType == HISTORY)ret = 6;
 
-    m_rockType = rockType;
-    return ret;
+	m_rockType = rockType;
+	return ret;
+}
+
+void GPS::setUpHistory(){
+	std::ifstream input_file;
+	input_file.open(m_pointingHistoryFile.c_str());
+
+	if(false == input_file.is_open())
+	{
+		std::cerr << "ERROR:  Unable to open:  " << m_pointingHistoryFile.c_str() << std::endl;
+		exit(0);
+	}
+	else
+	{
+		double intrvalstart,intrvalend,posx,posy,posz,raz,decz,rax,decx,razenith,deczenith,LATTurnedOn,livetime,SAA
+			,lon,lat,alt,curDirl,curDirb,xDirl,xDirb,rasun,decsun,sunDirx,sunDiry,sunDirz,ramoon,decmoon;
+		//initialize the key structure:
+		while (!input_file.eof()){
+			input_file >> intrvalstart;
+			input_file >> intrvalend;
+			input_file >> posx;
+			input_file >> posy;
+			input_file >> posz;
+			input_file >> raz;
+			input_file >> decz;
+			input_file >> rax;
+			input_file >> decx;
+			input_file >> razenith;
+			input_file >> deczenith;
+			input_file >> LATTurnedOn;
+			input_file >> livetime;
+			input_file >> SAA;
+			input_file >> lon;
+			input_file >> lat;
+			input_file >> alt;
+			input_file >> curDirl;
+			input_file >> curDirb;
+			input_file >> xDirl;
+			input_file >> xDirb;
+			input_file >> rasun;
+			input_file >> decsun;
+			input_file >> sunDirx;
+			input_file >> sunDiry; 
+			input_file >> sunDirz;
+			input_file >> ramoon;
+			input_file >> decmoon;
+
+
+
+
+			POINTINFO temp;
+			temp.dirZ=astro::SkyDir(raz,decz);
+			temp.dirX=astro::SkyDir(rax,decx);
+			temp.lat=lat;
+			temp.lon=lon;
+
+			m_pointingHistory[intrvalstart]=temp;
+
+		}
+	}
 }
