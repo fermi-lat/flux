@@ -1,7 +1,7 @@
 /** @file SimpleSpectrum.cxx
     @brief definition of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.2 2003/10/29 00:58:47 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.3 2003/10/29 13:30:13 burnett Exp $
 */
 
 
@@ -71,6 +71,13 @@ SimpleSpectrum::SimpleSpectrum(const DOM_Element& xelem, bool useGeV)
         m_E0 = atof(xml::Dom::getAttribute(spectrum, "e").c_str());
         m_emax = 100.0;
         m_index = 0.0;
+    }
+    else if (spectrum.getTagName().equals(DOMString("exponential"))) {
+        m_E0 = atof(xml::Dom::getAttribute(spectrum, "emin").c_str());
+        m_index = atof(xml::Dom::getAttribute(spectrum, "exponent").c_str());
+        m_emax = 100.0;
+        m_index = 0.0;
+        FATAL_MACRO("exponential spectral component not implemented yet");
     }
     else {
         std::cerr << "Unknown name: " << m_name << std::endl;
