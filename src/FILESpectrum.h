@@ -6,7 +6,7 @@
 * description. Energy in the file can be in MeV or GeV, also to be decided in the xml
 * description.
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/users/cohen/flux/src/FILESpectrum.h,v 1.2 2004/09/27 21:43:10 cohen Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FILESpectrum.h,v 1.2 2004/09/29 18:27:48 cohen Exp $
 */
 #ifndef FILESpectrum_H
 #define FILESpectrum_H
@@ -39,7 +39,7 @@ public:
     double flux (double time ) const;
     
     /// sample a single particle energy from the spectrum
-    virtual float operator() (float)const;
+    virtual float operator() (float);
     
     virtual std::string title() const;
     virtual const char * particleName() const;

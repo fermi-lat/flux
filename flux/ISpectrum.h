@@ -39,7 +39,7 @@ calculate the next time.
 
 * \author Sean Robinson
 *
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/ISpectrum.h,v 1.1.1.1 2003/07/29 18:22:14 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/ISpectrum.h,v 1.2 2004/09/29 18:27:47 cohen Exp $
 */
 
 #include <string>
@@ -91,9 +91,9 @@ public:
     /** dummy set methods that are actually defaulted in Spectrum class.
      * These are needed to parse info from the XML (see FluxSource class)
      */
-    virtual void setParticleName(const std::string& value){;}
-    virtual void setInGeV(const bool value){;}
-    virtual void setFlux(double value){;}
+    virtual void setParticleName(const std::string& ){;}
+    virtual void setInGeV(const bool ){;}
+    virtual void setFlux(double ){;}
 };
 
 

@@ -41,13 +41,13 @@ std::pair<double,double> Spectrum::dir(double energy)
 const char * Spectrum::particleName()const{
   return m_particle_name.c_str();
 }
-
+#if 1
 double Spectrum::energy( double time)
 {
-    // default implementation, which works for other Spectrum objects
+    // default implementation, which calls the operator()(float r)
     return (*this)(RandFlat::shoot());
 }
-
+#endif
 
 
 void Spectrum::parseParamList(std::string input, std::vector<float>& output) const

@@ -1,7 +1,7 @@
 /** @file SimpleSpectrum.h
     @brief declaration of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.4 2004/02/13 22:11:20 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.5 2004/11/10 20:22:24 jrb Exp $
 */
 #ifndef SIMPLESPECTRUM_H
 #define SIMPLESPECTRUM_H
@@ -17,7 +17,7 @@ XERCES_CPP_NAMESPACE_END
 * \class SimpleSpectrum
 * @brief define a particle and spectral index
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.4 2004/02/13 22:11:20 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.5 2004/11/10 20:22:24 jrb Exp $
 */
 class SimpleSpectrum : public Spectrum {
 public: 
@@ -32,7 +32,7 @@ public:
     /// This is required, but the implementation has never been used
     SimpleSpectrum(const std::string& params);
     
-    virtual float  operator()(float f)const;
+    virtual float  operator()(float f);
     virtual const char* particleName()const;
     virtual std::string title()const;
 
