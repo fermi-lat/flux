@@ -273,14 +273,15 @@ void rootAngleHist::draw(double scale_factor, std::string mode, int current_plot
             "   }\n"
             
             "   //                 name, title, wtopx, wtopy, ww, wh\n"
-            "   c2 = new TCanvas(\"c2\",angle_window_title, 200, 200, 700, 500);\n"
+            "   c2 = new TCanvas(\"c2\",angle_window_title, 10, 10, 1000, 400);\n"
+            "   c2->Divide(3,1);\n"  // for the three plots.
             "   c2->SetGrid();\n"
             "   c2->GetFrame()->SetFillColor(21);\n"
             "   c2->GetFrame()->SetBorderSize(12);\n"
-            "   c3 = new TCanvas(\"c3\",angle_window_title, 200, 200, 700, 500);\n"
-            "   c3->SetGrid();\n"
-            "   c3->GetFrame()->SetFillColor(21);\n"
-            "   c3->GetFrame()->SetBorderSize(12);\n";
+            "   c3= c2; \n";
+            //"   c3->SetGrid();\n"
+            //"   c3->GetFrame()->SetFillColor(21);\n"
+            //"   c3->GetFrame()->SetBorderSize(12);\n";
         
         out_file << 
             "   theta_leg = new TLegend(0.73,0.83,0.99,0.99);\n"
@@ -320,14 +321,14 @@ void rootAngleHist::draw(double scale_factor, std::string mode, int current_plot
             "      theta_count" << current_plot << "[i] *= scale_factor" << current_plot << ";\n"
             "      phi_count" << current_plot << "[i] *= scale_factor" << current_plot << ";\n"
             "   }\n"
-            "   c2->cd();"
+            "   c2->cd(2);"
             "   theta_gr" << current_plot << " = new TGraphErrors(num_bins,theta_angle,theta_count" << current_plot 
             << ",e_theta_angle,e_theta_count" << current_plot << ");\n"
             "   theta_gr" << current_plot << "->SetTitle(theta_graph_title);\n"
             "   theta_gr" << current_plot << "->SetMarkerColor(2);\n"
             "   theta_gr" << current_plot << "->SetMarkerStyle(21);\n"
             "   theta_leg->AddEntry(theta_gr" << current_plot << ",\"" << graphTitle << "\",\"P\");\n"
-            "   c3->cd();"
+            "   c3->cd(3);"
             "   phi_gr" << current_plot << " = new TGraphErrors(num_bins,phi_angle,phi_count" << current_plot
             << ",e_phi_angle,e_phi_count" << current_plot << ");\n"
             "   phi_gr" << current_plot << "->SetTitle(phi_graph_title);\n"
@@ -374,13 +375,13 @@ void rootAngleHist::draw(double scale_factor, std::string mode, int current_plot
            "      theta_count" << current_plot << "[i] *= scale_factor" << current_plot << ";\n"
            "      phi_count" << current_plot << "[i] *= scale_factor" << current_plot << ";\n"
            "   }\n"
-           "   c2->cd();"
+           "   c2->cd(2);"
            "   theta_gr" << current_plot << " = new TGraphErrors(num_bins,theta_angle,theta_count" << current_plot 
            << ",e_theta_angle,e_theta_count" << current_plot << ");\n"
            "   theta_gr" << current_plot << "->SetMarkerColor(" << 2+current_plot << ");\n"
            "   theta_gr" << current_plot << "->SetMarkerStyle(" << 21 << ");\n"
            "   theta_leg->AddEntry(theta_gr" << current_plot << ",\"" << graphTitle << "\",\"P\");\n"
-           "   c3->cd();"
+           "   c3->cd(3);"
            "   phi_gr" << current_plot << " = new TGraphErrors(num_bins,phi_angle,phi_count" << current_plot
            << ",e_phi_angle,e_phi_count" << current_plot << ");\n"
            "   phi_gr" << current_plot << "->SetMarkerColor(" << 2+current_plot << ");\n"
@@ -394,7 +395,7 @@ void rootAngleHist::draw(double scale_factor, std::string mode, int current_plot
        std::ofstream out_file("graph.cxx", std::ios::app);
        
        out_file << 
-           "   c2->cd();"
+           "   c2->cd(2);"
            "   double theta_max_count = 0;\n"
            "   double theta_min_count = 1e12;\n"
            "   for(int i = 0; i < num_bins; i++)\n"
@@ -432,7 +433,7 @@ void rootAngleHist::draw(double scale_factor, std::string mode, int current_plot
            "   c2->Update();\n";
        
        out_file << 
-           "   c3->cd();"
+           "   c3->cd(3);"
            "   double phi_max_count = 0;\n"
            "   double phi_min_count = 1e12;\n"
            "   for(int i = 0; i < num_bins; i++)\n"
