@@ -1,7 +1,7 @@
 /** @file Flux.cxx
     @brief Implementation of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/Flux.cxx,v 1.28 2003/03/20 19:55:32 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.5 2003/11/03 09:41:21 srobinsn Exp $
 
   Original author: T. Burnett
 */
@@ -11,10 +11,14 @@
 #include "flux/SpectrumFactory.h"
 
 Flux::Flux(std::string name) 
-: m_time(0)
-, m_flux(0)
+:  m_flux(0)
 {
     m_event = s_mgr->source(name);
+}
+Flux::Flux(std::vector<std::string> names) 
+:  m_flux(0)
+{
+    m_event = s_mgr->compositeSource(names);
 }
 Flux::~Flux() 
 {
@@ -33,19 +37,20 @@ std::string Flux::name() const
 /// full title of the flux
 std::string Flux::title()const 
 {
-    return m_event->fullTitle();
+    return m_event!=0? m_event->fullTitle() : "?";
 }
 
 
 void Flux::generate()
 {
-    // Purpose and Method: generate a new entry trajectory, set FluxSource, increment local time
+    // Purpose and Method: generate a new entry trajectory, set FluxSource, time
     // Inputs  - none
     // Outputs - none
+	do{
     m_flux = m_event->event(time());
     double timepass = m_event->interval(time());
-    m_time+= timepass;
     pass(timepass);
+	}while(m_event->occulted());
 }
 
 // the particle generated 
@@ -67,7 +72,7 @@ HepPoint3D Flux::launchPoint()const
 
 double Flux::time()const 
 {
-    return m_time ;
+    return s_mgr->time();
 }
 
 
@@ -91,7 +96,7 @@ HepVector3D Flux::launchDir()const
 // rate ( /mm**2 /s)
 double Flux::rate()const
 {
-    return m_event->rate(time());
+   return  m_event!=0?  m_event->rate(time()) : -1;;
 }
 
 /// set the area of the target
@@ -135,6 +140,13 @@ HepRotation Flux::transformGlastToGalactic(double time)const{
     
     return s_mgr->transformGlastToGalactic(time);
 }
+
+//get the transformtation matrix - the rest of these functions are now deprecated
+HepRotation Flux::transformToGlast(double seconds,GPS::CoordSystem index)const{
+    return s_mgr->transformToGlast(seconds, index);
+}
+  
+
 
 void Flux::writeSourceCharacteristic(std::ostream& out){
     m_event->writeSourceCharacteristic(out);

@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
     @brief Implementation of FluxSource
 
-  $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/FluxSource.cxx,v 1.61 2003/04/03 19:44:50 burnett Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.8 2003/11/03 09:41:21 srobinsn Exp $
 
   */
 #include "flux/FluxSource.h"
@@ -203,7 +203,7 @@ public:
     LaunchDirection(astro::SkyDir sky)
         :m_skydir(true)
     {
-        m_dir = sky.dir();
+        m_dir = -sky.dir();
     }
     /** @brief choose a direction
         @param KE kinetic energy
@@ -211,7 +211,11 @@ public:
         */
     virtual void execute(double KE, double time){
         if(m_skydir){
-            m_celtoglast = GPS::instance()->transformCelToGlast(time);
+            //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
+            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::CELESTIAL);//->transformCelToGlast(time);
+        }else{
+        //otherwise, the direction is in the zenith system, and the rotation to GLAST is needed:
+            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::ZENITH);
         }
     }
 
@@ -219,7 +223,7 @@ public:
 
     virtual const HepVector3D& dir()const {
         static HepVector3D correctedDir;
-        correctedDir = m_celtoglast * m_dir;
+        correctedDir = m_rottoglast * m_dir;
         return correctedDir;
     }
 
@@ -238,8 +242,18 @@ public:
         return t.str();
     }
 
+	/// return the cosine of the angle between the incoming direction and the earth's zenith
+	virtual double zenithCosine()const{
+		if(m_skydir){
+		astro::SkyDir zenDir(GPS::instance()->RAZenith(),GPS::instance()->DECZenith());
+		return -m_dir*zenDir();
+		}
+		//if the direction is local
+		return 1.0;
+	}
+
 private:
-    HepRotation m_celtoglast;
+    HepRotation m_rottoglast;
     HepVector3D m_dir;
     bool  m_skydir;
     HepVector3D m_t;
@@ -275,10 +289,14 @@ public:
 
     }
 
-    virtual void execute(double, double){
+    virtual void execute(double ke, double time){
             double  costh = -RandFlat::shoot(m_minCos, m_maxCos),
                     sinth = sqrt(1.-costh*costh),
                     phi = RandFlat::shoot(m_minPhi, m_maxPhi);
+
+            //here, the direction is with respect to the zenith frame,
+            //so we need the transformation from the zenith to GLAST.
+            HepRotation zenToGlast=GPS::instance()->transformToGlast(time,GPS::ZENITH);
             
             HepVector3D dir(cos(phi)*sinth, sin(phi)*sinth, costh);
 
@@ -286,7 +304,7 @@ public:
             // confusing)
             // keep x-axis perpendicular to zenith direction
             if (m_theta != 0.0) dir.rotateX(m_theta).rotateZ(m_phi);
-            setDir(dir);
+            setDir(zenToGlast*dir);
 
     }
        //! solid angle
@@ -325,6 +343,7 @@ public:
     SourceDirection(ISpectrum* spectrum, bool galactic)
         : m_spectrum(spectrum)
         , m_galactic(galactic)
+		, m_zenithCos(1.0)
     {}
 
     void execute(double ke, double time){
@@ -339,7 +358,15 @@ public:
             double  costh = direction.first,
                 sinth = sqrt(1.-costh*costh),
                 phi = direction.second;
-            setDir(-HepVector3D(cos(phi)*sinth, sin(phi)*sinth, costh));
+
+            //here, we have a direction in the zenith direction, so we need the 
+            //transformation from zenith to GLAST.
+            HepRotation zenToGlast = GPS::instance()->transformToGlast(time,GPS::ZENITH);
+
+            HepVector3D unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
+
+            //setDir(-HepVector3D(cos(phi)*sinth, sin(phi)*sinth, costh));
+            setDir(zenToGlast*(-unrotated));
 
         }else {
             // iterpret direction as l,b for a galactic source
@@ -347,12 +374,15 @@ public:
                 b = direction.second;
             //then set up this direction:
             astro::SkyDir unrotated(l,b,astro::SkyDir::GALACTIC);
+			//get the zenith cosine:
+			astro::SkyDir zenDir(GPS::instance()->RAZenith(),GPS::instance()->DECZenith());
+		    m_zenithCos = -unrotated()*zenDir();
             //get the transformation matrix..
-            HepRotation celtoglast
-                =GPS::instance()->transformCelToGlast(time);
+            //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
+            HepRotation celtoglast = GPS::instance()->transformToGlast(time,GPS::CELESTIAL);
 
             //and do the transform:
-            setDir(celtoglast*unrotated());
+            setDir(celtoglast*(-unrotated()));
         }
     }
 
@@ -365,9 +395,13 @@ public:
         return "(use_spectrum)";
     }
 
+	/// return the cosine of the angle between the incoming direction and the earth's zenith
+	virtual double zenithCosine()const{return m_zenithCos;}
+
 private:
     ISpectrum* m_spectrum;
     bool   m_galactic;
+	double m_zenithCos;
 };
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                   FluxSource constructor
@@ -375,6 +409,8 @@ private:
 FluxSource::FluxSource(const DOM_Element& xelem )
 : EventSource ()
 , m_spectrum(0)
+, m_occultable(true)
+, m_zenithCosTheta(1.0) //won't be occulted by default
 {
     static double d2r = M_PI/180.;
 
@@ -450,6 +486,7 @@ FluxSource::FluxSource(const DOM_Element& xelem )
         DOMString anglesTag = angles.getTagName();
         
         if (anglesTag.equals("solid_angle") ) {
+			m_occultable=false;
             m_launch_dir = new RandomDirection(
                 atof(xml::Dom::transToChar(angles.getAttribute("mincos"))),
                 atof(xml::Dom::transToChar(angles.getAttribute("maxcos"))),
@@ -458,15 +495,18 @@ FluxSource::FluxSource(const DOM_Element& xelem )
 
         }
         else if (anglesTag.equals("direction") ) {
+			m_occultable=false;
             m_launch_dir = new LaunchDirection(
                 atof(xml::Dom::transToChar(angles.getAttribute("theta"))) * d2r, 
                 atof(xml::Dom::transToChar(angles.getAttribute("phi"))) *d2r);
         }
         else if (anglesTag.equals("use_spectrum") ) {
             std::string frame = xml::Dom::transToChar(angles.getAttribute("frame"));
+			m_occultable=(frame=="galaxy");
             m_launch_dir = new SourceDirection(m_spectrum, frame=="galaxy"); 
         }
         else if(anglesTag.equals("galactic_dir")){
+			m_occultable=true;
             m_launch_dir = new LaunchDirection(
                 astro::SkyDir(
                     atof(xml::Dom::transToChar(angles.getAttribute("l"))),
@@ -476,6 +516,7 @@ FluxSource::FluxSource(const DOM_Element& xelem )
                 );
         }
         else if(anglesTag.equals("celestial_dir")){
+			m_occultable=true;
             m_launch_dir = new LaunchDirection(
                 astro::SkyDir(
                     atof(xml::Dom::transToChar(angles.getAttribute("ra"))),
@@ -486,6 +527,7 @@ FluxSource::FluxSource(const DOM_Element& xelem )
 
         }
         else if(anglesTag.equals("galactic_spread")){
+			m_occultable=true;
             FATAL_MACRO("not implemented");
         }
         else {
@@ -500,25 +542,19 @@ FluxSource::FluxSource(const DOM_Element& xelem )
             DOMString launchTag = launch.getTagName();
             
              if(launchTag.equals("launch_point")){
-                m_launch_pt = new FixedPoint(
-                    HepPoint3D(
-                        atof(xml::Dom::transToChar(launch.getAttribute("x"))),
-                        atof(xml::Dom::transToChar(launch.getAttribute("y"))),
-                        atof(xml::Dom::transToChar(launch.getAttribute("z"))) ),
-                    atof(xml::Dom::transToChar(launch.getAttribute("beam_radius")))
-                    );
-
-                
+				 double float1=atof(xml::Dom::transToChar(launch.getAttribute("x")));
+				 double float2=atof(xml::Dom::transToChar(launch.getAttribute("y")));
+				 double float3=atof(xml::Dom::transToChar(launch.getAttribute("z")));
+				 m_launch_pt = new FixedPoint(HepPoint3D(float1,float2,float3),
+					 atof(xml::Dom::transToChar(launch.getAttribute("beam_radius"))) );
             }else if(launchTag.equals("patch")){
-                m_launch_pt = new Patch( 
-                    atof(xml::Dom::transToChar(launch.getAttribute("xmax"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("xmin"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("ymax"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("ymin"))), 
-                    atof(xml::Dom::transToChar(launch.getAttribute("zmax"))),
-                    atof(xml::Dom::transToChar(launch.getAttribute("zmin"))) 
-                    );
-                
+				float num1=atof(xml::Dom::transToChar(launch.getAttribute("xmax")));
+				float num2=atof(xml::Dom::transToChar(launch.getAttribute("xmin")));
+				float num3=atof(xml::Dom::transToChar(launch.getAttribute("ymax")));
+				float num4=atof(xml::Dom::transToChar(launch.getAttribute("ymin")));
+				float num5=atof(xml::Dom::transToChar(launch.getAttribute("zmax")));
+				float num6=atof(xml::Dom::transToChar(launch.getAttribute("zmin")));
+                m_launch_pt = new Patch(num1,num2,num3,num4,num5,num6);
             }else {
                 FATAL_MACRO("Unknown launch specification in Flux::Flux \""
                     << xml::Dom::transToChar(launchTag) << "\"" );
@@ -555,11 +591,10 @@ EventSource* FluxSource::event(double time)
     // Purpose and Method: generate a new incoming particle
     // Inputs  - current time
     // Outputs - pointer to the "current" fluxSource object.
-    m_interval = calculateInterval(time);
-    computeLaunch(time+m_interval);
+	m_interval = calculateInterval(time);
+	computeLaunch(time+m_interval);
     //now set the actual interval to be what FluxMgr will get
     EventSource::setTime(time+m_interval);
-
     return this;
 }
 
@@ -601,10 +636,13 @@ void FluxSource::computeLaunch (double time)
     // set launch direction , position (perhaps depending on direction)
     m_launch_dir->execute(m_energy, time);
     m_launchDir  = (*m_launch_dir)();
+
+	//get the off-zenith angle cosine, for occultation purposes:
+	m_zenithCosTheta = m_launch_dir->zenithCosine();
     
     //  rotate by Glast orientation transformation
-    HepRotation correctForTilt =GPS::instance()->rockingAngleTransform(GPS::instance()->time());
-    m_correctedDir = correctForTilt*m_launchDir;
+    //HepRotation correctForTilt =GPS::instance()->rockingAngleTransform(time);
+    m_correctedDir = /*correctForTilt*/m_launchDir;
     
     // now set the launch point, which may depend on the direction
     
@@ -643,4 +681,20 @@ std::string FluxSource::title () const
 std::string FluxSource::particleName()
 {
     return spectrum()->particleName();
+}
+
+
+bool FluxSource::occulted(){
+    //Purpose:  to determine whether or not the current incoming particle will be blocked by the earth.
+    //Output:  "yes" or "no"
+    //REMEMBER:  the earth is directly below the satellite, so, to determine occlusion,
+    // we must assume the frame to be checked against is zenith-pointing, and hence, we want 
+    //the direction of the particle relative to the GLAST zenith direction, calculated in the 
+	//LaunchDirection classes.
+    
+	//this should probably be open-ended, not wired in!
+	double minCosTheta= -0.4;
+
+    return (m_occultable) && (m_zenithCosTheta < minCosTheta);
+
 }
