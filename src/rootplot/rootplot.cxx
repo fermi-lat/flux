@@ -56,6 +56,7 @@ void rootplot::init(std::vector<const char*> argv)
     bool write_to_file = false;
     bool sum_mode = false;
     bool longterm=false;
+    bool stationary=false;
     double flux_min;
     double flux_max;
     std::string arg_name(default_arg);
@@ -138,6 +139,9 @@ void rootplot::init(std::vector<const char*> argv)
         else if("-time" == arg_name) {
             time = atof(argv[++current_arg]);
             std::cout<<" TIME = "<< time << std::endl;
+        }
+        else if("-stationary" == arg_name) {
+           stationary = true;
         }
         else if('-' == arg_name[0]) {std::cerr << "Unrecognized option "<< arg_name << ", -help for help" << std::endl;}
         else
@@ -229,8 +233,10 @@ void rootplot::init(std::vector<const char*> argv)
         angle_hist.setThetaYLabel("Particles");
         
 
-        
+      // Make sure positions are initialized
 		GPS::instance()->synch();
+      fm.pass(0.);
+
 		std::cout << sources[i] << std::endl;
 
         std::pair<double,double> loc=fm.location();
@@ -246,7 +252,10 @@ void rootplot::init(std::vector<const char*> argv)
             //increment the time
             double timeadd = e->interval(time);
             time += timeadd;
-            fm.pass(timeadd);
+
+            if(!stationary)
+               fm.pass(timeadd);
+
             HepVector3D dir = f->launchDir();
             double energy = f->energy();
             double cos_theta = dir.z();
