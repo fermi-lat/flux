@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: hierath  Mon Aug  9 12:47:25 PDT 2004
+flux/src
+
+Modified Files:
+	GalPulsars.cxx 
+Log Message:
+Fixed a problem with the light curve scaling and another problem with determining the phase of a pulsar at a given time.
+    *
+------------------------------------------------------------
 User: hierath  Wed Aug  4 12:09:54 PDT 2004
 flux/src
 
