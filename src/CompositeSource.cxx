@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.6 2003/11/07 12:56:21 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.7 2004/04/20 21:29:34 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -91,7 +91,6 @@ std::string CompositeSource::fullTitle () const
         ++it;
         if (it != m_sourceList.end())    s << "+ ";
     }
-    s << '\0';
     std::string t(s.str());
     return t;
 }

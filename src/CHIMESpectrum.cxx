@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CHIMESpectrum.cxx,v 1.3 2003/10/02 01:10:14 hierath Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CHIMESpectrum.cxx,v 1.4 2004/01/28 23:52:25 hierath Exp $
 
 
 #include "CHIMESpectrum.h"
@@ -181,7 +181,7 @@ float CHIMESpectrum::flux() const {
 
 //-------------------------- operator()  sample an energy value
 
-float CHIMESpectrum::operator() (float x)const {
+float CHIMESpectrum::operator() (float x) {
     // return a random value of energy sampled from the spectrum
     
     float join = (m_tot-m_upper)/m_tot;

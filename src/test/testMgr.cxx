@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.7 2004/01/28 23:52:25 hierath Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.8 2004/02/05 23:15:02 srobinsn Exp $
 
 //#include "FluxSvc/ISpectrumFactory.h"
 
@@ -156,6 +156,7 @@ int main(int argn, char * argc[]) {
         std::cout << "Source:  " << *abc << std::endl;
         out << "Source:  " << *abc <<std::endl;
         fm.test(out, (*abc), count);
+        fm.test(std::cout, (*abc), 10); // also example to stdout
         out << std::endl << std::endl << std::endl;
     }
 

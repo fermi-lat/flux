@@ -1,4 +1,4 @@
-// $Id: CHIMESpectrum.h,v 1.13 2003/02/23 02:08:22 burnett Exp $
+// $Id: CHIMESpectrum.h,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
 #ifndef CHIME_SPECTRUM_H
 #define CHIME_SPECTRUM_H
 
@@ -68,7 +68,7 @@ public:
     /// Linear interpolate in a table with a 5 degree sampling grid.
     virtual float flux() const;
     
-    virtual float operator() (float)const;
+    virtual float operator() (float);
     
     float cutoff () const {return m_cutoff;};
     
