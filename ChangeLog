@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: srobinsn  Tue Aug 12 18:32:27 PDT 2003
+flux/flux
+
+Modified Files:
+	GPS.h 
+Log Message:
+string include file into GPS.h
+
+    *
+------------------------------------------------------------
 User: srobinsn  Mon Aug 11 23:02:58 PDT 2003
 flux/src
 
