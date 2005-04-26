@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.45 2005/03/20 21:23:06 burnett Exp $
+  $Id: release.notes,v 1.46 2005/03/27 03:12:00 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     EOH
 
+   v8r17   26-apr-2005 thb clean up factory stuff a bit, add access to class name
    v8r16   26-mar-2005 thb Move geomag away, add dependency on new astro; increase backoff distance
    v8r15p1 20-mar-2005 thb change instantly from 1e-6 to 1e-30
    v8r15   19-mar-2005 thb 
