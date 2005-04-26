@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Tue Apr 26 10:19:35 PDT 2005
+flux/flux
+
+Modified Files:
+	ISpectrumFactory.h SpectrumFactory.h 
+Log Message:
+clean up interface a bit, add name access
+    *
+------------------------------------------------------------
+User: burnett  Tue Apr 26 10:19:35 PDT 2005
 flux/doc
 
 Modified Files:
