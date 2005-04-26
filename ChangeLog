@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Tue Apr 26 10:19:34 PDT 2005
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+clean up interface a bit, add name access
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r16, operation: add
 Package: flux
