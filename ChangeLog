@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Thu Apr 28 09:39:00 PDT 2005
+flux/src
+
+Modified Files:
+	EventSource.cxx FluxSource.cxx 
+Log Message:
+set the name property from the XML.
+    *
+------------------------------------------------------------
+User: burnett  Thu Apr 28 09:39:00 PDT 2005
 flux/flux
 
 Modified Files:
