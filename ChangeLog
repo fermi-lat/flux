@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Thu Apr 28 09:39:00 PDT 2005
+flux/flux
+
+Modified Files:
+	EventSource.h 
+Log Message:
+set the name property from the XML.
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r17, operation: add
 Package: flux
