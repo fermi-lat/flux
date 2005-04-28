@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.26 2005/01/03 19:22:01 jrb Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.27 2005/03/27 03:02:49 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -438,9 +438,11 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
 , m_spectrum(0)
 , m_occultable(true)
 , m_zenithCosTheta(1.0) //won't be occulted by default
+
 {
     using XERCES_CPP_NAMESPACE_QUALIFIER DOMElement;
     static double d2r = M_PI/180.;
+    setName(xmlBase::Dom::getAttribute(xelem, "name").c_str());
 
 
     ISpectrum*   s = 0;
@@ -745,3 +747,5 @@ const HepVector3D& FluxSource::skyDirection()const
 {
     return m_launch_dir->skyDirection();
 }
+
+

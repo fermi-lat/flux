@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.3 2003/10/29 16:47:46 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.4 2004/02/13 22:11:20 burnett Exp $
 */
 
 #ifndef EventSource_h
@@ -17,7 +17,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.3 2003/10/29 16:47:46 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.4 2004/02/13 22:11:20 burnett Exp $
 */
 
 
@@ -57,8 +57,9 @@ public:
     virtual double	solidAngle () const;
     
     ///	name of this flux source - for UI
-    const std::string& name () const;
-    void name (const std::string& value);
+    virtual std::string name () const;
+
+    void setName (const std::string& value);
     
     ///    code - for monte-carlo study
     unsigned  code () const;
