@@ -1,7 +1,7 @@
 /** @file EventSource.cxx
     @brief Implementation of class EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.2 2004/03/17 01:10:35 jrb Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.3 2004/11/10 20:25:11 jrb Exp $
 */
 
 #include "flux/EventSource.h"
@@ -56,8 +56,9 @@ std::string EventSource::displayTitle () const  {  return m_name; }
 // inline function declarations:
 
 
-const std::string& EventSource::name () const	{   return m_name;  }
-void EventSource::name (const std::string& value)    { m_name = value;   }
+std::string EventSource::name () const	{   return m_name;  }
+
+void EventSource::setName (const std::string& value)    { m_name = value;   }
 
 double    EventSource::totalArea () { return s_total_area; }
 void    EventSource::totalArea (double value) { s_total_area = value; }
