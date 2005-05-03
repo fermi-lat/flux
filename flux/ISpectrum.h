@@ -39,12 +39,14 @@ calculate the next time.
 
 * \author Sean Robinson
 *
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/ISpectrum.h,v 1.2 2004/09/29 18:27:47 cohen Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/ISpectrum.h,v 1.3 2005/02/08 04:40:25 burnett Exp $
 */
 
 #include <string>
 #include <utility> // for std::pair
 
+class LaunchDirection;
+class LaunchPoint;
 
 class ISpectrum  
 {
@@ -94,6 +96,9 @@ public:
     virtual void setParticleName(const std::string& ){;}
     virtual void setInGeV(const bool ){;}
     virtual void setFlux(double ){;}
+
+   virtual LaunchDirection * launchDirection() {return 0;}
+   virtual LaunchPoint * launchPoint() {return 0;}
 };
 
 
