@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jchiang  Tue May  3 16:49:18 PDT 2005
+flux/flux
+
+Modified Files:
+	FluxSource.h ISpectrum.h 
+Added Files:
+	LaunchDirection.h LaunchPoint.h 
+Log Message:
+move Launch* classes to public interface; add launch* member functions to ISpectrum; begin implementing 'user_defined' launch strategy
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r18, operation: add
 Package: flux
