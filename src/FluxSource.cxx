@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.27 2005/03/27 03:02:49 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.28 2005/04/28 16:39:00 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -12,6 +12,8 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.27 2005/03/27 
 
 #include "astro/SkyDir.h"
 
+#include "flux/LaunchDirection.h"
+#include "flux/LaunchPoint.h"
 #include "flux/SpectrumFactoryTable.h"
 #include "flux/SimpleSpectrum.h"
 
@@ -26,44 +28,12 @@ namespace {
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/** @class LaunchPoint
-@brief nested launch strategy base class for point determination
-
-The virtual base class manages the point itself
-*/
-class FluxSource::LaunchPoint  { 
-public:
-    LaunchPoint(){}
-    LaunchPoint(const HepPoint3D& pt):m_pt(pt){}
-    virtual ~LaunchPoint(){}
-
-    /// access to direction, perhaps set by the execute()
-    virtual const HepPoint3D& point()const {return m_pt;}
-    const HepPoint3D& operator()()const{return point();}
-
-    /// execute the strategy, perhaps depending on direction
-    virtual void execute(const HepVector3D& ){};
-
-    /// set the point
-    void setPoint(const HepPoint3D& pt){ m_pt = pt;}
-
-    /// return info, default if not overriden
-    virtual std::string title()const{
-        std::stringstream t;
-        t << "point" << m_pt;
-        return t.str();
-    }
-
-private:
-    HepPoint3D m_pt;
-};
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class RandomPoint
 @brief nested launch strategy derived class
 This is the standard strategy, which takes a direction and creates a point in
 a disk centered at the origin with area 6 m^2 (or so)
 */
-class FluxSource::RandomPoint : public LaunchPoint{ 
+class FluxSource::RandomPoint : public LaunchPoint { 
 public:
     RandomPoint(double radius, double backoff)
         :m_radius(radius), m_backoff(backoff)
@@ -162,7 +132,7 @@ private:
 @brief nested launch strategy derived class
 Gets a point randomly from a box
 */
-class FluxSource::Patch : public FluxSource::LaunchPoint{ 
+class FluxSource::Patch : public LaunchPoint { 
 public:
     Patch( double xmin, double xmax, double ymin, double ymax, double zmin, double zmax)
         :m_xmin(xmin), m_dx(xmax-xmin), 
@@ -190,106 +160,11 @@ private:
     double m_xmin, m_dx, m_ymin, m_dy, m_zmin, m_dz;    
 }; 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/** @class LaunchDirection
-@brief nested launch strategy base class
-*/
-class FluxSource::LaunchDirection  {
-public:
-    LaunchDirection():m_skydir(false),m_radius(0){}
-
-    virtual ~LaunchDirection(){}
-
-    LaunchDirection(double theta, double phi, std::string frame,double radius=0)
-        :m_skydir(false)
-        , m_radius(radius*M_PI/180),m_frame(frame)
-    {
-        HepVector3D dir(sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta));
-        setDir(-dir); // minus due to z axis pointing UP!
-    }
-    LaunchDirection(astro::SkyDir sky, double radius=0)
-        :m_skydir(true)
-        , m_radius(radius*M_PI/180)
-    {
-        m_dir = -sky.dir();
-    }
-    /** @brief choose a direction
-    @param KE kinetic energy
-    @param time mission time
-    */
-    virtual void execute(double KE, double time){
-        if(m_skydir){
-            //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
-            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::CELESTIAL);//->transformCelToGlast(time);
-        }else{
-            if(m_frame=="zenith"){
-                //The direction is in the earth zenith system, and the rotation to GLAST is needed:
-                m_rottoglast = GPS::instance()->transformToGlast(time,GPS::ZENITH);
-            }else{
-                //otherwise, the direction is in the spacecraft system, and the rotation to GLAST is the identity:
-                m_rottoglast = GPS::instance()->transformToGlast(time,GPS::GLAST);
-            }
-        }
-    }
-
-    const HepVector3D& operator()()const {return dir();}
-
-    virtual const HepVector3D& dir()const {
-        static HepVector3D rdir;
-        rdir = m_rottoglast * m_dir;
-        if( m_radius>0 ) {
-            // spread uniformly about a disk
-            // rotate about perpendicular then about the original 
-            HepVector3D t(rdir);
-            t.rotate( m_radius*(sqrt(RandFlat::shoot())),  rdir.orthogonal()),  // rotate about the orthogonal
-            t.rotate( RandFlat::shoot( 2*M_PI ), rdir); // rotate about the original direction
-            rdir = t; //replace 
-        }
-        return rdir;
-    }
-
-    void setDir(const HepVector3D& dir){m_dir=dir;}
-
-
-    //! solid angle: default of 1. for a point source
-    virtual double solidAngle()const {
-        return 1.;
-    }
-
-    /// return info, default if not overriden
-    virtual std::string title()const{
-        std::stringstream t;
-        t << " dir" << m_dir ;
-        if( m_radius>0 ) { t << " radius " << m_radius ;}
-        return t.str();
-    }
-
-    /// return the cosine of the angle between the incoming direction and the earth's zenith
-    virtual double zenithCosine()const{
-        if(m_skydir){
-            astro::SkyDir zenDir(GPS::instance()->RAZenith(),GPS::instance()->DECZenith());
-            return -m_dir*zenDir();
-        }
-        //if the direction is local
-        return 1.0;
-    }
-
-    virtual const HepVector3D& skyDirection()const { return m_dir; }
-
-private:
-    HepRotation m_rottoglast;
-    HepVector3D m_dir;
-    bool  m_skydir;
-    HepVector3D m_t;
-    double m_radius;
-    std::string m_frame;
-
-};
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class RandomDirection
 @brief nested launch strategy derived class
 Assigns a random direction from a range of cos theta, optionally rotated
 */
-class FluxSource::RandomDirection : public FluxSource::LaunchDirection{ 
+class FluxSource::RandomDirection : public LaunchDirection{ 
 public:
     /** ctor:
     @param minc  minimum value of cos(theta)
@@ -359,7 +234,7 @@ private:
 @brief nested launch strategy derived class
 Gets a direction from the ISpectrum class
 */
-class FluxSource::SourceDirection : public FluxSource::LaunchDirection{ 
+class FluxSource::SourceDirection : public LaunchDirection{ 
 public:
     /** Ctor:
     @param spectrum pointer to the ISpectrum object that will provide the direction
@@ -438,6 +313,8 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
 , m_spectrum(0)
 , m_occultable(true)
 , m_zenithCosTheta(1.0) //won't be occulted by default
+, m_launch_dir_owner(true)
+, m_launch_pt_owner(true)
 
 {
     using XERCES_CPP_NAMESPACE_QUALIFIER DOMElement;
@@ -570,6 +447,11 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
             m_occultable=true;
             FATAL_MACRO("not implemented");
         }
+        else if (anglesTag == "user_defined") {
+           m_occultable = false;
+           m_launch_dir = m_spectrum->launchDirection();
+           m_launch_dir_owner = false;
+        }
         else {
             FATAL_MACRO("Unknown angle specification in Flux::Flux \""
                 << anglesTag << "\"" );
@@ -616,9 +498,8 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
 FluxSource::~FluxSource()
 {
     delete m_spectrum;
-    delete m_launch_pt;
-    delete m_launch_dir;
-
+    if (m_launch_pt_owner) delete m_launch_pt;
+    if (m_launch_dir_owner) delete m_launch_dir;
 }
 
 void FluxSource::spectrum(ISpectrum* s, double emax)
