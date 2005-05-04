@@ -4,7 +4,7 @@
  * particle type, 4-momentum, trajectory -- from a file.
  * @author J. Chiang
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.h,v 1.1 2005/05/04 19:59:31 jchiang Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.h,v 1.2 2005/05/04 21:27:35 jchiang Exp $
  */
 
 #ifndef _flux_FileSource_h
@@ -25,7 +25,7 @@
  *
  * @author J. Chiang
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.h,v 1.1 2005/05/04 19:59:31 jchiang Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.h,v 1.2 2005/05/04 21:27:35 jchiang Exp $
  */
 
 class FileSource : public Spectrum {
@@ -75,6 +75,7 @@ protected:
 
 private:
    
+#ifndef SWIG
    class FileLaunchDir : public LaunchDirection {
    public:
       FileLaunchDir() {}
@@ -90,9 +91,7 @@ private:
          return 1.;
       }
 
-      void setDir(const HepVector3D & dir) {
-         m_dir = dir;
-      }
+      void setDir(const HepVector3D & dir);
    private:
       HepVector3D m_dir;
       HepRotation m_glastToGalactic;
@@ -105,12 +104,11 @@ private:
       virtual const HepPoint3D & point() const;
       virtual std::string title() const;
 
-      void setPoint(const HepPoint3D & pt) {
-         m_pt = pt;
-      }
+      void setPoint(const HepPoint3D & pt);
    private:
       HepPoint3D m_pt;
    } * m_launchPoint;
+#endif // SWIG
 
    std::vector<std::string> m_inputLines;
    unsigned int m_currentLine;
