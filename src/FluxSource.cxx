@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.29 2005/05/03 23:49:20 jchiang Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.30 2005/05/04 04:41:34 jchiang Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -22,6 +22,7 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.29 2005/05/03 
 
 #include <algorithm>
 #include <sstream>
+#include <stdexcept>
 namespace {
     // this is the (wired-in) distance to back off from the target sphere.
     const double backoff_distance=2000.;
@@ -189,7 +190,7 @@ public:
 
     }
 
-    virtual void execute(double ke, double time){
+   virtual void execute(double /*ke*/, double time){
         double  costh = -RandFlat::shoot(m_minCos, m_maxCos),
             sinth = sqrt(1.-costh*costh),
             phi = RandFlat::shoot(m_minPhi, m_maxPhi);
