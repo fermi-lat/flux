@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+User: jchiang  Wed May  4 12:59:32 PDT 2005
+flux/src
+
+Modified Files:
+	FluxSource.cxx 
+Added Files:
+	FileSource.cxx FileSource.h 
+Log Message:
+add FileSource class
+    *
+------------------------------------------------------------
 User: jchiang  Wed May  4 12:59:30 PDT 2005
 flux/flux
 
