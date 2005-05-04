@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jchiang  Wed May  4 15:45:59 PDT 2005
+flux/src
+
+Modified Files:
+	FileSource.cxx 
+Log Message:
+add FileSource to test program
+    *
+------------------------------------------------------------
 User: jchiang  Wed May  4 15:23:35 PDT 2005
 flux/src
 
