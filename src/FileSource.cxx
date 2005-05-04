@@ -3,7 +3,7 @@
  * @brief Read in the incident particle properties from a file.
  * @author J. Chiang
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.cxx,v 1.1 2005/05/04 19:59:31 jchiang Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.cxx,v 1.2 2005/05/04 21:27:35 jchiang Exp $
  */
 
 #include <cstdlib>
@@ -41,8 +41,12 @@ FileSource::FileSource(const std::string & params)
    ::readLines(input_file, m_inputLines, "#");
    m_interval = 1./std::atof(pars["rate"].c_str());
    if (pars.count("backoff_distance")) {
+// NB: Instrument units are in millimeters.
       m_backOffDistance = std::atof(pars["backoff_distance"].c_str());
    }
+
+   m_launchDirection = new FileLaunchDir();
+   m_launchPoint = new FileLaunchPoint();
 }
 
 float FileSource::operator() (float xi) {
@@ -53,7 +57,7 @@ float FileSource::operator() (float xi) {
 double FileSource::energy(double time) {
    (void)(time);
    if (m_currentLine < m_inputLines.size()) {
-//      parseCurrentLine();
+      parseCurrentLine();
       m_currentLine++;
    } else {
       m_interval = 3e8; /// @todo Find a better way to handle the EOF.
@@ -65,6 +69,7 @@ void FileSource::parseCurrentLine() {
    std::vector<std::string> tokens;
    facilities::Util::stringTokenize(m_inputLines.at(m_currentLine), 
                                     " \t", tokens);
+//   std::cout << m_inputLines.at(m_currentLine) << std::endl;
    m_particleName = tokens.at(0);
    m_energy = std::atof(tokens.at(1).c_str());
 
@@ -111,6 +116,10 @@ const HepVector3D & FileSource::FileLaunchDir::dir() const {
    return m_dir;
 }
 
+void FileSource::FileLaunchDir::setDir(const HepVector3D & dir) {
+   m_dir = dir;
+}
+
 std::string FileSource::FileLaunchDir::title() const {
    return "FileSource";
 }
@@ -123,6 +132,10 @@ const HepVector3D & FileSource::FileLaunchDir::skyDirection() const {
 
 const HepPoint3D & FileSource::FileLaunchPoint::point() const {
    return m_pt;
+}
+
+void FileSource::FileLaunchPoint::setPoint(const HepPoint3D & pt) {
+   m_pt = pt;
 }
 
 std::string FileSource::FileLaunchPoint::title() const {
