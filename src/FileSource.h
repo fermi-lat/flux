@@ -4,7 +4,7 @@
  * particle type, 4-momentum, trajectory -- from a file.
  * @author J. Chiang
  *
- * $Header$
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.h,v 1.1 2005/05/04 19:59:31 jchiang Exp $
  */
 
 #ifndef _flux_FileSource_h
@@ -25,7 +25,7 @@
  *
  * @author J. Chiang
  *
- * $Header$
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.h,v 1.1 2005/05/04 19:59:31 jchiang Exp $
  */
 
 class FileSource : public Spectrum {
@@ -89,6 +89,10 @@ private:
       virtual double zenithCosine() const {
          return 1.;
       }
+
+      void setDir(const HepVector3D & dir) {
+         m_dir = dir;
+      }
    private:
       HepVector3D m_dir;
       HepRotation m_glastToGalactic;
@@ -111,10 +115,13 @@ private:
    std::vector<std::string> m_inputLines;
    unsigned int m_currentLine;
    double m_interval;
+
+   double m_backOffDistance;
+
    double m_energy;
-   Hep3Vector m_dir;
-   Hep3Vector m_pt;
    std::string m_particleName;
+
+   void parseCurrentLine();
 
 };
 
