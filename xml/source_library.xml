@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.32 2005/03/10 23:15:35 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.33 2005/03/27 03:03:53 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -566,4 +566,16 @@ Map File to Use" -->
         <spectrum escale="GeV"> <SpectrumClass name="MapSpectrum" params="0.1,0.03,1000.0,2,1.0,/sources/gas_gal.fits"/> <use_spectrum frame="galaxy"/> </spectrum>
     </source>
 
+</source_library>
+
+<source_library title="FileSourceLib">
+<!-- FileSource reads in the incident particles from a text file
+-->
+    <source name="file_source">
+       <spectrum escale="MeV">
+          <SpectrumClass name="FileSource" 
+           params="input_file=$(FLUXROOT)/sources/test_FileSource.dat,rate=1"/>
+          <custom />
+       </spectrum>
+    </source>
 </source_library>
