@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.28 2005/04/28 16:39:00 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.29 2005/05/03 23:49:20 jchiang Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -328,7 +328,6 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
     // this is a default flux, from the flux="123" in the source element
     setFlux(atof (xmlBase::Dom::getAttribute(xelem, "flux").c_str()));
 
-
     DOMElement*   spec = xmlBase::Dom::findFirstChildByName(xelem, "spectrum");
 
     if (spec == 0) {
@@ -447,9 +446,17 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
             m_occultable=true;
             FATAL_MACRO("not implemented");
         }
-        else if (anglesTag == "user_defined") {
-           m_occultable = false;
+        else if (anglesTag == "custom") {
+// These sources are not intended for modeling astrophysical objects
+// and so cannot be occulted.
+           m_occultable = false;     
            m_launch_dir = m_spectrum->launchDirection();
+           if (m_launch_dir == 0) {
+              std::ostringstream what;
+              what << "FluxSource: cannot use a 'custom' tag with a "
+                   << class_name << " source.";
+              throw std::runtime_error(what.str());
+           }
            m_launch_dir_owner = false;
         }
         else {
@@ -486,6 +493,15 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
                     << launchTag << "\"" );
 
             }
+        } else if (anglesTag == "custom") {
+           m_launch_pt = m_spectrum->launchPoint();
+           if (m_launch_pt == 0) {
+              std::ostringstream what;
+              what << "FluxSource: cannot use a 'custom' tag with a "
+                   << class_name << " source.";
+              throw std::runtime_error(what.str());
+           }
+           m_launch_pt_owner = false;
         } else {
             // default: the target sphere.
             double radius = sqrt(totalArea() / M_PI ) * 1000;    // radius in mm
