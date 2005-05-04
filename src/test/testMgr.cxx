@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.8 2004/02/05 23:15:02 srobinsn Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.9 2005/02/26 23:56:46 burnett Exp $
 
 //#include "FluxSvc/ISpectrumFactory.h"
 
@@ -57,6 +57,7 @@ void flux_load() {
     DECLARE_SPECTRUM( GalElSpectrum);
     DECLARE_SPECTRUM( SurfaceMuons);
     DECLARE_SPECTRUM( MapSpectrum);
+    DECLARE_SPECTRUM( FileSource);
  }
 
 void galacticTest(FluxMgr* fm, std::string sourceName,double count){

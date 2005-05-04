@@ -3,7 +3,7 @@
  * @brief Read in the incident particle properties from a file.
  * @author J. Chiang
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.cxx,v 1.2 2005/05/04 21:27:35 jchiang Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.cxx,v 1.3 2005/05/04 22:23:35 jchiang Exp $
  */
 
 #include <cstdlib>
@@ -12,7 +12,12 @@
 
 #include "facilities/Util.h"
 
+#include "flux/SpectrumFactory.h"
+
 #include "FileSource.h"
+
+static SpectrumFactory<FileSource> factory;
+const ISpectrumFactory& FileSourceFactory = factory;
 
 namespace {
    void readLines(std::string inputFile, 

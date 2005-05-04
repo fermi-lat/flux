@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/FluxSvc/src/test/flux/test_library.xml,v 1.1 2003/02/20 22:04:11 srobinsn Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/test_library.xml,v 1.1.1.1 2003/07/29 18:22:19 burnett Exp $
    This is a library of sources that can be used to test the current system outside of the Gaudi Infrastructure.
 -->
 <!-- ************************************************************************** -->
@@ -304,6 +304,16 @@
             <celestial_dir ra="45.4." dec="26.2."/>
         </spectrum>
 
+    </source>
+
+<!-- FileSource reads in the incident particles from a text file
+-->
+    <source name="file_source">
+       <spectrum escale="MeV">
+          <SpectrumClass name="FileSource" 
+           params="input_file=$(FLUXROOT)/sources/test_FileSource.dat,rate=1">
+          <custom/>
+       </spectrum>
     </source>
 
 </source_library>
