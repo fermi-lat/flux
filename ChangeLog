@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jchiang  Wed May  4 12:59:30 PDT 2005
+flux/flux
+
+Modified Files:
+	LaunchDirection.h 
+Log Message:
+add FileSource class
+    *
+------------------------------------------------------------
 User: jchiang  Tue May  3 21:41:34 PDT 2005
 flux/src
 
