@@ -1,7 +1,8 @@
 /** 
  * @file LaunchPoint.h
+ * @brief Declare LaunchPoint class
  *
- * $Header$
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchPoint.h,v 1.1 2005/05/03 23:49:18 jchiang Exp $
  */
 
 #ifndef _FluxSource_LaunchPoint_h
@@ -12,10 +13,9 @@
 #include "astro/GPS.h"
 
 /** @class LaunchPoint
-@brief nested launch strategy base class for point determination
+@brief launch strategy base class for point determination
 
 The virtual base class manages the point itself
-$Header$
 */
 class LaunchPoint  { 
 public:
@@ -41,7 +41,7 @@ public:
     }
 
 private:
-    HepPoint3D m_pt;
+    HepPoint3D m_pt; ///< the point we manage
 };
 
 #endif // _FluxSource_LaunchPoint_h
