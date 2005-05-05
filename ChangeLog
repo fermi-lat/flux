@@ -1,22 +1,4 @@
 ------------------------------------------------------------
-User: burnett  Thu May  5 09:50:06 PDT 2005
-flux/doc
-
-Modified Files:
-	release.notes 
-Log Message:
-tagging after Jim's refactoring
-    *
-------------------------------------------------------------
-User: burnett  Thu May  5 09:50:06 PDT 2005
-flux/cmt
-
-Modified Files:
-	requirements 
-Log Message:
-tagging after Jim's refactoring
-    *
-------------------------------------------------------------
 User: jchiang  Wed May  4 22:56:30 PDT 2005
 flux/xml
 
