@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jchiang  Wed May  4 22:33:35 PDT 2005
+flux/sources
+
+Modified Files:
+	test_FileSource.dat 
+Log Message:
+decouple custom launch dir and launch point
+    *
+------------------------------------------------------------
 User: jchiang  Wed May  4 20:39:35 PDT 2005
 flux/sources
 
