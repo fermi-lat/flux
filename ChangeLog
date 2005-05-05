@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: jchiang  Wed May  4 22:33:36 PDT 2005
+flux/xml
+
+Modified Files:
+	source.dtd source_library.xml 
+Log Message:
+decouple custom launch dir and launch point
+    *
+------------------------------------------------------------
+User: jchiang  Wed May  4 22:33:36 PDT 2005
 flux/src
 
 Modified Files:
