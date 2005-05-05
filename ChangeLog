@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Thu May  5 09:50:06 PDT 2005
+flux/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+tagging after Jim's refactoring
+    *
+------------------------------------------------------------
+User: burnett  Thu May  5 09:50:06 PDT 2005
 flux/cmt
 
 Modified Files:
