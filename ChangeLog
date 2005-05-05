@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jchiang  Thu May  5 09:58:37 PDT 2005
+flux/src
+
+Added Files:
+	file_source.h 
+Log Message:
+add FileSource documentation
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r19, operation: add
 Package: flux
