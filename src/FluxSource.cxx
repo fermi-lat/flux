@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.30 2005/05/04 04:41:34 jchiang Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.31 2005/05/04 19:59:32 jchiang Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -447,14 +447,14 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
             m_occultable=true;
             FATAL_MACRO("not implemented");
         }
-        else if (anglesTag == "custom") {
+        else if (anglesTag == "custom_dir") {
 // These sources are not intended for modeling astrophysical objects
 // and so cannot be occulted.
            m_occultable = false;     
            m_launch_dir = m_spectrum->launchDirection();
            if (m_launch_dir == 0) {
               std::ostringstream what;
-              what << "FluxSource: cannot use a 'custom' tag with a "
+              what << "FluxSource: cannot use a 'custom_dir' tag with a "
                    << class_name << " source.";
               throw std::runtime_error(what.str());
            }
@@ -463,7 +463,6 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
         else {
             FATAL_MACRO("Unknown angle specification in Flux::Flux \""
                 << anglesTag << "\"" );
-
         }
 
         // third child element is optional launch spec
@@ -489,23 +488,22 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
                     xmlBase::Dom::getDoubleAttribute(launch, "ymin"),
                     xmlBase::Dom::getDoubleAttribute(launch, "zmax"),
                     xmlBase::Dom::getDoubleAttribute(launch, "zmin") );
-            }else {
-                FATAL_MACRO("Unknown launch specification in Flux::Flux \""
-                    << launchTag << "\"" );
-
+            } else if (launchTag == "custom_pt") {
+               m_launch_pt = m_spectrum->launchPoint();
+               if (m_launch_pt == 0) {
+                  std::ostringstream what;
+                  what << "FluxSource: cannot use a 'custom_pt' tag with a "
+                       << class_name << " source.";
+                  throw std::runtime_error(what.str());
+               }
+               m_launch_pt_owner = false;
+            } else {
+               FATAL_MACRO("Unknown launch specification in Flux::Flux \""
+                           << launchTag << "\"" );
             }
-        } else if (anglesTag == "custom") {
-           m_launch_pt = m_spectrum->launchPoint();
-           if (m_launch_pt == 0) {
-              std::ostringstream what;
-              what << "FluxSource: cannot use a 'custom' tag with a "
-                   << class_name << " source.";
-              throw std::runtime_error(what.str());
-           }
-           m_launch_pt_owner = false;
         } else {
             // default: the target sphere.
-            double radius = sqrt(totalArea() / M_PI ) * 1000;    // radius in mm
+            double radius = sqrt(totalArea() / M_PI ) * 1000;   // radius in mm
             m_launch_pt = new RandomPoint(radius, backoff_distance);
         }
     }

@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.33 2005/03/27 03:03:53 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.34 2005/05/04 22:46:01 jchiang Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -574,8 +574,9 @@ Map File to Use" -->
     <source name="file_source">
        <spectrum escale="MeV">
           <SpectrumClass name="FileSource" 
-           params="input_file=$(FLUXROOT)/sources/test_FileSource.dat,rate=1"/>
-          <custom />
+           params="input_file=$(FLUXROOT)/sources/test_FileSource.dat,rate=1,backoff_distance=1000"/>
+          <custom_dir/>
+          <custom_pt/>
        </spectrum>
     </source>
 </source_library>

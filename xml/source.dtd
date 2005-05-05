@@ -1,4 +1,4 @@
-<!--  $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source.dtd,v 1.7 2004/09/29 18:27:48 cohen Exp $
+<!--  $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source.dtd,v 1.8 2005/05/04 22:46:01 jchiang Exp $
   DTD file for flux source definitions
   -->
 <!ELEMENT source_library ((source)+ | (source_library)*) >
@@ -15,8 +15,8 @@
 
 <!-- a spectrum: generator and angular generation instructions , followed by optional launch point-->
 <!ELEMENT spectrum ( (particle | SpectrumClass ) ,
-                     (direction | solid_angle | use_spectrum |  galactic_dir | celestial_dir | custom ),
-			   (launch_point | patch)* ) >
+                     (direction | solid_angle | use_spectrum |  galactic_dir | celestial_dir | custom_dir ),
+			   (launch_point | patch | custom_pt )* ) >
 <!--Included is the "escale," or energy-scale attribute, which can be either MeV or GeV, and defaults to GeV.-->
 <!ATTLIST spectrum  flux CDATA ""
                     particle_name CDATA "p"
@@ -92,5 +92,6 @@
 <!ATTLIST celestial_dir ra CDATA "0" dec CDATA "0" radius  CDATA "0">
 
 <!-- for a custom LaunchPoint and LaunchDirection objects -->
-<!ELEMENT custom EMPTY>
+<!ELEMENT custom_dir EMPTY>
+<!ELEMENT custom_pt EMPTY>
 
