@@ -1,7 +1,8 @@
 /** 
  * @file LaunchDirection.h
+ * @brief Declare LaunchDirection class
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.1 2005/05/03 23:49:18 jchiang Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.2 2005/05/04 19:59:30 jchiang Exp $
  */
 
 #ifndef _FluxSource_LaunchDirection_h
@@ -20,8 +21,8 @@
 #include <sstream>
 
 /** @class LaunchDirection
-@brief nested launch strategy base class
-$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.1 2005/05/03 23:49:18 jchiang Exp $
+@brief launch strategy base class
+
 */
 class LaunchDirection  {
 public:

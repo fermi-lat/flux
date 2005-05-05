@@ -1,11 +1,13 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.47 2005/04/26 17:19:35 burnett Exp $
+  $Id: release.notes,v 1.48 2005/04/28 16:41:19 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     EOH
 
+   v8r19   05-may-2005 thb (From J. Chiang) Refactor to give access to point and direction
+                            strategy classes; implement new filesource using this.
    v8r18   28-apr-2005 thb set name property from XML identifier (J. Chiang suggestion)
    v8r17   26-apr-2005 thb clean up factory stuff a bit, add access to class name
    v8r16   26-mar-2005 thb Move geomag away, add dependency on new astro; increase backoff distance
