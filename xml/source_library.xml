@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.35 2005/05/05 05:33:36 jchiang Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.36 2005/05/05 05:56:30 jchiang Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -234,7 +234,7 @@
 <!-- ************************************************************************** -->
 <source_library title="background">
 
-<!-- The Earth from Dirk's code: commented out for now
+<!-- The Earth -->
    <source name="Earth">
       <spectrum escale="MeV">
          <SpectrumClass name="Earth" params="565.,10.,10000."/>
@@ -242,7 +242,6 @@
       </spectrum>
    </source>
 
- -->
     <!-- the CHIME spectrum. angular dependence and rate are from the CHIME spectrum object 
          This is deprecated, since it is not supported, and gives wrong angular distributions.
       -->

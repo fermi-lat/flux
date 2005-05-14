@@ -3,7 +3,7 @@
  * @brief A phenomenological model of the Earth based on EGRET measurements
  * @author D. Petry
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/terrestrialSources/Earth/src/Earth.cxx,v 1.3 2004/12/14 23:37:57 petry Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Earth.cxx,v 1.1 2004/12/21 03:46:40 burnett Exp $
  */
 
 #include <iostream>
@@ -100,7 +100,8 @@ double Earth::normcorr(double e) const {
 }
 
 double Earth::fa(double t, double p, double e) const {
-    if(t <= t0(e)  &&  t > t0(e)-5.*sigma(e)){
+    if(t <= t0(e)+1E-10   &&  t > t0(e)-5.*sigma(e)){ // the 1E-10 is necessary due to a strange
+                                                      // problem with the gcc 3.2.3 optimizer
         return normcorr(e)*exp(-0.5*pow(((t-tp(e))/sigma(e)),2.))*f0(t,p,e);
     } else{
         return 0.;
