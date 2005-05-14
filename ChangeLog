@@ -1,5 +1,19 @@
 ------------------------------------------------------------
 User: petry  Sat May 14 07:19:58 PDT 2005
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+Fixed optimizer problem in source Earth. Apparently a (strange) numerical
+accuracy problem in the function Earth::fa(...). Maybe a bug in the
+gcc 3.2.3 optimizer. Activated the relevant lines in  xml/source_library.xml .
+Note that the Earth model will be updated to a quantitatively improved 
+version soon! 
+
+    *
+------------------------------------------------------------
+User: petry  Sat May 14 07:19:58 PDT 2005
 flux/src
 
 Modified Files:
