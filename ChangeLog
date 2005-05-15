@@ -1,22 +1,4 @@
 ------------------------------------------------------------
-User: burnett  Sun May 15 07:29:00 PDT 2005
-flux/doc
-
-Modified Files:
-	release.notes 
-Log Message:
-Tagging fix to Earth
-    *
-------------------------------------------------------------
-User: burnett  Sun May 15 07:29:00 PDT 2005
-flux/cmt
-
-Modified Files:
-	requirements 
-Log Message:
-Tagging fix to Earth
-    *
-------------------------------------------------------------
 User: petry  Sat May 14 07:19:58 PDT 2005
 flux/xml
 
