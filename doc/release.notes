@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.48 2005/04/28 16:41:19 burnett Exp $
+  $Id: release.notes,v 1.49 2005/05/05 16:50:06 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     EOH
 
+   v8r19p1 15-may-2005 thb tag fix to Earth from D. Petry
    v8r19   05-may-2005 thb (From J. Chiang) Refactor to give access to point and direction
                             strategy classes; implement new filesource using this.
    v8r18   28-apr-2005 thb set name property from XML identifier (J. Chiang suggestion)
