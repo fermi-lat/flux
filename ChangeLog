@@ -1,5 +1,117 @@
 ------------------------------------------------------------
 User: petry  Tue May 24 05:52:49 PDT 2005
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+Notes on the revised Earth model
+--------------------------------
+
+D. Petry, NASA/GSFC, 18 May 2005
+
+Up to version 1.2 of flux/src/Earth.cxx, the Earth model
+in the package "flux' had a few shortcomings which have now
+been fixed. The new version 1.3 (part of flux v8r20) has the
+following new features:
+
+1) Improved correction for the EGRET PSF
+
+   It was found that the EGRET PSF as it narrows with increasing
+   energy, leads to (a) an energy dependent wideing of the angular 
+   extension of the emission  peak at the Earth's horizon (the "rim"), 
+   and (b) - due to the strong asymmetry of the peak - a displacement 
+   of the measured peak position to larger zenith angles.
+
+   While a final study of this effect is still underway, a preliminary 
+   study indicates that the data is well consistent with the assumption 
+   that the peak position is that of the geometrical horizon and hence 
+   energy-independent. This assumption is now also adopted in the model
+   which corrects for effect (b). 
+
+   Effect (a) had already been partially corrected in the initial
+   Earth model. However, by studying the convolution of a Gaussian PSF 
+   with the model output, it was found that the energy-dependent widening 
+   of the rim is even stronger than originally expected. The observed 
+   distribution of the emission is consistent with a narrow rim of 
+   energy-independent width.
+
+   The model now assumes that the rim profile near the peak is described 
+   by a Gaussian with sigma = 0.25 * angular width of the atmosphere.
+   In the case of GLAST, sigma is approx. 0.5 degrees.
+
+
+2) Improved spectrum
+
+   The users of Earth requested that the model also make a prediction
+   for energies larger than 10 GeV. The old version had a hard
+   cutoff above 10 GeV and gave a warning saying that there is no
+   information available for higher energies. The new version now
+   continues the spectrum to energies above 10 GeV based on the
+   available EGRET data.
+
+   The default maximum energy for the call of the init function
+   is now 350 GeV. The model permits larger values for the maximum
+   energy, but the extrapolation beyond 350 GeV is not based
+   on any data. The details of the spectrum in the new model are
+   described in the following paragraphs.
+
+   The spectral measurements on which "Earth" is based at the moment are 
+   derived from the near-equatorial part of the first year of EGRET data. 
+   This dataset contains too few photons above 10 GeV to make a proper 
+   spatially resolved flux measurement. Hence the old version of Earth
+   terminated the spectrum above 10 GeV.
+  
+   The entire EGRET dataset contains 675 events with E > 10 GeV and zenith
+   angle > 105 deg, only 4 events of these have a zenith angle > 120 deg.
+   The most energetic event has 120 GeV. 
+
+   The energy resolution of EGRET at 10 GeV is 25% FWHM. A detailed 
+   calculation predicts that one would expect a spill-over of about 
+   20 % with a spectrum like the nominal one measured below 10 GeV. 
+   I.e. the model should predict roughly 540 events above 10 GeV.
+.  
+   In a new study, it was examined whether these observed numbers 
+   are consistent with the spectra measured in the first year dataset
+   mentioned above. It was found that the extrapolation of the nominal
+   spectra in the original model predicted only 46 events above 10 GeV 
+   (assuming ideal energy resolution), an under-prediction by an order
+   of magnitude.
+
+   In the model (original and new), the rim spectrum is made up of two 
+   components: one (g1) which is dependent on Azimuth - describing the 
+   East-West effect - and one (g0) independent of Azimuth. The component 
+   g1 clearly favours a fit of a power law with exponential cutoff. In 
+   the determination of g0, however, a choice had to be made between a 
+   pure power law and a power law with exponential cutoff because the data 
+   up to 10 GeV was equally consistent with both. In order to have two 
+   similar spectra, the power law with cutoff was chosen ad hoc in the 
+   original model. Now with the data above 10 GeV taken into account, it 
+   has become clear that the real spectrum of g0 is probably closer to a 
+   pure power law up to 10 GeV. This also fits nicely the physical 
+   expectation that at higher energies the East-West effect should become 
+   negligible because the rigidity of the parent cosmic rays is so large 
+   that the effects of the Earth's magnetic field are negligible.
+
+   In the new model, the Azimuth-independent component was therefore 
+   set to the measured pure powerlaw with index 2.088. In order to
+   make the model prediction above 10 GeV agree with the data and the
+   physical expectation that the spectrum should soften eventually
+   because the parent cosmic ray spectrum is much softer than 2.088, 
+   an exponential cutoff at 30 GeV was introduced. 
+
+   For the energy range up to 350 GeV and for the present pursposes of 
+   GLAST, this model should be sufficient (as already mentioned above: 
+   in its entire lifetime, EGRET only detected a single photon above 
+   100 GeV from the Earth). But I will keep working to improve the 
+   knowledge of the Earth's spectrum beyond 350 GeV.
+
+
+
+
+    *
+------------------------------------------------------------
+User: petry  Tue May 24 05:52:49 PDT 2005
 flux/src
 
 Modified Files:
