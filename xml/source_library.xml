@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.37 2005/05/14 14:19:58 petry Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.38 2005/05/15 14:29:01 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -234,10 +234,12 @@
 <!-- ************************************************************************** -->
 <source_library title="background">
 
-    <!-- The Earth -->
+    <!-- The Earth, an analytical model of the gamma emission of the Earth 
+    based on  measurements made by EGRET between 35 MeV and 350 GeV
+    (see http://xxx.lanl.gov/abs/astro-ph/0410487 ) -->
     <source name="Earth">
       <spectrum escale="MeV">
-         <SpectrumClass name="Earth" params="565.,10.,10000."/>
+         <SpectrumClass name="Earth" params="565.,20.,350000."/>
          <use_spectrum frame="zenith"/>
       </spectrum>
     </source>
