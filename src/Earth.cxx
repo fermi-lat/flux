@@ -3,13 +3,14 @@
  * @brief A phenomenological model of the Earth based on EGRET measurements
  * @author D. Petry
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Earth.cxx,v 1.2 2005/05/14 14:19:57 petry Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Earth.cxx,v 1.3 2005/05/24 12:52:49 petry Exp $
  */
 
 #include <iostream>
 
 #include <cmath>
 #include <cstdlib>
+#include <stdexcept>
 
 #include "facilities/Util.h"
 
@@ -275,8 +276,6 @@ double Earth::ffpartial(int isteps,
 
 void Earth::init(double alt, double emin, double emax) {
 // initialize the model parameters assuming altitude "alt" (km)
-    double re,ro;
-    int i;
 
     m_version = 18052005; // change this version number if you change any of the parameters below!
 
@@ -295,13 +294,13 @@ void Earth::init(double alt, double emin, double emax) {
     if(emin > emax){
         std::cout << "ERROR in Earth model input parameters: Emax must be larger than Emin." 
 		  << std::endl;
-	exit(1);
+        throw std::invalid_argument("Earth: ERROR in Earth model input parameters: Emax must be larger than Emin.");
     }
 
 // Earth radius (km)
-    re = 6378.14;
+    double re = 6378.14;
 // Orbit radius (km)
-    ro = re + alt;
+    double ro = re + alt;
 
 
 // Geometrical Horizon ZA (deg)
@@ -484,7 +483,7 @@ std::pair<double, double> Earth::dir(double energy) {
     double costheta, phi;
     if(energy != m_e || !m_eCalled){
 	std::cerr << "ERROR in routine calling Earth: need to call energy() before dir()." << std::endl;
-	exit(1);
+        throw std::runtime_error("Earth: ERROR in routine calling Earth: need to call energy() before dir().");
     }
     m_eCalled = false;
 // Assume ZA AZ coordinates by default.
