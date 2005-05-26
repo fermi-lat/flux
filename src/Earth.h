@@ -6,7 +6,7 @@
  * (see http://xxx.lanl.gov/abs/astro-ph/0410487 )
  * @author D. Petry
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Earth.h,v 1.2 2005/02/27 15:23:01 burnett Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Earth.h,v 1.3 2005/05/24 12:52:49 petry Exp $
  */
 
 #ifndef mySpectrum_MapSource_h
@@ -26,7 +26,7 @@
  * (see http://xxx.lanl.gov/abs/astro-ph/0410487 )
  * @author D. Petry
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Earth.h,v 1.2 2005/02/27 15:23:01 burnett Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Earth.h,v 1.3 2005/05/24 12:52:49 petry Exp $
  */
 
 class Earth : public Spectrum {
@@ -43,7 +43,7 @@ public:
    /// @return Particle type, "gamma".
    virtual const char * particleName() const {return "gamma";}
 
-   /// @return Total flux (photons/m^2).
+   /// @return average differential flux integrated over energy (photons/m^2/sr).
    /// @param time Simulation time in seconds.
    virtual double flux(double time) const;
 
@@ -54,7 +54,7 @@ public:
    virtual std::string title() const {return "Earth";}
 
    /// @return Interval to the next event (seconds)
-   virtual double interval(double time);
+   virtual double interval(double time){return -1;}; // flag for Poisson 
 
    /// @return Photon energy (MeV).
    virtual double energy(double time);

@@ -3,7 +3,7 @@
  * @brief A phenomenological model of the Earth based on EGRET measurements
  * @author D. Petry
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Earth.cxx,v 1.3 2005/05/24 12:52:49 petry Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Earth.cxx,v 1.4 2005/05/25 20:38:50 burnett Exp $
  */
 
 #include <iostream>
@@ -16,6 +16,8 @@
 
 #include "flux/SpectrumFactory.h"
 #include "flux/EventSource.h"
+#include "CLHEP/Random/RandFlat.h"
+
 
 #include "Earth.h"
 
@@ -388,7 +390,6 @@ double Earth::qqinv(double x) const {
 
 void Earth::earth(double &t, double &p, double &e) const {
 // return zenith angle (deg), azimuth (deg) and energy (MeV)
-    double r1,r2,r3,r4;
     double e0,t0,p0,aqq;
     double dummy;
     double radpdg;
@@ -400,11 +401,10 @@ void Earth::earth(double &t, double &p, double &e) const {
     dummy = 0.;
     while(count < n){
         dummy = dummy + 1.;
-	
-        r1 = rand()/(RAND_MAX+1.0);
-        r2 = rand()/(RAND_MAX+1.0);
-        r3 = rand()/(RAND_MAX+1.0);
-        r4 = rand()/(RAND_MAX+1.0);
+        double r1=RandFlat::shoot(),
+            r2=RandFlat::shoot(),
+            r3=RandFlat::shoot(),
+            r4=RandFlat::shoot();
         
         e0 = qqinv(r1*aqq);
 // uniform 2D coordinates in one hemisphere,
@@ -415,7 +415,7 @@ void Earth::earth(double &t, double &p, double &e) const {
             t = t0;
             p = p0;
             e = e0;
-            count = count + 1;
+            ++count;
         }
     }
     return;
@@ -449,8 +449,7 @@ Earth::Earth(const std::string &paramString) {
 }
 
 double Earth::flux(double time) const { // argument is the mission elapsed time (s)
-    (void)(time); // no variability in this version
-    return m_ftot * 1E4; // (m^-2 s^-1)
+    return m_ftot * 1E4 /solidAngle(); // (m^-2 / s/ sr)
 }
 
 double Earth::solidAngle() const {
@@ -459,18 +458,6 @@ double Earth::solidAngle() const {
   return rval;
 }
 
-double Earth::interval(double time) { // argument is the mission elapsed time (s)
-   double theInterval;
-   double rate = flux(time)*EventSource::totalArea();
-   double xi = rand()/(RAND_MAX+1.0);
-   if(rate != 0.){
-       theInterval = -log(1. - xi)/rate;
-   }
-   else {
-       theInterval = 5E17;
-   }
-   return theInterval;
-}
 
 double Earth::energy(double time) {
     (void)(time); // the Earth is not variable in this version
