@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed May 25 20:53:33 PDT 2005
+flux/src
+
+Modified Files:
+	Earth.cxx Earth.h 
+Log Message:
+replace C rand() with CLHEP; use standard Poisson.
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r20, operation: add
 Package: flux
