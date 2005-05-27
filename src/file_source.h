@@ -1,6 +1,26 @@
 /**
    @page file_source FileSource 
 
+   @section intro Introduction
+
+   For the proposed <a
+   href="http://www-glast.slac.stanford.edu/IntegrationTest/SVAC/Instrument_Analysis/Meetings/04292005/TriggerLatchingEffLAT.pdf">trigger
+   and latching efficiency studies of the LAT</a>, a means of
+   reproducing specific particle trajectories through the instrument
+   is needed (see slide 2 of Tune's talk).  This class implements such
+   a source.
+
+   This work entailed a small amount of refactoring of the @b flux
+   package to expose the formerly private LaunchDirection and
+   LaunchPoint classes that define each particle trajectory.  The
+   current framework now makes it easier to create other custom sources that
+   require finer control over particle trajectories, such as the
+   special source made for Bill's <a
+   href="http://www-glast.slac.stanford.edu/software/AnaGroup/Atwood-EnergyRecon-2May2005.pdf">energy
+   reconstruction studies</a> (see his slide 2).
+  
+   @section usage Usage
+
    This source reads in incident particle properties from a text file
    on an event-by-event basis.  Here is an example input file:
 
