@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.31 2005/05/04 19:59:32 jchiang Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.32 2005/05/05 05:33:36 jchiang Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -197,7 +197,7 @@ public:
 
         //here, the direction is with respect to the zenith frame,
         //so we need the transformation from the zenith to GLAST.
-        HepRotation zenToGlast=GPS::instance()->transformToGlast(time,GPS::ZENITH);
+        HepRotation zenToGlast=astro::GPS::instance()->transformToGlast(time,astro::GPS::ZENITH);
 
         HepVector3D dir(cos(phi)*sinth, sin(phi)*sinth, costh);
 
@@ -249,6 +249,7 @@ public:
     {}
 
     void execute(double ke, double time){
+        using astro::GPS;
 
         std::pair<float,float> direction 
             = m_spectrum->dir(ke);
@@ -263,7 +264,7 @@ public:
 
             //here, we have a direction in the zenith direction, so we need the 
             //transformation from zenith to GLAST.
-            HepRotation zenToGlast = GPS::instance()->transformToGlast(time,GPS::ZENITH);
+            HepRotation zenToGlast = astro::GPS::instance()->transformToGlast(time,GPS::ZENITH);
 
             HepVector3D unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
 
@@ -282,7 +283,7 @@ public:
             m_zenithCos = unrotated()*zenDir();
             //get the transformation matrix..
             //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
-            HepRotation celtoglast = GPS::instance()->transformToGlast(time,GPS::CELESTIAL);
+            HepRotation celtoglast = astro::GPS::instance()->transformToGlast(time,astro::GPS::CELESTIAL);
 
             //and do the transform, finally reversing the direction to correspond to the incoming particle
             setDir( - (celtoglast * unrotated()) );

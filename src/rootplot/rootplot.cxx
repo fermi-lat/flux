@@ -1,6 +1,6 @@
 /** @file rootplot.h
 
-$Header$
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.8 2005/03/27 03:00:23 burnett Exp $
 */
 #include "flux/rootplot.h"
 
@@ -8,6 +8,7 @@ $Header$
 #include "rootAngleHist.h"
 
 #include "CLHEP/Geometry/Vector3D.h"
+using astro::GPS;
 
 rootplot::rootplot(int argc, char* argv[])
 : NUM_BINS(30),LOOP(30000),

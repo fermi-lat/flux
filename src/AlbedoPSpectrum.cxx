@@ -1,4 +1,4 @@
-// $Id: AlbedoPSpectrum.cxx,v 1.3 2005/02/27 15:23:01 burnett Exp $
+// $Id: AlbedoPSpectrum.cxx,v 1.4 2005/03/27 03:00:48 burnett Exp $
 
 
 #include "AlbedoPSpectrum.h"
@@ -29,7 +29,7 @@ void AlbedoPSpectrum::init(const std::vector<float>& params) {
     m_observer.setAdapter( new ActionAdapter<AlbedoPSpectrum>
         (this, &AlbedoPSpectrum::askGPS) );
     
-    GPS::instance()->notification().attach( &m_observer );
+    astro::GPS::instance()->notification().attach( &m_observer );
     
 }
 
@@ -125,6 +125,7 @@ float AlbedoPSpectrum::operator() (float x) {
 ///Ask the GPS where we are located.
 int AlbedoPSpectrum::askGPS()
 {
+    using astro::GPS;
     if(m_allowMove)setPosition(GPS::instance()->lat(), GPS::instance()->lon());
     return 0; // can't be void in observer pattern
 }
@@ -147,6 +148,7 @@ void AlbedoPSpectrum::setPosition( std::pair<double,double> coords) {
 ///Ask GPS where we are and find the flux at that point.
 double AlbedoPSpectrum::calculate_rate(double)
 {
+    using astro::GPS;
     return flux(GPS::instance()->lat(), GPS::instance()->lon());
 }
 

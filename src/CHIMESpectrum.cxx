@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CHIMESpectrum.cxx,v 1.4 2004/01/28 23:52:25 hierath Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CHIMESpectrum.cxx,v 1.5 2005/02/26 23:56:46 burnett Exp $
 
 
 #include "CHIMESpectrum.h"
@@ -113,7 +113,7 @@ void CHIMESpectrum::init(std::string paramstring) {
     // set callback to be notified when the position changes
     m_observer.setAdapter( new ActionAdapter<CHIMESpectrum>(this,&CHIMESpectrum::askGPS) );
     
-    GPS::instance()->notification().attach( &m_observer );
+    astro::GPS::instance()->notification().attach( &m_observer );
     
 }
 
@@ -193,6 +193,7 @@ float CHIMESpectrum::operator() (float x) {
 
 int CHIMESpectrum::askGPS()
 {
+    using astro::GPS;
     if(m_allowMove)setPosition(GPS::instance()->lat(), GPS::instance()->lon());
     return 0; // can't be void in observer pattern
 }

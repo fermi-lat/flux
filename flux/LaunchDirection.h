@@ -2,7 +2,7 @@
  * @file LaunchDirection.h
  * @brief Declare LaunchDirection class
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.2 2005/05/04 19:59:30 jchiang Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.3 2005/05/05 16:50:06 burnett Exp $
  */
 
 #ifndef _FluxSource_LaunchDirection_h
@@ -48,6 +48,7 @@ public:
     @param time mission time
     */
    virtual void execute(double /*KE*/, double time){
+       using astro::GPS;
         if(m_skydir){
             //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
             m_rottoglast = GPS::instance()->transformToGlast(time,GPS::CELESTIAL);//->transformCelToGlast(time);
@@ -97,7 +98,7 @@ public:
     /// return the cosine of the angle between the incoming direction and the earth's zenith
     virtual double zenithCosine()const{
         if(m_skydir){
-            astro::SkyDir zenDir(GPS::instance()->RAZenith(),GPS::instance()->DECZenith());
+            astro::SkyDir zenDir(astro::GPS::instance()->RAZenith(),astro::GPS::instance()->DECZenith());
             return -m_dir*zenDir();
         }
         //if the direction is local

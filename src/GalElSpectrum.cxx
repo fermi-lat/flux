@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/GalElSpectrum.cxx,v 1.2 2004/01/28 23:52:25 hierath Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/GalElSpectrum.cxx,v 1.3 2005/02/08 04:40:25 burnett Exp $
 // Original author: P. L. Nolan, pln@egret1.Stanford.EDU
 //
 #ifdef __GNUG__
@@ -7,7 +7,7 @@
 
 #include "GalElSpectrum.h"
 #include "astro/GPS.h"
-
+using astro::GPS;
 #include <cmath>
 #include "CLHEP/Random/Random.h"
 

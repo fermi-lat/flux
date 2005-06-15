@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.23 2005/03/18 04:38:17 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.24 2005/05/07 13:18:15 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -21,7 +21,7 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.23 2005/03/18 04:
 #include <stdexcept>
 #define DECLARE_SPECTRUM(x)   extern const ISpectrumFactory& x##Factory; x##Factory.addRef();
 
-
+using astro::GPS;
 
 FluxMgr::FluxMgr(const std::vector<std::string>& fileList, std::string dtdname)
 : m_dtd(dtdname.empty()? "$(FLUXROOT)/xml/source.dtd" : dtdname )
@@ -257,6 +257,7 @@ std::vector<std::pair< std::string ,std::list<std::string> > > FluxMgr::sourceOr
 /// generate some test output
 void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
 {   
+    using astro::GPS;
     EventSource* e = source(source_name);
     if (e==0) {
         throw std::invalid_argument(std::string("Did not find source ")+source_name);
@@ -328,7 +329,7 @@ void FluxMgr::addFactory(std::string name, const ISpectrumFactory* factory ) {
 }
 
 void FluxMgr::setExplicitRockingAngles(std::pair<double,double> ang){
-    GPS::instance()->rotateAngles(ang);
+   GPS::instance()->rotateAngles(ang);
 }
 
 std::pair<double,double> FluxMgr::getExplicitRockingAngles(){
