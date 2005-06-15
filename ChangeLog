@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Jun 15 14:42:16 PDT 2005
+flux/flux
+
+Modified Files:
+	Flux.h FluxMgr.h IFlux.h LaunchDirection.h 
+Log Message:
+adjust for GPS move to astro
+    *
+------------------------------------------------------------
 User: burnett  Wed Jun 15 14:42:15 PDT 2005
 flux/doc
 
