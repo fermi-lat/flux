@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Wed Jun 15 14:42:16 PDT 2005
+flux/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+adjust for GPS move to astro
+    *
+------------------------------------------------------------
+User: burnett  Wed Jun 15 14:42:16 PDT 2005
 flux/src
 
 Modified Files:
