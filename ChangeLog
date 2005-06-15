@@ -1,5 +1,15 @@
 ------------------------------------------------------------
 User: burnett  Wed Jun 15 14:42:16 PDT 2005
+flux/src
+
+Modified Files:
+	AlbedoPSpectrum.cxx CHIMESpectrum.cxx FileSource.cxx Flux.cxx 
+	FluxMgr.cxx FluxSource.cxx GalElSpectrum.cxx 
+Log Message:
+adjust for GPS move to astro
+    *
+------------------------------------------------------------
+User: burnett  Wed Jun 15 14:42:16 PDT 2005
 flux/flux
 
 Modified Files:
