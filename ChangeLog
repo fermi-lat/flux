@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Wed Jun 15 14:42:15 PDT 2005
+flux/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+adjust for GPS move to astro
+    *
+------------------------------------------------------------
+User: burnett  Wed Jun 15 14:42:15 PDT 2005
 flux/cmt
 
 Modified Files:
