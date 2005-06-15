@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.2 2003/11/03 09:41:21 srobinsn Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.3 2004/01/28 23:52:25 hierath Exp $
 
 #ifndef _H_IFlux_
 #define _H_IFlux_
@@ -23,7 +23,7 @@ class ISpectrumFactory;
 * 
   Abstract interface for an object that generates particles, Flux
 
-  * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.2 2003/11/03 09:41:21 srobinsn Exp $
+  * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.3 2004/01/28 23:52:25 hierath Exp $
 */
 class IFlux {
 public:
@@ -96,7 +96,7 @@ public:
     virtual void writeSourceCharacteristic(std::ostream& out)=0;
 
     /// get the transformtation matrix - the rest of these functions are now deprecated
-    virtual HepRotation transformToGlast(double seconds,GPS::CoordSystem index)const=0;
+    virtual HepRotation transformToGlast(double seconds,astro::GPS::CoordSystem index)const=0;
     
 };
 

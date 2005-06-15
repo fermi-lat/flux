@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.8 2004/11/10 20:22:24 jrb Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.9 2005/01/03 19:21:47 jrb Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -92,7 +92,7 @@ public:
     /// get the current satellite location
     std::pair<double,double> location();
     
-    HepRotation transformToGlast(double seconds,GPS::CoordSystem index);
+    HepRotation transformToGlast(double seconds, astro::GPS::CoordSystem index);
     
     ///get the transformation matrix due to orientation of the Galaxy
     HepRotation CELTransform(double time);
@@ -104,7 +104,7 @@ public:
     HepRotation transformGlastToGalactic(double time);
 
     ///this sets the rocking mode in GPS.
-    std::vector<double> setRockType(GPS::RockType rockType, double rockAngle);
+    std::vector<double> setRockType(astro::GPS::RockType rockType, double rockAngle);
     std::vector<double> setRockType(int rockType, double rockAngle);
 private:
     

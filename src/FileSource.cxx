@@ -3,7 +3,7 @@
  * @brief Read in the incident particle properties from a file.
  * @author J. Chiang
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.cxx,v 1.4 2005/05/04 22:45:58 jchiang Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.cxx,v 1.5 2005/05/05 05:33:36 jchiang Exp $
  */
 
 #include <cstdlib>
@@ -113,7 +113,7 @@ LaunchPoint * FileSource::launchPoint() {
 
 void FileSource::FileLaunchDir::execute(double KE, double time) {
    (void)(KE);
-   m_glastToGalactic = GPS::instance()->transformGlastToGalactic(time);
+   m_glastToGalactic = astro::GPS::instance()->transformGlastToGalactic(time);
 }
 
 const HepVector3D & FileSource::FileLaunchDir::dir() const {

@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.50 2005/05/15 14:29:00 burnett Exp $
+  $Id: release.notes,v 1.51 2005/05/25 20:38:49 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     EOH
 
+   v8r20p1 15-jun-2005 thb adjust for GPS move to astro
    v8r20   25-may-2005 thb tag major improvement to Earth from D. Petry
    v8r19p1 15-may-2005 thb tag fix to Earth from D. Petry
    v8r19   05-may-2005 thb (From J. Chiang) Refactor to give access to point and direction
