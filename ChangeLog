@@ -1,31 +1,4 @@
 ------------------------------------------------------------
-User: burnett  Thu Jun 23 15:52:15 PDT 2005
-flux/flux
-
-Modified Files:
-	rootplot.h 
-Log Message:
-change rootplot to accept strings
-    *
-------------------------------------------------------------
-User: burnett  Thu Jun 23 15:52:15 PDT 2005
-flux/doc
-
-Modified Files:
-	release.notes 
-Log Message:
-change rootplot to accept strings
-    *
-------------------------------------------------------------
-User: burnett  Thu Jun 23 15:52:15 PDT 2005
-flux/cmt
-
-Modified Files:
-	requirements 
-Log Message:
-change rootplot to accept strings
-    *
-------------------------------------------------------------
 TAG
 Tag name: v8r20p2, operation: add
 Package: flux
