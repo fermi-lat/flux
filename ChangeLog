@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Thu Jun 23 15:52:16 PDT 2005
+flux/src/rootplot
+
+Modified Files:
+	rootEnergyHist.cxx rootEnergyHist.h rootplot.cxx 
+Log Message:
+change rootplot to accept strings
+    *
+------------------------------------------------------------
 User: burnett  Thu Jun 23 15:52:15 PDT 2005
 flux/flux
 
