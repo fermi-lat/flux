@@ -1,7 +1,7 @@
 // Flux test program that generates a ROOT macro to plot the flux
 //
 
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/rootplot.h,v 1.2 2003/10/10 19:52:41 hierath Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/rootplot.h,v 1.3 2004/09/22 01:16:06 hierath Exp $
 
 // Original author: Theodore Hierath
 
@@ -15,12 +15,13 @@ package.
 #include "flux/SpectrumFactoryTable.h"
 
 #include <fstream>
+#include <string>
 
 class rootplot
 {
 public:
     /// ctor
-    rootplot(std::vector<const char*> argv, FluxMgr*);
+    rootplot(std::vector<std::string> argv, FluxMgr*);
 
     rootplot(int argc, char* argv[]);
 
@@ -76,7 +77,7 @@ public:
     
       
 private:
-    void init(std::vector<const char*> argv);
+    void init(std::vector<std::string> argv);
 
     FluxMgr* m_fm;
 

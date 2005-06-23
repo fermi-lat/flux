@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.52 2005/06/15 21:42:15 burnett Exp $
+  $Id: release.notes,v 1.53 2005/06/16 13:17:37 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     EOH
 
+   v8r21   22-jun-2005 thb change rootplots to accept vector of strings parameters
    v8r20p2 16-jun-2005 thb test program fix
    v8r20p1 15-jun-2005 thb adjust for GPS move to astro
    v8r20   25-may-2005 thb tag major improvement to Earth from D. Petry

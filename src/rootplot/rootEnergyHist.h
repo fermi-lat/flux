@@ -29,7 +29,7 @@ public:
       @params bins The number of bins to use in the graph
       @params min_energy The minimum energy in GeV for the binning range
       @params max_energy The maximum energy in GeV for the binning range   */
-   rootEnergyHist(int bins, double min_energy, double max_energy);
+    rootEnergyHist(int bins, double min_energy, double max_energy, std::string file_name="graph.cxx");
    ~rootEnergyHist(void);
    rootEnergyHist(const rootEnergyHist& oldHist);
 
@@ -134,6 +134,7 @@ private:
    bool use_flux_max; ///< If true flux_max is used as the maximum flux on the graph
    double flux_min; ///< Manually specified minimum flux
    double flux_max; ///< Manually specified maximum flux
+   std::string m_file_name;  ///< filename to write the ROOT macro
 };
 
 #endif // ROOT_ENERGY_HIST
