@@ -11,10 +11,12 @@
 
 rootEnergyHist::rootEnergyHist(int bins, 
                                double min_energy, 
-                               double max_energy) :
+                               double max_energy
+                               ,std::string file_name) :
 emin(min_energy),
 emax(max_energy),
-num_bins(bins)
+num_bins(bins),
+m_file_name(file_name)
 {
     range = log10(emax/emin);
     currentType = linear;
@@ -219,7 +221,7 @@ void rootEnergyHist::draw(double scale_factor, std::string mode, int current_plo
         
         if(mode != "end")
         {
-            out_file.open("graph.cxx");
+            out_file.open(m_file_name.c_str());
             
             if(false == out_file.is_open())
             {
@@ -413,9 +415,10 @@ void rootEnergyHist::draw(double scale_factor, std::string mode, int current_plo
             out_file << "\n}\n";
         
         out_file.close();
-        
+#if 0  // move this to make it more visible      
         if(mode != "begin")
             system("root -l graph.cxx");
+#endif
     }
 }
 

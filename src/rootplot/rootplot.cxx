@@ -1,6 +1,6 @@
 /** @file rootplot.h
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.8 2005/03/27 03:00:23 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.9 2005/06/15 21:42:16 burnett Exp $
 */
 #include "flux/rootplot.h"
 
@@ -16,7 +16,7 @@ TIME(0.01),
 ENERGY_MIN(0.01*1000.), 
 ENERGY_MAX(100.0*1000.), m_fm(0)
 {
-    std::vector<const char*> args;
+    std::vector<std::string> args;
     for( int i =1; i< argc; ++i) 
         args.push_back(argv[i]);
     std::vector<std::string > test;
@@ -27,8 +27,7 @@ ENERGY_MAX(100.0*1000.), m_fm(0)
 }
 
 
-
-rootplot::rootplot(std::vector<const char*> argv, FluxMgr* fm)
+rootplot::rootplot(std::vector<std::string> argv, FluxMgr* fm)
 : NUM_BINS(30),LOOP(30000),
 TIME(0.01), ENERGY_MIN(0.01*1000.), ENERGY_MAX(100.0*1000.)
 ,m_fm(fm)
@@ -36,12 +35,12 @@ TIME(0.01), ENERGY_MIN(0.01*1000.), ENERGY_MAX(100.0*1000.)
     init(argv);
 }
 
-void rootplot::init(std::vector<const char*> argv)
+void rootplot::init(std::vector<std::string> argv)
 {
 
     int argc = argv.size();
-    static const char * default_arg="default";
-    static const char * default_graph="log";
+    static std::string default_arg="default";
+    static std::string default_graph="log";
 
     int num_bins = NUM_BINS;  // Initialize to default number of bins
     int loop = LOOP; // Initialize to default number of iterations
@@ -97,22 +96,22 @@ void rootplot::init(std::vector<const char*> argv)
             return;// 0; 
         }
         else if("-bins" == arg_name) 
-            num_bins = atoi(argv[++current_arg]);
+            num_bins = atoi(argv[++current_arg].c_str());
         else if("-events" == arg_name) 
-            loop = atoi(argv[++current_arg]);
+            loop = atoi(argv[++current_arg].c_str());
         else if("-min" == arg_name || "-energy_min" == arg_name) 
-            energy_min = atof(argv[++current_arg]);
+            energy_min = atof(argv[++current_arg].c_str());
         else if("-max" == arg_name || "-energy_max" == arg_name) 
-            energy_max = atof(argv[++current_arg]);
+            energy_max = atof(argv[++current_arg].c_str());
         else if("-flux_min" == arg_name)
         {
             use_flux_min = true;
-            flux_min = atof(argv[++current_arg]);
+            flux_min = atof(argv[++current_arg].c_str());
         }
         else if("-flux_max" == arg_name)
         {
             use_flux_max = true;
-            flux_max = atof(argv[++current_arg]);
+            flux_max = atof(argv[++current_arg].c_str());
         }
         else if("-flux" == arg_name)
             use_flux = true;
@@ -141,7 +140,7 @@ void rootplot::init(std::vector<const char*> argv)
             num_sources++;
         }
         else if("-time" == arg_name) {
-            time = atof(argv[++current_arg]);
+            time = atof(argv[++current_arg].c_str());
             std::cout<<" TIME = "<< time << std::endl;
         }
         else if("-stationary" == arg_name) {
@@ -207,7 +206,7 @@ void rootplot::init(std::vector<const char*> argv)
         if( 0==e ) {std::cerr << "Source \"" << sources[i] << "\" not found: -list for a list" << std::endl;
         return;}
 
-        energy_hist.setGraphType(default_graph);
+        energy_hist.setGraphType(default_graph.c_str());
         energy_hist.setTitle( sources[i] );
 
         energy_hist.setXLabel("Kinetic Energy (MeV)");
@@ -234,7 +233,7 @@ void rootplot::init(std::vector<const char*> argv)
         if(true == use_flux_max)
             energy_hist.setFluxMax(flux_max);
 
-        angle_hist.setGraphType(default_graph);
+        angle_hist.setGraphType(default_graph.c_str());
         angle_hist.setTitle( sources[i] );
         angle_hist.setPhiXLabel("Angle (degrees)");
         angle_hist.setPhiYLabel("Particles");
@@ -363,5 +362,5 @@ void rootplot::init(std::vector<const char*> argv)
 
     } // for all sources   
 
-    //return 0;
+   return;
 }
