@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Thu Jun 23 15:52:15 PDT 2005
+flux/flux
+
+Modified Files:
+	rootplot.h 
+Log Message:
+change rootplot to accept strings
+    *
+------------------------------------------------------------
+User: burnett  Thu Jun 23 15:52:15 PDT 2005
 flux/doc
 
 Modified Files:
