@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Wed Aug 17 16:15:17 PDT 2005
+flux/src
+
+Modified Files:
+	CHIMESpectrum.cxx 
+Log Message:
+cut off the CHIME spectrum at 1 TeV, to avoid problems with Geant4
+    *
+------------------------------------------------------------
+User: burnett  Wed Aug 17 16:15:17 PDT 2005
 flux/doc
 
 Modified Files:
