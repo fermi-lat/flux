@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Aug 17 16:15:17 PDT 2005
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+cut off the CHIME spectrum at 1 TeV, to avoid problems with Geant4
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r21, operation: add
 Package: flux
