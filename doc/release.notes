@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.53 2005/06/16 13:17:37 burnett Exp $
+  $Id: release.notes,v 1.54 2005/06/23 22:52:15 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     EOH
 
+   v8r21p1 17-aug-2005 thb Limit maximum energy from CHIME to 1 TeV ( problem in G4)
    v8r21   22-jun-2005 thb change rootplots to accept vector of strings parameters
    v8r20p2 16-jun-2005 thb test program fix
    v8r20p1 15-jun-2005 thb adjust for GPS move to astro
