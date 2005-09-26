@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: cohen  Mon Sep 26 14:47:29 PDT 2005
+flux/src
+
+Modified Files:
+	FILESpectrum.cxx 
+Log Message:
+fix a minor bug
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r21p1, operation: add
 Package: flux
