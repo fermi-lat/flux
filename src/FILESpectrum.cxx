@@ -2,7 +2,7 @@
 * @file FILESpectrum.cxx
 * @brief Implementation of FILESpectrum
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FILESpectrum.cxx,v 1.4 2004/12/21 03:46:40 burnett Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FILESpectrum.cxx,v 1.5 2005/02/08 04:40:25 burnett Exp $
 */
 
 #include "FILESpectrum.h"
@@ -81,8 +81,10 @@ float FILESpectrum::operator() (float r)
     
     for(i = integ_flux.begin(); i != integ_flux.end(); i++)
     {
-        if((*i).second >= target_flux)
-            break;
+      if((*i).second >= target_flux){
+	if(i==integ_flux.begin()) i++;
+	break;
+      }
         previous = (*i);
     }
     
