@@ -2,7 +2,7 @@
 * @file FILESpectrum.cxx
 * @brief Implementation of FILESpectrum
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FILESpectrum.cxx,v 1.5 2005/02/08 04:40:25 burnett Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FILESpectrum.cxx,v 1.6 2005/09/26 21:47:29 cohen Exp $
 */
 
 #include "FILESpectrum.h"
@@ -20,7 +20,6 @@ static SpectrumFactory<FILESpectrum> factory;
 const ISpectrumFactory& FILESpectrumFactory = factory;
 
 FILESpectrum::FILESpectrum(const std::string& params) : m_inLog(false)
-  //  :m_inGeV(true),m_inLog(false),m_particle_name("p")
 {
   std::vector<efpair> temp_vector = initialize(params);
         
@@ -93,7 +92,6 @@ float FILESpectrum::operator() (float r)
     double b = (*i).first - m * (*i).second;
     float scale = 1.;
     double raw_e = m * target_flux + b;
-//    if(!m_inGeV) scale = 0.001;
     if(m_inLog)
       {
         return scale*pow(10., raw_e);
@@ -118,9 +116,7 @@ const char * FILESpectrum::particleName() const
 std::vector<std::pair<double,double> > FILESpectrum::initialize(const std::string& params)
 {
   //initialize some variables:
-  const char* flux_root = ::getenv("FLUXROOT");
-  std::string doc_path= (flux_root? std::string(flux_root)+"/" : "");
-  std::string fileName = doc_path;
+  std::string fileName = "";
   std::ifstream input_file;
   
   std::vector<std::string> output;
