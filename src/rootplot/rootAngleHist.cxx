@@ -261,6 +261,7 @@ void rootAngleHist::draw(double scale_factor, std::string mode, int current_plot
             "   char *phi_y_label = \"" << PhiYLabel << "\";\n"
             "   char *phi_x_label = \"" << PhiXLabel << "\";\n"
             "   int num_bins = "<< num_bins << ";\n"
+            "   int total_plots = "<< total_plots<<";\n"
             "   double theta_angle[num_bins];\n"
             "   double e_theta_angle[num_bins];\n"
             "   double phi_angle[num_bins];\n"
@@ -289,8 +290,8 @@ void rootAngleHist::draw(double scale_factor, std::string mode, int current_plot
             //"   c3->GetFrame()->SetBorderSize(12);\n";
         
         out_file << 
-            "   theta_leg = new TLegend(0.73,0.83,0.99,0.99);\n"
-            "   phi_leg = new TLegend(0.73,0.83,0.99,0.99);\n"
+            "   theta_leg = new TLegend(0.70,0.89-0.05*total_plots,0.89,0.89); theta_leg->SetBorderSize(0);\n"
+            "   phi_leg = new TLegend(0.70,0.89-0.05*total_plots,0.89,0.89);phi_leg->SetBorderSize(0);\n"
             "   double scale_factor" << current_plot << " = " << scale_factor << ";\n"
             "   double theta_count" << current_plot << "[] = {\n";
         {for(int i = 0; i < num_bins; i++)

@@ -257,7 +257,7 @@ void rootEnergyHist::draw(double scale_factor, std::string mode, int current_plo
             "      e_energy[i] = 0;\n"
             "   }\n"
             "   //                 name, title, wtopx, wtopy, ww, wh\n"
-            "   c1 = c2;\n"; //new TCanvas(\"c1\",energy_window_title, 200, 200, 700, 500);\n"
+            "   c1 = c2; c1->cd(1);\n"; //new TCanvas(\"c1\",energy_window_title, 200, 200, 700, 500);\n"
             //"   c1->SetGrid();\n"
             //"   c1->GetFrame()->SetFillColor(21);\n"
             //"   c1->GetFrame()->SetBorderSize(12);\n";
@@ -270,7 +270,7 @@ void rootEnergyHist::draw(double scale_factor, std::string mode, int current_plo
             std::cerr << "Error:  invalid graph type" << std::endl;
         
         out_file << 
-            "   leg = new TLegend(0.73,0.83,0.99,0.99);\n"
+            "   leg = new TLegend(0.70,0.89-0.05*total_plots,0.89,0.89); leg->SetBorderSize(0);\n"
             "   double scale_factor" << current_plot << " = " << scale_factor << ";\n"
             "   double count" << current_plot << "[] = {\n";
         {for(int i = 0; i < num_bins; ++i)
@@ -396,11 +396,11 @@ void rootEnergyHist::draw(double scale_factor, std::string mode, int current_plo
             "   graph0->Draw(\"AP\");\n"
             "   TAxis *ax = graph0->GetXaxis();\n"
             "   TAxis *ay = graph0->GetYaxis();\n"
-            "   ay->SetTitle(energy_y_label); ay->CenterTitle(1);\n"
+            "   ay->SetTitle(energy_y_label); ay->CenterTitle(1);ay->SetTitleOffset(1.5);\n"
             "   ax->SetLimits(energy_min, energy_max);\n"
-            "   ax->SetTitle(energy_x_label); ax->CenterTitle(1); \n"
-            "   ax->SetTitleOffset(1.2);\n";
-        
+            "   ax->SetTitle(energy_x_label); ax->CenterTitle(1);ax->SetTitleOffset(1.2);\n"
+        ;
+
         {for(int plot = 0; plot < total_plots; plot++) {
             out_file <<
                 "   gr" << plot << "->Draw(\"P\");\n";
