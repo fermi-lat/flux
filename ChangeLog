@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sat Oct 29 13:09:10 PDT 2005
+flux/src/rootplot
+
+Modified Files:
+	rootAngleHist.cxx rootEnergyHist.cxx 
+Log Message:
+fix formatting of rootplots output
+    *
+------------------------------------------------------------
 User: cohen  Thu Oct 20 15:12:51 PDT 2005
 flux/src
 
