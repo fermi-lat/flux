@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.55 2005/08/17 23:15:17 burnett Exp $
+  $Id: release.notes,v 1.56 2005/10/29 20:11:39 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     EOH
 
+   v8r22   24-nov-2005 thb Include static start time for sources
    v8r21p2 29-oct-2005 thb fix bug in rootplots output; make legends nicer
    v8r21p1 17-aug-2005 thb Limit maximum energy from CHIME to 1 TeV ( problem in G4)
    v8r21   22-jun-2005 thb change rootplots to accept vector of strings parameters

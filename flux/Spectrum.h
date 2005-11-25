@@ -1,7 +1,7 @@
 /** @file Spectrum.h
     @brief declaration of Spectrum
  
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Spectrum.h,v 1.2 2004/09/29 18:27:47 cohen Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Spectrum.h,v 1.3 2005/02/08 04:40:25 burnett Exp $
 */
 
 #ifndef GLAST_SPECTRUM_H
@@ -23,7 +23,7 @@
  Class for holding function definitions of Spectrums - i.e. HeSpectrum, SimpleSpectrum, etc...
  Basically an abstract base class for these classes.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Spectrum.h,v 1.2 2004/09/29 18:27:47 cohen Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Spectrum.h,v 1.3 2005/02/08 04:40:25 burnett Exp $
 */
 class Spectrum : public ISpectrum {
 public:
@@ -78,6 +78,12 @@ public:
     void setFlux(double value){m_flux=value;}
     
     
+    /// set a reference time that clients may use
+    static void setStartTime(double t){ s_startTime=t;}
+    static double startTime(){ return s_startTime;}
+
+
+
 protected:
     Spectrum(const std::vector<float>& /*params*/){};
     Spectrum(){}
@@ -90,6 +96,8 @@ protected:
     double m_flux;
     std::string m_particle_name;
     bool m_inGeV;
+private:
+    static double s_startTime;
 };
 
 #endif    
