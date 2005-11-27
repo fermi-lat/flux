@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sun Nov 27 11:44:14 PST 2005
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+about to tag patch which suppresses a slew of warnings.
+    *
+------------------------------------------------------------
 User: burnett  Sun Nov 27 11:41:55 PST 2005
 flux/flux
 
