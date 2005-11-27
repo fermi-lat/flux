@@ -2,7 +2,7 @@
 * @file SpectrumFactory.h
 * @brief declare SpectrumFactory
 *
-*  $Header$
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SpectrumFactory.h,v 1.2 2005/04/26 17:19:35 burnett Exp $
 */
 
 #ifndef flux_SpectrumFactory_h
@@ -33,6 +33,9 @@ public:
         m_classname = m_classname.substr(s);
         SpectrumFactoryTable::instance()->addFactory(m_classname, this); 
     }
+    //! vurtual destructor needed to suppress warnings in gcc
+    virtual ~SpectrumFactory(){}
+
     //! return a new Spectrum object
     virtual ISpectrum* instantiate(const std::string& params) const{return new T(params);}
     
