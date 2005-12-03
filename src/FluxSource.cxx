@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.32 2005/05/05 05:33:36 jchiang Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.33 2005/06/15 21:42:16 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -533,10 +533,15 @@ EventSource* FluxSource::event(double time)
     // Purpose and Method: generate a new incoming particle
     // Inputs  - current time
     // Outputs - pointer to the "current" fluxSource object.
+    using astro::GPS;
     m_interval = calculateInterval(time);
-    computeLaunch(time + m_interval);
-    //now set the actual interval to be what FluxMgr will get
+    if( time+m_interval < GPS::instance()->endTime()){
+        // do this only if in valid interval: assume will never get used otherwise
+        computeLaunch(time + m_interval);
+    }
+    //now set the actual interval to be what FluxMgr will get, unless beyond the endtime
     EventSource::setTime(time + m_interval);
+    
     return this;
 }
 
