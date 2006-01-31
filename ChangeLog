@@ -1,4 +1,16 @@
 ------------------------------------------------------------
+User: usher  Tue Jan 31 13:42:33 PST 2006
+flux/src
+
+Modified Files:
+      Tag: GR-v7r3p20-newext
+	AGNSpectrum.cxx AlbedoPSpectrum.cxx CHIMESpectrum.cxx 
+	Earth.cxx FileSource.cxx FileSource.h Flux.cxx FluxMgr.cxx 
+	FluxSource.cxx GalElSpectrum.cxx GalPulsars.cxx 
+	MapSpectrum.cxx Spectrum.cxx SurfaceMuons.cxx VdgGamma.cxx 
+Log Message:
+    *
+------------------------------------------------------------
 User: usher  Tue Jan 31 13:42:29 PST 2006
 flux/sources
 
