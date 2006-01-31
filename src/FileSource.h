@@ -4,7 +4,7 @@
  * particle type, 4-momentum, trajectory -- from a file.
  * @author J. Chiang
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.h,v 1.2 2005/05/04 21:27:35 jchiang Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.h,v 1.3 2005/05/04 22:23:35 jchiang Exp $
  */
 
 #ifndef _flux_FileSource_h
@@ -25,7 +25,7 @@
  *
  * @author J. Chiang
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.h,v 1.2 2005/05/04 21:27:35 jchiang Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.h,v 1.3 2005/05/04 22:23:35 jchiang Exp $
  */
 
 class FileSource : public Spectrum {
@@ -83,30 +83,30 @@ private:
       virtual void execute(double KE, double time);
 
       /// @return The particle direction in instrument coordinates.
-      virtual const HepVector3D & dir() const;
+      virtual const HepGeom::HepVector3D & dir() const;
 
       virtual std::string title() const;
-      virtual const HepVector3D & skyDirection() const;
+      virtual const HepGeom::HepVector3D & skyDirection() const;
       virtual double zenithCosine() const {
          return 1.;
       }
 
-      void setDir(const HepVector3D & dir);
+      void setDir(const HepGeom::HepVector3D & dir);
    private:
-      HepVector3D m_dir;
-      HepRotation m_glastToGalactic;
+      HepGeom::HepVector3D m_dir;
+      CLHEP::HepRotation m_glastToGalactic;
    } * m_launchDirection;
 
    class FileLaunchPoint : public LaunchPoint {
    public:
       FileLaunchPoint() {}
       virtual ~FileLaunchPoint() {}
-      virtual const HepPoint3D & point() const;
+      virtual const HepGeom::HepPoint3D & point() const;
       virtual std::string title() const;
 
-      void setPoint(const HepPoint3D & pt);
+      void setPoint(const HepGeom::HepPoint3D & pt);
    private:
-      HepPoint3D m_pt;
+      HepGeom::HepPoint3D m_pt;
    } * m_launchPoint;
 #endif // SWIG
 

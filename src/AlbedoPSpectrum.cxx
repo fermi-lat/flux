@@ -1,4 +1,4 @@
-// $Id: AlbedoPSpectrum.cxx,v 1.4 2005/03/27 03:00:48 burnett Exp $
+// $Id: AlbedoPSpectrum.cxx,v 1.5 2005/06/15 21:42:16 burnett Exp $
 
 
 #include "AlbedoPSpectrum.h"
@@ -163,11 +163,11 @@ std::pair<double,double> AlbedoPSpectrum::dir(double /*energy*/)
     const int try_max = 1000;
     static int max_tried = 0;
     int trial = 0;
-    earthazi = 2. * M_PI * HepRandom::getTheGenerator()->flat();
+    earthazi = 2. * M_PI * CLHEP::HepRandom::getTheGenerator()->flat();
     do {
-        coszenith = 2. * HepRandom::getTheGenerator()->flat() - 1.;
+        coszenith = 2. * CLHEP::HepRandom::getTheGenerator()->flat() - 1.;
         dens = 1. + 0.6 * sqrt(1.-coszenith*coszenith);
-        v = 1.6 * HepRandom::getTheGenerator()->flat();
+        v = 1.6 * CLHEP::HepRandom::getTheGenerator()->flat();
     } while (v > dens && trial++ < try_max);
     
     max_tried = std::max(trial, max_tried);

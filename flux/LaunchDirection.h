@@ -2,7 +2,7 @@
  * @file LaunchDirection.h
  * @brief Declare LaunchDirection class
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.3 2005/05/05 16:50:06 burnett Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.4 2005/06/15 21:42:16 burnett Exp $
  */
 
 #ifndef _FluxSource_LaunchDirection_h
@@ -12,6 +12,14 @@
 #include "CLHEP/Geometry/Vector3D.h"
 #include "CLHEP/Random/RandFlat.h"
 #include "CLHEP/Vector/Rotation.h"
+
+// Hack for CLHEP 1.9.2.2
+#ifndef HepVector3D
+namespace HepGeom {
+    typedef Vector3D<double> HepVector3D;
+    typedef Point3D<double>  HepPoint3D;
+}
+#endif
 
 #include "astro/SkyDir.h"
 
@@ -34,7 +42,7 @@ public:
         :m_skydir(false)
         , m_radius(radius*M_PI/180),m_frame(frame)
     {
-        HepVector3D dir(sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta));
+        HepGeom::HepVector3D dir(sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta));
         setDir(-dir); // minus due to z axis pointing UP!
     }
     LaunchDirection(astro::SkyDir sky, double radius=0)
@@ -63,23 +71,23 @@ public:
         }
     }
 
-    const HepVector3D& operator()()const {return dir();}
+    const HepGeom::HepVector3D& operator()()const {return dir();}
 
-    virtual const HepVector3D& dir()const {
-        static HepVector3D rdir;
+    virtual const HepGeom::HepVector3D& dir()const {
+        static HepGeom::HepVector3D rdir;
         rdir = m_rottoglast * m_dir;
         if( m_radius>0 ) {
             // spread uniformly about a disk
             // rotate about perpendicular then about the original 
-            HepVector3D t(rdir);
-            t.rotate( m_radius*(sqrt(RandFlat::shoot())),  rdir.orthogonal()),  // rotate about the orthogonal
-            t.rotate( RandFlat::shoot( 2*M_PI ), rdir); // rotate about the original direction
+            HepGeom::HepVector3D t(rdir);
+            t.rotate( m_radius*(sqrt(CLHEP::RandFlat::shoot())),  rdir.orthogonal()),  // rotate about the orthogonal
+            t.rotate( CLHEP::RandFlat::shoot( 2*M_PI ), rdir); // rotate about the original direction
             rdir = t; //replace 
         }
         return rdir;
     }
 
-    void setDir(const HepVector3D& dir){m_dir=dir;}
+    void setDir(const HepGeom::HepVector3D& dir){m_dir=dir;}
 
 
     //! solid angle: default of 1. for a point source
@@ -105,13 +113,13 @@ public:
         return 1.0;
     }
 
-    virtual const HepVector3D& skyDirection()const { return m_dir; }
+    virtual const HepGeom::HepVector3D& skyDirection()const { return m_dir; }
 
 private:
-    HepRotation m_rottoglast;
-    HepVector3D m_dir;
+    CLHEP::HepRotation m_rottoglast;
+    HepGeom::HepVector3D m_dir;
     bool  m_skydir;
-    HepVector3D m_t;
+    HepGeom::HepVector3D m_t;
     double m_radius;
     std::string m_frame;
 

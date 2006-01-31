@@ -192,7 +192,7 @@ void GalPulsars::updateIntervals(double current_time, double time_decrement)
          double dt = (tdb - m_t0[i])*86400;
 
          // Calculate a dimensionless target number based on the Poisson distribution
-         double target = -std::log(1.-RandFlat::shoot(1.));
+         double target = -std::log(1.-CLHEP::RandFlat::shoot(1.));
 
          double area = 1.0e4 * EventSource::totalArea();
          double current_period = period(tdb,i);
@@ -277,7 +277,7 @@ float GalPulsars::operator()(float xi)  {
 }
 
 double GalPulsars::energy(double time) {
-   return (*this)(RandFlat::shoot());
+   return (*this)(CLHEP::RandFlat::shoot());
 }
 
 
