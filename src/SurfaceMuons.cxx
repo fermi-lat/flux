@@ -2,7 +2,7 @@
 * @file SurfaceMuons.cxx
 * @brief declaration and definition of SurfaceMuons
 *
-*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.11 2004/06/18 00:46:09 burnett Exp $
+*  $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.12 2005/03/27 03:01:46 burnett Exp $
 */
 #include "flux/Spectrum.h"
 #include "flux/SpectrumFactory.h"
@@ -12,13 +12,14 @@
 #include <utility>
 #include <algorithm>
 #include <map>
+#include <cmath>
 /** 
 * \class SurfaceMuons
 *
 * \brief Spectrum representing cosmic ray muon flux at the Earth's surface
 * \author T. Burnett
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.11 2004/06/18 00:46:09 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SurfaceMuons.cxx,v 1.12 2005/03/27 03:01:46 burnett Exp $
 */
 //
 
@@ -139,7 +140,7 @@ const char* SurfaceMuons::particleName()const
     static double 
         charge_ratio = 1.2,  // from many measurements.
         plus_fraction=1/(1+charge_ratio);
-    return RandFlat::shoot()>plus_fraction? pnames[0]:pnames[1];
+    return CLHEP::RandFlat::shoot()>plus_fraction? pnames[0]:pnames[1];
 }
 namespace {
     inline double cube(double x){return x*x*x;}
@@ -151,7 +152,7 @@ double SurfaceMuons::energy( double time )
     using namespace std;
     // first choose the angle for the dir function, assuming cos**2 distribution
     static double third=1.0/3.0;
-    double r = RandFlat::shoot();
+    double r = CLHEP::RandFlat::shoot();
     m_costh = pow(r*cube(m_cosmax)+(1-r)*cube(m_cosmin), third);
 
     if(m_option == 1) return analyticSpectrum(time);
@@ -161,7 +162,7 @@ double SurfaceMuons::energy( double time )
     // select an energy by inverting the integral distribution
     double energy = 0; 
 
-    double partial = RandFlat::shoot()*m_total; // the value of the integral to find the energy
+    double partial = CLHEP::RandFlat::shoot()*m_total; // the value of the integral to find the energy
     map<double,double>::const_iterator 
         element  = m_ispec.lower_bound(partial);
 
@@ -221,7 +222,7 @@ double SurfaceMuons::capriceSpectrum(double time) const
 
    double *integ_flux = (m_option == 2)?  integ_flux94 : integ_flux97;
 
-   double target = RandFlat::shoot(integ_flux[21]);
+   double target = CLHEP::RandFlat::shoot(integ_flux[21]);
    double m = 0, b = 0;
    
    for(unsigned int i = 0; i < 22; i++) {
@@ -245,7 +246,7 @@ double SurfaceMuons::capriceSpectrum(double time) const
 std::pair<double,double> SurfaceMuons::dir(double)
 {
     // purpose: return the pair; note uses the previous value for cos(theta)
-    return std::make_pair(m_costh, RandFlat::shoot(2*M_PI));
+    return std::make_pair(m_costh, CLHEP::RandFlat::shoot(2*M_PI));
 }
 
 static inline double sqr(double x){return x*x;}
@@ -278,7 +279,7 @@ double SurfaceMuons::analyticSpectrum(double time) const
     double ratio[] = {0.0024/norm, 0.00388/norm, 0.00184/norm, 0.000592/norm};
     double energy;
 
-    static HepRandom* randomEng = HepRandom::getTheGenerator();
+    static CLHEP::HepRandom* randomEng = CLHEP::HepRandom::getTheGenerator();
 
     // determine the energy range of the event to be generated
     float range = randomEng->flat();

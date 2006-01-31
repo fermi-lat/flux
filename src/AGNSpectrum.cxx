@@ -55,7 +55,7 @@ float AGNSpectrum::operator()(float r){
     double index;
     //double E0=0.1;
     //double emax=100.;
-    double rand=RandFlat::shoot(1.);
+    double rand=CLHEP::RandFlat::shoot(1.);
 
     if(m_flaring){
         index=m_index+m_flareAdd;
@@ -112,7 +112,7 @@ double AGNSpectrum::interval (double time)
 
     if (r == 0){ return -1.;
     }else{  
-        double p = RandFlat::shoot(1.);
+        double p = CLHEP::RandFlat::shoot(1.);
         //std::cout << "interval from the AGN:= " << (-1.)*(log(1.-p))/r << std::endl;
         calculatedInterval = (-1.)*(log(1.-p))/r;
     }

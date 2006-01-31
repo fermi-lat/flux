@@ -236,7 +236,7 @@ std::pair<float,float> MapSpectrum::dir(float /*energy */ )const{
 
 double MapSpectrum::energy( double time){
     findDir(0.); //energy here is just a dummy - now we have direction, index.
-    return operator()(RandFlat::shoot());
+    return operator()(CLHEP::RandFlat::shoot());
 }
 
 
@@ -244,7 +244,7 @@ double MapSpectrum::energy( double time){
 ///this returns a galactic direction, in the form (l,b)
 std::pair<double,double> MapSpectrum::findDir(double energy){
     //here is where we decide where the next particle will come from, and set the associated flux and energy of the particle.
-    double remainingFlux=RandFlat::shoot(m_netFlux);
+    double remainingFlux=CLHEP::RandFlat::shoot(m_netFlux);
 
     double l=-180;
     double b=-90;
@@ -283,8 +283,8 @@ std::pair<double,double> MapSpectrum::findDir(double energy){
 
     //now that we've gotten the bin from the map, 
     //make sure the photon comes from somewhere in that bin:
-    double spreadl = (RandFlat::shoot()-0.5)*m_binSize;
-    double spreadb = (RandFlat::shoot()-0.5)*m_binSize;
+    double spreadl = (CLHEP::RandFlat::shoot()-0.5)*m_binSize;
+    double spreadb = (CLHEP::RandFlat::shoot()-0.5)*m_binSize;
 
     //now set the current directions:
     m_currentl=l+spreadl;

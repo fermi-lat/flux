@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.24 2005/05/07 13:18:15 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.25 2005/06/15 21:42:16 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -370,25 +370,25 @@ std::pair<double,double> FluxMgr::location(){
 }
 
 //get the transformtation matrix - the rest of these functions are now deprecated
-HepRotation FluxMgr::transformToGlast(double seconds,GPS::CoordSystem index){
+CLHEP::HepRotation FluxMgr::transformToGlast(double seconds,GPS::CoordSystem index){
     return GPS::instance()->transformToGlast(seconds, index);
 }
 
 //get the transformation matrix.
-HepRotation FluxMgr::CELTransform(double time){
+CLHEP::HepRotation FluxMgr::CELTransform(double time){
     return GPS::instance()->CELTransform(time);
 }
 
 //get the transformation matrix.
-HepRotation FluxMgr::orientTransform(double time){
+CLHEP::HepRotation FluxMgr::orientTransform(double time){
     //make the transformtion that turns zenith coordinates into local coordinates.
-    HepRotation ret;
+    CLHEP::HepRotation ret;
     ret = GPS::instance()->transformToGlast(time,GPS::ZENITH);
     return ret;
 }
 
 ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
-HepRotation FluxMgr::transformGlastToGalactic(double time){
+CLHEP::HepRotation FluxMgr::transformGlastToGalactic(double time){
     return GPS::instance()->transformGlastToGalactic(time);
 }
 

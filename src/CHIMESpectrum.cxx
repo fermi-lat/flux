@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CHIMESpectrum.cxx,v 1.6 2005/06/15 21:42:16 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CHIMESpectrum.cxx,v 1.7 2005/08/17 23:15:17 burnett Exp $
 
 
 #include "CHIMESpectrum.h"
@@ -308,9 +308,9 @@ std::pair<double,double> CHIMESpectrum::dir(double energy)
     int trial=0;
     do {
         // uniform distribution within Stormer cone
-        cospolar = -1. + HepRandom::getTheGenerator()->flat()*(cosomega(energy*0.001)+1.);
+        cospolar = -1. + CLHEP::HepRandom::getTheGenerator()->flat()*(cosomega(energy*0.001)+1.);
         sinpolar = sqrt(1.-cospolar*cospolar);
-        azi = 2.*M_PI* HepRandom::getTheGenerator()->flat();
+        azi = 2.*M_PI* CLHEP::HepRandom::getTheGenerator()->flat();
         coszenith = cos(azi)*sinpolar;
     } while (coszenith < m_coscutoff && trial++ < try_max);
     

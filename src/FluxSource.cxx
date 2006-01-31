@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.33 2005/06/15 21:42:16 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.34 2005/12/03 16:37:02 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -42,20 +42,20 @@ public:
 
     }
 
-    virtual void execute(const HepVector3D& dir){
-        HepRotation r_pln;
+    virtual void execute(const HepGeom::HepVector3D& dir){
+        CLHEP::HepRotation r_pln;
 
         //create rotation to take x-y plane to be perpendicular to incoming direction
         double ly = dir.y(), lx = dir.x();
         if( fabs( lx) +fabs(ly) >1e-8) {  // leave as identity 
-            r_pln.rotate(acos(dir.z()),  HepVector3D(-ly, lx, 0.));
+            r_pln.rotate(acos(dir.z()),  HepGeom::HepVector3D(-ly, lx, 0.));
         }
 
         // pick a random position on the planar section of a sphere through 
         // its midpoint
         double 
-            azimuth = RandFlat::shoot( 2*M_PI ),
-            rad = m_radius*(sqrt(RandFlat::shoot()));
+            azimuth = CLHEP::RandFlat::shoot( 2*M_PI ),
+            rad = m_radius*(sqrt(CLHEP::RandFlat::shoot()));
 
         // create two vectors to describe the particle launch: one to describe
         // the point in the plane perpendicular to the launch direction (within
@@ -63,7 +63,7 @@ public:
         // second to describe the distance along the normal between the launch 
         // point and that plane.
 #if 1 // standard
-        HepPoint3D posLaunch(rad*cos(azimuth), rad*sin(azimuth), 0.);
+        HepGeom::HepPoint3D posLaunch(rad*cos(azimuth), rad*sin(azimuth), 0.);
 
         // define actual launch point
         setPoint( r_pln*posLaunch - m_backoff*dir);
@@ -95,25 +95,25 @@ the beam will be spread out uniformly on a disk perpendicular to the incoming di
 */
 class FluxSource::FixedPoint : public LaunchPoint{ 
 public:
-    FixedPoint( const HepPoint3D& pt, double radius)
+    FixedPoint( const HepGeom::HepPoint3D& pt, double radius)
         :  LaunchPoint(pt)
         ,  m_disk_radius(radius)
         ,  m_base_point(pt)
     {}
 
-    virtual void execute(const HepVector3D& dir){
+    virtual void execute(const HepGeom::HepVector3D& dir){
         if(m_disk_radius==0) return; // just use 
 
-        HepRotation r_pln;
+        CLHEP::HepRotation r_pln;
 
         double ly = dir.y(), lx = dir.x();
         if( lx !=0 || ly !=0 ) { 
-            r_pln.rotate(acos(dir.z()), HepVector3D(-ly, lx, 0.));
+            r_pln.rotate(acos(dir.z()), HepGeom::HepVector3D(-ly, lx, 0.));
         }
         double 
-            azimuth = RandFlat::shoot( 2*M_PI ),
-            rad = m_disk_radius*(sqrt(RandFlat::shoot()));
-        HepPoint3D posLaunch(rad*cos(azimuth), rad*sin(azimuth), 0.);
+            azimuth = CLHEP::RandFlat::shoot( 2*M_PI ),
+            rad = m_disk_radius*(sqrt(CLHEP::RandFlat::shoot()));
+        HepGeom::HepPoint3D posLaunch(rad*cos(azimuth), rad*sin(azimuth), 0.);
 
         setPoint(r_pln*posLaunch + m_base_point);
 
@@ -126,7 +126,7 @@ public:
     }
 private:
     double m_disk_radius;
-    HepPoint3D m_base_point;
+    HepGeom::HepPoint3D m_base_point;
 };  
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class Patch
@@ -142,11 +142,11 @@ public:
     {
     }
 
-    virtual void execute(const HepVector3D& ){
-        setPoint(HepPoint3D( 
-            m_xmin + m_dx*RandFlat::shoot(),
-            m_ymin + m_dy*RandFlat::shoot(),
-            m_zmin + m_dz*RandFlat::shoot()) );
+    virtual void execute(const HepGeom::HepVector3D& ){
+        setPoint(HepGeom::HepPoint3D( 
+            m_xmin + m_dx*CLHEP::RandFlat::shoot(),
+            m_ymin + m_dy*CLHEP::RandFlat::shoot(),
+            m_zmin + m_dz*CLHEP::RandFlat::shoot()) );
     }
     virtual std::string title() const {
         std::stringstream t;
@@ -191,15 +191,15 @@ public:
     }
 
    virtual void execute(double /*ke*/, double time){
-        double  costh = -RandFlat::shoot(m_minCos, m_maxCos),
+        double  costh = -CLHEP::RandFlat::shoot(m_minCos, m_maxCos),
             sinth = sqrt(1.-costh*costh),
-            phi = RandFlat::shoot(m_minPhi, m_maxPhi);
+            phi = CLHEP::RandFlat::shoot(m_minPhi, m_maxPhi);
 
         //here, the direction is with respect to the zenith frame,
         //so we need the transformation from the zenith to GLAST.
-        HepRotation zenToGlast=astro::GPS::instance()->transformToGlast(time,astro::GPS::ZENITH);
+        CLHEP::HepRotation zenToGlast=astro::GPS::instance()->transformToGlast(time,astro::GPS::ZENITH);
 
-        HepVector3D dir(cos(phi)*sinth, sin(phi)*sinth, costh);
+        HepGeom::HepVector3D dir(cos(phi)*sinth, sin(phi)*sinth, costh);
 
         // extra rotation in case not zenith pointing (beware, might be
         // confusing)
@@ -264,9 +264,9 @@ public:
 
             //here, we have a direction in the zenith direction, so we need the 
             //transformation from zenith to GLAST.
-            HepRotation zenToGlast = astro::GPS::instance()->transformToGlast(time,GPS::ZENITH);
+            CLHEP::HepRotation zenToGlast = astro::GPS::instance()->transformToGlast(time,GPS::ZENITH);
 
-            HepVector3D unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
+            HepGeom::HepVector3D unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
 
             //setDir(-HepVector3D(cos(phi)*sinth, sin(phi)*sinth, costh));
             setDir(zenToGlast*(-unrotated));
@@ -283,7 +283,7 @@ public:
             m_zenithCos = unrotated()*zenDir();
             //get the transformation matrix..
             //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
-            HepRotation celtoglast = astro::GPS::instance()->transformToGlast(time,astro::GPS::CELESTIAL);
+            CLHEP::HepRotation celtoglast = astro::GPS::instance()->transformToGlast(time,astro::GPS::CELESTIAL);
 
             //and do the transform, finally reversing the direction to correspond to the incoming particle
             setDir( - (celtoglast * unrotated()) );
@@ -474,7 +474,7 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
 
             if (launchTag == "launch_point")
             {
-                m_launch_pt = new FixedPoint(HepPoint3D(
+                m_launch_pt = new FixedPoint(HepGeom::HepPoint3D(
                     xmlBase::Dom::getDoubleAttribute(launch, "x"),
                     xmlBase::Dom::getDoubleAttribute(launch, "y"),
                     xmlBase::Dom::getDoubleAttribute(launch, "z")),
@@ -554,7 +554,7 @@ double FluxSource::calculateInterval (double time)
     }
 
     // otherwise do a Poison from the the flux, solid angle, and area factor
-    return -log(1.-RandFlat::shoot(1.))/rate(time);
+    return -log(1.-CLHEP::RandFlat::shoot(1.))/rate(time);
 }
 
 double FluxSource::flux(double time) const
@@ -645,7 +645,7 @@ bool FluxSource::occulted(){
     return (m_occultable) && (m_zenithCosTheta < minCosTheta);
 
 }
-const HepVector3D& FluxSource::skyDirection()const
+const HepGeom::HepVector3D& FluxSource::skyDirection()const
 {
     return m_launch_dir->skyDirection();
 }
