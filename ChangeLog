@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sat Mar  4 14:17:53 PST 2006
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+convert to use explicit set for path to xml files; remove obsolete sources
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r22cl0, operation: add
 Package: flux
