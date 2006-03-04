@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sat Mar  4 14:17:55 PST 2006
+flux/src/test
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+convert to use explicit set for path to xml files; remove obsolete sources
+    *
+------------------------------------------------------------
 User: burnett  Sat Mar  4 14:17:54 PST 2006
 flux/src
 
