@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.10 2005/05/04 22:46:00 jchiang Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.11 2005/06/16 13:17:37 burnett Exp $
 
 //#include "FluxSvc/ISpectrumFactory.h"
 
@@ -15,8 +15,6 @@
 static int default_count = 10 ;
 //Testing
 static const char * default_source="default";
-//Default
-//static const char * default_source="CrElectron";
 
 void help() {
     std::cout << 
@@ -51,13 +49,8 @@ void listSpectra() {
 void flux_load() {
 
     // these are the spectra that we want to make available
-    DECLARE_SPECTRUM( CHIMESpectrum);
-    DECLARE_SPECTRUM( AlbedoPSpectrum);
-    DECLARE_SPECTRUM( FILESpectrum);
-    DECLARE_SPECTRUM( GalElSpectrum);
     DECLARE_SPECTRUM( SurfaceMuons);
-    DECLARE_SPECTRUM( MapSpectrum);
-    DECLARE_SPECTRUM( FileSource);
+    DECLARE_SPECTRUM( Earth);
  }
 
 void galacticTest(FluxMgr* fm, std::string sourceName,double count){
@@ -96,7 +89,7 @@ int main(int argn, char * argc[]) {
 
     //TESTING MULTIPLE XML INPUT
     std::vector<std::string> fileList;
-    fileList.push_back("$(FLUXROOT)/xml/source_library.xml");
+    fileList.push_back("$(FLUX_XML)/source_library.xml");
     FluxMgr fm(fileList);
 
     //FluxMgr fm;

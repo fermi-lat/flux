@@ -1,9 +1,9 @@
 package flux
 
-version v8r22p2
+version v8r23
 author Toby Burnett <tburnett@u.washington.edu>
 
-# $Id: requirements,v 1.60 2005/11/27 19:44:13 burnett Exp $
+# $Id: requirements,v 1.61 2005/12/03 16:47:02 burnett Exp $
 
 use xmlBase  v5r*
 use CLHEP v2* IExternal
@@ -14,6 +14,8 @@ apply_pattern package_include
 apply_pattern package_linkopts
 apply_pattern package_stamps
 
+# default path to xml files
+set FLUX_XML "$(flux_root)/xml"
 
 #=============================================================
 private
