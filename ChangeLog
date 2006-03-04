@@ -1,4 +1,18 @@
 ------------------------------------------------------------
+User: burnett  Sat Mar  4 14:17:54 PST 2006
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Removed Files:
+	AGNSpectrum.cxx AlbedoPSpectrum.cxx AlbedoPSpectrum.h 
+	CHIMESpectrum.cxx CHIMESpectrum.h CHIMESpectrum.inc 
+	GalElSpectrum.cxx GalElSpectrum.h GalPulsars.cxx 
+	MapSpectrum.cxx 
+Log Message:
+convert to use explicit set for path to xml files; remove obsolete sources
+    *
+------------------------------------------------------------
 User: burnett  Sat Mar  4 14:17:53 PST 2006
 flux/cmt
 
