@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.58 2005/11/27 19:44:14 burnett Exp $
+  $Id: release.notes,v 1.59 2005/12/03 16:47:02 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     EOH
 
+   v8r23   04-mar-2006 thb protect against times beyond pointing history
    v8r22p2 03-dec-2005 thb protect against times beyond pointing history
    v8r22p1 27-nov-2005 thb fix warnings due to no virtual destructor
    v8r22   24-nov-2005 thb Include static start time for sources
