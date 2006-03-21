@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: usher  Mon Mar 20 17:28:56 PST 2006
+flux/src
+
+Modified Files:
+	Earth.cxx FileSource.cxx FileSource.h Flux.cxx FluxMgr.cxx 
+	FluxSource.cxx Spectrum.cxx SurfaceMuons.cxx VdgGamma.cxx 
+Log Message:
+    *
+------------------------------------------------------------
+User: usher  Mon Mar 20 17:28:56 PST 2006
 flux/sources
 
 Modified Files:
