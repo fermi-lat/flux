@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: usher  Mon Mar 20 17:28:55 PST 2006
+flux/flux
+
+Modified Files:
+	EventSource.h Flux.h FluxMgr.h IFlux.h LaunchDirection.h 
+	LaunchPoint.h 
+Log Message:
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r23, operation: add
 Package: flux
