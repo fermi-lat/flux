@@ -50,17 +50,18 @@ const ISpectrumFactory& VdgGammaFactory = factory;
 double VdgGamma::energy( double time )
 {
     static double ratio = 49.7/(49.7+100.);
-    double r = RandFlat::shoot();
+    double r = CLHEP::RandFlat::shoot();
 
     if(r < ratio) {
-      for(; ;) {
-	float ene = RandBreitWigner::shoot(0.014586, 0.0015);
+        for(; ;) 
+        {
+            float ene = CLHEP::RandBreitWigner::shoot(0.014586, 0.0015);
 
-	//arbitrary 3 sigma cut
-	static double low = 0.014586 - 3. * 0.0015;
-	static double high = 0.014586 + 3. * 0.0015;
-	if(ene > low && ene < high) return ene;
-      }
+	        //arbitrary 3 sigma cut
+	        static double low = 0.014586 - 3. * 0.0015;
+	        static double high = 0.014586 + 3. * 0.0015;
+	        if(ene > low && ene < high) return ene;
+        }
     }
     else {
       return 0.0171619;
