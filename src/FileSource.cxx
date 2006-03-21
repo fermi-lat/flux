@@ -3,7 +3,7 @@
  * @brief Read in the incident particle properties from a file.
  * @author J. Chiang
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.cxx,v 1.5 2005/05/05 05:33:36 jchiang Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.cxx,v 1.6 2005/06/15 21:42:16 burnett Exp $
  */
 
 #include <cstdlib>
@@ -87,10 +87,10 @@ void FileSource::parseCurrentLine() {
    double cosy = std::atof(tokens.at(6).c_str());
    double cosz = std::atof(tokens.at(7).c_str());
 
-   HepVector3D dir(cosx, cosy, cosz);
+   HepGeom::HepVector3D dir(cosx, cosy, cosz);
    m_launchDirection->setDir(dir);
 
-   HepPoint3D starting_pt(x, y, z);
+   HepGeom::HepPoint3D starting_pt(x, y, z);
    m_launchPoint->setPoint(starting_pt - m_backOffDistance*dir);
 }
 
@@ -116,11 +116,11 @@ void FileSource::FileLaunchDir::execute(double KE, double time) {
    m_glastToGalactic = astro::GPS::instance()->transformGlastToGalactic(time);
 }
 
-const HepVector3D & FileSource::FileLaunchDir::dir() const {
+const HepGeom::HepVector3D & FileSource::FileLaunchDir::dir() const {
    return m_dir;
 }
 
-void FileSource::FileLaunchDir::setDir(const HepVector3D & dir) {
+void FileSource::FileLaunchDir::setDir(const HepGeom::HepVector3D & dir) {
    m_dir = dir;
 }
 
@@ -128,17 +128,17 @@ std::string FileSource::FileLaunchDir::title() const {
    return "FileSource";
 }
 
-const HepVector3D & FileSource::FileLaunchDir::skyDirection() const {
-   static HepVector3D my_dir;
+const HepGeom::HepVector3D & FileSource::FileLaunchDir::skyDirection() const {
+   static HepGeom::HepVector3D my_dir;
    my_dir = m_glastToGalactic*m_dir;
    return my_dir;
 }
 
-const HepPoint3D & FileSource::FileLaunchPoint::point() const {
+const HepGeom::HepPoint3D & FileSource::FileLaunchPoint::point() const {
    return m_pt;
 }
 
-void FileSource::FileLaunchPoint::setPoint(const HepPoint3D & pt) {
+void FileSource::FileLaunchPoint::setPoint(const HepGeom::HepPoint3D & pt) {
    m_pt = pt;
 }
 

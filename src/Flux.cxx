@@ -1,7 +1,7 @@
 /** @file Flux.cxx
 @brief Implementation of Flux
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.7 2003/12/05 19:14:45 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.8 2005/06/15 21:42:16 burnett Exp $
 
 Original author: T. Burnett
 */
@@ -131,20 +131,20 @@ void Flux::addFactory(std::string name, const ISpectrumFactory* factory ) {
     SpectrumFactoryTable::instance()->addFactory(name,factory);
 }
 
-HepRotation Flux::CELTransform(double time)const{
+CLHEP::HepRotation Flux::CELTransform(double time)const{
     return s_mgr->CELTransform(time);
 }
-HepRotation Flux::orientTransform(double time)const{
+CLHEP::HepRotation Flux::orientTransform(double time)const{
     return s_mgr->orientTransform(time);
 }
 
-HepRotation Flux::transformGlastToGalactic(double time)const{
+CLHEP::HepRotation Flux::transformGlastToGalactic(double time)const{
 
     return s_mgr->transformGlastToGalactic(time);
 }
 
 //get the transformtation matrix - the rest of these functions are now deprecated
-HepRotation Flux::transformToGlast(double seconds,astro::GPS::CoordSystem index)const{
+CLHEP::HepRotation Flux::transformToGlast(double seconds,astro::GPS::CoordSystem index)const{
     return s_mgr->transformToGlast(seconds, index);
 }
 

@@ -1,15 +1,20 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.4 2004/02/13 22:11:20 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.5 2005/04/28 16:39:00 burnett Exp $
 */
 
 #ifndef EventSource_h
 #define EventSource_h 1
 #include "CLHEP/Geometry/Point3D.h"
 #include "CLHEP/Geometry/Vector3D.h"
-
-
+// Hack for CLHEP 1.9.2.2
+#ifndef HepVector3D
+typedef HepGeom::Vector3D<double> HepVector3D;
+#endif
+#ifndef HepPoint3D
+typedef HepGeom::Point3D<double>  HepPoint3D;
+#endif
 /** 
 * \class EventSource
 *
@@ -17,7 +22,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.4 2004/02/13 22:11:20 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.5 2005/04/28 16:39:00 burnett Exp $
 */
 
 

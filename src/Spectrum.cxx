@@ -32,7 +32,7 @@ std::pair<double,double> Spectrum::dir(double energy)
     // Input:: the given energy.
     // default: random except for Earth occultation
     //here's an attempt at random default distributions as above:
-    return std::make_pair(((RandFlat::shoot(1.0))*1.4)-0.4,(RandFlat::shoot(1.0))*2*M_PI);
+    return std::make_pair(((CLHEP::RandFlat::shoot(1.0))*1.4)-0.4,(CLHEP::RandFlat::shoot(1.0))*2*M_PI);
     
 }
 
@@ -44,7 +44,7 @@ const char * Spectrum::particleName()const{
 double Spectrum::energy( double time)
 {
     // default implementation, which calls the operator()(float r)
-    return (*this)(RandFlat::shoot());
+    return (*this)(CLHEP::RandFlat::shoot());
 }
 #endif
 
