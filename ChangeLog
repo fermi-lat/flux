@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Wed Mar 22 22:32:39 PST 2006
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+use CLHEP v3
+    *
+------------------------------------------------------------
 User: usher  Mon Mar 20 17:28:56 PST 2006
 flux/src
 
