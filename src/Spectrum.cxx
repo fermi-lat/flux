@@ -1,14 +1,12 @@
-// Spectrum.cxx: implementation of the Spectrum class.
-//
-//////////////////////////////////////////////////////////////////////
+/** @file Spectrum.cxx
+    @brief  implementation of the Spectrum class.
 
+    $Header$
+*/
 #include "flux/Spectrum.h"
 #include <cmath>
 
 // CLHEP
-#include "CLHEP/Random/RandomEngine.h"
-#include "CLHEP/Random/RandGeneral.h"
-#include "CLHEP/Random/RandExponential.h"
 #include "CLHEP/Random/RandFlat.h"
 
 double Spectrum::s_startTime(0);
