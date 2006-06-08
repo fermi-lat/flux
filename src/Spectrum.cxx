@@ -1,10 +1,11 @@
 /** @file Spectrum.cxx
     @brief  implementation of the Spectrum class.
 
-    $Header$
+    $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Spectrum.cxx,v 1.6 2006/04/09 21:03:03 burnett Exp $
 */
 #include "flux/Spectrum.h"
 #include <cmath>
+#include <stdexcept>
 
 // CLHEP
 #include "CLHEP/Random/RandFlat.h"
@@ -28,23 +29,21 @@ std::pair<double,double> Spectrum::dir(double energy)
 {
     // Purpose: return solid angle pair (costh, phi) for the given energy
     // Input:: the given energy.
-    // default: random except for Earth occultation
-    //here's an attempt at random default distributions as above:
-    return std::make_pair(((CLHEP::RandFlat::shoot(1.0))*1.4)-0.4,(CLHEP::RandFlat::shoot(1.0))*2*M_PI);
-    
+
+    throw std::runtime_error("Spectrum::dir called: sub class must implement if use_sprectrum invoked");
+    return std::make_pair(0,0);
 }
 
 
 const char * Spectrum::particleName()const{
   return m_particle_name.c_str();
 }
-#if 1
+
 double Spectrum::energy( double time)
 {
     // default implementation, which calls the operator()(float r)
     return (*this)(CLHEP::RandFlat::shoot());
 }
-#endif
 
 
 void Spectrum::parseParamList(std::string input, std::vector<float>& output) const

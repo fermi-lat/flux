@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.34 2005/12/03 16:37:02 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.35 2006/03/21 01:28:56 usher Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -341,7 +341,7 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
         DOMElement* specType = xmlBase::Dom::getFirstChildElement(spec);
 
         std::string typeTagName = xmlBase::Dom::getTagName(specType);
-        std::string spectrum_name = xmlBase::Dom::getAttribute(spec, "particle_name");
+        std::string particle_name = xmlBase::Dom::getAttribute(spec, "particle_name");
         std::string spectrum_energyscale = xmlBase::Dom::getAttribute(spec, "escale");
 
         if(spectrum_energyscale == "GeV"){ m_energyscale=GeV;
@@ -380,7 +380,7 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
 	      { s->setFlux(atof(flux.c_str())); }
 	    s->setInGeV(spectrum_energyscale == "GeV");
 
-	    s->setParticleName(spectrum_name);
+	    if( !particle_name.empty() ) s->setParticleName(particle_name);
         }
         m_spectrum =s;
 	
