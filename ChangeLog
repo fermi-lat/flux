@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Wed Jul 12 10:58:59 PDT 2006
+flux/src
+
+Modified Files:
+	EventSource.cxx Flux.cxx FluxMgr.cxx FluxSource.cxx 
+Log Message:
+implement an alignment rotation to be applied to incoming directions in instrument coordinates
+    *
+------------------------------------------------------------
+User: burnett  Wed Jul 12 10:58:59 PDT 2006
 flux/flux
 
 Modified Files:
