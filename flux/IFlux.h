@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.4 2005/06/15 21:42:16 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.5 2006/03/21 01:28:55 usher Exp $
 
 #ifndef _H_IFlux_
 #define _H_IFlux_
@@ -30,7 +30,7 @@ class ISpectrumFactory;
 * 
   Abstract interface for an object that generates particles, Flux
 
-  * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.4 2005/06/15 21:42:16 burnett Exp $
+  * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.5 2006/03/21 01:28:55 usher Exp $
 */
 class IFlux {
 public:
@@ -85,9 +85,6 @@ public:
     
     ///get the transformation matrix due to orientation of the Galaxy 
     virtual CLHEP::HepRotation CELTransform(double time)const=0;
-    
-    ///get the transformation matrix due to orientation of the spacecraft.
-    virtual CLHEP::HepRotation orientTransform(double time)const=0;
     
     virtual void addFactory(std::string name, const ISpectrumFactory* factory )=0;
     

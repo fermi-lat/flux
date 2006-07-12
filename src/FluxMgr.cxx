@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.26 2006/03/04 22:17:54 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.27 2006/03/21 01:28:56 usher Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -100,19 +100,8 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
     DECLARE_SPECTRUM( FileSource);
 
     DECLARE_SPECTRUM( SurfaceMuons);
-#if 0 // on the way out
-    DECLARE_SPECTRUM( GalPulsars);
-#endif
     DECLARE_SPECTRUM( VdgGamma);
     DECLARE_SPECTRUM( Earth);
-#if 0 // on the way out 
-    // these are deprecated, will be replaced by Hiroshima group
-    DECLARE_SPECTRUM( AlbedoPSpectrum);
-    DECLARE_SPECTRUM( CHIMESpectrum );
-    DECLARE_SPECTRUM( GalElSpectrum);
-    DECLARE_SPECTRUM( MapSpectrum);
-    DECLARE_SPECTRUM( AGNSpectrum);
-#endif
 }
 
 
@@ -378,6 +367,7 @@ CLHEP::HepRotation FluxMgr::transformToGlast(double seconds,GPS::CoordSystem ind
 CLHEP::HepRotation FluxMgr::CELTransform(double time){
     return GPS::instance()->CELTransform(time);
 }
+#if 0 // not used? 
 
 //get the transformation matrix.
 CLHEP::HepRotation FluxMgr::orientTransform(double time){
@@ -386,7 +376,7 @@ CLHEP::HepRotation FluxMgr::orientTransform(double time){
     ret = GPS::instance()->transformToGlast(time,GPS::ZENITH);
     return ret;
 }
-
+#endif
 ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
 CLHEP::HepRotation FluxMgr::transformGlastToGalactic(double time){
     return GPS::instance()->transformGlastToGalactic(time);
@@ -470,3 +460,11 @@ std::string FluxMgr::writeXmlFile(const std::vector<std::string>& fileList) {
     return fileString.str();
 
 }
+
+
+void FluxMgr::setAlignmentRotation(const CLHEP::HepRotation& align)
+{
+    EventSource::setAlignmentRotation(align);
+
+}
+

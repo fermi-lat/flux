@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.10 2005/06/15 21:42:16 burnett Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.11 2006/03/21 01:28:55 usher Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -96,16 +96,16 @@ public:
     
     ///get the transformation matrix due to orientation of the Galaxy
     CLHEP::HepRotation CELTransform(double time);
-    
-    ///get the transformation matrix due to orientation of the spacecraft.
-    CLHEP::HepRotation orientTransform(double time);
-    
     ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
     CLHEP::HepRotation transformGlastToGalactic(double time);
 
     ///this sets the rocking mode in GPS.
     std::vector<double> setRockType(astro::GPS::RockType rockType, double rockAngle);
     std::vector<double> setRockType(int rockType, double rockAngle);
+
+    /// Set an alignment rotation to be applied to the instrument coordinates of any incoming particle
+    void setAlignmentRotation(const CLHEP::HepRotation& align);
+
 private:
     
     /// source library lookup.  Each source is uniquely identified

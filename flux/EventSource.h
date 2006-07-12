@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.5 2005/04/28 16:39:00 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.6 2006/03/21 01:28:55 usher Exp $
 */
 
 #ifndef EventSource_h
@@ -22,7 +22,7 @@ typedef HepGeom::Point3D<double>  HepPoint3D;
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.5 2005/04/28 16:39:00 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.6 2006/03/21 01:28:55 usher Exp $
 */
 
 
@@ -105,6 +105,7 @@ public:
     virtual const HepPoint3D&  launchPoint()const { static HepPoint3D dummy; return dummy;}
     virtual const HepVector3D& skyDirection()const{ static HepVector3D dummy; return dummy;}
     
+    static void setAlignmentRotation(const CLHEP::HepRotation& align);
 private:
     double m_time;    // elapsed time, really only needed for EventSource
     
@@ -116,6 +117,11 @@ private:
     static unsigned int  s_id;    // id for new EventSources...
     static double s_total_area;   // total area for flux generation (in square meters)
     double m_solid_angle;
+
+protected:
+    // to implement (mis) alignment of particle trajectories in instrument coordinates
+    static bool s_applyAlign;
+    static CLHEP::HepRotation s_alignMatrix;
 };
 
 

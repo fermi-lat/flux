@@ -1,7 +1,7 @@
 /** @file EventSource.cxx
     @brief Implementation of class EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.3 2004/11/10 20:25:11 jrb Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.4 2005/04/28 16:39:00 burnett Exp $
 */
 
 #include "flux/EventSource.h"
@@ -12,6 +12,9 @@
 
 unsigned int  EventSource::s_id = 0;
 double  EventSource::s_total_area = 6.; // area in m^2
+
+bool EventSource::s_applyAlign(false);
+CLHEP::HepRotation EventSource::s_alignMatrix;
 
 EventSource::EventSource (double aFlux, unsigned acode)
 :  m_enabled(true), m_flux(aFlux),  m_code(acode)
@@ -67,3 +70,11 @@ unsigned EventSource::code () const { return m_code; }
 void EventSource::code ( unsigned c ) { m_code = c; }
 
 void EventSource::setFlux(double value){ m_flux=value; }
+
+void EventSource::setAlignmentRotation(const CLHEP::HepRotation &align)
+{
+    s_alignMatrix = align;
+    s_applyAlign = true;
+}
+
+
