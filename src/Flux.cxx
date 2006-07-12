@@ -1,7 +1,7 @@
 /** @file Flux.cxx
 @brief Implementation of Flux
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.8 2005/06/15 21:42:16 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.9 2006/03/21 01:28:56 usher Exp $
 
 Original author: T. Burnett
 */
@@ -133,9 +133,6 @@ void Flux::addFactory(std::string name, const ISpectrumFactory* factory ) {
 
 CLHEP::HepRotation Flux::CELTransform(double time)const{
     return s_mgr->CELTransform(time);
-}
-CLHEP::HepRotation Flux::orientTransform(double time)const{
-    return s_mgr->orientTransform(time);
 }
 
 CLHEP::HepRotation Flux::transformGlastToGalactic(double time)const{

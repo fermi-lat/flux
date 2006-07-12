@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.35 2006/03/21 01:28:56 usher Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.36 2006/06/08 22:36:51 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -588,8 +588,8 @@ void FluxSource::computeLaunch (double time)
     m_zenithCosTheta = m_launch_dir->zenithCosine();
 
     //  rotate by Glast orientation transformation
-    //HepRotation correctForTilt =GPS::instance()->rockingAngleTransform(time);
-    m_correctedDir = /*correctForTilt*/m_launchDir;
+    if( s_applyAlign) m_correctedDir = s_alignMatrix * m_launchDir;
+    else     m_correctedDir = m_launchDir;
 
     // now set the launch point, which may depend on the direction
 

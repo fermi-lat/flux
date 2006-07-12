@@ -2,7 +2,7 @@
  * @file LaunchDirection.h
  * @brief Declare LaunchDirection class
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.4 2005/06/15 21:42:16 burnett Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.5 2006/03/21 01:28:55 usher Exp $
  */
 
 #ifndef _FluxSource_LaunchDirection_h
@@ -87,7 +87,9 @@ public:
         return rdir;
     }
 
-    void setDir(const HepGeom::HepVector3D& dir){m_dir=dir;}
+    void setDir(const HepGeom::HepVector3D& dir){
+        m_dir=dir;
+    }
 
 
     //! solid angle: default of 1. for a point source

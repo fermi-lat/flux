@@ -1,7 +1,7 @@
 /** @file Flux.h
     @brief Declaration of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.6 2005/06/15 21:42:16 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.7 2006/03/21 01:28:55 usher Exp $
 
   Original author: T. Burnett
 */
@@ -96,9 +96,6 @@ public:
     ///get the transformation matrix due to orientation of the Galaxy 
     virtual CLHEP::HepRotation CELTransform(double time)const;
     
-    ///get the transformation matrix due to orientation of the spacecraft.
-    virtual CLHEP::HepRotation orientTransform(double time)const;
-
     /// get the transformtation matrix - the rest of these functions are now deprecated
     virtual CLHEP::HepRotation transformToGlast(double seconds, astro::GPS::CoordSystem index)const;
     
