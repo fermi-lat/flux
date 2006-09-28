@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Thu Sep 28 16:39:41 PDT 2006
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Log Message:
+implement pointing
+    *
+------------------------------------------------------------
 User: burnett  Thu Sep 28 16:39:40 PDT 2006
 flux/flux
 
