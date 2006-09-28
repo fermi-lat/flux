@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.11 2006/03/21 01:28:55 usher Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.12 2006/07/12 17:58:59 burnett Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -59,15 +59,9 @@ public:
     
     /// generate some test output
     void test(std::ostream& out, std::string source_name, int count);
-    
-    /// set the angular (off-zenith) values of the GLAST satellite
-    void setExplicitRockingAngles(std::pair<double,double> ang);
 
-	/// set the desired pointing history file to use:
-	void setPointingHistoryFile(std::string fileName);
-
-    /// get the angular values of the satellite
-    std::pair<double,double> getExplicitRockingAngles();
+    /// set the desired pointing history file to use:
+    void setPointingHistoryFile(std::string fileName);
 
     ///this should return the source file names, along with the contained sources.
     std::vector<std::pair< std::string ,std::list<std::string> > > sourceOriginList() const;
