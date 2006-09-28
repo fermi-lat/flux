@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.27 2006/03/21 01:28:56 usher Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.28 2006/07/12 17:58:59 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -315,14 +315,6 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
 
 void FluxMgr::addFactory(std::string name, const ISpectrumFactory* factory ) {
     SpectrumFactoryTable::instance()->addFactory(name,factory);
-}
-
-void FluxMgr::setExplicitRockingAngles(std::pair<double,double> ang){
-   GPS::instance()->rotateAngles(ang);
-}
-
-std::pair<double,double> FluxMgr::getExplicitRockingAngles(){
-    return GPS::instance()->rotateAngles();
 }
 
 /// set the desired pointing history file to use:
