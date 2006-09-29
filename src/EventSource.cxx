@@ -1,7 +1,7 @@
 /** @file EventSource.cxx
     @brief Implementation of class EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.4 2005/04/28 16:39:00 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.5 2006/07/12 17:58:59 burnett Exp $
 */
 
 #include "flux/EventSource.h"
@@ -12,6 +12,8 @@
 
 unsigned int  EventSource::s_id = 0;
 double  EventSource::s_total_area = 6.; // area in m^2
+double  EventSource::s_backoff = 2000.; // in mm
+
 
 bool EventSource::s_applyAlign(false);
 CLHEP::HepRotation EventSource::s_alignMatrix;
