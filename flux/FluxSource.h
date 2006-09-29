@@ -21,7 +21,7 @@ class LaunchPoint;
 @brief class which manages to compute flux from various particle source configurations
 It is initialized from a xml description
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.6 2004/11/10 20:22:24 jrb Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.7 2005/05/03 23:49:18 jchiang Exp $
 */
 class FluxSource : public EventSource  
 {
@@ -77,6 +77,7 @@ public:
     /// this function decides if the current incoming photon would be occulted
     /// by the earth
     bool occulted();
+
 
 private:
 

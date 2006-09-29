@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.36 2006/06/08 22:36:51 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.37 2006/07/12 17:58:59 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -243,10 +243,12 @@ public:
     */
     SourceDirection(ISpectrum* spectrum, std::string frame /*bool galactic*/)
         : m_spectrum(spectrum)
-        , m_galactic(frame=="galaxy")
+        , m_galactic(frame=="galaxy"|| frame=="galactic")
         , m_equatorial(frame=="equatorial")
+        , m_zenith(frame=="zenith")
         , m_zenithCos(1.0)
-    {}
+    {
+    }
 
     void execute(double ke, double time){
         using astro::GPS;
@@ -254,7 +256,7 @@ public:
         std::pair<float,float> direction 
             = m_spectrum->dir(ke);
 
-        if( !(m_galactic||m_equatorial) ) {
+        if( m_zenith) {
             // special option that gets direction from the spectrum object
             // note extra - sign since direction corresponds to *from*, not *to*
 
@@ -271,8 +273,8 @@ public:
             //setDir(-HepVector3D(cos(phi)*sinth, sin(phi)*sinth, costh));
             setDir(zenToGlast*(-unrotated));
 
-        }else {
-            // interpret direction as l,b for a galactic or celestial source
+        }else if( m_galactic || m_equatorial ){
+            // interpret direction as l,b for a  celestial source
             double  l = direction.first,
                 b = direction.second;
             //then set up this direction, either in galactic or celestial coordinates:    
@@ -287,7 +289,22 @@ public:
 
             //and do the transform, finally reversing the direction to correspond to the incoming particle
             setDir( - (celtoglast * unrotated()) );
+        }else {
+            // Glast freame
+            double  costh = direction.first,
+                sinth = sqrt(1.-costh*costh),
+                phi = direction.second;
+
+            //here, we have a direction in the zenith direction, so we need the 
+            //transformation from zenith to GLAST.
+            CLHEP::HepRotation zenToGlast = astro::GPS::instance()->transformToGlast(time,GPS::ZENITH);
+
+            HepGeom::HepVector3D unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
+
+            //setDir(-HepVector3D(cos(phi)*sinth, sin(phi)*sinth, costh));
+            setDir(zenToGlast*(-unrotated));
         }
+
     }
 
     //! solid angle
@@ -304,7 +321,9 @@ public:
 
 private:
     ISpectrum* m_spectrum;
-    bool   m_galactic,m_equatorial;
+    bool   m_equatorial; ///< true if celestial frame specified
+    bool   m_galactic;  ///< celestial, interpret at galactic
+    bool   m_zenith;   ///< if zenith frame
     double m_zenithCos;
 };
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -412,8 +431,7 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
         {
             std::string frame = 
                 xmlBase::Dom::getAttribute(angles, "frame");
-                // xmlBase::Dom::transToChar(angles->getAttribute("frame"));
-            m_occultable=(frame=="galaxy" || frame=="equatorial");
+            m_occultable=(frame=="galaxy"||frame=="galactic" || frame=="equatorial");
             m_launch_dir = new SourceDirection(m_spectrum, frame); 
         }
         else if (anglesTag == "galactic_dir")
@@ -505,7 +523,7 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
         } else {
             // default: the target sphere.
             double radius = sqrt(totalArea() / M_PI ) * 1000;   // radius in mm
-            m_launch_pt = new RandomPoint(radius, backoff_distance);
+            m_launch_pt = new RandomPoint(radius, EventSource::s_backoff);
         }
     }
 }
