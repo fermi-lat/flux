@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Fri Sep 29 13:34:49 PDT 2006
+flux/src
+
+Modified Files:
+	EventSource.cxx 
+Log Message:
+intoduced static for backoff distance
+    *
+------------------------------------------------------------
+User: burnett  Fri Sep 29 13:34:49 PDT 2006
 flux/flux
 
 Modified Files:
