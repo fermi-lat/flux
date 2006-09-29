@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Fri Sep 29 13:38:36 PDT 2006
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Log Message:
+clean up a little, make fixed rocking angle work
+    *
+------------------------------------------------------------
+User: burnett  Fri Sep 29 13:38:36 PDT 2006
 flux/flux
 
 Modified Files:
