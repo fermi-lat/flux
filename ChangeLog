@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Fri Sep 29 13:34:49 PDT 2006
+flux/flux
+
+Modified Files:
+	EventSource.h 
+Log Message:
+intoduced static for backoff distance
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r25p1, operation: add
 Package: flux
