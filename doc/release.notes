@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.62 2006/06/08 22:38:33 burnett Exp $
+  $Id: release.notes,v 1.63 2006/09/28 23:41:01 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     EOH
 
+   v8r26   02-oct-2006 thb Make backoff distance a static datamember 
    v8r25p1 28-sep-2006 thb Implement interface to allow setting direction
    v8r25   08-jun=2006 thb Spectrum implementation fixes for particle type and direction
    v8r24   23-mar-2006 thb CLHEP update, tagging Heather and Tracy mods

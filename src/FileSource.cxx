@@ -3,7 +3,7 @@
  * @brief Read in the incident particle properties from a file.
  * @author J. Chiang
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.cxx,v 1.6 2005/06/15 21:42:16 burnett Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FileSource.cxx,v 1.7 2006/03/21 01:28:56 usher Exp $
  */
 
 #include <cstdlib>
@@ -13,6 +13,7 @@
 #include "facilities/Util.h"
 
 #include "flux/SpectrumFactory.h"
+#include "flux/EventSource.h"
 
 #include "FileSource.h"
 
@@ -38,7 +39,7 @@ namespace {
 
 FileSource::FileSource(const std::string & params) 
    : m_launchDirection(0), m_launchPoint(0), m_currentLine(0),
-     m_backOffDistance(2000) {
+   m_backOffDistance(EventSource::s_backoff) {
    std::map<std::string, std::string> pars;
    facilities::Util::keyValueTokenize(params, ", ", pars);
    
