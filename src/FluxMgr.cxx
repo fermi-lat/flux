@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.29 2006/09/28 23:39:41 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.30 2006/09/29 20:38:36 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -265,8 +265,6 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
     cout << "    Generating " << count << " trials " << std::endl;
     cout << " --------------------------------" << std::endl;
 
-    //testing rotateangles function
-    GPS::instance()->rotateAngles(std::make_pair<double,double>(0.0,0.0));
     EventSource* f;
     double totalinterval=0;
     for( int i = 0; i< count; ++i) {
@@ -363,11 +361,11 @@ CLHEP::HepRotation FluxMgr::CELTransform(double time){
 CLHEP::HepRotation FluxMgr::transformGlastToGalactic(double time){
     return GPS::instance()->transformGlastToGalactic(time);
 }
+
 ///this sets the rocking mode in GPS.
 std::vector<double> FluxMgr::setRockType(int rockType, double rockAngle){
     int type=GPS::instance()->setRockType(rockType);
     double degrees = GPS::instance()->rockingDegrees(rockAngle);
-    GPS::instance()->rotateAngles(std::make_pair(rockAngle*M_PI/180,0)); //also set "explicit"
     std::vector<double> ret;
     ret.push_back(type);
     ret.push_back(degrees);
