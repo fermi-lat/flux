@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.37 2006/07/12 17:58:59 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.38 2006/09/29 20:39:44 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -290,7 +290,7 @@ public:
             //and do the transform, finally reversing the direction to correspond to the incoming particle
             setDir( - (celtoglast * unrotated()) );
         }else {
-            // Glast freame
+            // Glast frame
             double  costh = direction.first,
                 sinth = sqrt(1.-costh*costh),
                 phi = direction.second;
