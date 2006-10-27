@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.39 2005/05/24 12:52:49 petry Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.40 2006/03/04 22:17:55 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -20,6 +20,15 @@
     <source name="all_gamma_180GeV" flux="1.0">
         <spectrum escale="GeV">
             <particle name="gamma"> <power_law emin="0.01778" emax="177.8" gamma="1"/>
+            </particle>
+            <solid_angle mincos="0" maxcos="1.0"/>
+        </spectrum>
+    </source>
+
+     <!-- E^-1 spectrum from 18 MeV to 562 GeV and 0-90 degrees to weight all gammas-->
+    <source name="all_gamma_562GeV" flux="1.0">
+        <spectrum escale="GeV">
+            <particle name="gamma"> <power_law emin="0.01778" emax="562.341" gamma="1"/>
             </particle>
             <solid_angle mincos="0" maxcos="1.0"/>
         </spectrum>
