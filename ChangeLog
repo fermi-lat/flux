@@ -1,13 +1,4 @@
 ------------------------------------------------------------
-User: burnett  Thu Oct 26 20:11:23 PDT 2006
-flux/xml
-
-Modified Files:
-	source_library.xml 
-Log Message:
-add source for all_gamma to 562 GeV
-    *
-------------------------------------------------------------
 TAG
 Tag name: v8r26p1, operation: add
 Package: flux
