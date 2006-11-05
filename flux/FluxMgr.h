@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.13 2006/09/28 23:39:40 burnett Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.14 2006/09/29 20:38:36 burnett Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -75,7 +75,7 @@ public:
     void pass ( double t);
     
     /// Get the time as held by GPS
-    GPStime time () const;
+    double time () const;
     
     /// synch satellite location with current time
     void synch ();
@@ -87,14 +87,10 @@ public:
     std::pair<double,double> location();
     
     CLHEP::HepRotation transformToGlast(double seconds, astro::GPS::CoordSystem index);
-    
-    ///get the transformation matrix due to orientation of the Galaxy
-    CLHEP::HepRotation CELTransform(double time);
-    ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
-    CLHEP::HepRotation transformGlastToGalactic(double time);
 
     ///this sets the rocking mode in GPS.
-    std::vector<double> setRockType(int rockType, double rockAngle);
+    std::vector<double> setRockType(astro::GPS::RockType rockType, double rockAngle);
+    
     /// Set an alignment rotation to be applied to the instrument coordinates of any incoming particle
     void setAlignmentRotation(const CLHEP::HepRotation& align);
 

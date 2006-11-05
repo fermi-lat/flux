@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.38 2006/09/29 20:39:44 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.39 2006/10/06 01:21:55 burnett Exp $
 
 */
 #include "flux/FluxSource.h"
@@ -281,7 +281,7 @@ public:
             astro::SkyDir unrotated(l,b,m_galactic? astro::SkyDir::GALACTIC : astro::SkyDir::EQUATORIAL);
 
             //get the zenith cosine:
-            astro::SkyDir zenDir(GPS::instance()->RAZenith(),GPS::instance()->DECZenith());
+            astro::SkyDir zenDir(GPS::instance()->zenithDir());
             m_zenithCos = unrotated()*zenDir();
             //get the transformation matrix..
             //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
