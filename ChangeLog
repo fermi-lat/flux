@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Sun Nov  5 12:08:42 PST 2006
+flux/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+changes required by mods to GPS.
+    *
+------------------------------------------------------------
+User: burnett  Sun Nov  5 12:08:42 PST 2006
 flux/src
 
 Modified Files:
