@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sun Nov  5 12:08:42 PST 2006
+flux/flux
+
+Modified Files:
+	FluxMgr.h LaunchDirection.h 
+Log Message:
+changes required by mods to GPS.
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r27, operation: add
 Package: flux
