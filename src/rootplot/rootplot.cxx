@@ -1,6 +1,6 @@
 /** @file rootplot.h
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.9 2005/06/15 21:42:16 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.10 2005/06/23 22:52:16 burnett Exp $
 */
 #include "flux/rootplot.h"
 
@@ -243,7 +243,7 @@ void rootplot::init(std::vector<std::string> argv)
 
         std::cout << sources[i] << std::endl;
 
-        GPS::instance()->getPointingCharacteristics(time);
+        GPS::instance()->time(time);
         std::pair<double,double> loc=fm.location();
         std::cout << "Lat/Lon:  " << loc.first << "   " << loc.second << std::endl;
 
