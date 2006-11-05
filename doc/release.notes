@@ -1,11 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.65 2006/10/06 01:24:13 burnett Exp $
+  $Id: release.notes,v 1.66 2006/10/27 03:13:24 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
-    EOH
-
+    
+   v8r28   05-nov-2006 thb Mods due to GPS refactoring 
    v8r27   26-oct-2006 thb Add all_gamma_562GeV source
    v8r26p1 05-oct-2006 thb clean up a little 
    v8r26   02-oct-2006 thb Make backoff distance a static datamember 
