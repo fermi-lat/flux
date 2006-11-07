@@ -1,7 +1,7 @@
 /** @file Flux.h
     @brief Declaration of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.7 2006/03/21 01:28:55 usher Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.8 2006/07/12 17:58:59 burnett Exp $
 
   Original author: T. Burnett
 */
@@ -92,15 +92,9 @@ public:
     // virtual void addFactory( const IFactory* factory );
     
     virtual void addFactory(std::string name, const ISpectrumFactory* factory );
-    
-    ///get the transformation matrix due to orientation of the Galaxy 
-    virtual CLHEP::HepRotation CELTransform(double time)const;
-    
     /// get the transformtation matrix - the rest of these functions are now deprecated
     virtual CLHEP::HepRotation transformToGlast(double seconds, astro::GPS::CoordSystem index)const;
     
-    ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
-    CLHEP::HepRotation transformGlastToGalactic(double time)const;
     
     //    insert(std::make_pair<std::string, const ISpectrumFactory*>(name, factory));
     

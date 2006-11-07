@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.5 2006/03/21 01:28:55 usher Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.6 2006/07/12 17:58:59 burnett Exp $
 
 #ifndef _H_IFlux_
 #define _H_IFlux_
@@ -30,7 +30,7 @@ class ISpectrumFactory;
 * 
   Abstract interface for an object that generates particles, Flux
 
-  * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.5 2006/03/21 01:28:55 usher Exp $
+  * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.6 2006/07/12 17:58:59 burnett Exp $
 */
 class IFlux {
 public:
@@ -82,16 +82,10 @@ public:
     
     /// pass a specific amount of time
     virtual void pass ( double t)=0;
-    
-    ///get the transformation matrix due to orientation of the Galaxy 
-    virtual CLHEP::HepRotation CELTransform(double time)const=0;
-    
+        
     virtual void addFactory(std::string name, const ISpectrumFactory* factory )=0;
     
     virtual /*int*/double gpsTime()const=0;
-    
-    ///this transforms glast-local (cartesian) vectors into galactic (cartesian) vectors
-    virtual CLHEP::HepRotation transformGlastToGalactic(double time)const=0;
     
     virtual EventSource* currentEvent()=0;
     virtual EventSource* currentFlux()=0;
