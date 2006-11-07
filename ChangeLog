@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Mon Nov  6 19:34:28 PST 2006
+flux/flux
+
+Modified Files:
+	Flux.h IFlux.h 
+Log Message:
+remove some obsolete interface elements; tag
+    *
+------------------------------------------------------------
+User: burnett  Mon Nov  6 19:34:28 PST 2006
 flux/doc
 
 Modified Files:
