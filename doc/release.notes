@@ -1,10 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.67 2006/11/05 20:14:37 burnett Exp $
+  $Id: release.notes,v 1.68 2006/11/07 03:34:28 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
+   v8r29   11-nov-2006 thb new timer sources
    v8r28p1 06-nov-2006 thb more Mods due to GPS refactoring 
    v8r28   05-nov-2006 thb Mods due to GPS refactoring 
    v8r27   26-oct-2006 thb Add all_gamma_562GeV source
