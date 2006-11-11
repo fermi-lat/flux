@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.40 2006/03/04 22:17:55 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.41 2006/10/27 03:11:22 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -212,7 +212,7 @@
 
 <source_library title="clocks" >
 
-    <!-- the default clock  -->
+    <!-- the default clock, 1/30 Hz, for generating FT2 -->
     <source name="clock">
          <spectrum escale="GeV"> <SpectrumClass name="TimeCandle" params="30.0"/>  
 		 <use_spectrum/>
@@ -220,9 +220,17 @@
          </spectrum>
     </source>
 
-    <!-- the TimeCandle spectrum  -->
-    <source name="timetick30s">
-         <spectrum escale="GeV"> <SpectrumClass name="TimeCandle" params="30.0"/>  
+    <!-- a 1 Hz rate -->
+    <source name="timer_1Hz">
+         <spectrum escale="GeV"> <SpectrumClass name="TimeCandle" params="1.0"/>  
+		 <use_spectrum/>
+                 <launch_point />
+         </spectrum>
+    </source>
+
+    <!-- a 5 Hz rate -->
+    <source name="timer_5Hz">
+         <spectrum escale="GeV"> <SpectrumClass name="TimeCandle" params="0.2"/>  
 		 <use_spectrum/>
                  <launch_point />
          </spectrum>
