@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sat Nov 11 14:03:47 PST 2006
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+add 1Hz and 5 Hz timers
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r28p1, operation: add
 Package: flux
