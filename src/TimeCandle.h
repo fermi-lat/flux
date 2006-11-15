@@ -2,7 +2,7 @@
  * @file TimeCandle.h
  * @brief Declaration of class TImeCandle.cxx: a source that ticks 
 
- * $Header$
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.h,v 1.4 2005/03/20 21:21:10 burnett Exp $
  */
 
 #ifndef flux_TimeCandle_H
@@ -20,7 +20,7 @@
   a convenient Spectrum : a single particle at a constant incremental time, 
   @author: S. Robinson
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.h,v 1.3 2005/03/18 04:38:17 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.h,v 1.4 2005/03/20 21:21:10 burnett Exp $
 */
 
 
@@ -40,8 +40,9 @@ public:
     
     double interval (double time);
 private:
-    float parseParamList(std::string input, int index);
-    double m_T0; //how many seconds pass before each next incoming particle
+    float parseParamList(std::string input, int index, float default);
+    double m_period; ///< period 
+    double m_offset; ///< offset in seconds after second boundary to start (-1: ignore)
     std::string m_name;	// particle name to generate ("P", "gamma", ...)
     bool m_first;
 };
