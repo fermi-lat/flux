@@ -2,7 +2,7 @@
  * @file TimeCandle.cxx
  * @brief Implementation of class TImeCandle.cxx: a source that ticks 
 
- * $Header$
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.cxx,v 1.5 2005/03/20 21:21:10 burnett Exp $
  */
 
 #include "TimeCandle.h"
@@ -21,7 +21,8 @@ TimeCandle::TimeCandle()
 , m_name("TimeTick")
 {}//default constructor
 TimeCandle::TimeCandle(const std::string& params)
-: m_T0(parseParamList(params,0)) 
+: m_period(parseParamList(params,0)) 
+, m_offset(parseParamList(params,1,-1)
 , m_name("TimeTick")
 , m_first(true)
 {}
@@ -51,22 +52,31 @@ TimeCandle::particleName() const
     return m_name.c_str();
 }
 
-float TimeCandle::parseParamList(std::string input, int index)
+float TimeCandle::parseParamList(std::string input, int index, float default)
 {
     std::vector<float> output;
     int i=0;
+    
     for(;!input.empty() && i!=std::string::npos;){
         float f = ::atof( input.c_str() );
         output.push_back(f);
         i=input.find_first_of(",");
         input= input.substr(i+1);
     } 
+    if( index>output.size()-1 )return default;
     return output[index];
 }
 
 double TimeCandle::interval (double time)
 {  
-    if( m_first){return 1e-30;} // epsilon to be greater than zero
-    return m_T0;
+    if( m_first){
+        if( offset<0) return 1e-30;// epsilon to be greater than zero
+
+        // determing time until next offset from current time
+        double tic = ::floor(time), next(tic+m_offset-time);
+        return next>0? next : next+1.;
+
+    } 
+    return m_period;
 }
 
