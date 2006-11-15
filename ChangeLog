@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Nov 15 12:57:42 PST 2006
+flux/src
+
+Modified Files:
+	TimeCandle.cxx TimeCandle.h 
+Log Message:
+allow for offset in clocks
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r29, operation: add
 Package: flux
