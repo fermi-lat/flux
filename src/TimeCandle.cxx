@@ -2,7 +2,7 @@
  * @file TimeCandle.cxx
  * @brief Implementation of class TImeCandle.cxx: a source that ticks 
 
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.cxx,v 1.5 2005/03/20 21:21:10 burnett Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.cxx,v 1.6 2006/11/15 20:57:42 burnett Exp $
  */
 
 #include "TimeCandle.h"
@@ -17,12 +17,12 @@ static SpectrumFactory<TimeCandle> factory;
 const ISpectrumFactory& TimeCandleFactory = factory;
 
 TimeCandle::TimeCandle()
-: m_T0(30.)
+: m_period(30.)
 , m_name("TimeTick")
 {}//default constructor
 TimeCandle::TimeCandle(const std::string& params)
-: m_period(parseParamList(params,0)) 
-, m_offset(parseParamList(params,1,-1)
+: m_period(parseParamList(params,0, 1)) 
+, m_offset(parseParamList(params,1,-1))
 , m_name("TimeTick")
 , m_first(true)
 {}
@@ -32,7 +32,7 @@ TimeCandle::TimeCandle(const std::string& params)
 std::string TimeCandle::title()const
 {
     std::stringstream s;
-    s << "TimeTick("<< m_T0 << ")" ;
+    s << "TimeTick("<< m_period << ")" ;
     std::string t(s.str()); 
     return t;
 }
@@ -52,7 +52,7 @@ TimeCandle::particleName() const
     return m_name.c_str();
 }
 
-float TimeCandle::parseParamList(std::string input, int index, float default)
+float TimeCandle::parseParamList(std::string input, int index, float defaultValue)
 {
     std::vector<float> output;
     int i=0;
@@ -63,14 +63,14 @@ float TimeCandle::parseParamList(std::string input, int index, float default)
         i=input.find_first_of(",");
         input= input.substr(i+1);
     } 
-    if( index>output.size()-1 )return default;
+    if( index>output.size()-1 )return defaultValue;
     return output[index];
 }
 
 double TimeCandle::interval (double time)
 {  
     if( m_first){
-        if( offset<0) return 1e-30;// epsilon to be greater than zero
+        if( m_offset<0) return 1e-30;// no offset; epsilon to be greater than zero
 
         // determing time until next offset from current time
         double tic = ::floor(time), next(tic+m_offset-time);
