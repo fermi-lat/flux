@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sat Dec  2 19:36:08 PST 2006
+flux/flux
+
+Modified Files:
+	EventSource.h FluxSource.h LaunchDirection.h LaunchPoint.h 
+Log Message:
+get rid of CLHEP/Geometry; partially implement Sun, Moon
+    *
+------------------------------------------------------------
 User: burnett  Wed Nov 15 14:30:27 PST 2006
 flux/xml
 
