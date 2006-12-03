@@ -1,24 +1,4 @@
 ------------------------------------------------------------
-User: burnett  Sat Dec  2 20:32:21 PST 2006
-flux/src
-
-Modified Files:
-	SourceDirection.cxx SourceDirection.h 
-Log Message:
-infrastructure to handle Sun, Moon. 
-*** Moon not yet corrected for parallax!!*****
-    *
-------------------------------------------------------------
-User: burnett  Sat Dec  2 20:32:21 PST 2006
-flux/cmt
-
-Modified Files:
-	requirements 
-Log Message:
-infrastructure to handle Sun, Moon. 
-*** Moon not yet corrected for parallax!!*****
-    *
-------------------------------------------------------------
 User: burnett  Sat Dec  2 19:36:08 PST 2006
 flux/xml
 
