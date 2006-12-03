@@ -6,6 +6,7 @@
 
 #include "EventSource.h"
 // forward declarations
+#include "astro/SkyDir.h"
 
 #include <xercesc/util/XercesDefs.hpp>
 XERCES_CPP_NAMESPACE_BEGIN
@@ -21,7 +22,7 @@ class LaunchPoint;
 @brief class which manages to compute flux from various particle source configurations
 It is initialized from a xml description
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.7 2005/05/03 23:49:18 jchiang Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.8 2006/09/29 20:39:43 burnett Exp $
 */
 class FluxSource : public EventSource  
 {
@@ -69,9 +70,10 @@ public:
     virtual int eventNumber()const;
 
     virtual double energy()const { return m_energy;}
-    virtual const HepVector3D& launchDir()const {return m_correctedDir;}
-    virtual const HepPoint3D&  launchPoint()const { return m_launchPoint;}
-    virtual const HepVector3D& skyDirection()const;
+    virtual const CLHEP::Hep3Vector& launchDir()const {return m_correctedDir;}
+    virtual const CLHEP::Hep3Vector&  launchPoint()const { return m_launchPoint;}
+ 
+    virtual astro::SkyDir skyDirection()const;
 
     virtual std::string particleName();
     /// this function decides if the current incoming photon would be occulted
@@ -81,9 +83,8 @@ public:
 
 private:
 
-// forward declaration of classes that handle the lauch direction
+// forward declaration of nested classes that handle the lauch direction
    class RandomDirection;  // choose randomly from range 
-   class SourceDirection;  // choose from an external source class
 
 // forward declaration of classes that handle launch point
    class RandomPoint; // random strategy
@@ -100,12 +101,12 @@ private:
     // associated with a specific launch
 
     /// result of strategy
-    HepVector3D m_launchDir;
+    CLHEP::Hep3Vector m_launchDir;
 
     ///direction after being corrected for the "tilt" angles.
-    HepVector3D m_correctedDir;
+    CLHEP::Hep3Vector m_correctedDir;
 
-    HepPoint3D  m_launchPoint;
+    CLHEP::Hep3Vector  m_launchPoint;
 
     double calculateInterval (double time);
 

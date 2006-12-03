@@ -1,4 +1,4 @@
-<!--  $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source.dtd,v 1.9 2005/05/05 05:33:36 jchiang Exp $
+<!--  $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source.dtd,v 1.10 2006/09/29 20:39:44 burnett Exp $
   DTD file for flux source definitions
   -->
 <!ELEMENT source_library ((source)+ | (source_library)*) >
@@ -27,7 +27,11 @@
 <!ATTLIST SpectrumClass name CDATA #REQUIRED
                         params CDATA " ">
 
-<!--- Here, the particle is declared, along with the name of the particle (we have assumed the name will not come from a Spectrum class).  See EXTLIB/LHCBDBASE/cdf/particle.cdf for a list of accepted names and their associated HEPID numbers.-->
+<!--- Here, the particle is declared, along with the name of the particle 
+      (we have assumed the name will not come from a Spectrum class).  
+      See EXTLIB/LHCBDBASE/cdf/particle.cdf for a list of accepted names 
+      and their associated HEPID numbers.
+      -->
 <!ELEMENT particle (energy | power_law | exponential)>
 <!ATTLIST particle name CDATA "gamma" >
 
@@ -58,10 +62,12 @@
 <!ATTLIST solid_angle mincos CDATA "-0.4"  maxcos CDATA "1.0"
                       theta  CDATA "0" phi CDATA "0">
 
-<!-- if this element exists, the Spectrum object will generate the angles 
-     - "zenith" means we expect the spectrum to send a local zenith-based direction (costh,phi), 
-     and "galactic" means we expect galactic coordinates (l,b),
-     and "equatorial" means we expect equatorial coordinates (Ra,Dec) -->
+<!-- if this element exists, the Spectrum object will generate the angles
+    frame ="zenith"     local zenith-based direction (costh,phi), 
+           "galactic"   galactic coordinates (l,b),
+           "equatorial" equatorial coordinates (Ra,Dec) 
+           "Sun", "Moon" coordanates with respect to current position
+     -->
 <!ELEMENT use_spectrum EMPTY>
 <!ATTLIST use_spectrum frame CDATA "zenith">
 
