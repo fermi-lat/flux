@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Sat Dec  2 19:36:08 PST 2006
+flux/xml
+
+Modified Files:
+	source.dtd 
+Log Message:
+get rid of CLHEP/Geometry; partially implement Sun, Moon
+    *
+------------------------------------------------------------
+User: burnett  Sat Dec  2 19:36:08 PST 2006
 flux/src
 
 Modified Files:
