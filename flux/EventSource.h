@@ -1,20 +1,15 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.7 2006/07/12 17:58:59 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.8 2006/09/29 20:34:49 burnett Exp $
 */
 
-#ifndef EventSource_h
-#define EventSource_h 1
-#include "CLHEP/Geometry/Point3D.h"
-#include "CLHEP/Geometry/Vector3D.h"
-// Hack for CLHEP 1.9.2.2
-#ifndef HepVector3D
-typedef HepGeom::Vector3D<double> HepVector3D;
-#endif
-#ifndef HepPoint3D
-typedef HepGeom::Point3D<double>  HepPoint3D;
-#endif
+#ifndef flux_EventSource_h
+#define flux_EventSource_h
+
+#include "CLHEP/Vector/Rotation.h"
+#include "CLHEP/Vector/ThreeVector.h"
+
 /** 
 * \class EventSource
 *
@@ -22,7 +17,7 @@ typedef HepGeom::Point3D<double>  HepPoint3D;
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.7 2006/07/12 17:58:59 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.8 2006/09/29 20:34:49 burnett Exp $
 */
 
 
@@ -101,9 +96,9 @@ public:
     virtual std::string particleName() { return std::string("unknown");}
 
     virtual double energy()const { return 0;}
-    virtual const HepVector3D& launchDir()const { static HepVector3D dummy; return dummy;}
-    virtual const HepPoint3D&  launchPoint()const { static HepPoint3D dummy; return dummy;}
-    virtual const HepVector3D& skyDirection()const{ static HepVector3D dummy; return dummy;}
+    virtual const Hep3Vector & launchDir()const { static Hep3Vector dummy; return dummy;}
+    virtual const Hep3Vector & launchPoint()const { static Hep3Vector dummy; return dummy;}
+//    virtual const Hep3Vector & skyDirection()const{ static Hep3Vector dummy; return dummy;}
     
     static void setAlignmentRotation(const CLHEP::HepRotation& align);
 

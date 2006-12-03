@@ -1,32 +1,31 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.39 2006/10/06 01:21:55 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.40 2006/11/05 20:08:42 burnett Exp $
 
 */
-#include "flux/FluxSource.h"
-
-#include <xercesc/dom/DOMElement.hpp>
-#include "xmlBase/Dom.h"
-#include "CLHEP/Random/RandFlat.h"
-
 #include "astro/SkyDir.h"
+#include "astro/GPS.h"
 
+#include "flux/FluxSource.h"
 #include "flux/LaunchDirection.h"
 #include "flux/LaunchPoint.h"
 #include "flux/SpectrumFactoryTable.h"
 #include "flux/SimpleSpectrum.h"
-
 #include "flux/FluxException.h" // for FATAL_MACRO
-#include "astro/GPS.h"
+
+#include "SourceDirection.h"
+
+#include <xercesc/dom/DOMElement.hpp>
+#include "xmlBase/Dom.h"
+
+#include "CLHEP/Random/RandFlat.h"
+
 
 #include <algorithm>
 #include <sstream>
 #include <stdexcept>
-namespace {
-    // this is the (wired-in) distance to back off from the target sphere.
-    const double backoff_distance=2000.;
-}
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class RandomPoint
@@ -42,13 +41,13 @@ public:
 
     }
 
-    virtual void execute(const HepGeom::HepVector3D& dir){
+    virtual void execute(const CLHEP::Hep3Vector& dir){
         CLHEP::HepRotation r_pln;
 
         //create rotation to take x-y plane to be perpendicular to incoming direction
         double ly = dir.y(), lx = dir.x();
         if( fabs( lx) +fabs(ly) >1e-8) {  // leave as identity 
-            r_pln.rotate(acos(dir.z()),  HepGeom::HepVector3D(-ly, lx, 0.));
+            r_pln.rotate(acos(dir.z()),  CLHEP::Hep3Vector(-ly, lx, 0.));
         }
 
         // pick a random position on the planar section of a sphere through 
@@ -63,7 +62,7 @@ public:
         // second to describe the distance along the normal between the launch 
         // point and that plane.
 #if 1 // standard
-        HepGeom::HepPoint3D posLaunch(rad*cos(azimuth), rad*sin(azimuth), 0.);
+        CLHEP::Hep3Vector posLaunch(rad*cos(azimuth), rad*sin(azimuth), 0.);
 
         // define actual launch point
         setPoint( r_pln*posLaunch - m_backoff*dir);
@@ -95,25 +94,25 @@ the beam will be spread out uniformly on a disk perpendicular to the incoming di
 */
 class FluxSource::FixedPoint : public LaunchPoint{ 
 public:
-    FixedPoint( const HepGeom::HepPoint3D& pt, double radius)
+    FixedPoint( const CLHEP::Hep3Vector& pt, double radius)
         :  LaunchPoint(pt)
         ,  m_disk_radius(radius)
         ,  m_base_point(pt)
     {}
 
-    virtual void execute(const HepGeom::HepVector3D& dir){
+    virtual void execute(const CLHEP::Hep3Vector& dir){
         if(m_disk_radius==0) return; // just use 
 
         CLHEP::HepRotation r_pln;
 
         double ly = dir.y(), lx = dir.x();
         if( lx !=0 || ly !=0 ) { 
-            r_pln.rotate(acos(dir.z()), HepGeom::HepVector3D(-ly, lx, 0.));
+            r_pln.rotate(acos(dir.z()), CLHEP::Hep3Vector(-ly, lx, 0.));
         }
         double 
             azimuth = CLHEP::RandFlat::shoot( 2*M_PI ),
             rad = m_disk_radius*(sqrt(CLHEP::RandFlat::shoot()));
-        HepGeom::HepPoint3D posLaunch(rad*cos(azimuth), rad*sin(azimuth), 0.);
+        CLHEP::Hep3Vector posLaunch(rad*cos(azimuth), rad*sin(azimuth), 0.);
 
         setPoint(r_pln*posLaunch + m_base_point);
 
@@ -126,7 +125,7 @@ public:
     }
 private:
     double m_disk_radius;
-    HepGeom::HepPoint3D m_base_point;
+    CLHEP::Hep3Vector m_base_point;
 };  
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 /** @class Patch
@@ -142,8 +141,8 @@ public:
     {
     }
 
-    virtual void execute(const HepGeom::HepVector3D& ){
-        setPoint(HepGeom::HepPoint3D( 
+    virtual void execute(const CLHEP::Hep3Vector& ){
+        setPoint(CLHEP::Hep3Vector( 
             m_xmin + m_dx*CLHEP::RandFlat::shoot(),
             m_ymin + m_dy*CLHEP::RandFlat::shoot(),
             m_zmin + m_dz*CLHEP::RandFlat::shoot()) );
@@ -199,7 +198,7 @@ public:
         //so we need the transformation from the zenith to GLAST.
         CLHEP::HepRotation zenToGlast=astro::GPS::instance()->transformToGlast(time,astro::GPS::ZENITH);
 
-        HepGeom::HepVector3D dir(cos(phi)*sinth, sin(phi)*sinth, costh);
+        CLHEP::Hep3Vector dir(cos(phi)*sinth, sin(phi)*sinth, costh);
 
         // extra rotation in case not zenith pointing (beware, might be
         // confusing)
@@ -230,102 +229,7 @@ private:
     double m_theta, m_phi;
 
 }; 
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/** @class SourceDirection
-@brief nested launch strategy derived class
-Gets a direction from the ISpectrum class
-*/
-class FluxSource::SourceDirection : public LaunchDirection{ 
-public:
-    /** Ctor:
-    @param spectrum pointer to the ISpectrum object that will provide the direction
-    @param galactic if true, interpret pair as l,b (in degrees); otherwise costh, phi
-    */
-    SourceDirection(ISpectrum* spectrum, std::string frame /*bool galactic*/)
-        : m_spectrum(spectrum)
-        , m_galactic(frame=="galaxy"|| frame=="galactic")
-        , m_equatorial(frame=="equatorial")
-        , m_zenith(frame=="zenith")
-        , m_zenithCos(1.0)
-    {
-    }
 
-    void execute(double ke, double time){
-        using astro::GPS;
-
-        std::pair<float,float> direction 
-            = m_spectrum->dir(ke);
-
-        if( m_zenith) {
-            // special option that gets direction from the spectrum object
-            // note extra - sign since direction corresponds to *from*, not *to*
-
-            double  costh = direction.first,
-                sinth = sqrt(1.-costh*costh),
-                phi = direction.second;
-
-            //here, we have a direction in the zenith direction, so we need the 
-            //transformation from zenith to GLAST.
-            CLHEP::HepRotation zenToGlast = astro::GPS::instance()->transformToGlast(time,GPS::ZENITH);
-
-            HepGeom::HepVector3D unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
-
-            //setDir(-HepVector3D(cos(phi)*sinth, sin(phi)*sinth, costh));
-            setDir(zenToGlast*(-unrotated));
-
-        }else if( m_galactic || m_equatorial ){
-            // interpret direction as l,b for a  celestial source
-            double  l = direction.first,
-                b = direction.second;
-            //then set up this direction, either in galactic or celestial coordinates:    
-            astro::SkyDir unrotated(l,b,m_galactic? astro::SkyDir::GALACTIC : astro::SkyDir::EQUATORIAL);
-
-            //get the zenith cosine:
-            astro::SkyDir zenDir(GPS::instance()->zenithDir());
-            m_zenithCos = unrotated()*zenDir();
-            //get the transformation matrix..
-            //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
-            CLHEP::HepRotation celtoglast = astro::GPS::instance()->transformToGlast(time,astro::GPS::CELESTIAL);
-
-            //and do the transform, finally reversing the direction to correspond to the incoming particle
-            setDir( - (celtoglast * unrotated()) );
-        }else {
-            // Glast frame
-            double  costh = direction.first,
-                sinth = sqrt(1.-costh*costh),
-                phi = direction.second;
-
-            //here, we have a direction in the zenith direction, so we need the 
-            //transformation from zenith to GLAST.
-            CLHEP::HepRotation zenToGlast = astro::GPS::instance()->transformToGlast(time,GPS::ZENITH);
-
-            HepGeom::HepVector3D unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
-
-            //setDir(-HepVector3D(cos(phi)*sinth, sin(phi)*sinth, costh));
-            setDir(zenToGlast*(-unrotated));
-        }
-
-    }
-
-    //! solid angle
-    virtual double solidAngle()const {
-        return m_spectrum->solidAngle();
-    }
-
-    virtual std::string title()const {
-        return "(use_spectrum)";
-    }
-
-    /// return the cosine of the angle between the incoming direction and the earth's zenith
-    virtual double zenithCosine()const{return m_zenithCos;}
-
-private:
-    ISpectrum* m_spectrum;
-    bool   m_equatorial; ///< true if celestial frame specified
-    bool   m_galactic;  ///< celestial, interpret at galactic
-    bool   m_zenith;   ///< if zenith frame
-    double m_zenithCos;
-};
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 //                   FluxSource constructor
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -431,7 +335,7 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
         {
             std::string frame = 
                 xmlBase::Dom::getAttribute(angles, "frame");
-            m_occultable=(frame=="galaxy"||frame=="galactic" || frame=="equatorial");
+            m_occultable=(frame!="zenith");
             m_launch_dir = new SourceDirection(m_spectrum, frame); 
         }
         else if (anglesTag == "galactic_dir")
@@ -492,7 +396,7 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
 
             if (launchTag == "launch_point")
             {
-                m_launch_pt = new FixedPoint(HepGeom::HepPoint3D(
+                m_launch_pt = new FixedPoint(CLHEP::Hep3Vector(
                     xmlBase::Dom::getDoubleAttribute(launch, "x"),
                     xmlBase::Dom::getDoubleAttribute(launch, "y"),
                     xmlBase::Dom::getDoubleAttribute(launch, "z")),
@@ -663,9 +567,11 @@ bool FluxSource::occulted(){
     return (m_occultable) && (m_zenithCosTheta < minCosTheta);
 
 }
-const HepGeom::HepVector3D& FluxSource::skyDirection()const
+
+astro::SkyDir FluxSource::skyDirection()const
 {
-    return m_launch_dir->skyDirection();
+    return astro::SkyDir(m_launch_dir->dir());
 }
+
 
 
