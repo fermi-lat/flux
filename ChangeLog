@@ -1,5 +1,16 @@
 ------------------------------------------------------------
 User: burnett  Sat Dec  2 19:36:08 PST 2006
+flux/src
+
+Modified Files:
+	FileSource.cxx FileSource.h FluxSource.cxx 
+Added Files:
+	SourceDirection.cxx SourceDirection.h 
+Log Message:
+get rid of CLHEP/Geometry; partially implement Sun, Moon
+    *
+------------------------------------------------------------
+User: burnett  Sat Dec  2 19:36:08 PST 2006
 flux/flux
 
 Modified Files:
