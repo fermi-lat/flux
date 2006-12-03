@@ -1,7 +1,7 @@
 /** @file SourceDirection.h
 @brief SourceDirection declaration
 
-$Header$
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.h,v 1.1 2006/12/03 03:36:08 burnett Exp $
 
 */
 #ifndef flux_SourceDirection_h
@@ -45,7 +45,7 @@ private:
     double m_zenithCos;
     std::string m_frameName;
 
-    CLHEP::Hep3Vector solarSystemDir(Frame f, double time);
+    void solarSystemDir(double costh, double phi, double time);
 
 };
 

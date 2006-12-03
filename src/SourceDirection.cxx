@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header$
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.1 2006/12/03 03:36:08 burnett Exp $
 
 */
 
@@ -39,7 +39,6 @@ void SourceDirection::execute(double ke, double time){
     using astro::GPS;
     using astro::SkyDir;
     using astro::SolarSystem;
-    static SkyDir northPole(0,90);
 
     GPS* gps = GPS::instance();
     // get the direction information from the ISpectrum object
@@ -85,52 +84,39 @@ void SourceDirection::execute(double ke, double time){
             }
  
         case SUN:
-            {
-                // get the direction to the Sun or Moon
-  
-                // direction to center of the object, polar angle
-                Hep3Vector dir(solarsystemDir(time));
-                double theta(dir.theta());
-
-                // direction with respect to object
-                Hep3Vector axis(northPole().cross(dir));
-                double costh = first
-                    ,  sinth = sqrt(1.-costh*costh)
-                    ,  phi   = second;
-                CLHEP::Hep3Vector unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
-
-                HepRotation R(axis, theta);
-                setDir(- (R* unrotated));
-                break;
-            }
         case MOON:
             {
-                SolarSystem luna(astro::SolarSystem::MOON);
-                double jd(astro::JulianDate::missionStart()+time);
-
-                setDir(-luna.direction(jd).dir());    
+                solarSystemDir(first, second, time);
                 break;
             }
     }
 
 }
 
-Hep3Vector solarsytemDir( double time)
+void SourceDirection::solarSystemDir( double costh, double phi, double time)
 {
+    using astro::SolarSystem;
+    using CLHEP::Hep3Vector;
+    static Hep3Vector northPole(0,0,1);
 
+    double  sinth( sqrt(1.-costh*costh));
+    Hep3Vector unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
     double jd(astro::JulianDate::missionStart()+time);
 
+    Hep3Vector dir;
     if( m_frame==SUN) {
         SolarSystem sol(astro::SolarSystem::SUN);
-        return Hep3Vector dir(sol.direction(jd)());
+        dir = Hep3Vector(sol.direction(jd)());
     }
     if (m_frame==MOON) {
         SolarSystem luna(astro::SolarSystem::MOON);
-
-        return Hep3Vector dir(luna.direction(jd)());
-
-
+        dir = Hep3Vector(luna.direction(jd)());
     }
+    Hep3Vector axis( northPole.cross(dir));
+    HepRotation R(axis, dir.theta());
+
+    setDir(- (R* unrotated));
+
 }
 
 
