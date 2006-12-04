@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sun Dec  3 20:56:15 PST 2006
+flux/src
+
+Modified Files:
+	SourceDirection.cxx 
+Log Message:
+GRB assumed  frame was galaxy--add that.
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r30, operation: add
 Package: flux
