@@ -1,11 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.69 2006/11/11 22:09:35 burnett Exp $
+  $Id: release.notes,v 1.70 2006/12/03 04:37:35 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
-   v8r30   02-dec-2006 thb initial support for Sun and Moon; some refactoring
+   v8r30p1 02-dec-2006 thb initial support for Sun and Moon; some refactoring
    v8r29   11-nov-2006 thb new timer sources
    v8r28p1 06-nov-2006 thb more Mods due to GPS refactoring 
    v8r28   05-nov-2006 thb Mods due to GPS refactoring 
