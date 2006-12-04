@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.1 2006/12/03 03:36:08 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.2 2006/12/03 04:32:21 burnett Exp $
 
 */
 
@@ -23,9 +23,10 @@ SourceDirection::SourceDirection(ISpectrum* spectrum, std::string frame )
 {
     m_frame = INVALID; int n(0);
     static const char* frame_names[]=
-     {"zenith",  "equatorial","galactic", "Sun", "Moon"};
+     {"zenith",  "equatorial","galactic", "galaxy", "Sun", "Moon"};
     if( frame == frame_names[n++] ) m_frame=ZENITH;
     if( frame == frame_names[n++] ) m_frame=EQUATORIAL;
+    if( frame == frame_names[n++] ) m_frame=GALACTIC;
     if( frame == frame_names[n++] ) m_frame=GALACTIC;
     if( frame == frame_names[n++] ) m_frame=SUN;
     if( frame == frame_names[n++] ) m_frame=MOON;
