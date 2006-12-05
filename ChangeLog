@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Tue Dec  5 07:20:15 PST 2006
+flux/src
+
+Modified Files:
+	SourceDirection.cxx 
+Log Message:
+fix time, assumption about position
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r30p1, operation: add
 Package: flux
