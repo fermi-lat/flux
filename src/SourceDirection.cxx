@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.2 2006/12/03 04:32:21 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.3 2006/12/04 04:56:15 burnett Exp $
 
 */
 
@@ -43,7 +43,7 @@ void SourceDirection::execute(double ke, double time){
 
     GPS* gps = GPS::instance();
     // get the direction information from the ISpectrum object
-    std::pair<float,float> direction = m_spectrum->dir(ke);
+    std::pair<double,double> direction = m_spectrum->dir(ke);
     double first(direction.first), second(direction.second);
 
     switch (m_frame) {
@@ -94,15 +94,16 @@ void SourceDirection::execute(double ke, double time){
 
 }
 
-void SourceDirection::solarSystemDir( double costh, double phi, double time)
+void SourceDirection::solarSystemDir( double ra, double dec, double time)
 {
     using astro::SolarSystem;
+    using astro::SkyDir;
+    using astro::JulianDate;
     using CLHEP::Hep3Vector;
     static Hep3Vector northPole(0,0,1);
 
-    double  sinth( sqrt(1.-costh*costh));
-    Hep3Vector unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
-    double jd(astro::JulianDate::missionStart()+time);
+    Hep3Vector unrotated(SkyDir(ra,dec).dir());
+    JulianDate jd(JulianDate::missionStart()+time/JulianDate::secondsPerDay);
 
     Hep3Vector dir;
     if( m_frame==SUN) {
