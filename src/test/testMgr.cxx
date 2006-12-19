@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.12 2006/03/04 22:17:55 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.13 2006/05/22 21:17:15 burnett Exp $
 
 //#include "FluxSvc/ISpectrumFactory.h"
 
@@ -51,34 +51,9 @@ void flux_load() {
     // these are the spectra that we want to make available
     DECLARE_SPECTRUM( SurfaceMuons);
     DECLARE_SPECTRUM( Earth);
+    DECLARE_SPECTRUM( microQuasar);
  }
-#if 0
-void galacticTest(FluxMgr* fm, std::string sourceName,double count){
-    EventSource* e = fm->source(sourceName);
-    double time=fm->time();
-    EventSource* f;
-    double totalinterval=0;
-    double lavg=0,bavg=0;
-    int i;
-    for(i = 0; i< count; ++i) {
-        f = e->event(time);
-        double interval=e->interval(time);
-        //here we increment the "elapsed" time and the "orbital" time,
-        //just as is done in flux.  NOTE: this is important for the operation 
-        //of fluxsource, and is expected.
-        time+=interval;
-        fm->pass(interval);
-        Hep3Vector abc(fm->transformToGlast(time,astro::GPS::CELESTIAL).inverse()*(-(f->launchDir())));
-        astro::SkyDir dir(abc,astro::SkyDir::EQUATORIAL);
-        std::cout << "particle "<< i << " located at (l,b) = " << dir.l() << "," << dir.b() << std::endl;
-        lavg +=dir.l();
-        bavg +=dir.b();
-    }
-    lavg /= i;
-    bavg /= i;
-    std::cout << "  the average photon location was (l,b) = " << lavg << "," << bavg << std::endl;
-}
-#endif
+
 
 int main(int argn, char * argc[]) {
     using std::cout;
@@ -114,46 +89,36 @@ int main(int argn, char * argc[]) {
     cout  << source_name <<"\"" << endl;
 
 
-    std::list<std::string> source_list(fm.sourceList());
+    std::list<std::string> allTheSources;
 
-    if(( argn !=1) && std::find(source_list.begin(), source_list.end(), source_name)==source_list.end() ) {
-        std::list<std::string> spectra(SpectrumFactoryTable::instance()->spectrumList());
+    if(  argn !=1) {
+        std::list<std::string> source_list(fm.sourceList());
+        if( std::find(source_list.begin(), source_list.end(), source_name)==source_list.end() ) {
 
-        if( std::find(spectra.begin(), spectra.end(), source_name)==spectra.end() ) {
             std::cout << "Source \"" << source_name << "\" not found in the list or sources!" << std::endl;
             listSources(source_list);
-            std::cout << "or in spectra list, which is:\n";
-            listSpectra();
-
             return -1;
         }
+        allTheSources.push_back(source_name);
+    }else{
+        // no source name, doing them all.
+        allTheSources = fm.sourceList();
+
     }
-    std::list<std::string> allTheSources = fm.sourceList();
-    std::list<std::string>::iterator abc;
-#if 0
-    if(argn != 1){
-        fm.test(std::cout, source_name, count);
-        std::cout << std::endl << "testing the galactic spread function: these photons should be centeres on l=b=10" << std::endl;
-        galacticTest(&fm,"spread101010",count);
-        std::cout << std::endl << "testing the galactic diffuse map: these photons should be mostly around b=0" << std::endl;
-        galacticTest(&fm,"galdiffusemap",count);
-        std::cout << std::endl << "testing the AGN Source:" << std::endl;
-        galacticTest(&fm,"AGN",count);
-        return 0;
-    }
-#endif
+
     std::string testfilename("testMgrOutput.out");
     std::ostream* m_out = new std::ofstream(testfilename.c_str());
     std::ostream& out = *m_out;
     std::cout << "Writing test results to the file " << testfilename << std::endl;
     
-    for(abc= allTheSources.begin() ; abc != allTheSources.end() ; abc++){
+    std::list<std::string>::iterator abc (allTheSources.begin() );
+    for( ; abc != allTheSources.end() ; abc++){
 
         // now have FluxMgr create and run it.
         std::cout << "Source:  " << *abc << std::endl;
         out << "Source:  " << *abc <<std::endl;
         fm.test(out, (*abc), count);
-        fm.test(std::cout, (*abc), 10); // also example to stdout
+        fm.test(std::cout, (*abc), count); // also example to stdout
         out << std::endl << std::endl << std::endl;
     }
 
