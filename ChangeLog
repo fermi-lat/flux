@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Tue Dec 19 09:31:31 PST 2006
+flux/src/test
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+clean up, fix command-line usage
+    *
+------------------------------------------------------------
 User: burnett  Tue Dec  5 07:20:15 PST 2006
 flux/src
 
