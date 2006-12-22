@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Fri Dec 22 12:31:59 PST 2006
+flux/src
+
+Modified Files:
+	CompositeSource.cxx Flux.cxx FluxMgr.cxx FluxSource.cxx 
+Log Message:
+put in checks for validity, throw exceptions if attempt to use disabled or invalid soruce
+    *
+------------------------------------------------------------
+User: burnett  Fri Dec 22 12:31:59 PST 2006
 flux/flux
 
 Modified Files:
