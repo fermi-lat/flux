@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Fri Dec 22 12:31:59 PST 2006
+flux/flux
+
+Modified Files:
+	Flux.h IFlux.h 
+Log Message:
+put in checks for validity, throw exceptions if attempt to use disabled or invalid soruce
+    *
+------------------------------------------------------------
 User: burnett  Fri Dec 22 12:31:58 PST 2006
 flux/doc
 
