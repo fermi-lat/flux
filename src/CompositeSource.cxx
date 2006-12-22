@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.7 2004/04/20 21:29:34 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.8 2005/02/26 23:56:46 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -36,12 +36,16 @@ void CompositeSource::addSource (EventSource* aSource)
 
 EventSource* CompositeSource::event (double time)
 {
+
+    if( !enabled()){
+        throw std::runtime_error("CompositeSource::event called when disabled");
+    }
+
     int i=0; //for iterating through the m_unusedSource vector
-    int winningsourcenum=0; //the number of the "winning" source
+    int winningsourcenum=-1; //the number of the "winning" source
     EventSource::setTime(time);
 
     m_numofiters=0;
-    double mr = rate(EventSource::time());
 
     // more than one:: choose on basis of relative rates
     std::vector<EventSource*>::iterator  now = m_sourceList.begin();
@@ -49,11 +53,18 @@ EventSource* CompositeSource::event (double time)
 
     double intrval=0.,intrmin=100000.;
     int q;
-    for (q=0 ; now != m_sourceList.end(); ++now) {
+    for (q=0 ; now != m_sourceList.end(); ++now, ++i, ++q) {
+        if( ! (*now)->enabled() ) continue; // ignore if turned off
         if(m_unusedSource[i]==1){
+            // was not used yet: update the interval
             intrval=m_sourceTime[i]-time;
         }else{
-            m_eventList[i] = (*now)->event(time); // to initialize particles, so that the real interval for the particle is gotten.
+
+            // this was was used last time: get a new interval, unless now disabled
+
+            EventSource* candidate = (*now)->event(time);
+            if( !candidate->enabled() ) continue; // skip this guy, no longer active
+            m_eventList[i] = candidate; // to initialize particles, so that the real interval for the particle is gotten.
             intrval=m_sourceList[i]->interval(time);
             m_unusedSource[i]=1;
             m_sourceTime[i]=time + intrval;
@@ -68,8 +79,11 @@ EventSource* CompositeSource::event (double time)
         }
 
         m_recent = (*it);
-        q++;
-        i++;
+    }
+    if( winningsourcenum<0 ) {
+        // nothing left: we are disabled.
+        disable();
+        return this;
     }
     //note:the internal interval() function takes absolute time.
     setInterval(time+intrmin);
