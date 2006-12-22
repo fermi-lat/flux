@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Fri Dec 22 12:31:58 PST 2006
+flux/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+put in checks for validity, throw exceptions if attempt to use disabled or invalid soruce
+    *
+------------------------------------------------------------
+User: burnett  Fri Dec 22 12:31:58 PST 2006
 flux/cmt
 
 Modified Files:
