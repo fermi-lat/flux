@@ -1,7 +1,7 @@
 /** @file Flux.h
     @brief Declaration of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.8 2006/07/12 17:58:59 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.9 2006/11/07 03:34:28 burnett Exp $
 
   Original author: T. Burnett
 */
@@ -45,7 +45,7 @@ public:
     virtual std::string title()const;
     
     /// generate a new entry trajectory
-    virtual void generate();
+    virtual bool generate();
     
     /// the particle generated 
     virtual std::string particleName()const;
@@ -57,10 +57,10 @@ public:
     virtual double energy()const;
     
     /// starting point 
-    virtual HepPoint3D launchPoint()const;
+    virtual Hep3Vector launchPoint()const;
     
     /// direction
-    virtual HepVector3D launchDir()const;
+    virtual Hep3Vector launchDir()const;
     
     /// return the time
     virtual double time()const;
@@ -103,6 +103,7 @@ public:
     /// write the characteristics of the current source distribution to a stream
     void writeSourceCharacteristic(std::ostream& out);
     
+    bool invalid()const;
 private:
     
     EventSource* m_event;  

@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.31 2006/10/06 01:21:55 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.32 2006/11/05 20:08:42 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -275,6 +275,10 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
         //double curTime=GPS::instance()->time();
         //cout << std::endl << "testlat=" << GPS::instance()->orbit()->testLatitude(curTime) << ' ' << "testlon=" << GPS::instance()->orbit()->testLongitude(curTime) << std::endl;
 
+        if( !f->enabled()) {
+            std::cout << "Source turned off at time " << time << std::endl;
+            break;
+        }
         double interval=e->interval(time);
 
         //here we increment the "elapsed" time and the "orbital" time,

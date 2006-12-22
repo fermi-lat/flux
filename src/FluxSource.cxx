@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.40 2006/11/05 20:08:42 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.41 2006/12/03 03:36:08 burnett Exp $
 
 */
 #include "astro/SkyDir.h"
@@ -454,12 +454,18 @@ EventSource* FluxSource::event(double time)
 {
     // Purpose and Method: generate a new incoming particle
     // Inputs  - current time
-    // Outputs - pointer to the "current" fluxSource object.
+    // Outputs - pointer to the "current" fluxSource object,or zero if it has "turned off"
+    if( !enabled()){
+        throw std::runtime_error("FluxSource::event called when disabled");
+    }
     using astro::GPS;
     m_interval = calculateInterval(time);
     if( time+m_interval < GPS::instance()->endTime()){
         // do this only if in valid interval: assume will never get used otherwise
         computeLaunch(time + m_interval);
+    }else{
+        // flag to end use of this source
+       disable();
     }
     //now set the actual interval to be what FluxMgr will get, unless beyond the endtime
     EventSource::setTime(time + m_interval);

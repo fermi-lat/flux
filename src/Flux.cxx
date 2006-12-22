@@ -1,7 +1,7 @@
 /** @file Flux.cxx
 @brief Implementation of Flux
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.11 2006/11/05 20:08:42 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.12 2006/11/07 03:34:28 burnett Exp $
 
 Original author: T. Burnett
 */
@@ -41,18 +41,19 @@ std::string Flux::title()const
 }
 
 
-void Flux::generate()
+bool Flux::generate()
 {
     // Purpose and Method: generate a new entry trajectory, set FluxSource, time
     // Inputs  - none
-    // Outputs - none
+    // Outputs - valididty status
     do{
         double current_time=time();
         // get the next event and its time interval?
         m_flux = m_event->event(current_time);
         double timepass = m_event->interval(current_time);
         pass(timepass);
-    }while(m_event->occulted());
+    }while(m_event->occulted() && m_flux->enabled());
+    return m_flux->enabled();
 }
 
 // the particle generated 
@@ -67,7 +68,7 @@ double Flux::energy()const
 }
 
 // starting point 
-HepPoint3D Flux::launchPoint()const
+Hep3Vector Flux::launchPoint()const
 {
     return m_flux->launchPoint();
 }
@@ -90,7 +91,7 @@ double Flux::gpsTime () const{
 
 
 // direction
-HepVector3D Flux::launchDir()const
+Hep3Vector Flux::launchDir()const
 {
     return m_flux->launchDir();
 }
@@ -140,3 +141,8 @@ CLHEP::HepRotation Flux::transformToGlast(double seconds,astro::GPS::CoordSystem
 void Flux::writeSourceCharacteristic(std::ostream& out){
     m_event->writeSourceCharacteristic(out);
 }
+
+bool Flux::invalid()const{
+    return !m_flux->enabled();
+}
+
