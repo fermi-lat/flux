@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sat Dec 23 13:33:13 PST 2006
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+linux
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r31, operation: add
 Package: flux
