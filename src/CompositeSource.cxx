@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.8 2005/02/26 23:56:46 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.9 2006/12/22 20:31:59 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -13,6 +13,7 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.8 2005/02
 #include <functional>
 #include <iomanip>
 #include <cmath>
+#include <stdexcept>
 
 CompositeSource::CompositeSource (double aRate)
 : EventSource(aRate),m_numofiters(0), m_recent(0),m_occulted(false)
