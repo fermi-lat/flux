@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Sun Dec 24 08:43:03 PST 2006
+flux/src/test
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+fix test program
+    *
+------------------------------------------------------------
+User: burnett  Sun Dec 24 08:43:03 PST 2006
 flux/doc
 
 Modified Files:
