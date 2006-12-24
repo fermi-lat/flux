@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.13 2006/05/22 21:17:15 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.14 2006/12/19 17:31:31 burnett Exp $
 
 //#include "FluxSvc/ISpectrumFactory.h"
 
@@ -51,8 +51,7 @@ void flux_load() {
     // these are the spectra that we want to make available
     DECLARE_SPECTRUM( SurfaceMuons);
     DECLARE_SPECTRUM( Earth);
-    DECLARE_SPECTRUM( microQuasar);
- }
+}
 
 
 int main(int argn, char * argc[]) {
