@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Thu Jan 11 16:16:02 PST 2007
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+simple fix for many xml lib files
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r31p3, operation: add
 Package: flux
