@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Thu Jan 11 16:16:03 PST 2007
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Log Message:
+simple fix for many xml lib files
+    *
+------------------------------------------------------------
+User: burnett  Thu Jan 11 16:16:03 PST 2007
 flux/doc
 
 Modified Files:
