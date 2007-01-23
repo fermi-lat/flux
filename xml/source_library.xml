@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.43 2006/11/15 22:30:27 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.44 2007/01/03 20:52:41 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -247,8 +247,8 @@
     <!-- a 5 Hz rate, with offset for the ORB magic-7 messages -->
     <source name="ORB">
          <spectrum escale="GeV"> <SpectrumClass name="TimeCandle" params="1.0,0.8"/>  
-		 <use_spectrum/>
-                 <launch_point />
+		 <use_spectrum frame="Sun"/>
+                 <launch_point/>
          </spectrum>
     </source>
 </source_library>

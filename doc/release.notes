@@ -1,10 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.75 2007/01/03 20:52:41 burnett Exp $
+  $Id: release.notes,v 1.76 2007/01/12 00:16:03 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
+   v8r32   23-jan-2007 thb Changes to allow Sun, Moon to use SimpleSpectrum
    v8r31p4 11-jan-2007 thb use integers for file ids in xml library concatenation
    v8r31p3 03-jan-2007 thb add Earth10 source, same as Earth, but from 10 MeV
    v8r31p2 23-dec-2006 thb Attempt to fix "out of sources" problem
