@@ -1,7 +1,7 @@
 /** @file Spectrum.cxx
     @brief  implementation of the Spectrum class.
 
-    $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Spectrum.cxx,v 1.6 2006/04/09 21:03:03 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Spectrum.cxx,v 1.7 2006/06/08 22:36:51 burnett Exp $
 */
 #include "flux/Spectrum.h"
 #include <cmath>
@@ -30,7 +30,9 @@ std::pair<double,double> Spectrum::dir(double energy)
     // Purpose: return solid angle pair (costh, phi) for the given energy
     // Input:: the given energy.
 
+#if 0 // disable this to allow Sun, Moon sources
     throw std::runtime_error("Spectrum::dir called: sub class must implement if use_sprectrum invoked");
+#endif
     return std::make_pair(0,0);
 }
 

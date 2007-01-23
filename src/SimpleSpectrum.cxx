@@ -1,7 +1,7 @@
 /** @file SimpleSpectrum.cxx
     @brief definition of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.9 2005/01/03 19:22:01 jrb Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.10 2005/02/08 04:40:25 burnett Exp $
 */
 
 
@@ -42,6 +42,8 @@ SimpleSpectrum::SimpleSpectrum(const std::string& params)
 :m_name("gamma")
 ,m_E0(parseParamList(params,0))
 ,m_index(parseParamList(params,1))
+,m_index2(parseParamList(params,2))
+,m_ebreak(parseParamList(params,3))
 {}
 
 
@@ -137,5 +139,6 @@ float SimpleSpectrum::parseParamList(std::string input, int index)
         i=input.find_first_of(",");
         input= input.substr(i+1);
     } 
-    return output[index];
+    // @todo: throw explicit exception
+    return output.at(index);
 }
