@@ -1,20 +1,23 @@
 /** @file SimpleSpectrum.cxx
     @brief definition of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.10 2005/02/08 04:40:25 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.11 2007/01/23 16:24:44 burnett Exp $
 */
 
 
 #include "flux/SimpleSpectrum.h"
+#include "flux/SpectrumFactory.h"
+#include "flux/FluxException.h" // for FATAL_MACRO
 
 #include <xercesc/dom/DOMElement.hpp>
 #include "xmlBase/Dom.h"
+#include "facilities/Util.h"
 
-#include "flux/FluxException.h" // for FATAL_MACRO
 #include <utility>
 #include <sstream>
 #include <cmath>
-#include "flux/SpectrumFactory.h"
+#include <map>
+#include <stdexcept>
 
 static SpectrumFactory<SimpleSpectrum> factory;
 namespace {
@@ -35,16 +38,54 @@ namespace {
             ?  log(e2/e1)
             : ( pow(e1, 1-gamma) - pow(e2,1-gamma) ) / (gamma-1);
     }
+    ///@class ParMap 
+    ///@brief local analysis of keyword string
+    class ParMap{
+    public:
+        ParMap(std::string paramString)
+        {
+            facilities::Util::keyValueTokenize(paramString,",",m_tokenMap);
+        }
+        double value(std::string name) const{
+            std::map<std::string,std::string>::const_iterator it = m_tokenMap.find(name);
+            if( it==m_tokenMap.end() ) {
+                throw std::invalid_argument("SimpleSPectrum: keyword "+name+" not found");
+            }
+            return std::atof(it->second.c_str());
+        }
+    private:
+        std::map<std::string,std::string> m_tokenMap;
+    };
+
 }
-    
-// Is this used? if so, should be extended to set all parameters
-SimpleSpectrum::SimpleSpectrum(const std::string& params)
-:m_name("gamma")
-,m_E0(parseParamList(params,0))
-,m_index(parseParamList(params,1))
-,m_index2(parseParamList(params,2))
-,m_ebreak(parseParamList(params,3))
-{}
+
+
+// implement simple broken power law
+SimpleSpectrum::SimpleSpectrum(const std::string& paramString)
+: m_name("gamma")
+, m_E0(10)
+, m_index(2.0)
+, m_index2(2.0)
+, m_ebreak(0)
+, m_emax(200000)
+{
+    ParMap parmap(paramString);
+    try {
+         m_E0 = parmap.value("emin");
+      } catch (...) { }
+      try {
+         m_emax = parmap.value("emax");
+      } catch (...) {}
+      try {
+         m_index = parmap.value("gamma");
+      } catch (...) {}
+      try {
+         m_index2 = parmap.value("gamma2");
+         m_ebreak = parmap.value("ebreak");
+      } catch (...) {}
+
+    setup_power_law();
+}
 
 
 SimpleSpectrum::SimpleSpectrum(const 
@@ -65,15 +106,7 @@ SimpleSpectrum::SimpleSpectrum(const
         m_ebreak = xmlBase::Dom::getDoubleAttribute(spectrum, "ebreak");
         m_index2 =xmlBase::Dom::getDoubleAttribute(spectrum, "gamma2");
 
-        if( m_ebreak==0) {
-            m_ebreak=m_emax;
-            m_a = 1.0; 
-        }else{
-            // calculate relative part of spectrum for lower
-            double a1 = total_rate(m_E0, m_ebreak, m_index);
-            double a2 =  pow(m_ebreak, m_index2-m_index)*total_rate(m_ebreak, m_emax, m_index2);
-            m_a = a1/(a1+a2);
-        }
+        setup_power_law();
     }
     else if(tagName=="energy") {
         m_E0 =xmlBase::Dom::getDoubleAttribute(spectrum, "e");
@@ -93,7 +126,18 @@ SimpleSpectrum::SimpleSpectrum(const
     }
 }
 
-
+void SimpleSpectrum::setup_power_law()
+{
+    if( m_ebreak==0) {
+        m_ebreak=m_emax;
+        m_a = 1.0; 
+    }else{
+        // calculate relative part of spectrum for lower
+        double a1 = total_rate(m_E0, m_ebreak, m_index);
+        double a2 =  pow(m_ebreak, m_index2-m_index)*total_rate(m_ebreak, m_emax, m_index2);
+        m_a = a1/(a1+a2);
+    }
+}
 std::string SimpleSpectrum::title()const
 {
     std::stringstream s;
@@ -140,5 +184,10 @@ float SimpleSpectrum::parseParamList(std::string input, int index)
         input= input.substr(i+1);
     } 
     // @todo: throw explicit exception
-    return output.at(index);
+    if( index < output.size() ){
+        return output.at(index);
+    }else{
+        return 0;
+    }
+
 }

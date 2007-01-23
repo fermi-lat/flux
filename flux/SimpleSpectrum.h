@@ -1,7 +1,7 @@
 /** @file SimpleSpectrum.h
     @brief declaration of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.5 2004/11/10 20:22:24 jrb Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.6 2005/02/08 04:40:25 burnett Exp $
 */
 #ifndef SIMPLESPECTRUM_H
 #define SIMPLESPECTRUM_H
@@ -17,7 +17,7 @@ XERCES_CPP_NAMESPACE_END
 * \class SimpleSpectrum
 * @brief define a particle and spectral index
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.5 2004/11/10 20:22:24 jrb Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/SimpleSpectrum.h,v 1.6 2005/02/08 04:40:25 burnett Exp $
 */
 class SimpleSpectrum : public Spectrum {
 public: 
@@ -44,6 +44,7 @@ public:
 
 private:
     float parseParamList(std::string input, int index);
+    void setup_power_law();
     float m_E0;		// energy base
     std::string m_name;	// particle name to generate ("P", "gamma", ...)
     float m_index;	// spectral index: <=1 is delta function at E0

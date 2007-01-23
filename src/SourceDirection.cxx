@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.3 2006/12/04 04:56:15 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.4 2006/12/05 15:20:15 burnett Exp $
 
 */
 
@@ -94,31 +94,38 @@ void SourceDirection::execute(double ke, double time){
 
 }
 
-void SourceDirection::solarSystemDir( double ra, double dec, double time)
+void SourceDirection::solarSystemDir( double thetax, double thetay, double time)
 {
+    // expect displacement from celestial direction
+
+    using astro::GPS;    
     using astro::SolarSystem;
     using astro::SkyDir;
     using astro::JulianDate;
     using CLHEP::Hep3Vector;
-    static Hep3Vector northPole(0,0,1);
 
-    Hep3Vector unrotated(SkyDir(ra,dec).dir());
+    GPS* gps = GPS::instance();
+    static Hep3Vector xhat(1,0,0), yhat(0,1,0);
+
+    // get celestical direction of the object
     JulianDate jd(JulianDate::missionStart()+time/JulianDate::secondsPerDay);
 
-    Hep3Vector dir;
+    Hep3Vector cdir;
     if( m_frame==SUN) {
         SolarSystem sol(astro::SolarSystem::SUN);
-        dir = Hep3Vector(sol.direction(jd)());
+        cdir = Hep3Vector(sol.direction(jd)());
     }
     if (m_frame==MOON) {
         SolarSystem luna(astro::SolarSystem::MOON);
-        dir = Hep3Vector(luna.direction(jd)());
+        cdir = Hep3Vector(luna.direction(jd)());
     }
-    Hep3Vector axis( northPole.cross(dir));
-    HepRotation R(axis, dir.theta());
+    // rotate it according to the (presumably small) input angles
+    HepRotation Rx(xhat, thetax*M_PI/180), Ry(yhat, thetay*M_PI/180);
+    Hep3Vector rdir(Rx*Ry*cdir); 
 
-    setDir(- (R* unrotated));
-
+    CLHEP::HepRotation celtoglast( gps->transformToGlast(time, GPS::CELESTIAL) );
+    //and do the transform, finally reversing the direction to correspond to the incoming particle
+    setDir( - (celtoglast * rdir) );
 }
 
 
