@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.8 2006/09/29 20:34:49 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.9 2006/12/03 03:36:08 burnett Exp $
 */
 
 #ifndef flux_EventSource_h
@@ -17,7 +17,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.8 2006/09/29 20:34:49 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.9 2006/12/03 03:36:08 burnett Exp $
 */
 
 
@@ -103,6 +103,8 @@ public:
     static void setAlignmentRotation(const CLHEP::HepRotation& align);
 
     static double s_backoff; // expose backoff distance, in mm
+
+    static int s_id_offset;  // allow to set an offset for the automatically-generated source id
 private:
     double m_time;    // elapsed time, really only needed for EventSource
     
