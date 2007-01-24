@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Wed Jan 24 15:44:14 PST 2007
+flux/xml
+
+Modified Files:
+	source_library.xml 
+Log Message:
+add an offset for generating source ids
+    *
+------------------------------------------------------------
+User: burnett  Wed Jan 24 15:44:14 PST 2007
 flux/src
 
 Modified Files:
