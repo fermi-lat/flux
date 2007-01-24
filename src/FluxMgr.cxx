@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.33 2006/12/22 20:31:59 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.34 2007/01/12 00:16:03 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -430,3 +430,9 @@ void FluxMgr::setAlignmentRotation(const CLHEP::HepRotation& align)
 
 }
 
+int FluxMgr::setIdOffset(int id)
+{
+    int last ( EventSource::s_id_offset );
+    EventSource::s_id_offset = id;
+    return last;
+}

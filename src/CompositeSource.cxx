@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.9 2006/12/22 20:31:59 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.10 2006/12/23 21:33:13 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -151,6 +151,6 @@ int  CompositeSource::numSource()const
     ///Purpose: Return a unique number correcponding to the current spectrum.
     // if selected source is composite itself, (id=-1)  add its id as an integer
     int t=m_recent->numSource();
-    return 1000*m_numofiters + (t==-1? 0:  t/1000);
+    return EventSource::s_id_offset + 1000*m_numofiters + (t==-1? 0:  t/1000);
 }
 

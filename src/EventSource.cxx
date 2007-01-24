@@ -1,7 +1,7 @@
 /** @file EventSource.cxx
     @brief Implementation of class EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.5 2006/07/12 17:58:59 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.6 2006/09/29 20:34:49 burnett Exp $
 */
 
 #include "flux/EventSource.h"
@@ -13,6 +13,7 @@
 unsigned int  EventSource::s_id = 0;
 double  EventSource::s_total_area = 6.; // area in m^2
 double  EventSource::s_backoff = 2000.; // in mm
+int EventSource::s_id_offset=0;     // offset for assigning ids in CompositeSource
 
 
 bool EventSource::s_applyAlign(false);

@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.14 2006/09/29 20:38:36 burnett Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.15 2006/11/05 20:08:42 burnett Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -93,6 +93,9 @@ public:
     
     /// Set an alignment rotation to be applied to the instrument coordinates of any incoming particle
     void setAlignmentRotation(const CLHEP::HepRotation& align);
+
+    /// set an offset for generating source id numbers, return previous value
+    int setIdOffset(int id);
 
 private:
     
