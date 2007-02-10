@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Fri Feb  9 17:49:26 PST 2007
+flux/src
+
+Modified Files:
+	SourceDirection.cxx 
+Log Message:
+fix rotation
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r33, operation: add
 Package: flux
