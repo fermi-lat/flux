@@ -1,10 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.78 2007/01/23 19:55:11 burnett Exp $
+  $Id: release.notes,v 1.79 2007/01/24 23:44:14 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
+   v8r33p1 09-feb-2007 thb fix rotation matrix for Sun translation
    v8r33   24-jan-2007 thb provide offset for generating source identifiers
    v8r32p1 23-jan-2007 thb Changes to allow Sun, Moon to use SimpleSpectrum
    v8r31p4 11-jan-2007 thb use integers for file ids in xml library concatenation
