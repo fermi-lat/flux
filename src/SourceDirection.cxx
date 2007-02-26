@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.5 2007/01/23 19:55:11 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.6 2007/02/10 01:49:26 burnett Exp $
 
 */
 
@@ -107,7 +107,6 @@ void SourceDirection::solarSystemDir( double ra, double dec, double time)
     GPS* gps = GPS::instance();
     static Hep3Vector xhat(1,0,0);
 
-    // get celestical direction of the object
     JulianDate jd(JulianDate::missionStart()+time/JulianDate::secondsPerDay);
 
     Hep3Vector cdir;
@@ -117,7 +116,7 @@ void SourceDirection::solarSystemDir( double ra, double dec, double time)
     }
     if (m_frame==MOON) {
         SolarSystem luna(astro::SolarSystem::MOON);
-        cdir = Hep3Vector(luna.direction(jd)());
+        cdir = Hep3Vector(luna.direction(jd, gps->position())());
     }
     Hep3Vector r(SkyDir(ra,dec)()), axis(xhat.cross(r));
     double angle( asin(axis.mag()) ); // the rotation angle
