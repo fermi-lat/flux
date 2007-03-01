@@ -1,7 +1,7 @@
 /** @file CompositeSource.h
     @brief CompositeSource declaration
     
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.2 2003/10/01 22:21:50 srobinsn Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.3 2003/10/29 16:47:46 burnett Exp $
 */
 
 #ifndef CompositeSource_h
@@ -14,7 +14,7 @@
 * "which source" it is representing this time.  Old particles are held, along with the
 * time of their arrival, until use.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.2 2003/10/01 22:21:50 srobinsn Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.3 2003/10/29 16:47:46 burnett Exp $
 */
 
 #include "flux/EventSource.h"
@@ -76,6 +76,9 @@ public:
 
     /// is the most recent photon occulted?
     bool occulted(){return m_occulted;}
+
+    /// just set the flag in base class
+    void disable(){m_enabled=false;}
     
 protected:
     

@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.41 2006/12/03 03:36:08 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.42 2006/12/22 20:31:59 burnett Exp $
 
 */
 #include "astro/SkyDir.h"
@@ -469,7 +469,6 @@ EventSource* FluxSource::event(double time)
     }
     //now set the actual interval to be what FluxMgr will get, unless beyond the endtime
     EventSource::setTime(time + m_interval);
-    
     return this;
 }
 
@@ -579,5 +578,10 @@ astro::SkyDir FluxSource::skyDirection()const
     return astro::SkyDir(m_launch_dir->dir());
 }
 
-
+void FluxSource::disable()
+{
+    m_enabled=false;
+    delete m_spectrum;
+    m_spectrum=0;
+}
 
