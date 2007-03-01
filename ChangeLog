@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Thu Mar  1 13:12:45 PST 2007
+flux/flux
+
+Modified Files:
+	CompositeSource.h EventSource.h FluxSource.h 
+Log Message:
+when a source is disabled, delete its spectrum, as suggested by Jim Chiang
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r33p2, operation: add
 Package: flux
