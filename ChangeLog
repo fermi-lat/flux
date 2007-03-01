@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Thu Mar  1 13:12:45 PST 2007
+flux/src
+
+Modified Files:
+	Flux.cxx FluxSource.cxx 
+Log Message:
+when a source is disabled, delete its spectrum, as suggested by Jim Chiang
+    *
+------------------------------------------------------------
+User: burnett  Thu Mar  1 13:12:45 PST 2007
 flux/flux
 
 Modified Files:
