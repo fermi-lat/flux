@@ -1,7 +1,7 @@
 /** @file Flux.cxx
 @brief Implementation of Flux
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.12 2006/11/07 03:34:28 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.13 2006/12/22 20:31:59 burnett Exp $
 
 Original author: T. Burnett
 */
@@ -49,6 +49,7 @@ bool Flux::generate()
     do{
         double current_time=time();
         // get the next event and its time interval?
+        if( ! m_event->enabled()) return false; // there is no source
         m_flux = m_event->event(current_time);
         double timepass = m_event->interval(current_time);
         pass(timepass);

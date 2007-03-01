@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.9 2006/12/03 03:36:08 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.10 2007/01/24 23:44:14 burnett Exp $
 */
 
 #ifndef flux_EventSource_h
@@ -17,7 +17,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.9 2006/12/03 03:36:08 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.10 2007/01/24 23:44:14 burnett Exp $
 */
 
 
@@ -49,8 +49,8 @@ public:
     virtual void      setFlux (double value);
     
     ///    disable/enable, test this particular source 
-    void      disable (){m_enabled=false;}
-    void      enable(){m_enabled=true;}
+    virtual void      disable ()=0; //{m_enabled=false;}
+    // can't! void      enable(){m_enabled=true;}
     bool enabled()const{return m_enabled;}
     
     ///    integral of solid angle over which flux is incident
@@ -108,7 +108,6 @@ public:
 private:
     double m_time;    // elapsed time, really only needed for EventSource
     
-    bool m_enabled;           // toggle that it is enabled
     double m_flux;		// representative flux for this event source...
     std::string m_name;       // name of the event source (UI)
     unsigned  m_code;         // code id for this event source - for identification in the tuple.
@@ -118,6 +117,7 @@ private:
     double m_solid_angle;
 
 protected:
+    bool m_enabled;           // set false to kill the source
     // to implement (mis) alignment of particle trajectories in instrument coordinates
     static bool s_applyAlign;
     static CLHEP::HepRotation s_alignMatrix;
