@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.7 2007/02/26 03:15:13 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.8 2007/03/04 23:56:37 burnett Exp $
 
 */
 
@@ -120,10 +120,26 @@ void SourceDirection::solarSystemDir( double ra, double dec, double time)
         cdir = Hep3Vector(luna.direction(jd, gps->position())());
     }
     // create rotation that takes (0,0) to (ra,dec)
+    Hep3Vector input ( SkyDir(ra,dec)() );
+    double  theta ( acos(input.x()) )
+        ,   phi ( atan2(input.y(), input.z()) );
 
-    HepRotation R (  HepRotationZ(ra*M_PI/180) *HepRotationY(-dec*M_PI/180) );
-    Hep3Vector rdir( R * cdir );
+    // first an axis perpendicular to the given direction
+    Hep3Vector axis( cdir.cross(xhat).unit() );
+    if(cdir.isNear(xhat)) axis = Hep3Vector(0,1,0);
 
+    // rotate that axis by phi about the solar object direction
+    Hep3Vector axis_prime ( HepRotation(cdir, phi) * axis );
+
+    // and a rotation about the new axis by theta
+    Hep3Vector rdir ( HepRotation(axis_prime,theta) * cdir );
+
+#if 0 // stuff for debugging checks
+    double open( acos(rdir*cdir)*180/M_PI); // should be the total rotation
+    SkyDir r(rdir); double ra_r(r.ra()), dec_r(r.dec());
+    SkyDir c(cdir); double ra_c(c.ra()), dec_c(c.dec());
+
+#endif
     CLHEP::HepRotation celtoglast( gps->transformToGlast(time, GPS::CELESTIAL) );
 
     //and do the transform, finally reversing the direction to correspond to the incoming particle
