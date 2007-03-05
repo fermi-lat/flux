@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.10 2006/12/23 21:33:13 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.11 2007/01/24 23:44:14 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -52,7 +52,7 @@ EventSource* CompositeSource::event (double time)
     std::vector<EventSource*>::iterator  now = m_sourceList.begin();
     std::vector<EventSource*>::iterator  it = now;
 
-    double intrval=0.,intrmin=100000.;
+    double intrval=0.,intrmin=1e10; //100000.;
     int q;
     for (q=0 ; now != m_sourceList.end(); ++now, ++i, ++q) {
         if( ! (*now)->enabled() ) continue; // ignore if turned off
