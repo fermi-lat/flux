@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Mon Mar  5 11:37:36 PST 2007
+flux/src
+
+Modified Files:
+	CompositeSource.cxx SourceDirection.cxx 
+Log Message:
+fix constant in CompositeSource to allow for very sparse events; final rotation setup for Sun
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r33p4, operation: add
 Package: flux
