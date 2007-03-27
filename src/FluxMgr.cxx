@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.34 2007/01/12 00:16:03 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.35 2007/01/24 23:44:14 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -329,6 +329,7 @@ void FluxMgr::setExpansion (double p){
     GPS::instance()->expansion(p);
 }
 
+
 // pass a specific amount of time
 void FluxMgr::pass(double t){
     GPS::instance()->pass(t);
@@ -337,6 +338,10 @@ void FluxMgr::pass(double t){
 
 double FluxMgr::time () const{
     return GPS::instance()->time();
+}
+void FluxMgr::setTime(double newtime)
+{
+    GPS::instance()->time(newtime);
 }
 
 void FluxMgr::synch(){

@@ -1,7 +1,7 @@
 /** @file Flux.cxx
 @brief Implementation of Flux
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.13 2006/12/22 20:31:59 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.14 2007/03/01 21:12:45 burnett Exp $
 
 Original author: T. Burnett
 */
@@ -51,8 +51,8 @@ bool Flux::generate()
         // get the next event and its time interval?
         if( ! m_event->enabled()) return false; // there is no source
         m_flux = m_event->event(current_time);
-        double timepass = m_event->interval(current_time);
-        pass(timepass);
+        double delta_time = m_event->interval(current_time);
+        setTime( current_time + delta_time);
     }while(m_event->occulted() && m_flux->enabled());
     return m_flux->enabled();
 }
@@ -74,21 +74,26 @@ Hep3Vector Flux::launchPoint()const
     return m_flux->launchPoint();
 }
 
-double Flux::time()const 
+double Flux::time()const
 {
     return s_mgr->time();
 }
 
+void Flux::setTime(double newtime)
+{
+    s_mgr->setTime(newtime);
+}
 
+#if 0
 /// pass a specific amount of time    
 void Flux::pass ( double t){
     s_mgr->pass(t);
 }
-
 /// Get the time as held by GPS    
 double Flux::gpsTime () const{
     return s_mgr->time();
 }
+#endif
 
 
 // direction

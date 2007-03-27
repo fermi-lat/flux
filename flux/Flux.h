@@ -1,7 +1,7 @@
 /** @file Flux.h
     @brief Declaration of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.9 2006/11/07 03:34:28 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.10 2006/12/22 20:31:59 burnett Exp $
 
   Original author: T. Burnett
 */
@@ -64,13 +64,18 @@ public:
     
     /// return the time
     virtual double time()const;
-    
+
+#if 0
     /// pass a specific amount of time
     virtual void pass ( double t);
-    
+#endif
+    /// set the new time
+    void setTime(double newtime); 
+ 
+#if 0
     /// Get the time as held by GPS (same: here for backward compatibility
     double gpsTime () const;
-    
+#endif
     /// rate ( /mm**2 /s)
     virtual double rate()const;
     
