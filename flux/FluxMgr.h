@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.15 2006/11/05 20:08:42 burnett Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.16 2007/01/24 23:44:14 burnett Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -70,13 +70,16 @@ public:
     
     /// set the expansion factor for the orbit (-1) = random
     void setExpansion (double p);
-    
+
     /// pass a specific amount of time
     void pass ( double t);
-    
+
     /// Get the time as held by GPS
     double time () const;
-    
+
+    /// Set the time
+    void setTime(double newtime);
+
     /// synch satellite location with current time
     void synch ();
     

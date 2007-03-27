@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.7 2006/11/07 03:34:28 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.8 2006/12/22 20:31:59 burnett Exp $
 
 #ifndef _H_IFlux_
 #define _H_IFlux_
@@ -23,7 +23,7 @@ class ISpectrumFactory;
 * 
   Abstract interface for an object that generates particles, Flux
 
-  * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.7 2006/11/07 03:34:28 burnett Exp $
+  * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/IFlux.h,v 1.8 2006/12/22 20:31:59 burnett Exp $
 */
 class IFlux {
 public:
@@ -74,13 +74,14 @@ public:
     
     /// return a unique number correcponding to that spectrum
     virtual int numSource()const=0;
+#if 0 // removing
     
     /// pass a specific amount of time
     virtual void pass ( double t)=0;
-        
+    virtual /*int*/double gpsTime()const=0;
+#endif   
     virtual void addFactory(std::string name, const ISpectrumFactory* factory )=0;
     
-    virtual /*int*/double gpsTime()const=0;
     
     virtual EventSource* currentEvent()=0;
     virtual EventSource* currentFlux()=0;
