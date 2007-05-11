@@ -1,13 +1,4 @@
 ------------------------------------------------------------
-User: burnett  Fri May 11 08:16:07 PDT 2007
-flux/cmt
-
-Modified Files:
-	requirements 
-Log Message:
-tagging after protection of the source title function
-    *
-------------------------------------------------------------
 TAG
 Tag name: v8r33p6, operation: add
 Package: flux
