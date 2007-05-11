@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.42 2006/12/22 20:31:59 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.43 2007/03/01 21:12:45 burnett Exp $
 
 */
 #include "astro/SkyDir.h"
@@ -547,6 +547,7 @@ int FluxSource::eventNumber()const
 
 std::string FluxSource::title () const
 {
+    if( m_spectrum==0 ) return "";
     return m_spectrum->title() + ", "
         +  m_launch_pt->title() +", "
         +  m_launch_dir->title();
