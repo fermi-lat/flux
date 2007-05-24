@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Thu May 24 09:08:56 PDT 2007
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+remove Moon from  source_library; implement cone filter
+    *
+------------------------------------------------------------
 User: burnett  Wed May 23 20:45:22 PDT 2007
 flux/src
 
