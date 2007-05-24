@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.43 2007/03/01 21:12:45 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.44 2007/05/11 15:16:08 burnett Exp $
 
 */
 #include "astro/SkyDir.h"
@@ -568,9 +568,16 @@ bool FluxSource::occulted(){
     //LaunchDirection classes.
 
     //this should probably be open-ended, not wired in!
-    double minCosTheta= -0.4;
+    static double minCosTheta= -0.4;
 
-    return (m_occultable) && (m_zenithCosTheta < minCosTheta);
+    if( !m_occultable) return false;
+
+    if(  m_zenithCosTheta < minCosTheta) return true;
+    if( EventSource::s_cone.size()<3)    return false;
+
+    // a cone was specified: check to see if inside it.
+
+    return false;
 
 }
 

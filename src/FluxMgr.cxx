@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.35 2007/01/24 23:44:14 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.36 2007/03/27 17:59:57 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -440,4 +440,12 @@ int FluxMgr::setIdOffset(int id)
     int last ( EventSource::s_id_offset );
     EventSource::s_id_offset = id;
     return last;
+}
+
+void FluxMgr::setFilterCone(double ra, double dec, double radius)
+{
+    EventSource::s_cone = std::vector<double>();
+    EventSource::s_cone.push_back(ra);
+    EventSource::s_cone.push_back(dec);
+    EventSource::s_cone.push_back(radius);
 }

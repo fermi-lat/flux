@@ -1,7 +1,7 @@
 /** @file EventSource.cxx
     @brief Implementation of class EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.6 2006/09/29 20:34:49 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.7 2007/01/24 23:44:14 burnett Exp $
 */
 
 #include "flux/EventSource.h"
@@ -15,9 +15,13 @@ double  EventSource::s_total_area = 6.; // area in m^2
 double  EventSource::s_backoff = 2000.; // in mm
 int EventSource::s_id_offset=0;     // offset for assigning ids in CompositeSource
 
-
 bool EventSource::s_applyAlign(false);
 CLHEP::HepRotation EventSource::s_alignMatrix;
+
+
+
+std::vector<double> EventSource::s_cone; 
+
 
 EventSource::EventSource (double aFlux, unsigned acode)
 :  m_enabled(true), m_flux(aFlux),  m_code(acode)

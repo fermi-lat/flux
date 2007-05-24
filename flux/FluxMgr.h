@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.16 2007/01/24 23:44:14 burnett Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.17 2007/03/27 17:59:57 burnett Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -16,7 +16,7 @@
 * setting the position variables. It is instantiated with
 * the names of the xml files to be used as input to the xml parser.
 * 
-* $Header $
+* 
 */
 
 #include "astro/GPS.h"
@@ -99,6 +99,12 @@ public:
 
     /// set an offset for generating source id numbers, return previous value
     int setIdOffset(int id);
+
+    /** set a cone to filter incoming (galactic) data
+    @param ra,dec center of cone, equatorial coords in degrees
+    @param radius radius of cone, degrees
+    */
+    void setFilterCone(double ra, double dec, double radius);
 
 private:
     
