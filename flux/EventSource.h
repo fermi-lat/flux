@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.10 2007/01/24 23:44:14 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.11 2007/03/01 21:12:45 burnett Exp $
 */
 
 #ifndef flux_EventSource_h
@@ -17,11 +17,12 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.10 2007/01/24 23:44:14 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.11 2007/03/01 21:12:45 burnett Exp $
 */
 
 
 #include <string>
+#include <vector>
 
 class EventSource
 {
@@ -105,6 +106,8 @@ public:
     static double s_backoff; // expose backoff distance, in mm
 
     static int s_id_offset;  // allow to set an offset for the automatically-generated source id
+    static std::vector<double> s_cone; ///< parameters (ra,dec,radius) of selection cone.
+
 private:
     double m_time;    // elapsed time, really only needed for EventSource
     
@@ -115,6 +118,7 @@ private:
     static unsigned int  s_id;    // id for new EventSources...
     static double s_total_area;   // total area for flux generation (in square meters)
     double m_solid_angle;
+   
 
 protected:
     bool m_enabled;           // set false to kill the source
