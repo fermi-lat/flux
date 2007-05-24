@@ -1,22 +1,4 @@
 ------------------------------------------------------------
-User: burnett  Wed May 23 20:45:22 PDT 2007
-flux/src
-
-Modified Files:
-	EventSource.cxx FluxMgr.cxx FluxSource.cxx 
-Log Message:
-add code to specify filter cone
-    *
-------------------------------------------------------------
-User: burnett  Wed May 23 20:45:22 PDT 2007
-flux/flux
-
-Modified Files:
-	EventSource.h FluxMgr.h 
-Log Message:
-add code to specify filter cone
-    *
-------------------------------------------------------------
 TAG
 Tag name: v8r33p7, operation: add
 Package: flux
