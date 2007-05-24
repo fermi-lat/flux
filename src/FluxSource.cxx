@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.44 2007/05/11 15:16:08 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.45 2007/05/24 03:45:22 burnett Exp $
 
 */
 #include "astro/SkyDir.h"
@@ -560,6 +560,8 @@ std::string FluxSource::particleName()
 
 
 bool FluxSource::occulted(){
+    using astro::GPS;
+    using astro::SkyDir;
     //Purpose:  to determine whether or not the current incoming particle will be blocked by the earth.
     //Output:  "yes" or "no"
     //REMEMBER:  the earth is directly below the satellite, so, to determine occlusion,
@@ -576,9 +578,13 @@ bool FluxSource::occulted(){
     if( EventSource::s_cone.size()<3)    return false;
 
     // a cone was specified: check to see if inside it.
-
-    return false;
-
+    SkyDir coneaxis(EventSource::s_cone[0], EventSource::s_cone[1]);
+    GPS* gps = GPS::instance();
+    double time = gps->time();
+    CLHEP::HepRotation celtoglast( gps->transformToGlast(time, GPS::CELESTIAL) );
+    CLHEP::Hep3Vector localcone = -( celtoglast * coneaxis() );
+    double angle = acos( localcone * m_launchDir )*180/M_PI;
+    return ( angle > EventSource::s_cone[2] );
 }
 
 astro::SkyDir FluxSource::skyDirection()const
