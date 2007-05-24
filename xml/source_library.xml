@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.45 2007/01/23 16:27:58 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.46 2007/01/24 23:44:14 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -310,8 +310,9 @@
     </source>
 
 <!-- Note that these flux numbers are from Seth Digel
+( commented out (THB) do avoid name conflict)
 
--->    
+ 
 <source name="Moon"  flux="0.189737">
     <spectrum escale="MeV">
         <SpectrumClass name="SimpleSpectrum"
@@ -328,7 +329,7 @@
         <use_spectrum frame="Sun"/>
     </spectrum>
 </source>
-
+ -->  
 
 </source_library>
 
