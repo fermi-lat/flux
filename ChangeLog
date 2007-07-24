@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Tue Jul 24 13:03:55 PDT 2007
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+notify observers after generating event
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r34, operation: add
 Package: flux
