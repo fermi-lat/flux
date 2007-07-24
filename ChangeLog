@@ -2,6 +2,14 @@
 TAG
 Tag name: v8r34p1, operation: add
 Package: flux
+User: burnett  Tue Jul 24 13:35:17 2007
+Files:
+
+    *
+------------------------------------------------------------
+TAG
+Tag name: v8r34p1, operation: add
+Package: flux
 User: burnett  Tue Jul 24 13:04:22 2007
 Files:
   flux/.cvsignore  1.1.1.1
