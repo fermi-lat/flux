@@ -1,10 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.86 2007/05/11 15:16:07 burnett Exp $
+  $Id: release.notes,v 1.87 2007/05/24 16:08:56 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
+   v8r34p1 24-jul-2007 thb Set to call GPS::synch after generating an event
    v8r34   24-may-2007 thb Implement cone filter
    v8r33p7 11-apr-2007 thb protect title function from trying to display disabled sources
    v8r33p6 27-mar-2007 thb protect event loop from a source modifying the GPS time.
