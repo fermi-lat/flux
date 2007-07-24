@@ -1,7 +1,7 @@
 /** @file Flux.cxx
 @brief Implementation of Flux
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.14 2007/03/01 21:12:45 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.15 2007/03/27 17:59:57 burnett Exp $
 
 Original author: T. Burnett
 */
@@ -53,6 +53,7 @@ bool Flux::generate()
         m_flux = m_event->event(current_time);
         double delta_time = m_event->interval(current_time);
         setTime( current_time + delta_time);
+        s_mgr->synch();  // notify observers
     }while(m_event->occulted() && m_flux->enabled());
     return m_flux->enabled();
 }
