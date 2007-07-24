@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Tue Jul 24 13:03:55 PDT 2007
+flux/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+notify observers after generating event
+    *
+------------------------------------------------------------
+User: burnett  Tue Jul 24 13:03:55 PDT 2007
 flux/cmt
 
 Modified Files:
