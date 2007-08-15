@@ -1,7 +1,7 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
 
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.17 2007/03/27 17:59:57 burnett Exp $
+ $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.18 2007/05/24 03:45:22 burnett Exp $
 
   */
 #ifndef FLUX_MGR_H
@@ -94,8 +94,11 @@ public:
     ///this sets the rocking mode in GPS.
     std::vector<double> setRockType(astro::GPS::RockType rockType, double rockAngle);
     
-    /// Set an alignment rotation to be applied to the instrument coordinates of any incoming particle
-    void setAlignmentRotation(const CLHEP::HepRotation& align);
+    /// Set an alignment rotation:
+    /// @param qx,qy, qz rotation angles (degrees) about coordinate axes -- assume small, < 1 deg
+    /// @param misalign if true, apply to incoming; if false, apply as correction to coordinate transformation
+    ///
+    void setAlignmentRotation(double qx, double qy, double qz, bool misalign);
 
     /// set an offset for generating source id numbers, return previous value
     int setIdOffset(int id);
