@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Aug 15 11:46:42 PDT 2007
+flux/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+implement code to set either the alignment, or misalignment
+    *
+------------------------------------------------------------
 User: burnett  Wed Aug 15 11:46:41 PDT 2007
 flux/cmt
 
