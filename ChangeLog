@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Aug 15 11:46:41 PDT 2007
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+implement code to set either the alignment, or misalignment
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r34p1, operation: add
 Package: flux
