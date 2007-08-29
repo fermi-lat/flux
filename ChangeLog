@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Aug 29 10:42:56 PDT 2007
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+tagging, fix for spectral index exactly zero
+    *
+------------------------------------------------------------
 User: burnett  Wed Aug 29 10:40:15 PDT 2007
 flux/src
 
