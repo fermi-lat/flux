@@ -1,7 +1,7 @@
 /** @file SimpleSpectrum.cxx
     @brief definition of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.11 2007/01/23 16:24:44 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.12 2007/01/23 19:55:11 burnett Exp $
 */
 
 
@@ -69,20 +69,22 @@ SimpleSpectrum::SimpleSpectrum(const std::string& paramString)
 , m_ebreak(0)
 , m_emax(200000)
 {
+    bool qemax(false); 
     ParMap parmap(paramString);
     try {
-         m_E0 = parmap.value("emin");
-      } catch (...) { }
-      try {
-         m_emax = parmap.value("emax");
-      } catch (...) {}
-      try {
-         m_index = parmap.value("gamma");
-      } catch (...) {}
-      try {
-         m_index2 = parmap.value("gamma2");
-         m_ebreak = parmap.value("ebreak");
-      } catch (...) {}
+        m_E0 = parmap.value("emin");
+    } catch (...) { }
+    try {
+        m_emax = parmap.value("emax");
+        qemax=true;
+    } catch (...) {}
+    try {
+        m_index = parmap.value("gamma");
+    } catch (...) {}
+    try {
+        m_index2 = parmap.value("gamma2");
+        m_ebreak = parmap.value("ebreak");
+    } catch (...) {}
 
     setup_power_law();
 }
@@ -109,9 +111,8 @@ SimpleSpectrum::SimpleSpectrum(const
         setup_power_law();
     }
     else if(tagName=="energy") {
-        m_E0 =xmlBase::Dom::getDoubleAttribute(spectrum, "e");
-        m_emax = 100.0;
-        m_index = 0.0;
+        // single energy: no interpolation
+        m_emax =m_E0 =xmlBase::Dom::getDoubleAttribute(spectrum, "e");
     }
     else if( tagName == "exponential") {
         m_E0 = xmlBase::Dom::getDoubleAttribute(spectrum, "exponential");
@@ -152,7 +153,7 @@ std::string SimpleSpectrum::title()const
 float
 SimpleSpectrum::operator()(float f)
 {
-    if( m_index == 0.0 )     return m_E0;
+    if( m_emax==m_E0)   return m_E0;
     
     float energy;
     if( f<m_a ) {
