@@ -1,10 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.88 2007/07/24 20:03:55 burnett Exp $
+  $Id: release.notes,v 1.89 2007/08/15 18:46:42 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
+   v8r35p1 29-aug-2007 thb allow spectral index of exactly 0 for SimpleSpectrum
    v8r35   15-aug-2007 thb Implement path to set (mis) alignment
    v8r34p1 24-jul-2007 thb Set to call GPS::synch after generating an event
    v8r34   24-may-2007 thb Implement cone filter
