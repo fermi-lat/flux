@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Aug 29 10:40:15 PDT 2007
+flux/src
+
+Modified Files:
+	SimpleSpectrum.cxx 
+Log Message:
+treat gamma exactly zero and emax specified
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r35, operation: add
 Package: flux
