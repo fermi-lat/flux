@@ -1,7 +1,7 @@
 
 <source_library>
    <!--
-       $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/test_sources.xml,v 1.1 2004/03/10 16:12:18 mcenery Exp $
+       $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/test_sources.xml,v 1.2 2007/05/24 16:08:56 burnett Exp $
        Some simple test flux definitions for debugging
     -->
 
@@ -257,6 +257,42 @@
            <launch_point x="180" y="180" z="1000" />
        </spectrum>
      </source>
+
+
+    <source name="vdg_twoTowers">
+         <spectrum escale="GeV">
+             <SpectrumClass name="VdgGamma" />
+                 <solid_angle mincos="0" maxcos="1" />
+                 <patch xmin="-225.4" xmax="-175.6" ymin="175.6" ymax="225.4" zmin="638" zmax="640" />
+         </spectrum>
+     </source>
+
+    <source name="vdg_oneTower">
+         <spectrum escale="GeV">
+             <SpectrumClass name="VdgGamma" />
+                 <solid_angle mincos="0" maxcos="1" />
+                 <patch xmin="-225.4" xmax="-175.6" ymin="175.6" ymax="225.4" zmin="638" zmax="640" />
+         </spectrum>
+     </source>
+
+
+
+    <source name="vdg_lattwoTowers">
+         <spectrum escale="GeV">
+             <SpectrumClass name="VdgGamma" />
+                 <solid_angle mincos="0" maxcos="1" />
+                 <patch xmin="-625.4" xmax="-574.6" ymin="-625.4" ymax="-574.6" zmin="638" zmax="640" />
+         </spectrum>
+     </source>
+
+    <source name="vdg_latoneTower">
+         <spectrum escale="GeV">
+             <SpectrumClass name="VdgGamma" />
+                 <solid_angle mincos="0" maxcos="1" />
+                 <patch xmin="-565.4" xmax="-514.6" ymin="-565.4" ymax="-514.6" zmin="652" zmax="654" />
+         </spectrum>
+     </source>
+
 
     <source name="gamma_patch_for_G4">
        <spectrum escale="GeV">
