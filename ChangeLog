@@ -1,4 +1,22 @@
 ------------------------------------------------------------
+User: heather  Thu Sep  6 12:50:14 PDT 2007
+flux/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+prepare to tag
+    *
+------------------------------------------------------------
+User: heather  Thu Sep  6 12:50:14 PDT 2007
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+prepare to tag
+    *
+------------------------------------------------------------
 User: heather  Thu Sep  6 12:48:06 PDT 2007
 flux/xml
 
