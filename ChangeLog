@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Thu Sep  6 12:48:06 PDT 2007
+flux/xml
+
+Modified Files:
+	test_sources.xml 
+Log Message:
+stash the VDG sources from LatIntegration in here
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r35p1, operation: add
 Package: flux
