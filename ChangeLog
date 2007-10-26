@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: burnett  Fri Oct 26 10:03:11 PDT 2007
+flux/sources
+
+Removed Files:
+      Tag: v8r36
+	GRS01369.txt pulsars.txt vela.txt 
+Log Message:
+pulsar support has moved.
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r36, operation: add
 Package: flux
