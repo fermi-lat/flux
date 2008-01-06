@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Sun Jan  6 11:43:36 PST 2008
+flux/src
+
+Modified Files:
+	CompositeSource.cxx Flux.cxx FluxMgr.cxx FluxSource.cxx 
+Log Message:
+detect zero-length intervals
+    *
+------------------------------------------------------------
+User: burnett  Sun Jan  6 11:43:36 PST 2008
 flux/doc
 
 Modified Files:
