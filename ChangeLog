@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Sun Jan  6 11:43:36 PST 2008
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+detect zero-length intervals
+    *
+------------------------------------------------------------
 User: golpa  Mon Dec 10 13:25:15 PST 2007
 flux
 
