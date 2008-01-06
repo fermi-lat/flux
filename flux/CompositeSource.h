@@ -1,7 +1,7 @@
 /** @file CompositeSource.h
     @brief CompositeSource declaration
     
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.3 2003/10/29 16:47:46 burnett Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.4 2007/03/01 21:12:45 burnett Exp $
 */
 
 #ifndef CompositeSource_h
@@ -14,11 +14,12 @@
 * "which source" it is representing this time.  Old particles are held, along with the
 * time of their arrival, until use.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.3 2003/10/29 16:47:46 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.4 2007/03/01 21:12:45 burnett Exp $
 */
 
 #include "flux/EventSource.h"
 #include <vector>
+#include <map>
 
 class CompositeSource : public EventSource { 
 public:
@@ -79,7 +80,7 @@ public:
 
     /// just set the flag in base class
     void disable(){m_enabled=false;}
-    
+#if 0    
 protected:
     
     //number of times we've iterated the front() pointer into sourcelist 
@@ -95,8 +96,23 @@ protected:
     //vector of recorded arrival times of held sources.
     std::vector<double> m_sourceTime;
     EventSource*  m_recent;
-	//is the photon from the most recent source occulted?
-	bool m_occulted;
+#else
+private:
+    // index of current source in input list
+    int m_numofiters;
+
+    // sources contained in this composite
+    std::vector< EventSource* > m_sourceList;
+
+    // list, indexed by next event, of pointers to members of the 
+    typedef std::multimap<double, EventSource* >SourceMap;
+    SourceMap m_source_map;
+    std::map<EventSource*, unsigned int> m_ident;
+#endif
+    EventSource*  m_recent;
+
+    //is the photon from the most recent source occulted?
+    bool m_occulted;
 };
 
 inline std::vector< EventSource* >& CompositeSource::sourceList ()
