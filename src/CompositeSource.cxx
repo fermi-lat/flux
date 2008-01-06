@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.12 2007/03/05 19:37:35 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.13 2008/01/06 19:43:36 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -16,7 +16,9 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.12 2007/0
 #include <stdexcept>
 
 CompositeSource::CompositeSource (double aRate)
-: EventSource(aRate),m_numofiters(0), m_recent(0),m_occulted(false)
+: EventSource(aRate)
+, m_numofiters(0)
+, m_recent(0),m_occulted(false)
 {
 }
 
@@ -29,10 +31,18 @@ CompositeSource::~CompositeSource()
 void CompositeSource::addSource (EventSource* aSource)
 {
     m_sourceList.push_back(aSource);
+#if 1 // new map-based code
+    // insert in the map, tagged as needing to be evaluated
+    m_source_map.insert( std::make_pair(-1.,  aSource) );
+    // tag identifier
+    m_ident[aSource] = m_sourceList.size()-1;
+
+#else
     //here, set up the associated vectors by default.
     m_unusedSource.push_back(0);
     m_sourceTime.push_back(-1);
     m_eventList.push_back(0);
+#endif
 }
 
 EventSource* CompositeSource::event (double time)
@@ -41,7 +51,36 @@ EventSource* CompositeSource::event (double time)
     if( !enabled()){
         throw std::runtime_error("CompositeSource::event called when disabled");
     }
+#if 1 // new map-based code
+    m_recent=0;
+    double nexttime(0);
+    do {
+        // get next one, and remove from the map
+        SourceMap::iterator it= m_source_map.begin();
+        if( it==m_source_map.end()){
+            // no sources left
+            disable();
+            return this;
+        }
+        nexttime = it->first;
+        m_recent = it->second;
+        m_source_map.erase(it);
 
+        // evaluate its next event time, put back into queue
+        m_recent->event(time);
+        if( m_recent->enabled()){
+            double newtime(time+m_recent->interval(time) ); //(value not used?
+            m_source_map.insert(std::make_pair(newtime, m_recent));
+        }
+
+    }while (nexttime<=0 );// loop until first evaluation of all sources
+
+    // update the current time and return the current source
+    setInterval(nexttime);
+    m_numofiters = m_ident[m_recent]; // the sequence of this guy
+
+    return m_recent;
+#else // old code
     int i=0; //for iterating through the m_unusedSource vector
     int winningsourcenum=-1; //the number of the "winning" source
     EventSource::setTime(time);
@@ -96,6 +135,7 @@ EventSource* CompositeSource::event (double time)
     m_occulted=m_eventList[winningsourcenum]->occulted();
     // now ask the chosen one to return the event.
     return m_eventList[winningsourcenum];
+#endif
 }
 
 std::string CompositeSource::fullTitle () const
