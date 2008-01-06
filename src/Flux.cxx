@@ -1,7 +1,7 @@
 /** @file Flux.cxx
 @brief Implementation of Flux
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.15 2007/03/27 17:59:57 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.16 2007/07/24 20:03:55 burnett Exp $
 
 Original author: T. Burnett
 */
@@ -9,6 +9,7 @@ Original author: T. Burnett
 #include "flux/EventSource.h"
 #include "flux/FluxMgr.h"
 #include "flux/SpectrumFactory.h"
+#include <stdexcept>
 
 Flux::Flux(std::string name) 
 :  m_flux(0)
@@ -52,6 +53,9 @@ bool Flux::generate()
         if( ! m_event->enabled()) return false; // there is no source
         m_flux = m_event->event(current_time);
         double delta_time = m_event->interval(current_time);
+        if( delta_time <= 0) {
+            throw std::runtime_error("Flux::generate: zero or negative interval generated");
+        }
         setTime( current_time + delta_time);
         s_mgr->synch();  // notify observers
     }while(m_event->occulted() && m_flux->enabled());
