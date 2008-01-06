@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.45 2007/05/24 03:45:22 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.46 2007/05/24 16:08:56 burnett Exp $
 
 */
 #include "astro/SkyDir.h"
@@ -460,6 +460,9 @@ EventSource* FluxSource::event(double time)
     }
     using astro::GPS;
     m_interval = calculateInterval(time);
+    if( m_interval<=0 ) {
+        throw std::runtime_error("EventSource::event: negative or zero interval");
+    }
     if( time+m_interval < GPS::instance()->endTime()){
         // do this only if in valid interval: assume will never get used otherwise
         computeLaunch(time + m_interval);

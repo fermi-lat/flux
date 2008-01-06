@@ -1,10 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.90 2007/08/29 17:42:56 burnett Exp $
+  $Id: release.notes,v 1.91 2007/09/06 19:50:14 heather Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
+   v8r36p1 06-jan-2008 thb Fixes to avoid duplicate events
    v8r36   06-sep-2007 hmk store VDG sources in test_source.xml from the
                        LatIntegration package, part of our migration from EM
    v8r35p1 29-aug-2007 thb allow spectral index of exactly 0 for SimpleSpectrum

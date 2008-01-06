@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.37 2007/05/24 03:45:22 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.38 2007/08/15 18:46:42 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -18,7 +18,10 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.37 2007/05/24 03:
 
 #include <sstream>
 #include <map>
+#include <iostream>
+#include <iterator>
 #include <stdexcept>
+#include <string>
 #define DECLARE_SPECTRUM(x)   extern const ISpectrumFactory& x##Factory; x##Factory.addRef();
 
 using astro::GPS;
@@ -128,6 +131,11 @@ EventSource* FluxMgr::compositeSource(std::vector<std::string> names)
     for( std::vector<std::string>::const_iterator it= names.begin(); it!=names.end(); ++it){
         const std::string& name = *it;
         if( m_sources.find(name)==m_sources.end() ) {
+            std::cerr << "Unrecognized source: " << name << std::endl;
+            std::cerr << "Known names: " <<std::endl;
+            std::list<std::string> known(sourceList());
+            std::copy( known.begin(),known.end(), std::ostream_iterator<std::string>(std::cerr, ", "));
+            FATAL_MACRO("Unrecognized source name " + name);
             delete comp;
             return 0;
         }
