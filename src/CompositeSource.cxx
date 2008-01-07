@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.14 2008/01/06 22:04:30 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.15 2008/01/07 04:18:23 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -36,18 +36,11 @@ void CompositeSource::map_insert(double time, EventSource* member, EventSource *
 void CompositeSource::addSource (EventSource* aSource)
 {
     m_sourceList.push_back(aSource);
-#if 1 // new map-based code
     // insert in the map, tagged as needing to be evaluated
     map_insert(-1.,  aSource, 0);
     // tag identifier
     m_ident[aSource] = m_sourceList.size()-1;
 
-#else
-    //here, set up the associated vectors by default.
-    m_unusedSource.push_back(0);
-    m_sourceTime.push_back(-1);
-    m_eventList.push_back(0);
-#endif
 }
 
 EventSource* CompositeSource::event (double time)
@@ -56,7 +49,6 @@ EventSource* CompositeSource::event (double time)
     if( !enabled()){
         throw std::runtime_error("CompositeSource::event called when disabled");
     }
-#if 1 // new map-based code
     EventSource* actual(0);
     m_recent=0;
     double nexttime(0);
@@ -92,62 +84,7 @@ EventSource* CompositeSource::event (double time)
     m_occulted=actual->occulted();
 
     return actual;
-#else // old code
-    int i=0; //for iterating through the m_unusedSource vector
-    int winningsourcenum=-1; //the number of the "winning" source
-    EventSource::setTime(time);
 
-    m_numofiters=0;
-
-    // more than one:: choose on basis of relative rates
-    std::vector<EventSource*>::iterator  now = m_sourceList.begin();
-    std::vector<EventSource*>::iterator  it = now;
-
-    double intrval=0.,intrmin=1e10; //100000.;
-    int q;
-    for (q=0 ; now != m_sourceList.end(); ++now, ++i, ++q) {
-        if( ! (*now)->enabled() ) continue; // ignore if turned off
-        if(m_unusedSource[i]==1){
-            // was not used yet: update the interval
-            intrval=m_sourceTime[i]-time;
-        }else{
-
-            // this was was used last time: get a new interval, unless now disabled
-
-            EventSource* candidate = (*now)->event(time);
-            if( !candidate->enabled() ) continue; // skip this guy, no longer active
-            m_eventList[i] = candidate; // to initialize particles, so that the real interval for the particle is gotten.
-            intrval=m_sourceList[i]->interval(time);
-            if( intrval <=0 ){
-                throw("CompositeSource::event: zero or negative interval");
-            }
-            m_unusedSource[i]=1;
-            m_sourceTime[i]=time + intrval;
-        }
-
-        if(intrval < intrmin){
-            //the present source is "winning" here
-            it=now;
-            intrmin=intrval;
-            m_numofiters=q;
-            winningsourcenum=i;
-        }
-
-        m_recent = (*it);
-    }
-    if( winningsourcenum<0 ) {
-        // nothing left: we are disabled.
-        disable();
-        return this;
-    }
-    //note:the internal interval() function takes absolute time.
-    setInterval(time+intrmin);
-    m_unusedSource[winningsourcenum]=0; //the current "winning" source is getting used...
-    //now, check to see if this source is occulted:
-    m_occulted=m_eventList[winningsourcenum]->occulted();
-    // now ask the chosen one to return the event.
-    return m_eventList[winningsourcenum];
-#endif
 }
 
 std::string CompositeSource::fullTitle () const
@@ -184,6 +121,7 @@ double CompositeSource::rate(double time) const
 
 void CompositeSource::printOn(std::ostream& out)const
 {
+#if 0 // disable for now
     out << "Source(s), total rate="<< rate(EventSource::time()) << std::endl;
 
     for( std::vector<EventSource*>::const_iterator it = m_sourceList.begin();
@@ -193,7 +131,7 @@ void CompositeSource::printOn(std::ostream& out)const
                 << (*it)->name() << ' '<< (*it)->fullTitle() << std::endl;
 
         }
-
+#endif
 }
 
 std::string CompositeSource::findSource()const
