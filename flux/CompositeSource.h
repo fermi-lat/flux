@@ -1,7 +1,7 @@
 /** @file CompositeSource.h
     @brief CompositeSource declaration
     
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.4 2007/03/01 21:12:45 burnett Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.5 2008/01/06 22:04:30 burnett Exp $
 */
 
 #ifndef CompositeSource_h
@@ -14,7 +14,7 @@
 * "which source" it is representing this time.  Old particles are held, along with the
 * time of their arrival, until use.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.4 2007/03/01 21:12:45 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.5 2008/01/06 22:04:30 burnett Exp $
 */
 
 #include "flux/EventSource.h"
@@ -64,9 +64,9 @@ public:
     void sourceList (const std::vector< EventSource* >& value);
     
     /// interval to the next event
-    double interval (double time){return m_interval - time;}
+    double interval ()const{return m_interval;}
     
-    /// set the absolute time to the next event
+    /// set the relative time to the next event
     double setInterval (double time){return (m_interval = time);}
     
     /// double m_time; 
@@ -80,23 +80,6 @@ public:
 
     /// just set the flag in base class
     void disable(){m_enabled=false;}
-#if 0    
-protected:
-    
-    //number of times we've iterated the front() pointer into sourcelist 
-    //to get the current particle - represents the source
-    int m_numofiters;
-    
-    //private: 
-    std::vector< EventSource* > m_sourceList;
-    std::vector< EventSource* > m_eventList;
-
-    //vector of flags, holds whether or not the current source has a remaining unused particle.
-    std::vector<int> m_unusedSource;
-    //vector of recorded arrival times of held sources.
-    std::vector<double> m_sourceTime;
-    EventSource*  m_recent;
-#else
 private:
     // index of current source in input list
     int m_numofiters;
@@ -104,12 +87,16 @@ private:
     // sources contained in this composite
     std::vector< EventSource* > m_sourceList;
 
-    // list, indexed by next event, of pointers to members of the 
-    typedef std::multimap<double, EventSource* >SourceMap;
+    // list, indexed by next event, of pointers to members of the contained list,
+    // and final actual source (if contained guy is a Composite)
+    typedef std::multimap<double, std::pair<EventSource*,EventSource*> >SourceMap;
     SourceMap m_source_map;
+
+    void map_insert( double, EventSource* member, EventSource* source);
+
+    /// used to define source identification
     std::map<EventSource*, unsigned int> m_ident;
-#endif
-    EventSource*  m_recent;
+    EventSource*  m_recent; ///< pointer to last returned actual source
 
     //is the photon from the most recent source occulted?
     bool m_occulted;

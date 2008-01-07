@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.38 2007/08/15 18:46:42 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.39 2008/01/06 19:43:36 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -287,7 +287,7 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
             std::cout << "Source turned off at time " << time << std::endl;
             break;
         }
-        double interval=e->interval(time);
+        double interval=e->interval();
 
         //here we increment the "elapsed" time and the "orbital" time,
         //just as is done in flux.  NOTE: this is important for the operation 

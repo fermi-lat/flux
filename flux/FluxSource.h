@@ -22,7 +22,7 @@ class LaunchPoint;
 @brief class which manages to compute flux from various particle source configurations
 It is initialized from a xml description
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.9 2006/12/03 03:36:08 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.10 2007/03/01 21:12:45 burnett Exp $
 */
 class FluxSource : public EventSource  
 {
@@ -58,7 +58,7 @@ public:
 
     ISpectrum* spectrum() const{ return m_spectrum; }
 
-    double interval(double ){return m_interval;}
+    double interval()const{return m_interval;}
 
     //! Denotes what Energy Units the energy
     //! of incoming particles are in

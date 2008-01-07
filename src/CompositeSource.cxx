@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.13 2008/01/06 19:43:36 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.14 2008/01/06 22:04:30 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -14,6 +14,7 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.13 2008/0
 #include <iomanip>
 #include <cmath>
 #include <stdexcept>
+#include <cassert>
 
 CompositeSource::CompositeSource (double aRate)
 : EventSource(aRate)
@@ -28,12 +29,16 @@ CompositeSource::~CompositeSource()
         it != m_sourceList.end(); ++it ) delete (*it);
 }
 
+void CompositeSource::map_insert(double time, EventSource* member, EventSource * source=0)
+{
+    m_source_map.insert(std::make_pair( time, std::make_pair(member, source)));
+}
 void CompositeSource::addSource (EventSource* aSource)
 {
     m_sourceList.push_back(aSource);
 #if 1 // new map-based code
     // insert in the map, tagged as needing to be evaluated
-    m_source_map.insert( std::make_pair(-1.,  aSource) );
+    map_insert(-1.,  aSource, 0);
     // tag identifier
     m_ident[aSource] = m_sourceList.size()-1;
 
@@ -52,6 +57,7 @@ EventSource* CompositeSource::event (double time)
         throw std::runtime_error("CompositeSource::event called when disabled");
     }
 #if 1 // new map-based code
+    EventSource* actual(0);
     m_recent=0;
     double nexttime(0);
     do {
@@ -62,24 +68,30 @@ EventSource* CompositeSource::event (double time)
             disable();
             return this;
         }
-        nexttime = it->first;
-        m_recent = it->second;
+        nexttime = it->first; if(nexttime<0) nexttime=time; // initial
+        m_recent = it->second.first;
+        actual = it->second.second;
         m_source_map.erase(it);
 
         // evaluate its next event time, put back into queue
-        m_recent->event(time);
+        EventSource * source = m_recent->event(nexttime);
         if( m_recent->enabled()){
-            double newtime(time+m_recent->interval(time) ); //(value not used?
-            m_source_map.insert(std::make_pair(newtime, m_recent));
+            double newtime(nexttime+m_recent->interval() ); 
+            map_insert(newtime, m_recent, source);
         }
 
-    }while (nexttime<=0 );// loop until first evaluation of all sources
+    }while (actual ==0 );// loop until first evaluation of all sources
 
-    // update the current time and return the current source
-    setInterval(nexttime);
+    if( nexttime < time){
+        throw std::runtime_error("CompositeSource::event: invalid time");
+    }
+    // save the actual interval and return the current source
+    setInterval(nexttime-time);
     m_numofiters = m_ident[m_recent]; // the sequence of this guy
 
-    return m_recent;
+    m_occulted=actual->occulted();
+
+    return actual;
 #else // old code
     int i=0; //for iterating through the m_unusedSource vector
     int winningsourcenum=-1; //the number of the "winning" source
