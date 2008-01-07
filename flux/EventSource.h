@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.14 2008/01/07 12:14:28 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.15 2008/01/07 16:29:39 burnett Exp $
 */
 
 #ifndef flux_EventSource_h
@@ -17,7 +17,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.14 2008/01/07 12:14:28 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.15 2008/01/07 16:29:39 burnett Exp $
 */
 
 
@@ -40,7 +40,7 @@ public:
     
     /// access time of this event
     double time()const{return m_time;}
-    double setTime(double t){m_time=t;}
+    double setTime(double t){return (m_time=t);}
 
 
     ///    calculate the rate for a given flux/solid angle integral (NOTE: integral of solid angle)
