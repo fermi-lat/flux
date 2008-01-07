@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.12 2007/05/24 03:45:22 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.13 2008/01/07 04:18:22 burnett Exp $
 */
 
 #ifndef flux_EventSource_h
@@ -17,7 +17,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.12 2007/05/24 03:45:22 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.13 2008/01/07 04:18:22 burnett Exp $
 */
 
 
@@ -32,7 +32,11 @@ public:
     virtual ~EventSource();
     
     ///    a randomized interval to the next event - default is 1/rate()
-    virtual double interval ()const = 0;
+    double interval()const{return m_interval;}
+    double interval(double){return interval();} ///< this for compatibility
+
+    /// set the relative time to the next event
+    double setInterval (double time){return (m_interval = time);}
     
     ///    calculate the rate for a given flux/solid angle integral (NOTE: integral of solid angle)
     // virtual double  rate ( double solid_angle, double flux );	
@@ -81,10 +85,6 @@ public:
     /// return a unique number correcponding to that spectrum
     virtual int  numSource()const{return -1;}
     
-    virtual double time()const{return m_time;}
-    virtual void setTime(double time){m_time=time;}
-    
-    
     //return how many sources are in the sourcelist (defaults to 1 if only a single FluxSource)
     virtual int howManySources(){return 1;}
 
@@ -109,7 +109,7 @@ public:
     static std::vector<double> s_cone; ///< parameters (ra,dec,radius) of selection cone.
 
 private:
-    double m_time;    // elapsed time, really only needed for EventSource
+    double m_interval;
     
     double m_flux;		// representative flux for this event source...
     std::string m_name;       // name of the event source (UI)
