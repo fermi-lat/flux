@@ -1,11 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.91 2007/09/06 19:50:14 heather Exp $
+  $Id: release.notes,v 1.93 2008/01/07 04:18:22 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
-   v8r36   06-sep-2007 hmk store VDG sources in test_source.xml from the
+   v8r36p1 06-jan-2008 thb Rewrite much of the CompositeSource processing to make it more transparent
    v8r36   06-sep-2007 hmk store VDG sources in test_source.xml from the
                        LatIntegration package, part of our migration from EM
    v8r35p1 29-aug-2007 thb allow spectral index of exactly 0 for SimpleSpectrum
