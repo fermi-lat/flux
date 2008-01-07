@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.11 2007/03/01 21:12:45 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.12 2007/05/24 03:45:22 burnett Exp $
 */
 
 #ifndef flux_EventSource_h
@@ -17,7 +17,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.11 2007/03/01 21:12:45 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.12 2007/05/24 03:45:22 burnett Exp $
 */
 
 
@@ -32,7 +32,7 @@ public:
     virtual ~EventSource();
     
     ///    a randomized interval to the next event - default is 1/rate()
-    virtual double interval (double) = 0;
+    virtual double interval ()const = 0;
     
     ///    calculate the rate for a given flux/solid angle integral (NOTE: integral of solid angle)
     // virtual double  rate ( double solid_angle, double flux );	

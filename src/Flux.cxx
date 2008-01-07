@@ -1,7 +1,7 @@
 /** @file Flux.cxx
 @brief Implementation of Flux
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.16 2007/07/24 20:03:55 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.17 2008/01/06 19:43:36 burnett Exp $
 
 Original author: T. Burnett
 */
@@ -52,9 +52,9 @@ bool Flux::generate()
         // get the next event and its time interval?
         if( ! m_event->enabled()) return false; // there is no source
         m_flux = m_event->event(current_time);
-        double delta_time = m_event->interval(current_time);
-        if( delta_time <= 0) {
-            throw std::runtime_error("Flux::generate: zero or negative interval generated");
+        double delta_time = m_event->interval();
+        if( delta_time < 0) {
+            throw std::runtime_error("Flux::generate:  negative interval generated");
         }
         setTime( current_time + delta_time);
         s_mgr->synch();  // notify observers

@@ -1,6 +1,6 @@
 /** @file rootplot.h
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.10 2005/06/23 22:52:16 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.11 2006/11/05 20:08:42 burnett Exp $
 */
 #include "flux/rootplot.h"
 
@@ -257,7 +257,7 @@ void rootplot::init(std::vector<std::string> argv)
         {
             EventSource *f = e->event(time);
             //increment the time
-            double timeadd = e->interval(time);
+            double timeadd = e->interval();
             time2 += timeadd;
 
             if(!stationary)
