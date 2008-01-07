@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Mon Jan  7 04:14:28 PST 2008
+flux/doc
+
+Modified Files:
+	release.notes 
+Log Message:
+revert interface change for client compatibility; clean up a bit more
+    *
+------------------------------------------------------------
+User: burnett  Mon Jan  7 04:14:28 PST 2008
 flux/cmt
 
 Modified Files:
