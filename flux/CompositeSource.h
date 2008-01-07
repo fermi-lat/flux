@@ -1,7 +1,7 @@
 /** @file CompositeSource.h
     @brief CompositeSource declaration
     
-  $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.7 2008/01/07 12:14:28 burnett Exp $
+  $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.8 2008/01/07 16:29:39 burnett Exp $
 */
 
 #ifndef CompositeSource_h
@@ -14,7 +14,7 @@
 * "which source" it is representing this time.  Old particles are held, along with the
 * time of their arrival, until use.
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.7 2008/01/07 12:14:28 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/CompositeSource.h,v 1.8 2008/01/07 16:29:39 burnett Exp $
 */
 
 #include "flux/EventSource.h"
@@ -72,10 +72,8 @@ public:
 
     /// just set the flag in base class
     void disable(){m_enabled=false;}
-private:
 
-    // index of current source in input list
-    int m_numofiters;
+private:
 
     // sources contained in this composite
     std::vector< EventSource* > m_sourceList;
@@ -85,7 +83,8 @@ private:
     typedef std::multimap<double, std::pair<EventSource*,EventSource*> >SourceMap;
     SourceMap m_source_map;
 
-    void map_insert( double, EventSource* member, EventSource*actual=0);
+    // process an entry in the source map
+    EventSource* process(SourceMap::iterator, double);
 
     /// used to define source identification
     std::map<EventSource*, unsigned int> m_ident;
