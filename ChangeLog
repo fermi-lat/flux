@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Mon Jan  7 14:58:06 PST 2008
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+a "final" refactoring
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r36p3, operation: add
 Package: flux
