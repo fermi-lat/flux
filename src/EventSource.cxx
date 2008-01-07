@@ -1,7 +1,7 @@
 /** @file EventSource.cxx
     @brief Implementation of class EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.7 2007/01/24 23:44:14 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.8 2007/05/24 03:45:22 burnett Exp $
 */
 
 #include "flux/EventSource.h"
@@ -42,6 +42,19 @@ double EventSource::flux (double time) const
   // Inputs  - current time
   // Outputs - flux, in units of (particles/(m^2*sr*sec))
     return m_flux;  // default if not overridden
+}
+
+double EventSource::interval()const
+{
+    return m_interval;
+}
+
+double EventSource::setInterval (double time)
+{
+    return (m_interval = time);
+    if( time<=0 ){
+        std::cout << "interval set <=0: " << time << std::endl;
+    }
 }
 
 
