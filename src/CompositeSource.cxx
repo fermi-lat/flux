@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.15 2008/01/07 04:18:23 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.16 2008/01/07 12:14:28 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -29,15 +29,27 @@ CompositeSource::~CompositeSource()
         it != m_sourceList.end(); ++it ) delete (*it);
 }
 
-void CompositeSource::map_insert(double time, EventSource* member, EventSource * source=0)
+void CompositeSource::map_insert(double time, EventSource* member, EventSource*actual)
 {
-    m_source_map.insert(std::make_pair( time, std::make_pair(member, source)));
+    EventSource * source(0); // will set to the actual source if updating
+    double nexttime(time);
+    if( actual==0){
+        source = member->event(time);
+        if( member->enabled()){
+            double nextinterval( member->interval() );
+            nexttime = time+nextinterval; 
+            source->setTime(nexttime); // tell event its time
+        }
+    }else{
+        nexttime=-1;
+    }
+    m_source_map.insert(std::make_pair( nexttime, std::make_pair(member, source)));
 }
 void CompositeSource::addSource (EventSource* aSource)
 {
     m_sourceList.push_back(aSource);
     // insert in the map, tagged as needing to be evaluated
-    map_insert(-1.,  aSource, 0);
+    map_insert(-1.,  aSource);
     // tag identifier
     m_ident[aSource] = m_sourceList.size()-1;
 
@@ -49,30 +61,24 @@ EventSource* CompositeSource::event (double time)
     if( !enabled()){
         throw std::runtime_error("CompositeSource::event called when disabled");
     }
+    
     EventSource* actual(0);
-    m_recent=0;
     double nexttime(0);
     do {
-        // get next one, and remove from the map
+        // get most recent entry, and remove from the map
         SourceMap::iterator it= m_source_map.begin();
         if( it==m_source_map.end()){
             // no sources left
             disable();
             return this;
         }
-        nexttime = it->first; if(nexttime<0) nexttime=time; // initial
-        m_recent = it->second.first;
-        actual = it->second.second;
+        nexttime = it->first;         // initial
+        m_recent = it->second.first;  // the member
+        actual = it->second.second;   // the actual FluxSource object if member is Composite
         m_source_map.erase(it);
-
-        // evaluate its next event time, put back into queue
-        EventSource * source = m_recent->event(nexttime);
-        if( m_recent->enabled()){
-            double newtime(nexttime+m_recent->interval() ); 
-            map_insert(newtime, m_recent, source);
-        }
-
-    }while (actual ==0 );// loop until first evaluation of all sources
+        map_insert( time, m_recent, actual);    // will catch on next iteration
+        
+    }while (nexttime< 0); // loop until evaluation of all sources
 
     if( nexttime < time){
         throw std::runtime_error("CompositeSource::event: invalid time");
@@ -121,7 +127,6 @@ double CompositeSource::rate(double time) const
 
 void CompositeSource::printOn(std::ostream& out)const
 {
-#if 0 // disable for now
     out << "Source(s), total rate="<< rate(EventSource::time()) << std::endl;
 
     for( std::vector<EventSource*>::const_iterator it = m_sourceList.begin();
@@ -131,7 +136,6 @@ void CompositeSource::printOn(std::ostream& out)const
                 << (*it)->name() << ' '<< (*it)->fullTitle() << std::endl;
 
         }
-#endif
 }
 
 std::string CompositeSource::findSource()const
