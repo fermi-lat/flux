@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Mon Jan  7 08:29:39 PST 2008
+flux/src
+
+Modified Files:
+	CompositeSource.cxx EventSource.cxx 
+Log Message:
+another pass
+    *
+------------------------------------------------------------
+User: burnett  Mon Jan  7 08:29:39 PST 2008
 flux/flux
 
 Modified Files:
