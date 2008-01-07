@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Mon Jan  7 14:58:06 PST 2008
+flux/flux
+
+Modified Files:
+	CompositeSource.h EventSource.h 
+Log Message:
+a "final" refactoring
+    *
+------------------------------------------------------------
+User: burnett  Mon Jan  7 14:58:06 PST 2008
 flux/doc
 
 Modified Files:
