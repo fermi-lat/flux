@@ -1,4 +1,88 @@
 ------------------------------------------------------------
+TAG
+Tag name: v8r36p4, operation: add
+Package: flux
+User: burnett  Mon Jan  7 14:58:39 2008
+Files:
+  flux/.cvsignore  1.1.1.1
+  flux/ChangeLog  1.1.1.591
+  flux/fluxLib.py  1.1
+  flux/SConscript  1.1
+  flux/cmt/.cvsignore  1.1.1.1
+  flux/cmt/requirements  1.96
+  flux/cmt/Makefile  1.1.1.1
+  flux/doc/.cvsignore  1.1.1.1
+  flux/doc/multipower4.JPG  1.1
+  flux/doc/FluxSvcFig2.jpg  1.1.1.1
+  flux/doc/release.notes  1.97
+  flux/doc/multipower.htm  1.1
+  flux/doc/multipower1.JPG  1.1
+  flux/doc/FluxSvcFig1.jpg  1.1.1.1
+  flux/doc/FluxSvcDoc2.htm  1.1.1.1
+  flux/doc/Doxyfile  1.1.1.1
+  flux/flux/AGNSpectrum.h  1.3
+  flux/flux/ISpectrum.h  1.4
+  flux/flux/SpectrumFactory.h  1.3
+  flux/flux/LaunchDirection.h  1.8
+  flux/flux/FluxException.h  1.1.1.1
+  flux/flux/Spectrum.h  1.4
+  flux/flux/LaunchPoint.h  1.4
+  flux/flux/rootplot.h  1.4
+  flux/flux/EventSource.h  1.16
+  flux/flux/FluxSource.h  1.12
+  flux/flux/Flux.h  1.11
+  flux/flux/CompositeSource.h  1.9
+  flux/flux/FluxMgr.h  1.19
+  flux/flux/MapSpectrum.h  1.4
+  flux/flux/SimpleSpectrum.h  1.7
+  flux/flux/SpectrumFactoryTable.h  1.1.1.1
+  flux/flux/IFlux.h  1.9
+  flux/flux/ISpectrumFactory.h  1.2
+  flux/sources/pulsars.txt  1.5
+  flux/sources/test_FileSource.dat  1.3
+  flux/sources/vela.txt  1.5
+  flux/sources/GRS01369.txt  1.5
+  flux/src/FileSource.h  1.5
+  flux/src/EventSource.cxx  1.9
+  flux/src/Spectrum.cxx  1.8
+  flux/src/VdgGamma.cxx  1.2
+  flux/src/Earth.h  1.4
+  flux/src/SurfaceMuons.cxx  1.13
+  flux/src/SimpleSpectrum.cxx  1.13
+  flux/src/mainpage.h  1.2
+  flux/src/TimeCandle.h  1.6
+  flux/src/TimeCandle.cxx  1.7
+  flux/src/CompositeSource.cxx  1.18
+  flux/src/Earth.cxx  1.6
+  flux/src/SourceDirection.h  1.2
+  flux/src/SourceDirection.cxx  1.9
+  flux/src/FILESpectrum.cxx  1.7
+  flux/src/SpectrumFactoryTable.cxx  1.1.1.1
+  flux/src/FileSource.cxx  1.10
+  flux/src/Flux.cxx  1.18
+  flux/src/FluxMgr.cxx  1.40
+  flux/src/file_source.h  1.2
+  flux/src/FILESpectrum.h  1.3
+  flux/src/FluxSource.cxx  1.48
+  flux/src/rootplot/rootEnergyHist.cxx  1.5
+  flux/src/rootplot/rootAngleHist.cxx  1.4
+  flux/src/rootplot/rootAngleHist.h  1.1.1.1
+  flux/src/rootplot/rootHist.h  1.2
+  flux/src/rootplot/rootEnergyHist.h  1.3
+  flux/src/rootplot/rootplot.cxx  1.12
+  flux/src/rootplot/rootHist.cxx  1.2
+  flux/src/rootplot/test/roottest.cxx  1.1.1.1
+  flux/src/test/testMgr.cxx  1.15
+  flux/src/test/test_library.xml  1.2
+  flux/xml/source_library.xml  1.47
+  flux/xml/test_sources.xml  1.3
+  flux/xml/source.dtd  1.11
+  flux/xml/FluxSvcParams.xml  1.1.1.1
+  flux/xml/3EG.xml  1.3
+  flux/xml/FluxSvcParams.dtd  1.1.1.1
+
+    *
+------------------------------------------------------------
 User: burnett  Mon Jan  7 14:58:06 PST 2008
 flux/src
 
