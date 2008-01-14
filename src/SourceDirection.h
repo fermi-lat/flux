@@ -1,7 +1,7 @@
 /** @file SourceDirection.h
 @brief SourceDirection declaration
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.h,v 1.1 2006/12/03 03:36:08 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.h,v 1.2 2006/12/03 04:32:21 burnett Exp $
 
 */
 #ifndef flux_SourceDirection_h
@@ -39,7 +39,7 @@ public:
     virtual double zenithCosine()const{return m_zenithCos;}
 
 private:
-    typedef enum  { ZENITH, EQUATORIAL, GALACTIC, SUN, MOON, INVALID } Frame;
+    typedef enum  { ZENITH, EQUATORIAL, GALACTIC, SUN, MOON, JUPITER, SATURN, INVALID } Frame;
     Frame m_frame;
     ISpectrum* m_spectrum;
     double m_zenithCos;
