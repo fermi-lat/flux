@@ -1,9 +1,9 @@
 package flux
 
-version v8r36p4
+version v8r37
 author Toby Burnett <tburnett@u.washington.edu>
 
-# $Id: requirements,v 1.95 2008/01/07 16:29:38 burnett Exp $
+# $Id: requirements,v 1.96 2008/01/07 22:58:06 burnett Exp $
 
 use xmlBase  v5r*
 use CLHEP v3* IExternal
