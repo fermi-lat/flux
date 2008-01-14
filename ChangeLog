@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Mon Jan 14 12:20:45 PST 2008
+flux/src
+
+Modified Files:
+	CompositeSource.cxx 
+Log Message:
+implement ident override. (If souce is member of a Composite source), add more comments to code.
+    *
+------------------------------------------------------------
 User: burnett  Mon Jan 14 12:16:07 PST 2008
 flux/src
 
