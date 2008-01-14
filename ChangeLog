@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Mon Jan 14 12:16:07 PST 2008
+flux/src
+
+Modified Files:
+	EventSource.cxx 
+Log Message:
+change code to be int, not unsigned. (not actuallly used)
+    *
+------------------------------------------------------------
+User: burnett  Mon Jan 14 12:16:07 PST 2008
 flux/flux
 
 Modified Files:
