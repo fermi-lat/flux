@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.47 2008/01/06 19:43:36 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.48 2008/01/07 12:14:28 burnett Exp $
 
 */
 #include "astro/SkyDir.h"
@@ -252,6 +252,7 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
     std::string source_params; 
     // this is a default flux, from the flux="123" in the source element
     setFlux(atof (xmlBase::Dom::getAttribute(xelem, "flux").c_str()));
+    int ident(static_cast<int>( atof(xmlBase::Dom::getAttribute(xelem, "ident").c_str())));
 
     DOMElement*   spec = xmlBase::Dom::findFirstChildByName(xelem, "spectrum");
 
@@ -306,6 +307,7 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
 	    if( !particle_name.empty() ) s->setParticleName(particle_name);
         }
         m_spectrum =s;
+        m_spectrum->setIdentifier(ident);
 	
 
         // second child element is angle
@@ -604,3 +606,8 @@ void FluxSource::disable()
     m_spectrum=0;
 }
 
+
+int FluxSource::identifier()
+{
+    return spectrum()->identifier();
+}

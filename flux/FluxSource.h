@@ -22,7 +22,7 @@ class LaunchPoint;
 @brief class which manages to compute flux from various particle source configurations
 It is initialized from a xml description
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.11 2008/01/07 04:18:22 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.12 2008/01/07 12:14:28 burnett Exp $
 */
 class FluxSource : public EventSource  
 {
@@ -54,11 +54,10 @@ public:
     void  printOn ( std::ostream&  ) {}
 
     /// set spectrum, with optional parameter to set the maximum energy?
-    void spectrum(ISpectrum* s, double emax=-1);
+    virtual void spectrum(ISpectrum* s, double emax=-1);
 
     ISpectrum* spectrum() const{ return m_spectrum; }
 
-    
 
     //! Denotes what Energy Units the energy
     //! of incoming particles are in
@@ -81,6 +80,8 @@ public:
     bool occulted();
 
     virtual void disable();
+
+    virtual int identifier();
 
 private:
 
