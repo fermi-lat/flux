@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.9 2007/03/05 19:37:35 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.10 2008/01/14 21:17:39 burnett Exp $
 
 */
 
@@ -89,6 +89,8 @@ void SourceDirection::execute(double ke, double time){
  
         case SUN:
         case MOON:
+        case JUPITER:
+        case SATURN:
             {
                 solarSystemDir(first, second, time);
                 break;
@@ -118,12 +120,10 @@ void SourceDirection::solarSystemDir( double ra, double dec, double time)
         cdir = Hep3Vector(sol.direction(jd)());
     }
     if( m_frame==JUPITER) {
-        SolarSystem sol(astro::SolarSystem::JUPITER);
-        cdir = Hep3Vector(sol.direction(jd)());
+        cdir = Hep3Vector(SolarSystem(SolarSystem::JUPITER).direction(jd)());
     }
     if( m_frame==SATURN) {
-        SolarSystem saturn(astro::SolarSystem::SATURN);
-        cdir = Hep3Vector(saturn.direction(jd)());
+        cdir = Hep3Vector(SolarSystem(SolarSystem::SATURN).direction(jd)());
     }
     if (m_frame==MOON) {
         SolarSystem luna(astro::SolarSystem::MOON);
