@@ -1,7 +1,7 @@
 /** @file EventSource.cxx
     @brief Implementation of class EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.8 2007/05/24 03:45:22 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.9 2008/01/07 16:29:39 burnett Exp $
 */
 
 #include "flux/EventSource.h"
@@ -10,7 +10,7 @@
 
 #include <sstream>
 
-unsigned int  EventSource::s_id = 0;
+int  EventSource::s_id = 0;
 double  EventSource::s_total_area = 6.; // area in m^2
 double  EventSource::s_backoff = 2000.; // in mm
 int EventSource::s_id_offset=0;     // offset for assigning ids in CompositeSource
@@ -86,8 +86,12 @@ void EventSource::setName (const std::string& value)    { m_name = value;   }
 double    EventSource::totalArea () { return s_total_area; }
 void    EventSource::totalArea (double value) { s_total_area = value; }
 
-unsigned EventSource::code () const { return m_code; }
-void EventSource::code ( unsigned c ) { m_code = c; }
+int EventSource::code () const { 
+    return m_code; 
+}
+void EventSource::code ( int c ) { 
+    m_code = c; 
+}
 
 void EventSource::setFlux(double value){ m_flux=value; }
 
