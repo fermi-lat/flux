@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Mon Jan 14 13:17:39 PST 2008
+flux/src
+
+Modified Files:
+	SourceDirection.cxx SourceDirection.h 
+Log Message:
+Implement Jupiter and Saturn as possible frames.
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r37, operation: add
 Package: flux
