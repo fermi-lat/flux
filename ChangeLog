@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Mon Jan 14 12:10:27 PST 2008
+flux/flux
+
+Modified Files:
+	ISpectrum.h Spectrum.h 
+Log Message:
+add identifier property to all ISpectrum objects, default -1
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r36p4, operation: add
 Package: flux
