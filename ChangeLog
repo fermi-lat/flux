@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Mon Jan 14 12:11:29 PST 2008
+flux/xml
+
+Modified Files:
+	source.dtd 
+Log Message:
+add "ident" attribute to source XML element, default -1
+    *
+------------------------------------------------------------
 User: burnett  Mon Jan 14 12:10:27 PST 2008
 flux/flux
 
