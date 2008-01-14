@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.15 2008/01/07 16:29:39 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.16 2008/01/07 22:58:06 burnett Exp $
 */
 
 #ifndef flux_EventSource_h
@@ -17,7 +17,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.15 2008/01/07 16:29:39 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.16 2008/01/07 22:58:06 burnett Exp $
 */
 
 
@@ -72,8 +72,8 @@ public:
     void setName (const std::string& value);
     
     ///    code - for monte-carlo study
-    unsigned  code () const;
-    virtual void  code ( unsigned );
+    int  code () const;
+    virtual void  code ( int );
     
     ///    area 
     static double	totalArea ();
@@ -104,8 +104,9 @@ public:
     virtual double energy()const { return 0;}
     virtual const Hep3Vector & launchDir()const { static Hep3Vector dummy; return dummy;}
     virtual const Hep3Vector & launchPoint()const { static Hep3Vector dummy; return dummy;}
-//    virtual const Hep3Vector & skyDirection()const{ static Hep3Vector dummy; return dummy;}
     
+    virtual int identifier(){return -1;} ///< indetifier only determined by FluxSOurce
+
     static void setAlignmentRotation(const CLHEP::HepRotation& align);
 
     static double s_backoff; // expose backoff distance, in mm
@@ -117,14 +118,13 @@ private:
     double m_interval;  ///< time interval to the next for this event
     double m_time;      ///< actual MET of this event
     
-    double m_flux;		// representative flux for this event source...
-    std::string m_name;       // name of the event source (UI)
-    unsigned  m_code;         // code id for this event source - for identification in the tuple.
+    double m_flux;	///< representative flux for this event source...
+    std::string m_name; ///< name of the event source (UI)
+    int  m_code;         ///< code id for this event source - for identification in the tuple.
     
-    static unsigned int  s_id;    // id for new EventSources...
+    static int  s_id;    // id for new EventSources...
     static double s_total_area;   // total area for flux generation (in square meters)
     double m_solid_angle;
-   
 
 protected:
     bool m_enabled;           // set false to kill the source
