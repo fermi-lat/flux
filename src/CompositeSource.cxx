@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.17 2008/01/07 16:29:39 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.18 2008/01/07 22:58:06 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -31,31 +31,36 @@ CompositeSource::~CompositeSource()
 
 void CompositeSource::addSource (EventSource* aSource)
 {
+    int index( m_sourceList.size() ); 
     m_sourceList.push_back(aSource);
     EventSource* dummy(0);
     // insert in the map, tagged as needing to be evaluated
     m_source_map.insert(std::make_pair( -1, std::make_pair(aSource, dummy)));
-    // tag identifier
-    m_ident[aSource] = m_sourceList.size()-1;
+
+    // default identifier is the index
+    m_ident[aSource] = index;
 
 }
 
 EventSource* CompositeSource::process(CompositeSource::SourceMap::iterator it, double time)
 {
+    // set up defaults to flag that this source was used, and will be rerun on next iteration
     EventSource * source(0);     // will set to the actual source if updating
-    double nexttime(-1);
+    double nexttime(-1);         // will be first 
+
+    // now get details and remove this entry from the map
     m_recent = it->second.first;  // the member
     EventSource* actual = it->second.second;   // the actual FluxSource object if member is Composite
     m_source_map.erase(it);       // remove the entry from the map
+
     if( actual==0){
-        // node needs to be run
+        // node needs to be run, so ask for next photon
         source = m_recent->event(time);
-        if( m_recent->enabled()){
-            double nextinterval( m_recent->interval() );
-            nexttime = time+nextinterval; 
-            source->setTime(nexttime); // tell event its time
-        }
-        else return 0; // not enabled: no insert, removing from the list
+        if( ! m_recent->enabled() ) return 0; // if disabled, no more calls
+
+        double nextinterval( m_recent->interval() );
+        nexttime = time+nextinterval; 
+        source->setTime(nexttime); // tell event its time
     }
     m_source_map.insert(std::make_pair( nexttime, std::make_pair(m_recent, source)));
     return actual; // now return either a valid source, or null
@@ -146,11 +151,24 @@ std::string CompositeSource::findSource()const
 
 int  CompositeSource::numSource()const
 {
-    ///Purpose: Return a unique number correcponding to the current spectrum.
-    // if selected source is composite itself, (id=-1)  add its id as an integer
+    // get the value from the m_ident map, using the most recent source as a key
     std::map<EventSource*, unsigned int>::const_iterator it = m_ident.find(m_recent);
-    int numofiters = it->second;
-    int t=m_recent->numSource();
-    return EventSource::s_id_offset + 1000*numofiters + (t==-1? 0:  t/1000);
+    int index( it->second );
+    // now call this function associated with that source:
+    int t( m_recent->numSource() ); 
+    // this will be -1 if the source is not Composite. if it is composite, it will be
+    // 1000 times its index
+    if( t!= -1){
+        // it is composite. Get its recent guy, 
+        EventSource* actual = dynamic_cast<CompositeSource*>(m_recent)->m_recent;
+        if( actual !=0) { // check: maybe 
+            int id (actual->identifier());
+            if( id>0 ) {
+                return id;
+            }
+        }
+    }
+    return EventSource::s_id_offset + 1000*index + (t==-1? 0:  t/1000);
+
 }
 
