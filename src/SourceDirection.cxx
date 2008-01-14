@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.8 2007/03/04 23:56:37 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.9 2007/03/05 19:37:35 burnett Exp $
 
 */
 
@@ -23,13 +23,15 @@ SourceDirection::SourceDirection(ISpectrum* spectrum, std::string frame )
 {
     m_frame = INVALID; int n(0);
     static const char* frame_names[]=
-     {"zenith",  "equatorial","galactic", "galaxy", "Sun", "Moon"};
+     {"zenith",  "equatorial","galactic", "galaxy", "Sun", "Moon", "Jupiter", "Saturn"};
     if( frame == frame_names[n++] ) m_frame=ZENITH;
     if( frame == frame_names[n++] ) m_frame=EQUATORIAL;
     if( frame == frame_names[n++] ) m_frame=GALACTIC;
     if( frame == frame_names[n++] ) m_frame=GALACTIC;
     if( frame == frame_names[n++] ) m_frame=SUN;
     if( frame == frame_names[n++] ) m_frame=MOON;
+    if( frame == frame_names[n++] ) m_frame=JUPITER;
+    if( frame == frame_names[n++] ) m_frame=SATURN;
     if( m_frame==INVALID ){ 
         throw std::invalid_argument("flux/SourceDirection: frame name"+frame+" not recognized");
     }
@@ -114,6 +116,14 @@ void SourceDirection::solarSystemDir( double ra, double dec, double time)
     if( m_frame==SUN) {
         SolarSystem sol(astro::SolarSystem::SUN);
         cdir = Hep3Vector(sol.direction(jd)());
+    }
+    if( m_frame==JUPITER) {
+        SolarSystem sol(astro::SolarSystem::JUPITER);
+        cdir = Hep3Vector(sol.direction(jd)());
+    }
+    if( m_frame==SATURN) {
+        SolarSystem saturn(astro::SolarSystem::SATURN);
+        cdir = Hep3Vector(saturn.direction(jd)());
     }
     if (m_frame==MOON) {
         SolarSystem luna(astro::SolarSystem::MOON);
