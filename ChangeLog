@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Tue Jan 15 14:27:02 PST 2008
+flux/src
+
+Modified Files:
+	CompositeSource.cxx 
+Log Message:
+fix bug in detecting Spectrum object that defines an id.
+    *
+------------------------------------------------------------
 User: burnett  Mon Jan 14 13:35:03 PST 2008
 flux/src
 
