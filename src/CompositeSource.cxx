@@ -1,7 +1,7 @@
 /** @file CompositeSource.cxx
 @brief Define CompositeSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.18 2008/01/07 22:58:06 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.19 2008/01/14 20:20:45 burnett Exp $
 */
 
 #include "flux/CompositeSource.h"  
@@ -163,10 +163,12 @@ int  CompositeSource::numSource()const
         EventSource* actual = dynamic_cast<CompositeSource*>(m_recent)->m_recent;
         if( actual !=0) { // check: maybe 
             int id (actual->identifier());
-            if( id>0 ) {
-                return id;
-            }
+            if( id>0 )  return id;          
         }
+    }else{
+        // top-level is not composite: check to see if it has an id
+        int id( m_recent->identifier());
+        if( id>0 ) return id;
     }
     return EventSource::s_id_offset + 1000*index + (t==-1? 0:  t/1000);
 
