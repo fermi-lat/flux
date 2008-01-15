@@ -1,10 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.97 2008/01/07 22:58:06 burnett Exp $
+  $Id: release.notes,v 1.98 2008/01/14 20:22:27 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
+   v8r37p1 15-jan-2008 thb fix bug in implementation
    v8r37   14-jan-2008 thb Implement possibilty for a source to define its own id, overriding algorithm
    v8r36p4 07-jan-2008 thb Rewrite much of the CompositeSource processing to make it more transparent
    v8r36   06-sep-2007 hmk store VDG sources in test_source.xml from the
