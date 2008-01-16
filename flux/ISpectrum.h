@@ -39,7 +39,7 @@ calculate the next time.
 
 * \author Sean Robinson
 *
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/ISpectrum.h,v 1.4 2005/05/03 23:49:18 jchiang Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/ISpectrum.h,v 1.5 2008/01/14 20:10:27 burnett Exp $
 */
 
 #include <string>
@@ -94,6 +94,9 @@ public:
     /// allows it to change
     virtual int identifier()=0;
     virtual void setIdentifier(int i)=0;
+
+    /// if implemented, return special name
+    virtual std::string name()const=0;
 
     /** dummy set methods that are actually defaulted in Spectrum class.
      * These are needed to parse info from the XML (see FluxSource class)

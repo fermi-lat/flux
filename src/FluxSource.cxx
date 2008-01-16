@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.48 2008/01/07 12:14:28 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.49 2008/01/14 20:13:36 burnett Exp $
 
 */
 #include "astro/SkyDir.h"
@@ -610,4 +610,13 @@ void FluxSource::disable()
 int FluxSource::identifier()
 {
     return spectrum()->identifier();
+}
+
+std::string FluxSource::name()const
+{
+    std::string t(spectrum()->name());
+    if( t.empty() ){
+        return EventSource::name();
+    }
+    return t;
 }

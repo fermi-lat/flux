@@ -22,7 +22,7 @@ class LaunchPoint;
 @brief class which manages to compute flux from various particle source configurations
 It is initialized from a xml description
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.12 2008/01/07 12:14:28 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxSource.h,v 1.13 2008/01/14 20:13:36 burnett Exp $
 */
 class FluxSource : public EventSource  
 {
@@ -82,6 +82,8 @@ public:
     virtual void disable();
 
     virtual int identifier();
+
+    virtual std::string name() const;
 
 private:
 
