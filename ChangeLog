@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Tue Jan 15 17:29:56 PST 2008
+flux/flux
+
+Modified Files:
+	FluxSource.h ISpectrum.h Spectrum.h 
+Log Message:
+add a name to the ISpectrum inteface; change FluxSource::name() to return it if set.
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r37p1, operation: add
 Package: flux
