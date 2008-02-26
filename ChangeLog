@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Mon Feb 25 19:23:34 PST 2008
+ScienceTools-scons/flux
+
+Modified Files:
+	fluxLib.py SConscript 
+Log Message:
+Set lib dependencies up for when building libraries
+    *
+------------------------------------------------------------
 TAG
 Tag name: v8r38, operation: add
 Package: flux
