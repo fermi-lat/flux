@@ -1,5 +1,7 @@
+#$Id$
 def generate(env, **kw):
-    env.Tool('addLibrary', library = ['flux'], package = 'flux')
+    if not kw.get('depsOnly',0):
+        env.Tool('addLibrary', library = ['flux'])
     env.Tool('xmlBaseLib')
     env.Tool('astroLib')
     env.Tool('addLibrary', library = env['clhepLibs'])
