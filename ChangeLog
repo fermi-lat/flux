@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 TAG
+Tag name: flux-08-38-00, operation: mov
+Package: flux
+User: glastrm  Fri Mar 21 09:59:03 2008
+Files:
+  flux/SConscript  1.3
+
+    *
+------------------------------------------------------------
+TAG
 Tag name: v8r38, operation: mov
 Package: flux
 User: glastrm  Fri Mar 21 09:58:45 2008
