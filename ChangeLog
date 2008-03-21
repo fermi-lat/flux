@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Fri Mar 21 09:52:34 PDT 2008
+ScienceTools-scons/flux
+
+Modified Files:
+	SConscript 
+Log Message:
+Register xml files with SCons
+    *
+------------------------------------------------------------
 TAG
 Tag name: flux-08-38-00, operation: mov
 Package: flux
