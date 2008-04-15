@@ -1,10 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.99 2008/01/15 22:28:28 burnett Exp $
+  $Id: release.notes,v 1.100 2008/01/16 01:32:40 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
+   v8r38p1 15-feb-2008 thb fix bug in id implementation; add name capability to ISpectrum objects
    v8r38   15-jan-2008 thb fix bug in id implementation; add name capability to ISpectrum objects
    v8r37   14-jan-2008 thb Implement possibilty for a source to define its own id, overriding algorithm
    v8r36p4 07-jan-2008 thb Rewrite much of the CompositeSource processing to make it more transparent

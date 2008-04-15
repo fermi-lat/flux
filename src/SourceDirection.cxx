@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.10 2008/01/14 21:17:39 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.11 2008/01/14 21:35:02 burnett Exp $
 
 */
 
@@ -62,8 +62,11 @@ void SourceDirection::execute(double ke, double time){
 
                 //here, we have a direction in the zenith direction, so we need the 
                 //transformation from zenith to GLAST.
-                CLHEP::HepRotation zenToGlast = gps->transformToGlast(time,GPS::ZENITH);
 
+                // use new transformation
+                m_lat_dir = - gps->LATdirection(GPS::ZENITH, unrotated) ;
+
+                CLHEP::HepRotation zenToGlast = gps->transformToGlast(time,GPS::ZENITH);
                 setDir(zenToGlast*(-unrotated));
                 break;
             }
@@ -82,8 +85,13 @@ void SourceDirection::execute(double ke, double time){
                 //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
                 CLHEP::HepRotation celtoglast = gps->transformToGlast(time, GPS::CELESTIAL);
 
+                // use new transformation
+                m_lat_dir =- gps->LATdirection(GPS::CELESTIAL, unrotated()) ;
+
                 //and do the transform, finally reversing the direction to correspond to the incoming particle
                 setDir( - (celtoglast * unrotated()) );
+
+
                 break;
             }
  
@@ -154,6 +162,7 @@ void SourceDirection::solarSystemDir( double ra, double dec, double time)
 
     //and do the transform, finally reversing the direction to correspond to the incoming particle
     setDir( - (celtoglast * rdir) );
+    m_lat_dir = - gps->LATdirection( GPS::CELESTIAL, rdir );
 }
 
 
