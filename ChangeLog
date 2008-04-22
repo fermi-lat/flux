@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: glastrm  Tue Apr 22 13:31:51 PDT 2008
+ScienceTools-scons/flux/src/test
+
+Modified Files:
+	testMgr.cxx 
+Log Message:
+Switched away from the use of the FLUX_XML env variable
+    *
+------------------------------------------------------------
 User: glastrm  Tue Apr 22 13:31:50 PDT 2008
 ScienceTools-scons/flux/src
 
