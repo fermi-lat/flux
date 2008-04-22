@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.39 2008/01/06 19:43:36 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/src/FluxMgr.cxx,v 1.40 2008/01/07 04:18:23 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -13,6 +13,7 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.39 2008/01/06 19:
 
 #include "xmlBase/Dom.h"
 #include "facilities/Util.h"     // for expandEnvVar
+#include "facilities/commonUtilities.h"
 
 #include "astro/PointingTransform.h"
 
@@ -27,7 +28,7 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.39 2008/01/06 19:
 using astro::GPS;
 
 FluxMgr::FluxMgr(const std::vector<std::string>& fileList, std::string dtdname)
-: m_dtd(dtdname.empty()? "$(FLUX_XML)/source.dtd" : dtdname )
+: m_dtd(dtdname.empty()? facilities::commonUtilities::joinPath(facilities::commonUtilities::getXmlPath("flux"),"source.dtd") : dtdname )
 {
     if( fileList.empty() ){
         defaultFile();
@@ -42,7 +43,7 @@ void FluxMgr::defaultFile(){
 
     // must find the source_library.xml file.
     // set up the xml document to use for initialization parameters
-    input.push_back("$(FLUX_XML)/source_library.xml");	
+    input.push_back(facilities::commonUtilities::joinPath(facilities::commonUtilities::getXmlPath("flux"),"source_library.xml"));
     init(input);
 }
 

@@ -1,4 +1,4 @@
-// $Header: /nfs/slac/g/glast/ground/cvs/flux/src/test/testMgr.cxx,v 1.14 2006/12/19 17:31:31 burnett Exp $
+// $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/src/test/testMgr.cxx,v 1.15 2006/12/24 16:43:03 burnett Exp $
 
 //#include "FluxSvc/ISpectrumFactory.h"
 
@@ -6,6 +6,7 @@
 #include "flux/SpectrumFactoryTable.h"
 #include "flux/FluxMgr.h"
 #include "astro/GPS.h"
+#include "facilities/commonUtilities.h"
 
 #include <iostream>
 #include <fstream>
@@ -55,6 +56,7 @@ void flux_load() {
 
 
 int main(int argn, char * argc[]) {
+    facilities::commonUtilities::setupEnvironment();
     using std::cout;
     using std::endl;
     flux_load();
@@ -64,7 +66,7 @@ int main(int argn, char * argc[]) {
 
     //TESTING MULTIPLE XML INPUT
     std::vector<std::string> fileList;
-    fileList.push_back("$(FLUX_XML)/source_library.xml");
+    fileList.push_back(facilities::commonUtilities::joinPath(facilities::commonUtilities::getXmlPath("flux"),"source_library.xml"));
     FluxMgr fm(fileList);
 
     //FluxMgr fm;
