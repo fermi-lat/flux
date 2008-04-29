@@ -9,6 +9,10 @@
 #include <iomanip>
 #include <fstream>
 
+namespace{
+    double marker_size(0.8);
+}
+
 rootEnergyHist::rootEnergyHist(int bins, 
                                double min_energy, 
                                double max_energy
@@ -233,7 +237,14 @@ void rootEnergyHist::draw(double scale_factor, std::string mode, int current_plo
             out_file << 
                 "{\n"
                 "   gROOT->Reset();\n"
-                "   gStyle->SetMarkerSize(0.5);\n";
+                "   gStyle->SetMarkerSize(0.5);\n"   
+                "   gStyle->SetMarkerSize(0.5);\n"
+                "   gStyle->SetPadTickX(1);  //make ticks be on all 4 sides.\n"
+                "   gStyle->SetPadTickY(1);\n"
+                "   gStyle->SetLabelFont(42,\"xyz\");\n"
+                "   gStyle->SetLabelSize(0.035,\"xyz\");\n"
+                "   gStyle->SetGridColor(16);\n"
+                ;
         }
         else
         {
@@ -351,8 +362,9 @@ void rootEnergyHist::draw(double scale_factor, std::string mode, int current_plo
             "   }\n"
             "   gr" << current_plot << " = new TGraphErrors(num_bins,energy,count" << current_plot 
             << ",e_energy,e_count" << current_plot << ");\n"
-            "   gr" << current_plot << "->SetMarkerColor(" << 2+current_plot << ");\n"
-            "   gr" << current_plot << "->SetMarkerStyle(" << 21 << ");\n"
+            "   gr" << current_plot << "->SetMarkerColor(" << 2+current_plot  << ");\n"
+            "   gr" << current_plot << "->SetMarkerStyle(" << 20+current_plot << ");\n"
+            "   gr" << current_plot << "->SetMarkerSize(" << marker_size << ");\n"
             "   leg->AddEntry(gr" << current_plot << ",\"" << graphTitle << "\",\"P\");\n";
         out_file.close();
     }
@@ -393,17 +405,18 @@ void rootEnergyHist::draw(double scale_factor, std::string mode, int current_plo
             "   int bin_limits = 2;\n"
             "   graph0 = new TGraph(bin_limits,energy_limits,count_limits);\n"
             "   graph0->SetTitle(energy_graph_title);\n"
+            "   graph0->SetMinimum(1.);\n"
             "   graph0->Draw(\"AP\");\n"
             "   TAxis *ax = graph0->GetXaxis();\n"
             "   TAxis *ay = graph0->GetYaxis();\n"
-            "   ay->SetTitle(energy_y_label); ay->CenterTitle(1);ay->SetTitleOffset(1.5);\n"
+            "   ay->SetTitle(energy_y_label); ay->CenterTitle(1);ay->SetTitleOffset(1.2);\n"
             "   ax->SetLimits(energy_min, energy_max);\n"
             "   ax->SetTitle(energy_x_label); ax->CenterTitle(1);ax->SetTitleOffset(1.2);\n"
         ;
 
         {for(int plot = 0; plot < total_plots; plot++) {
             out_file <<
-                "   gr" << plot << "->Draw(\"P\");\n";
+                "   gr" << plot << "->Draw(\"PC\");\n";
         }}
         
         out_file << 

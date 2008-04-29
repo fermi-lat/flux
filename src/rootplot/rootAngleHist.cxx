@@ -245,7 +245,13 @@ void rootAngleHist::draw(double scale_factor, std::string mode, int current_plot
             out_file << 
                 "{\n"
                 "   gROOT->Reset();\n"
-                "   gStyle->SetMarkerSize(0.5);\n";
+                "   gStyle->SetMarkerSize(0.5);\n"
+                "   gStyle->SetPadTickX(1);  //make ticks be on all 4 sides.\n"
+                "   gStyle->SetPadTickY(1);\n"
+                "   gStyle->SetLabelFont(42,\"xyz\");\n"
+                "   gStyle->SetLabelSize(0.035,\"xyz\");\n"
+                "   gStyle->SetGridColor(16);\n"
+                ;
         }
         else
         {
@@ -277,9 +283,9 @@ void rootAngleHist::draw(double scale_factor, std::string mode, int current_plot
             "   //                 name, title, wtopx, wtopy, ww, wh\n"
             "   c2 = new TCanvas(\"c2\",angle_window_title, 10, 10, 1000, 800);\n"
             "   //c2->Divide(3,1);\n"  // for the three plots.
-            "   TPad* p1 = new TPad(\"c2_1\",\"energy\", 0.0,0.0, 0.5,1.0 ,0,0,0); p1->SetNumber(1); p1->Draw();\n"
-            "   TPad* p2 = new TPad(\"c2_2\",\"theta\",  0.5,0.5, 1.0,1.0 ,0,0,0); p2->SetNumber(2); p2->Draw();\n"
-            "   TPad* p3 = new TPad(\"c2_3\",\"phi\",    0.5,0.0, 1.0,0.5 ,0,0,0); p3->SetNumber(3); p3->Draw();\n"
+            "   TPad* p1 = new TPad(\"c2_1\",\"energy\", 0.0,0.0, 0.6,1.0 ,0,0,0); p1->SetNumber(1); p1->SetGrid();p1->Draw();\n"
+            "   TPad* p2 = new TPad(\"c2_2\",\"theta\",  0.6,0.5, 1.0,1.0 ,0,0,0); p2->SetNumber(2); p2->SetGrid();p2->Draw();\n"
+            "   TPad* p3 = new TPad(\"c2_3\",\"phi\",    0.6,0.0, 1.0,0.5 ,0,0,0); p3->SetNumber(3); p3->SetGrid();p3->Draw();\n"
 
             "   c2->SetGrid();\n"
             "   c2->GetFrame()->SetFillColor(21);\n"
@@ -430,7 +436,7 @@ void rootAngleHist::draw(double scale_factor, std::string mode, int current_plot
        
        {for(int plot = 0; plot < total_plots; plot++) {
            out_file <<
-               "   theta_gr" << plot << "->Draw(\"P\");\n";
+               "   theta_gr" << plot << "->Draw(\"P\");\n";  //PC for points and curve
        }}
        
        out_file << 
