@@ -1,6 +1,6 @@
 /** @file rootplot.h
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.11 2006/11/05 20:08:42 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.12 2008/01/07 04:18:23 burnett Exp $
 */
 #include "flux/rootplot.h"
 
@@ -9,6 +9,31 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.11 2006
 
 #include "CLHEP/Geometry/Vector3D.h"
 using astro::GPS;
+
+namespace {
+
+    class Maglat {
+    public:
+        Maglat():m_mean(0), m_min(99), m_max(-99), m_count(0){}
+        void accum(double x){
+            if(x< m_min) m_min=x;
+            if(x>m_max) m_max =x ;
+            m_mean += x;
+            m_count++;
+        }
+        void dump(){
+            std::cout << "\nMagnetic latitude:"
+                << "\n\tmin\t" << m_min
+                << "\n\tmax\t" << m_max
+                << "\n\tmean\t"<< m_mean/m_count
+                << std::endl;
+        }
+    private:
+        double m_mean, m_min, m_max;
+        int m_count;
+    };
+
+}
 
 rootplot::rootplot(int argc, char* argv[])
 : NUM_BINS(30),LOOP(30000),
@@ -29,7 +54,7 @@ ENERGY_MAX(100.0*1000.), m_fm(0)
 
 rootplot::rootplot(std::vector<std::string> argv, FluxMgr* fm)
 : NUM_BINS(30),LOOP(30000),
-TIME(0.01), ENERGY_MIN(0.01*1000.), ENERGY_MAX(100.0*1000.)
+TIME(0.0), ENERGY_MIN(0.01*1000.), ENERGY_MAX(100.0*1000.)
 ,m_fm(fm)
 {
     init(argv);
@@ -52,6 +77,7 @@ void rootplot::init(std::vector<std::string> argv)
     double time=TIME;  //time to use for flux and rate functions
     double energy_min = ENERGY_MIN;
     double energy_max = ENERGY_MAX;
+    double expand(1e4); // expansion factor?
     bool use_integrated_flux = true;
     bool use_flux = false;
     bool use_flux_min = false;
@@ -81,7 +107,7 @@ void rootplot::init(std::vector<std::string> argv)
     // Process Command Line Arguments
 
     std::cout << "------------------------------------------------------" << std::endl;
-    std::cout << " Flux test program: type 'rootplot -help' for help" << std::endl;
+    std::cout << "flux test program: type 'rootplot -help' for help" << std::endl;
     std::cout << ( ( argc == 0)?  " No command line args, using defaults"
         :  "") << std::endl;
 
@@ -163,7 +189,7 @@ void rootplot::init(std::vector<std::string> argv)
         num_sources++;
     }
 
-    rootEnergyHist energy_hist(num_bins,energy_min,energy_max);
+    rootEnergyHist energy_hist(num_bins,energy_min,energy_max, "rootplot.cxx");
     rootAngleHist angle_hist(num_bins);
 
     // Process all the sources
@@ -193,21 +219,30 @@ void rootplot::init(std::vector<std::string> argv)
         GPS::instance()->synch();
         fm.pass(0.);
 
-        EventSource *e = fm.source(sources[i]);
-
+        std::string sourcename(sources[i])
+                  , sourcedisplayname(sources[i]);
+        size_t colon (sourcename.find(":"));
+        if(colon!= std::string.npos){
+            std::string check1 = sourcename.substr(0, colon);
+            std::string check2 = sourcename.substr(colon+1);
+            sourcedisplayname= check2;
+            sourcename = check1;
+        }
+        EventSource *e = fm.source(sourcename);
+#if 0
 
         if(longterm){
             fm.pass(2.);
             time+=2.;
         }else{time=0;}
 
-
+#endif
 
         if( 0==e ) {std::cerr << "Source \"" << sources[i] << "\" not found: -list for a list" << std::endl;
         return;}
 
         energy_hist.setGraphType(default_graph.c_str());
-        energy_hist.setTitle( sources[i] );
+        energy_hist.setTitle( sourcedisplayname );
 
         energy_hist.setXLabel("Kinetic Energy (MeV)");
 
@@ -234,7 +269,7 @@ void rootplot::init(std::vector<std::string> argv)
             energy_hist.setFluxMax(flux_max);
 
         angle_hist.setGraphType(default_graph.c_str());
-        angle_hist.setTitle( sources[i] );
+        angle_hist.setTitle( sourcedisplayname );
         angle_hist.setPhiXLabel("Angle (degrees)");
         angle_hist.setPhiYLabel("Particles");
         angle_hist.setThetaXLabel("Cos(Theta)");
@@ -243,7 +278,8 @@ void rootplot::init(std::vector<std::string> argv)
 
         std::cout << sources[i] << std::endl;
 
-        GPS::instance()->time(time);
+        GPS* gps = GPS::instance();
+        gps->time(time);
         std::pair<double,double> loc=fm.location();
         std::cout << "Lat/Lon:  " << loc.first << "   " << loc.second << std::endl;
 
@@ -253,21 +289,30 @@ void rootplot::init(std::vector<std::string> argv)
         std::cout << "Initial (p/s/m^2/sr): " << e->flux(time) << std::endl;
 
         double time2 = 0;  // time used for scaling the graphs
+        Maglat magstat;
         for(j = 0; j < loop; j++) 
         {
-            EventSource *f = e->event(time);
+            EventSource *f = e->event(time2); //time);
             //increment the time
             double timeadd = e->interval();
             time2 += timeadd;
 
             if(!stationary)
             {
-                time += timeadd;
-                fm.pass(timeadd);
+                time += timeadd* expand;
+                fm.pass(timeadd* expand);
+                //fm.time(time);
             }
-
+            gps->time(time); // set to expandec time
+            gps->notifyObservers();
+            double geolat = gps->earthpos().geolat();
+            magstat.accum(geolat);
+ 
+//            double cutOffRigidity = gps->expansion();
             HepVector3D dir = f->launchDir();
             double energy = f->energy();
+            gps->time(time2); // reset
+
             double cos_theta = dir.z();
 
             double phi = atan2(dir.y(),dir.x());
@@ -281,6 +326,7 @@ void rootplot::init(std::vector<std::string> argv)
             if(j % 1000 == 0) {std::cout << "\r" << j << ": " << energy << "...";
             }
         }
+        magstat.dump();
 
         std::cerr << "\n";
 
@@ -333,12 +379,14 @@ void rootplot::init(std::vector<std::string> argv)
             //delete e;
             std::cout << "Sum Mode method" << std::endl;
         }
+#if 0
         else if(longterm==true && longtime<=longtimemax)
         {
             longtime++;
             i--;
             std::cout << "Longterm run number " << longtime << std::endl; 
         }
+#endif
         else
         {       
             if(true == write_to_file)
