@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Wed Apr 30 14:41:37 PDT 2008
+flux/src/rootplot
+
+Modified Files:
+	rootplot.cxx 
+Log Message:
+gcc did not like this
+    *
+------------------------------------------------------------
 TAG
 Tag name: flux-08-39-00, operation: add
 Package: flux
