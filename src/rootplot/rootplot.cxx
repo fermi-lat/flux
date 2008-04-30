@@ -1,6 +1,6 @@
 /** @file rootplot.h
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.12 2008/01/07 04:18:23 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.13 2008/04/29 15:49:26 burnett Exp $
 */
 #include "flux/rootplot.h"
 
@@ -222,7 +222,7 @@ void rootplot::init(std::vector<std::string> argv)
         std::string sourcename(sources[i])
                   , sourcedisplayname(sources[i]);
         size_t colon (sourcename.find(":"));
-        if(colon!= std::string.npos){
+        if(colon!= std::string::npos){
             std::string check1 = sourcename.substr(0, colon);
             std::string check2 = sourcename.substr(colon+1);
             sourcedisplayname= check2;
