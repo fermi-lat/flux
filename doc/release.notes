@@ -1,10 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.101 2008/04/15 17:14:35 burnett Exp $
+  $Id: release.notes,v 1.102 2008/04/29 15:49:26 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
+   v8r39p1 30-apr-2008 thb rootplots patch
    v8r39   29-apr-2008 thb rootplots update; FLUX_XML changes by Navid
    v8r38p1 15-feb-2008 thb fix bug in id implementation; add name capability to ISpectrum objects
    v8r38   15-jan-2008 thb fix bug in id implementation; add name capability to ISpectrum objects
