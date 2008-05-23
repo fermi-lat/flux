@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Thu May 22 19:49:42 PDT 2008
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+see release.notes
+    *
+------------------------------------------------------------
 TAG
 Tag name: flux-08-39-01, operation: add
 Package: flux
