@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Fri May 23 03:19:42 PDT 2008
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Log Message:
+finish removal of FILEspectrum; tag
+    *
+------------------------------------------------------------
+User: burnett  Fri May 23 03:19:42 PDT 2008
 flux/doc
 
 Modified Files:
