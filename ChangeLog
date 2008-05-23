@@ -2,6 +2,14 @@
 TAG
 Tag name: flux-08-40-00, operation: add
 Package: flux
+User: glastrm  Thu May 22 20:00:56 2008
+Files:
+
+    *
+------------------------------------------------------------
+TAG
+Tag name: flux-08-40-00, operation: add
+Package: flux
 User: glastrm  Thu May 22 20:00:21 2008
 Files:
   flux/.cvsignore  1.1.1.1
