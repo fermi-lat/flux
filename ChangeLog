@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: burnett  Fri May 23 03:19:42 PDT 2008
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+finish removal of FILEspectrum; tag
+    *
+------------------------------------------------------------
 TAG
 Tag name: flux-08-40-00, operation: add
 Package: flux
