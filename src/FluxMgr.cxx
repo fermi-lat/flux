@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.41 2008/04/22 20:31:50 glastrm Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.42 2008/05/23 02:49:43 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -99,7 +99,6 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
 
     }
     // these are the locally defined spectra that we want to make available
-    DECLARE_SPECTRUM( FILESpectrum);
     DECLARE_SPECTRUM( TimeCandle);
     DECLARE_SPECTRUM( FileSource);
 

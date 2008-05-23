@@ -5,7 +5,7 @@
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
-   v8r40   22-may-2008 thb Remove FILEspectrum
+   v8r40p1 22-may-2008 thb Remove FILEspectrum
                            make photon particle type default for Spectrum
                            fix bug in new code to allow aberration (that sneaked in before careful tests)
    v8r39p1 30-apr-2008 thb rootplots patch
