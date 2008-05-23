@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/src/FluxMgr.cxx,v 1.40 2008/01/07 04:18:23 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.41 2008/04/22 20:31:50 glastrm Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -307,7 +307,7 @@ void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
             << ", Flux="     << f->flux(time) 
             << ", Interval=" << interval ;
         if(sourceNumber!=-1) cout <<", SourceID: "<< sourceNumber ;
-        cout << "\nElapsed time= " << totalinterval 
+        cout << "\tElapsed time= " << totalinterval 
             << std::endl;
     }
     cout << "------------------------------------------------------" << std::endl;

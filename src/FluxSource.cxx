@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.49 2008/01/14 20:13:36 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.50 2008/01/16 01:29:56 burnett Exp $
 
 */
 #include "astro/SkyDir.h"
@@ -189,7 +189,8 @@ public:
 
     }
 
-   virtual void execute(double /*ke*/, double time){
+   virtual void execute(double /*ke*/, double time)
+   {
         double  costh = -CLHEP::RandFlat::shoot(m_minCos, m_maxCos),
             sinth = sqrt(1.-costh*costh),
             phi = CLHEP::RandFlat::shoot(m_minPhi, m_maxPhi);
@@ -204,7 +205,7 @@ public:
         // confusing)
         // keep x-axis perpendicular to zenith direction
         if (m_theta != 0.0) dir.rotateX(m_theta).rotateZ(m_phi);
-        setDir(zenToGlast*dir);
+        m_lat_dir = zenToGlast*dir;
 
     }
     //! solid angle
