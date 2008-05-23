@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.11 2008/01/14 21:35:02 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.12 2008/04/15 17:14:35 burnett Exp $
 
 */
 
@@ -67,7 +67,6 @@ void SourceDirection::execute(double ke, double time){
                 m_lat_dir = - gps->LATdirection(GPS::ZENITH, unrotated) ;
 
                 CLHEP::HepRotation zenToGlast = gps->transformToGlast(time,GPS::ZENITH);
-                setDir(zenToGlast*(-unrotated));
                 break;
             }
         case EQUATORIAL:
@@ -85,12 +84,8 @@ void SourceDirection::execute(double ke, double time){
                 //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
                 CLHEP::HepRotation celtoglast = gps->transformToGlast(time, GPS::CELESTIAL);
 
-                // use new transformation
-                m_lat_dir =- gps->LATdirection(GPS::CELESTIAL, unrotated()) ;
-
-                //and do the transform, finally reversing the direction to correspond to the incoming particle
-                setDir( - (celtoglast * unrotated()) );
-
+                // transform from sky direction to LAT direction, possibly with aberration and alignment
+                m_lat_dir = gps->LATdirection(GPS::CELESTIAL, unrotated()) ;
 
                 break;
             }
@@ -158,11 +153,10 @@ void SourceDirection::solarSystemDir( double ra, double dec, double time)
     SkyDir c(cdir); double ra_c(c.ra()), dec_c(c.dec());
 
 #endif
-    CLHEP::HepRotation celtoglast( gps->transformToGlast(time, GPS::CELESTIAL) );
 
-    //and do the transform, finally reversing the direction to correspond to the incoming particle
-    setDir( - (celtoglast * rdir) );
-    m_lat_dir = - gps->LATdirection( GPS::CELESTIAL, rdir );
+    // make transformation, to a direction into the LAT, possibly 
+    // corrected for misalignment and aberration
+    m_lat_dir = gps->LATdirection( GPS::CELESTIAL, rdir , time);
 }
 
 

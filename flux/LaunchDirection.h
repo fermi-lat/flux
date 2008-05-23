@@ -2,7 +2,7 @@
  * @file LaunchDirection.h
  * @brief Declare LaunchDirection class
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.8 2006/12/03 03:36:08 burnett Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.9 2008/04/15 17:14:35 burnett Exp $
  */
 
 #ifndef flux_LaunchDirection_h
@@ -34,8 +34,7 @@ public:
         , m_radius(radius*M_PI/180),m_frame(frame)
     {
         CLHEP::Hep3Vector dir(sin(theta)*cos(phi),sin(theta)*sin(phi),cos(theta));
-        m_lat_dir = -dir;
-        setDir(-dir); // minus due to z axis pointing UP!
+        m_dir = -dir;
     }
     LaunchDirection(astro::SkyDir sky, double radius=0)
         :m_skydir(true)
@@ -51,16 +50,13 @@ public:
        using astro::GPS;
         if(m_skydir){
             //here, we have a SkyDir, so we need the transformation from a SkyDir to GLAST.
-            m_rottoglast = GPS::instance()->transformToGlast(time,GPS::CELESTIAL);//->transformCelToGlast(time);
-            m_lat_dir = -GPS::instance()->LATdirection(GPS::CELESTIAL, m_dir);  // note reverse sign!
+            m_lat_dir = GPS::instance()->LATdirection(GPS::CELESTIAL, m_dir, time); 
         }else{
             if(m_frame=="zenith"){
                 //The direction is in the earth zenith system, and the rotation to GLAST is needed:
-                m_rottoglast = GPS::instance()->transformToGlast(time,GPS::ZENITH);
-                m_lat_dir = GPS::instance()->LATdirection(GPS::GLAST, m_dir);
+                m_lat_dir = GPS::instance()->LATdirection(GPS::GLAST, m_dir, time);
             }else{
                 //otherwise, the direction is in the spacecraft system, and the rotation to GLAST is the identity:
-                m_rottoglast = GPS::instance()->transformToGlast(time,GPS::GLAST);
                 m_lat_dir = m_dir;
             }
         }
@@ -70,7 +66,7 @@ public:
 
     virtual const CLHEP::Hep3Vector& dir()const {
         static CLHEP::Hep3Vector rdir;
-        rdir = m_rottoglast * m_dir;
+        rdir = m_lat_dir;
         if( m_radius>0 ) {
             // spread uniformly about a disk
             // rotate about perpendicular then about the original 
@@ -80,18 +76,6 @@ public:
             rdir = t; //replace 
         }
         return rdir;
-    }
-
-    void setDir(const CLHEP::Hep3Vector& dir){
-#if 0 // testing phase
-        double test = (dir - m_lat_dir).mag();
-        if( test > 1e-15 ) {
-            std::cerr << "Failed test for conversion!" << std::endl;
-        }
-        m_dir=dir;
-#else // implement use of direction allowing for aberration
-        m_dir = m_lat_dir; 
-#endif
     }
 
     //! solid angle: default of 1. for a point source
@@ -121,7 +105,6 @@ protected:
     CLHEP::Hep3Vector m_lat_dir; ///< direction in lat frame
 
 private:
-    CLHEP::HepRotation m_rottoglast;
     CLHEP::Hep3Vector m_dir;
     bool  m_skydir;
     double m_radius;
