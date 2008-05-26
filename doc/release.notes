@@ -1,10 +1,11 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.103 2008/04/30 21:43:44 burnett Exp $
+  $Id: release.notes,v 1.105 2008/05/23 10:19:42 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
     
+   v8r40p2 26-may-2008 thb Fix point source directions
    v8r40p1 22-may-2008 thb Remove FILEspectrum
                            make photon particle type default for Spectrum
                            fix bug in new code to allow aberration (that sneaked in before careful tests)
