@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: burnett  Mon May 26 07:21:40 PDT 2008
+flux/flux
+
+Modified Files:
+	LaunchDirection.h 
+Log Message:
+fix for pointsouce direction
+    *
+------------------------------------------------------------
+User: burnett  Mon May 26 07:21:40 PDT 2008
 flux/doc
 
 Modified Files:
