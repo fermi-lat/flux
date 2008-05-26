@@ -2,7 +2,7 @@
  * @file LaunchDirection.h
  * @brief Declare LaunchDirection class
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.9 2008/04/15 17:14:35 burnett Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.10 2008/05/23 02:49:43 burnett Exp $
  */
 
 #ifndef flux_LaunchDirection_h
@@ -40,7 +40,7 @@ public:
         :m_skydir(true)
         , m_radius(radius*M_PI/180)
     {
-        m_dir = -sky.dir();
+        m_dir = sky.dir(); // note that this is a SkyDir, to be used as arg to LATdirection below
     }
     /** @brief choose a direction
     @param KE kinetic energy
