@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Id: SConscript,v 1.4 2008/06/19 22:36:19 glastrm Exp $
+# $Id: SConscript,v 1.5 2008/08/15 21:22:47 ecephas Exp $
 # Authors: Toby Burnett <tburnett@u.washington.edu>
 # Version: flux-08-40-02
 Import('baseEnv')
@@ -16,3 +16,6 @@ rootplotsBin = progEnv.Program('rootplots',[ 'src/rootplot/test/roottest.cxx'])
 
 progEnv.Tool('registerObjects', package = 'flux', libraries = [fluxLib], binaries = [rootplotsBin], testApps = [test_fluxBin], includes = listFiles(['flux/*.h']),
              xml = listFiles(['xml/*'], recursive = True))
+
+
+
