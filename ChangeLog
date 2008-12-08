@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: ecephas  Mon Dec  8 13:40:31 PST 2008
+GlastRelease-scons/flux
+
+Modified Files:
+	SConscript 
+Log Message:
+Check in SConscript for flux v8r40p2 (for branch-tag, GlastReleasev15r49) 
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-09-00, operation: add
 Package: flux
