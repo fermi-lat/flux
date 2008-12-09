@@ -2,6 +2,14 @@
 TAG
 Tag name: flux-08-40-02, operation: mov
 Package: flux
+User: glast  Mon Dec  8 16:19:05 2008
+Files:
+
+    *
+------------------------------------------------------------
+TAG
+Tag name: flux-08-40-02, operation: mov
+Package: flux
 User: glast  Mon Dec  8 14:41:30 2008
 Files:
   flux/SConscript  1.6
