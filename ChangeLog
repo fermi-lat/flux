@@ -1,4 +1,15 @@
 ------------------------------------------------------------
+TAG
+Tag name: flux-08-40-02, operation: mov
+Package: flux
+User: glastrm  Thu Jan 22 16:31:30 2009
+Files:
+  flux/SConscript  1.7
+  flux/SConscript  1.7
+  flux/SConscript  1.7
+
+    *
+------------------------------------------------------------
 User: ecephas  Thu Jan 22 16:07:00 PST 2009
 GlastRelease-scons/flux
 
