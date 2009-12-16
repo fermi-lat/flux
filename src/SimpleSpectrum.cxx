@@ -1,7 +1,7 @@
 /** @file SimpleSpectrum.cxx
     @brief definition of SimpleSpectrum
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.12 2007/01/23 19:55:11 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/SimpleSpectrum.cxx,v 1.13 2007/08/29 17:40:15 burnett Exp $
 */
 
 
@@ -13,6 +13,7 @@
 #include "xmlBase/Dom.h"
 #include "facilities/Util.h"
 
+#include <cstdlib>
 #include <utility>
 #include <sstream>
 #include <cmath>
