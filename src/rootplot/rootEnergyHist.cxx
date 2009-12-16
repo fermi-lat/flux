@@ -5,6 +5,7 @@
 //  The bins are numbered from 0 to number of bins - 1;
 
 #include "rootEnergyHist.h"
+#include <cstring>
 #include <iostream>
 #include <iomanip>
 #include <fstream>
