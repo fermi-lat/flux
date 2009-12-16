@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: elwinter  Wed Dec 16 14:41:05 PST 2009
+flux/src/rootplot
+
+Modified Files:
+	rootEnergyHist.cxx 
+Log Message:
+Added <cstring> header needed by gcc4.
+
+    *
+------------------------------------------------------------
 User: elwinter  Wed Dec 16 14:39:52 PST 2009
 flux/src/rootplot
 
