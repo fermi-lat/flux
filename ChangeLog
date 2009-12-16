@@ -1,4 +1,14 @@
 ------------------------------------------------------------
+User: elwinter  Wed Dec 16 14:37:24 PST 2009
+flux/src
+
+Modified Files:
+	Spectrum.cxx 
+Log Message:
+Added <ctsdlib> header needed by gcc4.
+
+    *
+------------------------------------------------------------
 User: elwinter  Wed Dec 16 14:36:04 PST 2009
 flux/src
 
