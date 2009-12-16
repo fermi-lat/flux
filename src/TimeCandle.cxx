@@ -2,12 +2,13 @@
  * @file TimeCandle.cxx
  * @brief Implementation of class TImeCandle.cxx: a source that ticks 
 
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.cxx,v 1.6 2006/11/15 20:57:42 burnett Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/src/TimeCandle.cxx,v 1.7 2006/11/15 22:30:09 burnett Exp $
  */
 
 #include "TimeCandle.h"
 
 #include "flux/FluxException.h" // for FATAL_MACRO
+#include <cstdlib>
 #include <utility>
 #include <sstream>
 #include <cmath>
