@@ -1,10 +1,11 @@
 /** @file Spectrum.cxx
     @brief  implementation of the Spectrum class.
 
-    $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Spectrum.cxx,v 1.7 2006/06/08 22:36:51 burnett Exp $
+    $Header: /nfs/slac/g/glast/ground/cvs/flux/src/Spectrum.cxx,v 1.8 2007/01/23 16:24:44 burnett Exp $
 */
 #include "flux/Spectrum.h"
 #include <cmath>
+#include <cstdlib>
 #include <stdexcept>
 
 // CLHEP
