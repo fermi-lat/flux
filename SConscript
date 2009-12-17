@@ -1,7 +1,7 @@
 # -*- python -*-
-# $Id: SConscript,v 1.8 2009/07/14 23:23:44 jrb Exp $
+# $Id: SConscript,v 1.9 2009/07/15 18:30:09 glastrm Exp $
 # Authors: Toby Burnett <tburnett@u.washington.edu>
-# Version: flux-08-40-03
+# Version: flux-08-40-04
 Import('baseEnv')
 Import('listFiles')
 progEnv = baseEnv.Clone()
