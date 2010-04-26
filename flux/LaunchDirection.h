@@ -2,7 +2,7 @@
  * @file LaunchDirection.h
  * @brief Declare LaunchDirection class
  *
- * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.10 2008/05/23 02:49:43 burnett Exp $
+ * $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/LaunchDirection.h,v 1.11 2008/05/26 14:21:40 burnett Exp $
  */
 
 #ifndef flux_LaunchDirection_h
@@ -94,7 +94,7 @@ public:
     /// return the cosine of the angle between the incoming direction and the earth's zenith
     virtual double zenithCosine()const{
         if(m_skydir){
-            return -m_dir * (astro::GPS::instance()->zenithDir()());
+            return m_dir * (astro::GPS::instance()->zenithDir()());
         }
         //if the direction is local
         return 1.0;
