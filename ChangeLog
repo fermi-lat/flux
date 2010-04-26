@@ -1,4 +1,16 @@
 ------------------------------------------------------------
+User: burnett  Sun Apr 25 19:46:17 PDT 2010
+flux/flux
+
+Modified Files:
+	LaunchDirection.h 
+Log Message:
+fix sign of cosine between zeniith and origin of an astronomical source. 
+Bug introduced Fri May 23 02:49:43 2008 UTC.
+Consequence was to screw up occultation calculation.
+This is ***extremely*** embarassing.
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-16-01, operation: add
 Package: flux
