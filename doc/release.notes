@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.110 2010/02/22 20:48:48 jrb Exp $
+  $Id: release.notes,v 1.111 2010/04/26 02:48:52 burnett Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
  * EOH *
     
+ flux-08-40-07 12-Jun-2010    jrb upgrades for SCons builds
  flux-08-40-06 25-Apr-2010 burnett fix bug for astro sources occultation
  flux-08-40-05 22-Feb-2010    jrb correct use of xxLib for libEnv
  flux-08-40-04 17-Dec-2009    jrb patches for gcc4 
