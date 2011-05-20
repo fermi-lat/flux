@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: heather  Fri May 20 09:14:56 PDT 2011
+flux/flux
+
+Modified Files:
+	EventSource.h Flux.h IFlux.h 
+Log Message:
+CLHEP 2.1.0.1
+    *
+------------------------------------------------------------
+User: heather  Fri May 20 09:14:56 PDT 2011
 flux/doc
 
 Modified Files:
