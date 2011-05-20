@@ -1,7 +1,7 @@
 /** @file Flux.h
     @brief Declaration of Flux
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.10 2006/12/22 20:31:59 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/Flux.h,v 1.11 2007/03/27 17:59:57 burnett Exp $
 
   Original author: T. Burnett
 */
@@ -57,10 +57,10 @@ public:
     virtual double energy()const;
     
     /// starting point 
-    virtual Hep3Vector launchPoint()const;
+    virtual CLHEP::Hep3Vector launchPoint()const;
     
     /// direction
-    virtual Hep3Vector launchDir()const;
+    virtual CLHEP::Hep3Vector launchDir()const;
     
     /// return the time
     virtual double time()const;

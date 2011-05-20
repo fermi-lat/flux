@@ -1,7 +1,7 @@
 /** @file Flux.cxx
 @brief Implementation of Flux
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.17 2008/01/06 19:43:36 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/Flux.cxx,v 1.18 2008/01/07 04:18:23 burnett Exp $
 
 Original author: T. Burnett
 */
@@ -74,7 +74,7 @@ double Flux::energy()const
 }
 
 // starting point 
-Hep3Vector Flux::launchPoint()const
+CLHEP::Hep3Vector Flux::launchPoint()const
 {
     return m_flux->launchPoint();
 }
@@ -102,7 +102,7 @@ double Flux::gpsTime () const{
 
 
 // direction
-Hep3Vector Flux::launchDir()const
+CLHEP::Hep3Vector Flux::launchDir()const
 {
     return m_flux->launchDir();
 }
