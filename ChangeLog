@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: heather  Fri May 20 09:14:55 PDT 2011
+flux
+
+Modified Files:
+	SConscript 
+Log Message:
+CLHEP 2.1.0.1
+    *
+------------------------------------------------------------
 TAG
 Tag name: ScienceTools-09-23-01, operation: add
 Package: flux
