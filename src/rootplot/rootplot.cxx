@@ -1,6 +1,6 @@
 /** @file rootplot.h
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.13 2008/04/29 15:49:26 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/rootplot/rootplot.cxx,v 1.14 2008/04/30 21:41:37 burnett Exp $
 */
 #include "flux/rootplot.h"
 
@@ -309,7 +309,7 @@ void rootplot::init(std::vector<std::string> argv)
             magstat.accum(geolat);
  
 //            double cutOffRigidity = gps->expansion();
-            HepVector3D dir = f->launchDir();
+            HepGeom::Vector3D<double> dir = f->launchDir();
             double energy = f->energy();
             gps->time(time2); // reset
 

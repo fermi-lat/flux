@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.42 2008/05/23 02:49:43 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxMgr.cxx,v 1.43 2008/05/23 10:19:42 burnett Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -439,7 +439,7 @@ std::string FluxMgr::writeXmlFile(const std::vector<std::string>& fileList) {
 
 void FluxMgr::setAlignmentRotation(double qx, double qy, double qz, bool misalign)
 {
-    HepRotation R(HepRotationX(qx*M_PI/180)* HepRotationY(qy*M_PI/180) * HepRotationZ(qz*M_PI/180));
+    CLHEP::HepRotation R(CLHEP::HepRotationX(qx*M_PI/180)* CLHEP::HepRotationY(qy*M_PI/180) * CLHEP::HepRotationZ(qz*M_PI/180));
     if( misalign){
         EventSource::setAlignmentRotation(R);
     }else{

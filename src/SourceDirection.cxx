@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.12 2008/04/15 17:14:35 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/flux/src/SourceDirection.cxx,v 1.13 2008/05/23 02:49:43 burnett Exp $
 
 */
 
@@ -113,39 +113,39 @@ void SourceDirection::solarSystemDir( double ra, double dec, double time)
     using CLHEP::Hep3Vector;
 
     GPS* gps = GPS::instance();
-    static Hep3Vector xhat(1,0,0);
+    static CLHEP::Hep3Vector xhat(1,0,0);
 
     JulianDate jd(JulianDate::missionStart()+time/JulianDate::secondsPerDay);
 
     Hep3Vector cdir;
     if( m_frame==SUN) {
         SolarSystem sol(astro::SolarSystem::SUN);
-        cdir = Hep3Vector(sol.direction(jd)());
+        cdir = CLHEP::Hep3Vector(sol.direction(jd)());
     }
     if( m_frame==JUPITER) {
-        cdir = Hep3Vector(SolarSystem(SolarSystem::JUPITER).direction(jd)());
+        cdir = CLHEP::Hep3Vector(SolarSystem(SolarSystem::JUPITER).direction(jd)());
     }
     if( m_frame==SATURN) {
-        cdir = Hep3Vector(SolarSystem(SolarSystem::SATURN).direction(jd)());
+        cdir = CLHEP::Hep3Vector(SolarSystem(SolarSystem::SATURN).direction(jd)());
     }
     if (m_frame==MOON) {
         SolarSystem luna(astro::SolarSystem::MOON);
-        cdir = Hep3Vector(luna.direction(jd, gps->position())());
+        cdir = CLHEP::Hep3Vector(luna.direction(jd, gps->position())());
     }
     // create rotation that takes (0,0) to (ra,dec)
-    Hep3Vector input ( SkyDir(ra,dec)() );
+    CLHEP::Hep3Vector input ( SkyDir(ra,dec)() );
     double  theta ( acos(input.x()) )
         ,   phi ( atan2(input.y(), input.z()) );
 
     // first an axis perpendicular to the given direction
-    Hep3Vector axis( cdir.cross(xhat).unit() );
-    if(cdir.isNear(xhat)) axis = Hep3Vector(0,1,0);
+    CLHEP::Hep3Vector axis( cdir.cross(xhat).unit() );
+    if(cdir.isNear(xhat)) axis = CLHEP::Hep3Vector(0,1,0);
 
     // rotate that axis by phi about the solar object direction
-    Hep3Vector axis_prime ( HepRotation(cdir, phi) * axis );
+    CLHEP::Hep3Vector axis_prime ( CLHEP::HepRotation(cdir, phi) * axis );
 
     // and a rotation about the new axis by theta
-    Hep3Vector rdir ( HepRotation(axis_prime,theta) * cdir );
+    CLHEP::Hep3Vector rdir ( CLHEP::HepRotation(axis_prime,theta) * cdir );
 
 #if 0 // stuff for debugging checks
     double open( acos(rdir*cdir)*180/M_PI); // should be the total rotation

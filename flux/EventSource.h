@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.16 2008/01/07 22:58:06 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.17 2008/01/14 20:16:07 burnett Exp $
 */
 
 #ifndef flux_EventSource_h
@@ -17,7 +17,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.16 2008/01/07 22:58:06 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.17 2008/01/14 20:16:07 burnett Exp $
 */
 
 
@@ -102,8 +102,8 @@ public:
     virtual std::string particleName() { return std::string("unknown");}
 
     virtual double energy()const { return 0;}
-    virtual const Hep3Vector & launchDir()const { static Hep3Vector dummy; return dummy;}
-    virtual const Hep3Vector & launchPoint()const { static Hep3Vector dummy; return dummy;}
+    virtual const CLHEP::Hep3Vector & launchDir()const { static CLHEP::Hep3Vector dummy; return dummy;}
+    virtual const CLHEP::Hep3Vector & launchPoint()const { static CLHEP::Hep3Vector dummy; return dummy;}
     
     virtual int identifier(){return -1;} ///< indetifier only determined by FluxSOurce
 
