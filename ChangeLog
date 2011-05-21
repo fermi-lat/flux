@@ -1,13 +1,4 @@
 ------------------------------------------------------------
-User: heather  Sat May 21 13:14:45 PDT 2011
-flux
-
-Modified Files:
-	SConscript 
-Log Message:
-use of CLHEP
-    *
-------------------------------------------------------------
 TAG
 Tag name: flux-08-40-08, operation: add
 Package: flux
