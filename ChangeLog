@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: heather  Sat May 21 13:14:45 PDT 2011
+flux/cmt
+
+Modified Files:
+	requirements 
+Log Message:
+use of CLHEP
+    *
+------------------------------------------------------------
+User: heather  Sat May 21 13:14:45 PDT 2011
 flux
 
 Modified Files:
