@@ -2,6 +2,22 @@
 TAG
 Tag name: GlastRelease-17-35-24-gr04, operation: add
 Package: flux
+User: heather  Wed Sep  7 13:57:28 2011
+Files:
+  flux/src/rootplot/rootEnergyHist.cxx  1.7
+  flux/src/rootplot/rootAngleHist.cxx  1.6
+  flux/src/rootplot/rootAngleHist.h  1.1.1.1
+  flux/src/rootplot/rootHist.h  1.2
+  flux/src/rootplot/rootEnergyHist.h  1.3
+  flux/src/rootplot/rootplot.cxx  1.14
+  flux/src/rootplot/rootHist.cxx  1.2
+  flux/src/rootplot/test/roottest.cxx  1.1.1.1
+
+    *
+------------------------------------------------------------
+TAG
+Tag name: GlastRelease-17-35-24-gr04, operation: add
+Package: flux
 User: heather  Wed Sep  7 13:57:11 2011
 Files:
   flux/sources/pulsars.txt  1.5
