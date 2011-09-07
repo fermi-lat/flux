@@ -1,5 +1,20 @@
 ------------------------------------------------------------
 TAG
+Tag name: GlastRelease-17-35-24-gr04, operation: add
+Package: flux
+User: heather  Wed Sep  7 13:56:59 2011
+Files:
+  flux/.cvsignore  1.2
+  flux/ChangeLog  1.1.1.751
+  flux/fluxLib.py  1.2
+  flux/SConscript  1.15
+  flux/cmt/.cvsignore  1.1.1.1
+  flux/cmt/requirements  1.109
+  flux/cmt/Makefile  1.1.1.1
+
+    *
+------------------------------------------------------------
+TAG
 Tag name: GlastRelease-19-03-07, operation: add
 Package: flux
 User: heather  Wed Sep  7 10:13:09 2011
