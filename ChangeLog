@@ -2,6 +2,23 @@
 TAG
 Tag name: GlastRelease-19-03-07, operation: add
 Package: flux
+User: heather  Wed Sep  7 10:12:58 2011
+Files:
+  flux/doc/FluxSvcFig2.jpg  1.1.1.1
+  flux/doc/FluxSvcDoc2.htm  1.1.1.1
+  flux/doc/Doxyfile  1.1.1.1
+  flux/doc/.cvsignore  1.1.1.1
+  flux/doc/multipower4.JPG  1.1
+  flux/doc/release.notes  1.114
+  flux/doc/multipower.htm  1.1
+  flux/doc/FluxSvcFig1.jpg  1.1.1.1
+  flux/doc/multipower1.JPG  1.1
+
+    *
+------------------------------------------------------------
+TAG
+Tag name: GlastRelease-19-03-07, operation: add
+Package: flux
 User: heather  Wed Sep  7 10:12:52 2011
 Files:
   flux/.cvsignore  1.2
