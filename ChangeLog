@@ -1,4 +1,18 @@
 ------------------------------------------------------------
+User: lsrea  Tue Oct 25 16:54:31 PDT 2011
+flux/src
+
+Modified Files:
+	FluxMgr.cxx 
+Added Files:
+	EarthPhenom.cxx EarthPhenom.h 
+Log Message:
+Add of EarthPhenom, Keith B's new simulation of the limb
+FluxMgr: add EarthPhenom to the list of spectra
+(NB: FluxSvc needs to be rebuild if flux changes!)
+
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-gr10, operation: add
 Package: flux
