@@ -1,4 +1,4 @@
-<!-- $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source_library.xml,v 1.46 2007/01/24 23:44:14 burnett Exp $
+<!-- $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/xml/source_library.xml,v 1.47 2007/05/24 16:08:56 burnett Exp $
    This is a library of sources that can be included by a source with an empty element:
    that is, <source name="chime"/> picks up the entry named "chime"
    Also, if the second command line option matches one of these names, it will be used as a source
@@ -270,6 +270,14 @@
     <source name="Earth10">
       <spectrum escale="MeV">
          <SpectrumClass name="Earth" params="565.,10.,350000."/>
+         <use_spectrum frame="zenith"/>
+      </spectrum>
+    </source>
+
+    <!-- Phenomenological Earth Model based on Fermi LAT observations -->
+    <source name="EarthPhenom">
+      <spectrum escale="MeV">
+         <SpectrumClass name="EarthPhenom" params="1.,10.,350000."/>
          <use_spectrum frame="zenith"/>
       </spectrum>
     </source>
