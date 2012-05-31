@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.114 2011/05/21 20:14:46 heather Exp $
+  $Id: release.notes,v 1.115 2011/10/25 23:56:21 lsrea Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
  * EOH *
     
+ flux-08-42-00 31-May-2012 jchiang remove EarthPhenom because of ROOT-dependence, which violates agreement with FSSC
  flux-08-41-00 25-Oct-2011  lsrea Add Keith B's EarthPhenom
  flux-08-40-09 21-May-2011    hmk patch requirements for CLHEP version 
  flux-08-40-08 20-May-2011    hmk CLHEP 2.1.0.1
