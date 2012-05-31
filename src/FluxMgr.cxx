@@ -1,7 +1,7 @@
 /** @file FluxMgr.cxx
 @brief Implementation of FluxMgr
 
-$Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/src/FluxMgr.cxx,v 1.44 2011/05/20 16:14:56 heather Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/src/FluxMgr.cxx,v 1.45 2011/10/25 23:54:31 lsrea Exp $
 */
 
 #include "flux/FluxMgr.h"
@@ -105,7 +105,6 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
     DECLARE_SPECTRUM( SurfaceMuons);
     DECLARE_SPECTRUM( VdgGamma);
     DECLARE_SPECTRUM( Earth);
-    DECLARE_SPECTRUM( EarthPhenom);
 }
 
 
