@@ -1,5 +1,5 @@
 # -*- python -*-
-# $Id: SConscript,v 1.18 2011/10/25 23:56:21 lsrea Exp $
+# $Id: SConscript,v 1.19 2012/05/31 16:44:51 jchiang Exp $
 # Authors: Toby Burnett <tburnett@u.washington.edu>
 # Version: flux-08-42-00
 Import('baseEnv')
@@ -7,6 +7,7 @@ Import('listFiles')
 progEnv = baseEnv.Clone()
 libEnv = baseEnv.Clone()
 
+libEnv.Tool('addLinkDeps', package = 'flux', toBuild='static')
 fluxLib = libEnv.StaticLibrary('flux',
                                listFiles(['src/*.cxx','src/rootplot/*.cxx']))
 
