@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jchiang  Thu Aug 29 15:40:04 PDT 2013
+ScienceTools-scons/flux/src
+
+Modified Files:
+	SourceDirection.cxx 
+Log Message:
+possible fix for transforming directions given by zenith and Earth azimuth angles
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-lp51, operation: add
 Package: flux
