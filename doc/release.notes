@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.116 2012/05/31 16:44:51 jchiang Exp $
+  $Id: release.notes,v 1.117 2012/08/18 00:08:57 jrb Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
  * EOH *
     
+ flux-08-43-01 29-Aug-2013 jchiang possible fix for transforming directions given by zenith and Earth azimuth angles
  flux-08-43-00 17-Aug-2012    jrb for Windows no-install-headers
  flux-08-42-00 31-May-2012 jchiang remove EarthPhenom because of ROOT-dependence, which violates agreement with FSSC
  flux-08-41-00 25-Oct-2011  lsrea Add Keith B's EarthPhenom
