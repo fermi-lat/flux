@@ -1,7 +1,7 @@
 /** @file SourceDirection.cxx
 @brief SourceDirection implementation
 
-$Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/src/SourceDirection.cxx,v 1.14 2011/05/20 16:14:56 heather Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/src/SourceDirection.cxx,v 1.15 2013/08/29 22:40:04 jchiang Exp $
 
 */
 
@@ -22,7 +22,7 @@ SourceDirection::SourceDirection(ISpectrum* spectrum, std::string frame )
 {
     m_frame = INVALID; int n(0);
     static const char* frame_names[]=
-     {"zenith",  "equatorial","galactic", "galaxy", "Sun", "Moon", "Jupiter", "Saturn"};
+       {"zenith",  "equatorial","galactic", "galaxy", "Sun", "Moon", "Jupiter", "Saturn", "nadir"};
     if( frame == frame_names[n++] ) m_frame=ZENITH;
     if( frame == frame_names[n++] ) m_frame=EQUATORIAL;
     if( frame == frame_names[n++] ) m_frame=GALACTIC;
@@ -31,6 +31,7 @@ SourceDirection::SourceDirection(ISpectrum* spectrum, std::string frame )
     if( frame == frame_names[n++] ) m_frame=MOON;
     if( frame == frame_names[n++] ) m_frame=JUPITER;
     if( frame == frame_names[n++] ) m_frame=SATURN;
+    if( frame == frame_names[n++] ) m_frame=NADIR;
     if( m_frame==INVALID ){ 
         throw std::invalid_argument("flux/SourceDirection: frame name"+frame+" not recognized");
     }
@@ -50,6 +51,12 @@ void SourceDirection::execute(double ke, double time){
 
     switch (m_frame) {
         case ZENITH:
+//            if (!::getenv("ZENITH_FRAME_FIX")) {
+//               throw std::runtime_error("zenith frame implementation is "
+//                                        "inconsistent with definition of "
+//                                        "EARTH_AZIMUTH_ANGLE.");
+//            }
+        case NADIR:
             {
                 // special option that gets direction from the spectrum object
                 // note extra - sign since direction corresponds to *from*, not *to*
@@ -59,18 +66,24 @@ void SourceDirection::execute(double ke, double time){
                     phi = second;
                 CLHEP::Hep3Vector unrotated(cos(phi)*sinth, sin(phi)*sinth, costh);
 
-                if (::getenv("ZENITH_FRAME_FIX")) {
+                if (::getenv("ZENITH_FRAME_FIX") || m_frame == NADIR) {
                    // Use right-handed coordinate system with z-axis
                    // along nadir and x-axis to North
                    unrotated = CLHEP::Hep3Vector(cos(phi)*sinth, sin(phi)*sinth, -costh);
                 }
-                
                 //here, we have a direction in the zenith direction, so we need the 
                 //transformation from zenith to GLAST.
                 CLHEP::HepRotation zenToGlast = gps->transformToGlast(time,GPS::ZENITH);
 
-                // use new transformation
-                m_lat_dir = - gps->LATdirection(GPS::ZENITH, unrotated) ;
+                if (::getenv("ZENITH_FRAME_FIX") || m_frame == NADIR) {
+                   // Use Earth frame coordinate system that is consistent
+                   // with definition of EARTH_AZIMUTH_ANGLE
+                   zenToGlast = gps->transformToGlast(time, GPS::NADIR);
+                   m_lat_dir = - gps->LATdirection(GPS::NADIR, unrotated) ;
+                } else {
+                   // Original implementation using GPS::ZENITH.
+                   m_lat_dir = - gps->LATdirection(GPS::ZENITH, unrotated) ;
+                }
 
                 break;
             }
