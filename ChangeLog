@@ -1,4 +1,13 @@
 ------------------------------------------------------------
+User: jchiang  Wed Oct  9 15:39:36 PDT 2013
+ScienceTools-scons/flux/src
+
+Modified Files:
+	SourceDirection.cxx SourceDirection.h 
+Log Message:
+add NADIR enum and frame for handling EarthPhenom and any other sources that correctly define EARTH_AZIMUTH_ANGLE
+    *
+------------------------------------------------------------
 TAG
 Tag name: GlastRelease-17-35-24-lp60, operation: add
 Package: flux
