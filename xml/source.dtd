@@ -1,4 +1,4 @@
-<!--  $Header: /nfs/slac/g/glast/ground/cvs/flux/xml/source.dtd,v 1.12 2008/01/14 20:11:29 burnett Exp $
+<!--  $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/xml/source.dtd,v 1.13 2008/05/23 02:49:43 burnett Exp $
   DTD file for flux source definitions
   -->
 <!ELEMENT source_library ((source)+ | (source_library)*) >
@@ -26,7 +26,8 @@
   -->
 <!ATTLIST spectrum  flux CDATA ""
                     particle_name CDATA "gamma"
-				escale CDATA #REQUIRED >
+                    apply_edisp CDATA "true"
+                    escale CDATA #REQUIRED >
 
 <!--- special generic spectrum: name is the name of a Spectrum, params an optional comma-delimited list -->
 <!ELEMENT SpectrumClass EMPTY>
