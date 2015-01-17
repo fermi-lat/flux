@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: jchiang  Fri Jan 16 17:46:12 PST 2015
+ScienceTools-scons/flux/src
+
+Modified Files:
+	EventSource.cxx FluxSource.cxx 
+Log Message:
+allow users to specify apply_edisp in xml defintion
+    *
+------------------------------------------------------------
+User: jchiang  Fri Jan 16 17:46:12 PST 2015
 ScienceTools-scons/flux/flux
 
 Modified Files:
