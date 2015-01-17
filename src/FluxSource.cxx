@@ -1,7 +1,7 @@
 /** @file FluxSource.cxx
 @brief Implementation of FluxSource
 
-$Header: /nfs/slac/g/glast/ground/cvs/flux/src/FluxSource.cxx,v 1.50 2008/01/16 01:29:56 burnett Exp $
+$Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/src/FluxSource.cxx,v 1.51 2008/05/23 02:49:43 burnett Exp $
 
 */
 #include "astro/SkyDir.h"
@@ -268,6 +268,12 @@ FluxSource::FluxSource(const XERCES_CPP_NAMESPACE_QUALIFIER DOMElement* xelem )
         std::string typeTagName = xmlBase::Dom::getTagName(specType);
         std::string particle_name = xmlBase::Dom::getAttribute(spec, "particle_name");
         std::string spectrum_energyscale = xmlBase::Dom::getAttribute(spec, "escale");
+
+        std::string apply_edisp(xmlBase::Dom::getAttribute(spec, "apply_edisp"));
+        if (apply_edisp != "true" && apply_edisp != "false" && apply_edisp != "") {
+           throw std::runtime_error("Invalid value for apply_edisp attribute in xml definition of " + name());
+        }
+        m_applyEdisp = (apply_edisp != "false");
 
         if(spectrum_energyscale == "GeV"){ m_energyscale=GeV;
         }else if(spectrum_energyscale == "MeV"){ m_energyscale=MeV;

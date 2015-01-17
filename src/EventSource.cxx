@@ -1,7 +1,7 @@
 /** @file EventSource.cxx
     @brief Implementation of class EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/src/EventSource.cxx,v 1.9 2008/01/07 16:29:39 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/src/EventSource.cxx,v 1.10 2008/01/14 20:16:07 burnett Exp $
 */
 
 #include "flux/EventSource.h"
@@ -24,7 +24,7 @@ std::vector<double> EventSource::s_cone;
 
 
 EventSource::EventSource (double aFlux, unsigned acode)
-:  m_enabled(true), m_flux(aFlux),  m_code(acode)
+   :  m_enabled(true), m_flux(aFlux),  m_code(acode), m_applyEdisp(true)
 {
     std::stringstream  s;
     

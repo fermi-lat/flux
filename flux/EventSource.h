@@ -1,7 +1,7 @@
 /** @file EventSource.h
    @brief Declaration of EventSource
 
-   $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.17 2008/01/14 20:16:07 burnett Exp $
+   $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/flux/EventSource.h,v 1.18 2011/05/20 16:14:56 heather Exp $
 */
 
 #ifndef flux_EventSource_h
@@ -17,7 +17,7 @@
 
 This the abstract base class for source, (FluxSource) or a list of sources (CompositeSource)
 * 
-* $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/EventSource.h,v 1.17 2008/01/14 20:16:07 burnett Exp $
+* $Header: /nfs/slac/g/glast/ground/cvs/ScienceTools-scons/flux/flux/EventSource.h,v 1.18 2011/05/20 16:14:56 heather Exp $
 */
 
 
@@ -70,6 +70,10 @@ public:
     virtual std::string name () const;
 
     void setName (const std::string& value);
+
+   virtual bool applyEdisp() const {
+      return m_applyEdisp;
+   }
     
     ///    code - for monte-carlo study
     int  code () const;
@@ -131,6 +135,7 @@ protected:
     // to implement (mis) alignment of particle trajectories in instrument coordinates
     static bool s_applyAlign;
     static CLHEP::HepRotation s_alignMatrix;
+   bool m_applyEdisp;
 };
 
 
