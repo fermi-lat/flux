@@ -1,5 +1,14 @@
 ------------------------------------------------------------
 User: jchiang  Fri Jan 16 17:46:12 PST 2015
+ScienceTools-scons/flux/xml
+
+Modified Files:
+	source.dtd 
+Log Message:
+allow users to specify apply_edisp in xml defintion
+    *
+------------------------------------------------------------
+User: jchiang  Fri Jan 16 17:46:12 PST 2015
 ScienceTools-scons/flux/src
 
 Modified Files:
