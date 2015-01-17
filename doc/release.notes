@@ -1,11 +1,12 @@
 /** @file release.notes
  * @brief Package flux 
-  $Id: release.notes,v 1.118 2013/08/29 22:40:33 jchiang Exp $
+  $Id: release.notes,v 1.119 2013/10/09 22:39:59 jchiang Exp $
        
 @verbatim
  * Coordinators: T.Burnett, S. Robinson
  * EOH *
     
+ flux-08-44-00 16-Jan-2015 jchiang enable apply_edisp in gtobssim
  flux-08-43-02 09-Oct-2013 jchiang add NADIR enum and frame for handling EarthPhenom and any other sources that correctly define EARTH_AZIMUTH_ANGLE
  flux-08-43-01 29-Aug-2013 jchiang possible fix for transforming directions given by zenith and Earth azimuth angles
  flux-08-43-00 17-Aug-2012    jrb for Windows no-install-headers
