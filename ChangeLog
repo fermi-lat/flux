@@ -2,6 +2,14 @@
 TAG
 Tag name: GlastRelease-20-10-04-gr01, operation: add
 Package: flux
+User: heather  Mon Dec  5 09:16:46 2016
+Files:
+
+    *
+------------------------------------------------------------
+TAG
+Tag name: GlastRelease-20-10-04-gr01, operation: add
+Package: flux
 User: heather  Mon Dec  5 09:00:52 2016
 Files:
   flux/.cvsignore  1.2
