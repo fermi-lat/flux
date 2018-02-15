@@ -22,7 +22,7 @@ class SpectrumFactoryTable : public std::map<std::string, const ISpectrumFactory
 {
 public:
     void addFactory(std::string name, const ISpectrumFactory* factory ) {
-        insert(std::make_pair<std::string, const ISpectrumFactory*>(name, factory));
+        insert(std::make_pair(name, factory));
     }
     
     //! get a new Spectrum object by name with optional parameter list

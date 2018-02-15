@@ -33,7 +33,7 @@ public:
     virtual std::string title()const;
         
     virtual std::pair<double,double> dir(double){
-        return std::make_pair<float,float>(1.0,0.0);
+        return std::make_pair(1.0,0.0);
     }     
     
     double energy( double time);

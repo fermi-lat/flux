@@ -89,7 +89,7 @@ void FluxMgr::init(const std::vector<std::string>& fileList){
             while (child != 0) {
                 std::string name = xmlBase::Dom::getAttribute(child, "name");
                 std::string parentfilename = xmlBase::Dom::getAttribute(toplevel, "title");
-                m_sources[name]=std::make_pair<DOMElement*,std::string>(child,parentfilename);
+                m_sources[name]=std::make_pair(child,parentfilename);
                 child = xmlBase::Dom::getSiblingElement(child);
             }
 
@@ -243,7 +243,7 @@ std::vector<std::pair< std::string ,std::list<std::string> > > FluxMgr::sourceOr
             }else{
                 std::list<std::string> abc;
                 abc.push_back((*it).first);
-                originList.push_back(std::make_pair< std::string ,std::list<std::string> >((*it).second.second,abc) );
+                originList.push_back(std::make_pair((*it).second.second,abc) );
             }
 
         }
@@ -362,7 +362,7 @@ void sampleintvl ( /*GPStime*/double t ){
 
 //get the current satellite location
 std::pair<double,double> FluxMgr::location(){
-    return std::make_pair<double,double>(GPS::instance()->lat(),GPS::instance()->lon());
+    return std::make_pair(GPS::instance()->lat(),GPS::instance()->lon());
 }
 
 //get the transformtation matrix - the rest of these functions are now deprecated
