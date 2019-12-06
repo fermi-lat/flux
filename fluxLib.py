@@ -2,10 +2,10 @@
 def generate(env, **kw):
     if not kw.get('depsOnly',0):
         env.Tool('addLibrary', library = ['flux'])
-	if env['PLATFORM'] == 'win32' and env.get('CONTAINERNAME','') == 'GlastRelease':
-	    env.Tool('findPkgPath', package = 'flux') 
-	    env.Tool('findPkgPath', package = 'astro') 
-	    env.Tool('findPkgPath', package = 'facilities') 
+    if env['PLATFORM'] == 'win32' and env.get('CONTAINERNAME','') == 'GlastRelease':
+        env.Tool('findPkgPath', package = 'flux') 
+        env.Tool('findPkgPath', package = 'astro') 
+        env.Tool('findPkgPath', package = 'facilities') 
     env.Tool('xmlBaseLib')
     env.Tool('astroLib')
     env.Tool('addLibrary', library = env['clhepLibs'])
