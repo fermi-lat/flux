@@ -22,6 +22,10 @@ target_link_libraries(
   xmlBase
 )
 
+###### Tests ######
+add_executable(test_flux src/test/testMgr.cxx)
+target_link_libraries(test_flux PRIVATE flux)
+
 ###############################################################
 # Installation
 ###############################################################
@@ -29,8 +33,8 @@ install(DIRECTORY flux DESTINATION ${FERMI_INSTALL_INCLUDEDIR})
 install(DIRECTORY xml/ DESTINATION ${FERMI_INSTALL_XMLDIR})
 
 install(
-  TARGETS flux
-  # EXPORT fermiTargets
+  TARGETS flux test_flux
+  EXPORT fermiTargets
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
