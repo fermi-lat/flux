@@ -30,7 +30,7 @@ target_link_libraries(test_flux PRIVATE flux)
 # Installation
 ###############################################################
 install(DIRECTORY flux DESTINATION ${FERMI_INSTALL_INCLUDEDIR})
-install(DIRECTORY xml/ DESTINATION ${FERMI_INSTALL_XMLDIR}/fermi/flux)
+install(DIRECTORY xml/ DESTINATION ${FERMI_INSTALL_XMLDIR}/flux)
 
 install(
   TARGETS flux test_flux
