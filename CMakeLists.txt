@@ -1,5 +1,5 @@
 add_library(
-  flux STATIC src/CompositeSource.cxx src/Earth.cxx src/EventSource.cxx
+  flux src/CompositeSource.cxx src/Earth.cxx src/EventSource.cxx
   src/FileSource.cxx src/Flux.cxx src/FluxMgr.cxx src/FluxSource.cxx
   src/SimpleSpectrum.cxx src/SourceDirection.cxx src/Spectrum.cxx
   src/SpectrumFactoryTable.cxx src/SurfaceMuons.cxx src/TimeCandle.cxx
