@@ -18,7 +18,7 @@ target_link_libraries(
   astro
   CLHEP::CLHEP
   facilities
-  PkgConfig::cfitsio
+  cfitsio::cfitsio
   xmlBase
 )
 
