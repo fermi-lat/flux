@@ -16,7 +16,9 @@ target_include_directories(
 target_link_libraries(
   flux PUBLIC
   astro
-  CLHEP::CLHEP
+  CLHEP::RandomS
+  CLHEP::VectorS
+  CLHEP::GeometryS
   facilities
   cfitsio::cfitsio
   xmlBase
