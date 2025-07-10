@@ -25,6 +25,8 @@ target_link_libraries(
 )
 
 ###### Tests ######
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 add_executable(test_flux src/test/testMgr.cxx)
 target_link_libraries(test_flux PRIVATE flux)
 
