@@ -16,13 +16,17 @@ target_include_directories(
 target_link_libraries(
   flux PUBLIC
   astro
-  CLHEP::CLHEP
+  CLHEP::RandomS
+  CLHEP::VectorS
+  CLHEP::GeometryS
   facilities
   cfitsio::cfitsio
   xmlBase
 )
 
 ###### Tests ######
+set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+
 add_executable(test_flux src/test/testMgr.cxx)
 target_link_libraries(test_flux PRIVATE flux)
 
