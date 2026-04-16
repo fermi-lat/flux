@@ -27,6 +27,7 @@
 #include <string>
 #include <fstream>
 #include <cstring>
+#include <algorithm> 
 
 #define DECLARE_SPECTRUM(x)   extern const ISpectrumFactory& x##Factory; x##Factory.addRef();
 
