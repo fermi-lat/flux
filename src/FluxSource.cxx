@@ -289,8 +289,10 @@ FluxSource::FluxSource(XmlNode* xelem)
         XmlNode* specType = getFirstChildElement(spec);
         
         std::string typeTagName = getTagName(specType);
-        std::string particle_name = getAttribute(spec, "particle_name");
-        std::string spectrum_energyscale = getAttribute(spec, "escale");
+        //std::string particle_name = getAttribute(spec, "particle_name");
+	XmlNode* particle = findFirstChildByName(spec, "particle");
+	std::string particle_name = getAttribute(particle, "name");
+	std::string spectrum_energyscale = getAttribute(spec, "escale");
 
         std::string apply_edisp = getAttribute(spec, "apply_edisp");
         if (apply_edisp != "true" && apply_edisp != "false" && apply_edisp != "") {
@@ -355,12 +357,13 @@ FluxSource::FluxSource(XmlNode* xelem)
     }
     if (!angles) {
         // Try to find directly under source
-        angles = findFirstChildByName(xelem, "solid_angle");
-        if (!angles) angles = findFirstChildByName(xelem, "direction");
-        if (!angles) angles = findFirstChildByName(xelem, "use_spectrum");
-        if (!angles) angles = findFirstChildByName(xelem, "galactic_dir");
-        if (!angles) angles = findFirstChildByName(xelem, "celestial_dir");
-        if (!angles) angles = findFirstChildByName(xelem, "custom_dir");
+        //XmlNode* particle = findFirstChildByName(spec, "particle");
+        angles = findFirstChildByName(spec, "solid_angle");
+        if (!angles) angles = findFirstChildByName(spec, "direction");
+        if (!angles) angles = findFirstChildByName(spec, "use_spectrum");
+        if (!angles) angles = findFirstChildByName(spec, "galactic_dir");
+        if (!angles) angles = findFirstChildByName(spec, "celestial_dir");
+        if (!angles) angles = findFirstChildByName(spec, "custom_dir");
     }
 
     if (angles) {
