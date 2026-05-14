@@ -145,14 +145,12 @@ void FluxMgr::init(const std::vector<std::string>& fileList) {
             continue;
         }
         
-        // Find source_library root element
-        XmlNode* root = doc->first_node("source_library");
-        if (!root) {
-            // Try to find it as any root element
-            root = doc->first_node();
-        }
-        
-        if (root) {
+        // Iterate through ALL source_library elements in the document
+        // (handles XML files with multiple <source_library> sections)
+        for (XmlNode* root = doc->first_node("source_library"); 
+             root; 
+             root = root->next_sibling("source_library")) {
+            
             // Set s_library to the first valid root if not already set
             if (!s_library) {
                 s_library = root;
@@ -171,6 +169,31 @@ void FluxMgr::init(const std::vector<std::string>& fileList) {
                 std::string sourceName = getAttribute(source, "name");
                 if (!sourceName.empty()) {
                     m_sources[sourceName] = std::make_pair(source, libraryTitle);
+                }
+            }
+        }
+        
+        // Fallback: if no source_library found, try the document root directly
+        // (for backward compatibility with simpler XML structures)
+        if (m_sources.empty()) {
+            XmlNode* root = doc->first_node();
+            if (root) {
+                if (!s_library) {
+                    s_library = root;
+                }
+                
+                std::string libraryTitle = getAttribute(root, "title");
+                if (libraryTitle.empty()) {
+                    libraryTitle = expandedFilename;
+                }
+                
+                for (XmlNode* source = root->first_node("source"); 
+                     source; 
+                     source = source->next_sibling("source")) {
+                    std::string sourceName = getAttribute(source, "name");
+                    if (!sourceName.empty()) {
+                        m_sources[sourceName] = std::make_pair(source, libraryTitle);
+                    }
                 }
             }
         }
