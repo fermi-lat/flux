@@ -344,20 +344,10 @@ FluxSource::FluxSource(XmlNode* xelem)
         m_spectrum->setIdentifier(ident);
     }
 
-    // Process direction/angles element - look for second child after spectrum
+    // Process direction/angles element - these are children of the spectrum element
     XmlNode* angles = nullptr;
     if (spec) {
-        // angles is sibling of spectrum
-        for (auto* sibling = spec->next_sibling(); sibling; sibling = sibling->next_sibling()) {
-            if (sibling->type() == rapidxml::node_element) {
-                angles = sibling;
-                break;
-            }
-        }
-    }
-    if (!angles) {
-        // Try to find directly under source
-        //XmlNode* particle = findFirstChildByName(spec, "particle");
+        // Look for angle specifications as children of spectrum (after SpectrumClass/particle)
         angles = findFirstChildByName(spec, "solid_angle");
         if (!angles) angles = findFirstChildByName(spec, "direction");
         if (!angles) angles = findFirstChildByName(spec, "use_spectrum");
