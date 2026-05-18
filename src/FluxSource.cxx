@@ -378,6 +378,7 @@ FluxSource::FluxSource(XmlNode* xelem)
         else if (anglesTag == "use_spectrum") {
             std::string frame = getAttribute(angles, "frame");
             m_occultable = (frame != "zenith");
+	    if (frame.empty()) frame = "zenith";  // DEFAULT IS SET HERE
             m_launch_dir = new SourceDirection(m_spectrum, frame);
         }
         else if (anglesTag == "galactic_dir") {
