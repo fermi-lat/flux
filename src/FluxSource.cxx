@@ -514,7 +514,13 @@ EventSource* FluxSource::event(double time) {
 
 double FluxSource::calculateInterval(double time) {
     if (m_spectrum) {
-        return m_spectrum->interval(time);
+        double interval = m_spectrum->interval(time);
+        if (interval > 0) {
+            // the spectrum computed an interval: use it
+            return interval;
+        }
+        // otherwise do a Poisson from the flux, solid angle, and area factor
+        return -log(1. - CLHEP::RandFlat::shoot(1.)) / rate(time);
     }
     return explicitInterval(time);
 }
