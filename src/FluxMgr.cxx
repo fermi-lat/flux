@@ -372,33 +372,76 @@ void FluxMgr::setExpansion(double p) {
     GPS::instance()->expansion(p);
 }
 
-void FluxMgr::test(std::ostream& out, std::string source_name, int count) {
+/// generate some test output
+void FluxMgr::test(std::ostream& cout, std::string source_name, int count)
+{   
+    using astro::GPS;
     EventSource* e = source(source_name);
-    if (!e) {
-        out << "Source '" << source_name << "' not found" << std::endl;
-        return;
+    if (e == nullptr) {
+        throw std::invalid_argument(std::string("Did not find source ") + source_name);
     }
-    
-    double time = GPS::instance()->time();
+    setExpansion(1.);
+    double time = 0.;
+
+    const int howMany = e->howManySources();
     std::map<int, int> counts;
+
+    cout << "running source: " << e->fullTitle() << std::endl;
+    cout << " Total rate is: " << e->rate(time) << " Hz into " << e->totalArea() << " m^2" << std::endl;
+    cout << " there are " << howMany << " Sources total..." << std::endl;
+    cout << "    Generating " << count << " trials " << std::endl;
+    cout << " --------------------------------" << std::endl;
+
+    EventSource* f = nullptr;
+    double totalinterval = 0.;
     
     for (int i = 0; i < count; ++i) {
-        EventSource* f = e->event(time);
+        f = e->event(time);
+
         if (!f->enabled()) {
-            out << "Source turned off at time " << time << std::endl;
+            std::cout << "Source turned off at time " << time << std::endl;
             break;
         }
         
         double interval = e->interval();
+
+        // Increment the "elapsed" time and the "orbital" time,
+        // just as is done in flux. NOTE: this is important for the operation 
+        // of fluxsource, and is expected.
         time += interval;
         pass(interval);
         
         int sourceNumber = e->numSource();
-        counts[sourceNumber == -1 ? 0 : sourceNumber]++;
+        if (sourceNumber == -1) {
+            counts[0]++;
+        } else {
+            counts[sourceNumber]++;
+        }
+
+        totalinterval += interval;
+        
+        cout << f->particleName()
+             << "(" << f->energy() << " MeV)"
+             << ", Launch: " << f->launchPoint() 
+             << ", Dir " << f->launchDir() 
+             << ", Flux=" << f->flux(time) 
+             << ", Interval=" << interval;
+        
+        if (sourceNumber != -1) {
+            cout << ", SourceID: " << sourceNumber;
+        }
+        
+        cout << "\tElapsed time= " << totalinterval 
+             << std::endl;
     }
     
-    out << "Test complete. Counts by source:" << std::endl;
-    for (const auto& [num, cnt] : counts) {
-        out << "  Source " << num << ": " << cnt << std::endl;
+    cout << "------------------------------------------------------" << std::endl;
+
+    cout << std::endl << "Average Interval=" << totalinterval / count << " , "
+         << "Average rate = " << count / totalinterval << std::endl;
+
+    cout << "Source Statistics: " << std::endl;
+    for (const auto& [sourceId, eventCount] : counts) {
+        cout << "source #" << sourceId << ": " << eventCount << " events counted." << std::endl;
     }
 }
