@@ -1,9 +1,6 @@
 /** @file FluxMgr.h
     @brief declaration of FluxMgr
-
- $Header: /nfs/slac/g/glast/ground/cvs/flux/flux/FluxMgr.h,v 1.18 2007/05/24 03:45:22 burnett Exp $
-
-  */
+*/
 #ifndef FLUX_MGR_H
 #define FLUX_MGR_H
 
@@ -15,24 +12,27 @@
 * and methods for interfacing with the satellite position, and 
 * setting the position variables. It is instantiated with
 * the names of the xml files to be used as input to the xml parser.
-* 
-* 
 */
 
 #include "astro/GPS.h"
-
 #include "FluxSource.h"
 
-#include <xercesc/dom/DOMDocument.hpp>
-#include <xercesc/dom/DOMElement.hpp>
-#include "xmlBase/XmlParser.h"
+// RapidXML-based framework includes
+#include "xmlBase/rapidxml.hpp"
+#include "xmlBase/rapidxml_error_framework.hpp"
+#include "xmlBase/safe_xml_parser.hpp"
+#include "xmlBase/xml_result.hpp"
+
 #include "ISpectrumFactory.h"
 #include <map>
 #include <list>
 #include <string>
+#include <vector>
+#include <memory>
 
-using XERCES_CPP_NAMESPACE_QUALIFIER DOMElement;
-using XERCES_CPP_NAMESPACE_QUALIFIER DOMDocument;
+// Type aliases for RapidXML types
+using XmlNode = rapidxml::xml_node<char>;
+using XmlDocument = rapidxml::xml_document<char>;
 
 class FluxMgr 
 {
@@ -50,7 +50,6 @@ public:
     /// create a composite source from the list of names
     EventSource* compositeSource(std::vector<std::string> names);
 
-    
     /// access to the source list
     std::list<std::string> sourceList() const;
     
@@ -97,7 +96,6 @@ public:
     /// Set an alignment rotation:
     /// @param qx,qy, qz rotation angles (degrees) about coordinate axes -- assume small, < 1 deg
     /// @param misalign if true, apply to incoming; if false, apply as correction to coordinate transformation
-    ///
     void setAlignmentRotation(double qx, double qy, double qz, bool misalign);
 
     /// set an offset for generating source id numbers, return previous value
@@ -113,31 +111,34 @@ private:
     
     /// source library lookup.  Each source is uniquely identified
     /// by its "name" attribute because "name" is of type ID
-    DOMElement* getLibrarySource(const std::string& id);
-    
+    XmlNode* getLibrarySource(const std::string& id);
     
     void defaultFile();
     void init(const std::vector<std::string>& fileList);
     
-    EventSource* 
-    getSourceFromXML(const DOMElement* src);
+    EventSource* getSourceFromXML(XmlNode* src);
     
-    DOMDocument* m_library_doc;
+    /// Owned document storage - each file gets its own document
+    std::vector<std::unique_ptr<XmlDocument>> m_documents;
     
-    DOMElement*     s_library;
+    /// Buffer storage for parsed XML content (RapidXML requires persistent buffers)
+    std::vector<std::vector<char>> m_xmlBuffers;
     
-    std::vector<DOMDocument*> m_library_doclist;
-    
-    std::vector<DOMElement*>     s_librarylist;
+    /// Root library element pointer
+    XmlNode* s_library = nullptr;
     
     /// list of sources for easy lookup
-    //std::map<std::string, DOM_Element > m_sources;
-    std::map<std::string, std::pair<DOMElement* ,std::string> > m_sources;
+    std::map<std::string, std::pair<XmlNode*, std::string>> m_sources;
 
-    /// internal routine that creates the document
-    std::string  writeXmlFile( const std::vector<std::string>& fileList);
-    
-    /// filename for dtd
+    /// filename for dtd (kept for compatibility, but DTD validation not used with RapidXML)
     std::string m_dtd;
+    
+    // Helper functions for XML operations
+    static std::string getAttribute(XmlNode* node, const char* name);
+    static double getDoubleAttribute(XmlNode* node, const char* name);
+    static XmlNode* findFirstChildByName(XmlNode* parent, const char* name);
+    static XmlNode* getFirstChildElement(XmlNode* parent);
+    static XmlNode* getSiblingElement(XmlNode* node);
+    static std::string getTagName(XmlNode* node);
 };
 #endif
