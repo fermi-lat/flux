@@ -27,13 +27,13 @@
 #include <list>
 
 // Helper function implementations
-std::string FluxSource::getAttribute(XmlNode* node, const char* name) {
+auto FluxSource::getAttribute(XmlNode* node, const char* name) -> std::string {
     if (!node) return "";
     auto* attr = node->first_attribute(name);
     return attr ? std::string(attr->value()) : "";
 }
 
-double FluxSource::getDoubleAttribute(XmlNode* node, const char* name) {
+auto FluxSource::getDoubleAttribute(XmlNode* node, const char* name) -> double {
     std::string val = getAttribute(node, name);
     if (val.empty()) return 0.0;
     try {
@@ -43,7 +43,7 @@ double FluxSource::getDoubleAttribute(XmlNode* node, const char* name) {
     }
 }
 
-XmlNode* FluxSource::findFirstChildByName(XmlNode* parent, const char* name) {
+auto FluxSource::findFirstChildByName(XmlNode* parent, const char* name) -> XmlNode* {
     if (!parent) return nullptr;
     // Handle wildcard "*" to get first child element
     if (name && std::strcmp(name, "*") == 0) {
@@ -52,7 +52,7 @@ XmlNode* FluxSource::findFirstChildByName(XmlNode* parent, const char* name) {
     return parent->first_node(name);
 }
 
-XmlNode* FluxSource::getFirstChildElement(XmlNode* parent) {
+auto FluxSource::getFirstChildElement(XmlNode* parent) -> XmlNode* {
     if (!parent) return nullptr;
     for (auto* child = parent->first_node(); child; child = child->next_sibling()) {
         if (child->type() == rapidxml::node_element) {
@@ -62,7 +62,7 @@ XmlNode* FluxSource::getFirstChildElement(XmlNode* parent) {
     return nullptr;
 }
 
-std::string FluxSource::getTagName(XmlNode* node) {
+auto FluxSource::getTagName(XmlNode* node) -> std::string {
     if (!node || !node->name()) return "";
     return std::string(node->name(), node->name_size());
 }
@@ -101,7 +101,7 @@ public:
     }
 
     /// return info
-    virtual std::string title() const {
+    virtual auto title() const -> std::string {
         std::stringstream t;
         t << "radius(" << m_radius << ")";
         return t.str();
@@ -142,7 +142,7 @@ public:
         setPoint(r_pln * posLaunch + m_base_point);
     }
 
-    virtual std::string title() const {
+    virtual auto title() const -> std::string {
         if (m_disk_radius == 0) return LaunchPoint::title();
         std::stringstream t;
         t << ", radius(" << m_disk_radius << ")";
@@ -175,7 +175,7 @@ public:
             m_zmin + m_dz * CLHEP::RandFlat::shoot()));
     }
 
-    virtual std::string title() const {
+    virtual auto title() const -> std::string {
         std::stringstream t;
         t << "patch(" 
           << m_xmin << "," << m_xmin + m_dx << ","
@@ -238,11 +238,11 @@ public:
     }
 
     //! solid angle
-    virtual double solidAngle() const override {
+    virtual auto solidAngle() const -> double override {
         return 2 * M_PI * (m_maxCos - m_minCos);
     }
 
-    virtual std::string title() const override {
+    virtual auto title() const -> std::string override {
         std::stringstream t;
         t << "range(" << m_minCos << ',' << m_maxCos << ") ";
         if (m_theta != 0) {
@@ -490,7 +490,7 @@ void FluxSource::spectrum(ISpectrum* s, double emax) {
     m_spectrum = s;
 }
 
-EventSource* FluxSource::event(double time) {
+auto FluxSource::event(double time) -> EventSource* {
     // Purpose and Method: generate a new incoming particle
     // Inputs  - current time
     // Outputs - pointer to the "current" fluxSource object, or zero if it has "turned off"
@@ -512,7 +512,7 @@ EventSource* FluxSource::event(double time) {
     return this;
 }
 
-double FluxSource::calculateInterval(double time) {
+auto FluxSource::calculateInterval(double time) -> double {
     if (m_spectrum) {
         double interval = m_spectrum->interval(time);
         if (interval > 0) {
@@ -525,7 +525,7 @@ double FluxSource::calculateInterval(double time) {
     return explicitInterval(time);
 }
 
-double FluxSource::explicitInterval(double time) {
+auto FluxSource::explicitInterval(double time) -> double {
     // Default implementation - exponential interval based on rate
     double r = rate(time);
     if (r <= 0) return 1e10;  // Very large interval
@@ -548,33 +548,33 @@ void FluxSource::computeLaunch(double time) {
     m_launchPoint = (*m_launch_pt)();
 }
 
-std::string FluxSource::fullTitle() const {
+auto FluxSource::fullTitle() const -> std::string {
     return title();
 }
 
-std::string FluxSource::displayTitle() const {
+auto FluxSource::displayTitle() const -> std::string {
     std::stringstream s;
     s << EventSource::displayTitle() << '(' << m_spectrum->title();
     s << ')' << '\0';
     return s.str();
 }
 
-int FluxSource::eventNumber() const {
+auto FluxSource::eventNumber() const -> int {
     return 0;
 }
 
-std::string FluxSource::title() const {
+auto FluxSource::title() const -> std::string {
     if (m_spectrum == 0) return "";
     return m_spectrum->title() + ", "
         + m_launch_pt->title() + ", "
         + m_launch_dir->title();
 }
 
-std::string FluxSource::particleName() {
+auto FluxSource::particleName() -> std::string {
     return spectrum()->particleName();
 }
 
-bool FluxSource::occulted() {
+auto FluxSource::occulted() -> bool {
     using astro::GPS;
     using astro::SkyDir;
     // Purpose: to determine whether or not the current incoming particle will be blocked by the earth.
@@ -589,20 +589,20 @@ bool FluxSource::occulted() {
     return false;
 }
 
-double FluxSource::flux(double time) const {
+auto FluxSource::flux(double time) const -> double {
     if (m_spectrum) {
         return m_spectrum->flux(time);
     }
     return EventSource::flux(time);
 }
 
-double FluxSource::rate(double time) const {
+auto FluxSource::rate(double time) const -> double {
     // Calculate rate from flux, solid angle, and total area
     double solidAng = m_launch_dir ? m_launch_dir->solidAngle() : 1.0;
     return flux(time) * solidAng * totalArea();
 }
 
-astro::SkyDir FluxSource::skyDirection() const {
+auto FluxSource::skyDirection() const -> astro::SkyDir {
     // Convert the LAT direction back to a SkyDir
     // The dir() method returns direction in LAT frame
     return astro::GPS::instance()->toSky(m_launch_dir->dir());
@@ -612,13 +612,13 @@ void FluxSource::disable() {
     m_enabled = false;
 }
 
-int FluxSource::identifier() {
+auto FluxSource::identifier() -> int {
     if (m_spectrum) {
         return m_spectrum->identifier();
     }
     return -1;
 }
 
-std::string FluxSource::name() const {
+auto FluxSource::name() const -> std::string {
     return EventSource::name();
 }

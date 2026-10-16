@@ -8,13 +8,13 @@
 
 SpectrumFactoryTable* SpectrumFactoryTable::s_instance = 0;
 
-ISpectrum* SpectrumFactoryTable::instantiate(const std::string& name, 
-                                             const std::string& params) const 
+auto SpectrumFactoryTable::instantiate(const std::string& name, 
+                                             const std::string& params) const -> ISpectrum* 
 {
     const_iterator returnloc = find(name);
     return returnloc==end() ? 0: (*returnloc).second->instantiate(params);
 }
-ISpectrum* SpectrumFactoryTable::instantiate(const std::string& name) const 
+auto SpectrumFactoryTable::instantiate(const std::string& name) const -> ISpectrum* 
 {
     const_iterator returnloc = find(name);
     std::string params; // dummy 
@@ -22,7 +22,7 @@ ISpectrum* SpectrumFactoryTable::instantiate(const std::string& name) const
 }
 
 
-std::list<std::string> SpectrumFactoryTable::spectrumList()const
+auto SpectrumFactoryTable::spectrumList()const -> std::list<std::string>
 {
     
     std::list<std::string>  outstr;

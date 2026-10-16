@@ -28,11 +28,11 @@ public:
 
   VdgGamma(const std::string& paramstring) { }
 
-  double energy( double time);
+  auto energy( double time) -> double;
     
-  virtual std::string title() const{return "VdgGamma";}
-  virtual const char * particleName() const { return "gamma"; }
-  inline  const char * nameOf() const {return "VdgGamma";}
+  virtual auto title() const -> std::string{return "VdgGamma";}
+  virtual auto particleName() const -> const char * { return "gamma"; }
+  inline  auto nameOf() const -> const char * {return "VdgGamma";}
     
     
 private:
@@ -47,7 +47,7 @@ const ISpectrumFactory& VdgGammaFactory = factory;
 // 17.619 MeV gammas with a width of 0.01 MeV, simulated as a line spectrum
 // 14.586 MeV gammas with a width of 1.5 MeV, simulated as a BreitWigner spectrum 
 // ratio between these two types of events is 100:49.7
-double VdgGamma::energy( double time )
+auto VdgGamma::energy( double time ) -> double
 {
     static double ratio = 49.7/(49.7+100.);
     double r = CLHEP::RandFlat::shoot();

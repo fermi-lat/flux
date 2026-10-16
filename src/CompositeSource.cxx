@@ -42,7 +42,7 @@ void CompositeSource::addSource (EventSource* aSource)
 
 }
 
-EventSource* CompositeSource::process(CompositeSource::SourceMap::iterator it, double time)
+auto CompositeSource::process(CompositeSource::SourceMap::iterator it, double time) -> EventSource*
 {
     // set up defaults to flag that this source was used, and will be rerun on next iteration
     EventSource * source(0);     // will set to the actual source if updating
@@ -67,7 +67,7 @@ EventSource* CompositeSource::process(CompositeSource::SourceMap::iterator it, d
 
 }
 
-EventSource* CompositeSource::event (double time)
+auto CompositeSource::event (double time) -> EventSource*
 {
 
     if( !enabled()){
@@ -99,7 +99,7 @@ EventSource* CompositeSource::event (double time)
     return actual;
 }
 
-std::string CompositeSource::fullTitle () const
+auto CompositeSource::fullTitle () const -> std::string
 {
     std::stringstream  s;
     std::vector<EventSource*>::const_iterator	it = m_sourceList.begin();
@@ -114,12 +114,12 @@ std::string CompositeSource::fullTitle () const
     return t;
 }
 
-std::string CompositeSource::displayTitle () const
+auto CompositeSource::displayTitle () const -> std::string
 {
     return (m_recent == 0) ? "" : m_recent->displayTitle();
 }
 
-double CompositeSource::rate(double time) const
+auto CompositeSource::rate(double time) const -> double
 {
     //m_time += m_time-time;
     std::vector<EventSource*>::const_iterator it = m_sourceList.begin();
@@ -144,12 +144,12 @@ void CompositeSource::printOn(std::ostream& out)const
         }
 }
 
-std::string CompositeSource::findSource()const
+auto CompositeSource::findSource()const -> std::string
 {
     return m_recent->fullTitle();
 }
 
-int  CompositeSource::numSource()const
+auto  CompositeSource::numSource()const -> int
 {
     // get the value from the m_ident map, using the most recent source as a key
     std::map<EventSource*, unsigned int>::const_iterator it = m_ident.find(m_recent);

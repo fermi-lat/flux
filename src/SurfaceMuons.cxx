@@ -32,26 +32,26 @@ public:
     SurfaceMuons(const std::string& paramstring);
 
     /// flux integrated over energy, will be multipled by solidAngle to get a rate/m^2
-    double flux (double /*time*/ ) const { return m_flux/solidAngle();}
+    auto flux (double /*time*/ ) const -> double { return m_flux/solidAngle();}
 
-    double solidAngle()const{return 2*M_PI*fabs(m_cosmax-m_cosmin);}
+    auto solidAngle()const -> double{return 2*M_PI*fabs(m_cosmax-m_cosmin);}
 
     /** @brief sample a single particle energy from the spectrum
     @param current time (ignored)
     @return the energy in GeV, or MeV if the source was specified as such
     */
-    double energy( double time);
+    auto energy( double time) -> double;
 
 
     /** @brief return solid angle pair (costh, phi) for the given energy
     @param energy the energy previously generated
     */
-    virtual std::pair<double,double> dir(double energy);
+    virtual auto dir(double energy) -> std::pair<double,double>;
     
-    virtual std::string title() const{return "SurfaceMuons";}
+    virtual auto title() const -> std::string{return "SurfaceMuons";}
 
-    virtual const char * particleName() const;
-    inline  const char * nameOf() const {return "SurfaceMuons";}
+    virtual auto particleName() const -> const char *;
+    inline  auto nameOf() const -> const char * {return "SurfaceMuons";}
 
 
 private:
@@ -65,13 +65,13 @@ private:
 
 
 
-    double analyticSpectrum(double time) const;
+    auto analyticSpectrum(double time) const -> double;
 
-    double capriceSpectrum(double time) const;
+    auto capriceSpectrum(double time) const -> double;
 
     // local function that approximates the spectrum as a function of E*cos(theta)
 
-    double spectrum(double e);
+    auto spectrum(double e) -> double;
 
     /**
     This is the integral spectrum as a map where the key is the integral spectrum and the
@@ -133,7 +133,7 @@ SurfaceMuons::SurfaceMuons(const std::string& paramstring)
 }
 
 
-const char* SurfaceMuons::particleName()const
+auto SurfaceMuons::particleName()const -> const char*
 {
     /// purpose: return a point to the particle name, either mu+ or mu-
     static const char * pnames[] = {"mu+", "mu-"};
@@ -143,11 +143,11 @@ const char* SurfaceMuons::particleName()const
     return CLHEP::RandFlat::shoot()>plus_fraction? pnames[0]:pnames[1];
 }
 namespace {
-    inline double cube(double x){return x*x*x;}
+    inline auto cube(double x) -> double{return x*x*x;}
 }
 
 /// sample a single particle energy from the spectrum: assume called first
-double SurfaceMuons::energy( double time )
+auto SurfaceMuons::energy( double time ) -> double
 {
     using namespace std;
     // first choose the angle for the dir function, assuming cos**2 distribution
@@ -192,7 +192,7 @@ double SurfaceMuons::energy( double time )
 }
 
 
-double SurfaceMuons::capriceSpectrum(double time) const
+auto SurfaceMuons::capriceSpectrum(double time) const -> double
 {
    // Data taken from J. Kremer, et. al., Measurements of Ground-Level Muons at Two Geomagnetic Locations
    // PRL Vol 83, Num. 21, 22 November 1999
@@ -243,15 +243,15 @@ double SurfaceMuons::capriceSpectrum(double time) const
 }
 
 
-std::pair<double,double> SurfaceMuons::dir(double)
+auto SurfaceMuons::dir(double) -> std::pair<double,double>
 {
     // purpose: return the pair; note uses the previous value for cos(theta)
     return std::make_pair(m_costh, CLHEP::RandFlat::shoot(2*M_PI));
 }
 
-static inline double sqr(double x){return x*x;}
+static inline auto sqr(double x) -> double{return x*x;}
 
-double SurfaceMuons::spectrum(double ecth)
+auto SurfaceMuons::spectrum(double ecth) -> double
 {
     // purpose: spectrum as a function of E*cos(theta)
     // returns value differential in E, according to stuff in particle properties
@@ -264,7 +264,7 @@ double SurfaceMuons::spectrum(double ecth)
     return ecth<1.0 ? 0 : pow(ecth, -2.71)*atmos*cutoff;
 }
 
-double SurfaceMuons::analyticSpectrum(double time) const 
+auto SurfaceMuons::analyticSpectrum(double time) const -> double 
 {
     // analytic form is based on following energy spectrum
     //  0.003 flat (0.2 GeV < E < 1. GeV)

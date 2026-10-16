@@ -30,19 +30,19 @@ FluxMgr* Flux::s_mgr=0;
 
 void Flux::mgr(FluxMgr* m){ s_mgr=m;}
 // name of the flux
-std::string Flux::name() const
+auto Flux::name() const -> std::string
 {
     return m_flux->name();
 }
 
 /// full title of the flux
-std::string Flux::title()const 
+auto Flux::title()const -> std::string 
 {
     return m_event!=0? m_event->fullTitle() : "?";
 }
 
 
-bool Flux::generate()
+auto Flux::generate() -> bool
 {
     // Purpose and Method: generate a new entry trajectory, set FluxSource, time
     // Inputs  - none
@@ -63,23 +63,23 @@ bool Flux::generate()
 }
 
 // the particle generated 
-std::string Flux::particleName()const{
+auto Flux::particleName()const -> std::string{
     return std::string(m_flux->particleName());
 }
 
 // its kinetic energy
-double Flux::energy()const
+auto Flux::energy()const -> double
 {
     return m_flux->energy();
 }
 
 // starting point 
-CLHEP::Hep3Vector Flux::launchPoint()const
+auto Flux::launchPoint()const -> CLHEP::Hep3Vector
 {
     return m_flux->launchPoint();
 }
 
-double Flux::time()const
+auto Flux::time()const -> double
 {
     return s_mgr->time();
 }
@@ -102,13 +102,13 @@ double Flux::gpsTime () const{
 
 
 // direction
-CLHEP::Hep3Vector Flux::launchDir()const
+auto Flux::launchDir()const -> CLHEP::Hep3Vector
 {
     return m_flux->launchDir();
 }
 
 // rate ( /mm**2 /s)
-double Flux::rate()const
+auto Flux::rate()const -> double
 {
     return  m_event!=0?  m_event->rate(time()) : -1;;
 }
@@ -119,20 +119,20 @@ void Flux::setTargetArea( double area)
     m_event->totalArea(area);
 }
 
-double Flux::targetArea()const
+auto Flux::targetArea()const -> double
 {
     return m_event->totalArea();
 }
 
 
 /// find which spectrum created the current particle
-std::string Flux::findSource()const
+auto Flux::findSource()const -> std::string
 {
     return m_event->findSource();
 }
 
 /// return a unique number correcponding to that spectrum
-int Flux::numSource()const
+auto Flux::numSource()const -> int
 {
     return m_event->numSource();
 
@@ -143,7 +143,7 @@ void Flux::addFactory(std::string name, const ISpectrumFactory* factory ) {
     SpectrumFactoryTable::instance()->addFactory(name,factory);
 }
 //get the transformtation matrix - the rest of these functions are now deprecated
-CLHEP::HepRotation Flux::transformToGlast(double seconds,astro::GPS::CoordSystem index)const{
+auto Flux::transformToGlast(double seconds,astro::GPS::CoordSystem index)const -> CLHEP::HepRotation{
     return s_mgr->transformToGlast(seconds, index);
 }
 
@@ -153,7 +153,7 @@ void Flux::writeSourceCharacteristic(std::ostream& out){
     m_event->writeSourceCharacteristic(out);
 }
 
-bool Flux::invalid()const{
+auto Flux::invalid()const -> bool{
     return !m_flux->enabled();
 }
 

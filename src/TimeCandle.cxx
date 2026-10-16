@@ -30,7 +30,7 @@ TimeCandle::TimeCandle(const std::string& params)
 
 
 
-std::string TimeCandle::title()const
+auto TimeCandle::title()const -> std::string
 {
     std::stringstream s;
     s << "TimeTick("<< m_period << ")" ;
@@ -40,20 +40,20 @@ std::string TimeCandle::title()const
 
 
 
-double TimeCandle::energy( double time)
+auto TimeCandle::energy( double time) -> double
 {     
     m_first=false;  
     return 0.;
 }
 
 
-const char*
-TimeCandle::particleName() const
+auto
+TimeCandle::particleName() const -> const char*
 {
     return m_name.c_str();
 }
 
-float TimeCandle::parseParamList(std::string input, int index, float defaultValue)
+auto TimeCandle::parseParamList(std::string input, int index, float defaultValue) -> float
 {
     std::vector<float> output;
     int i=0;
@@ -68,7 +68,7 @@ float TimeCandle::parseParamList(std::string input, int index, float defaultValu
     return output[index];
 }
 
-double TimeCandle::interval (double time)
+auto TimeCandle::interval (double time) -> double
 {  
     if( m_first){
         if( m_offset<0) return 1e-30;// no offset; epsilon to be greater than zero

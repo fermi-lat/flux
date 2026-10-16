@@ -27,7 +27,7 @@ namespace {
 
     // differential rate: return energy distributed as e**-gamma between e1 and e2, 
     // if r is uniform from 0 to 1
-    double power_law(double r, double e1, double e2, double gamma) {
+    auto power_law(double r, double e1, double e2, double gamma) -> double {
         double e = gamma == 1
             ? e1 * exp(r * log(e2 / e1))
             : e1 * exp(log(1.0 - r * (1. - pow(e2 / e1, 1 - gamma))) / (1 - gamma));
@@ -35,7 +35,7 @@ namespace {
     }
     
     // integral of e**-gamma from e1 to e2
-    double total_rate(double e1, double e2, double gamma) {
+    auto total_rate(double e1, double e2, double gamma) -> double {
         return gamma == 1
             ? log(e2 / e1)
             : (pow(e1, 1 - gamma) - pow(e2, 1 - gamma)) / (gamma - 1);
@@ -49,7 +49,7 @@ namespace {
             facilities::Util::keyValueTokenize(paramString, ",", m_tokenMap);
         }
         
-        double value(std::string name) const {
+        auto value(std::string name) const -> double {
             auto it = m_tokenMap.find(name);
             if (it == m_tokenMap.end()) {
                 throw std::invalid_argument("SimpleSpectrum: keyword " + name + " not found");
@@ -63,13 +63,13 @@ namespace {
 }
 
 // Helper function implementations
-std::string SimpleSpectrum::getAttribute(XmlNode* node, const char* name) {
+auto SimpleSpectrum::getAttribute(XmlNode* node, const char* name) -> std::string {
     if (!node) return "";
     auto* attr = node->first_attribute(name);
     return attr ? std::string(attr->value()) : "";
 }
 
-double SimpleSpectrum::getDoubleAttribute(XmlNode* node, const char* name) {
+auto SimpleSpectrum::getDoubleAttribute(XmlNode* node, const char* name) -> double {
     std::string val = getAttribute(node, name);
     if (val.empty()) return 0.0;
     try {
@@ -79,7 +79,7 @@ double SimpleSpectrum::getDoubleAttribute(XmlNode* node, const char* name) {
     }
 }
 
-XmlNode* SimpleSpectrum::findFirstChildByName(XmlNode* parent, const char* name) {
+auto SimpleSpectrum::findFirstChildByName(XmlNode* parent, const char* name) -> XmlNode* {
     if (!parent) return nullptr;
     // Handle wildcard "*" to get first child element
     if (name && std::strcmp(name, "*") == 0) {
@@ -93,7 +93,7 @@ XmlNode* SimpleSpectrum::findFirstChildByName(XmlNode* parent, const char* name)
     return parent->first_node(name);
 }
 
-std::string SimpleSpectrum::getTagName(XmlNode* node) {
+auto SimpleSpectrum::getTagName(XmlNode* node) -> std::string {
     if (!node || !node->name()) return "";
     return std::string(node->name(), node->name_size());
 }
@@ -183,7 +183,7 @@ void SimpleSpectrum::setup_power_law() {
     }
 }
 
-std::string SimpleSpectrum::title() const {
+auto SimpleSpectrum::title() const -> std::string {
     std::stringstream s;
     s << particleName() << '(' << m_E0 << (m_useGeV ? " GeV" : " MeV");
     if (m_index >= 1) s << ',' << m_index;
@@ -192,7 +192,7 @@ std::string SimpleSpectrum::title() const {
     return s.str();
 }
 
-float SimpleSpectrum::operator()(float f) {
+auto SimpleSpectrum::operator()(float f) -> float {
     if (m_emax == m_E0) return m_E0;
     
     float energy;
@@ -206,11 +206,11 @@ float SimpleSpectrum::operator()(float f) {
     return energy;
 }
 
-const char* SimpleSpectrum::particleName() const {
+auto SimpleSpectrum::particleName() const -> const char* {
     return m_name.c_str();
 }
 
-float SimpleSpectrum::parseParamList(std::string input, int index) {
+auto SimpleSpectrum::parseParamList(std::string input, int index) -> float {
     std::vector<float> output;
     int i = 0;
     for (; !input.empty() && i != std::string::npos;) {

@@ -17,16 +17,16 @@ double Spectrum::s_startTime(0);
 Spectrum::~Spectrum(){}
 
 
-double Spectrum::flux (double time ) const {
+auto Spectrum::flux (double time ) const -> double {
     return 0.; // flag that we don't have a flux
 }
 
-double Spectrum::solidAngle( )const
+auto Spectrum::solidAngle( )const -> double
 {
     return 1.0; // flag that doesn't calculate
 }
 
-std::pair<double,double> Spectrum::dir(double energy)
+auto Spectrum::dir(double energy) -> std::pair<double,double>
 {
     // Purpose: return solid angle pair (costh, phi) for the given energy
     // Input:: the given energy.
@@ -38,11 +38,11 @@ std::pair<double,double> Spectrum::dir(double energy)
 }
 
 
-const char * Spectrum::particleName()const{
+auto Spectrum::particleName()const -> const char *{
   return m_particle_name.c_str();
 }
 
-double Spectrum::energy( double time)
+auto Spectrum::energy( double time) -> double
 {
     // default implementation, which calls the operator()(float r)
     return (*this)(CLHEP::RandFlat::shoot());
@@ -61,7 +61,7 @@ void Spectrum::parseParamList(std::string input, std::vector<float>& output) con
     } 
 }
 
-double Spectrum::interval (double time)
+auto Spectrum::interval (double time) -> double
 {
     return -1.; //if this gets called, FluxSource will use the spectrum's flux.
                 //to determine the interval.

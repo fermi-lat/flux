@@ -128,42 +128,42 @@ void rootAngleHist::storePhi(double phi_value)
     phi_raw_hist->incrementBin(binNumber);
 }
 
-double rootAngleHist::retrievePhiCount(int binNumber)
+auto rootAngleHist::retrievePhiCount(int binNumber) -> double
 {
     return phi_raw_hist->retrieveBin(binNumber);
 }
 
-double rootAngleHist::retrievePhiFlux(int binNumber)
+auto rootAngleHist::retrievePhiFlux(int binNumber) -> double
 {
     return phi_hist->retrieveBin(binNumber);
 }
 
-double rootAngleHist::retrievePhiFluxUncertainty(int binNumber)
+auto rootAngleHist::retrievePhiFluxUncertainty(int binNumber) -> double
 {
     return phi_sigma_hist->retrieveBin(binNumber);
 }
 
-double rootAngleHist::retrieveThetaCount(int binNumber)
+auto rootAngleHist::retrieveThetaCount(int binNumber) -> double
 {
     return theta_raw_hist->retrieveBin(binNumber);
 }
 
-double rootAngleHist::retrieveThetaFlux(int binNumber)
+auto rootAngleHist::retrieveThetaFlux(int binNumber) -> double
 {
     return theta_hist->retrieveBin(binNumber);
 }
 
-double rootAngleHist::retrieveThetaFluxUncertainty(int binNumber)
+auto rootAngleHist::retrieveThetaFluxUncertainty(int binNumber) -> double
 {
     return theta_sigma_hist->retrieveBin(binNumber);
 }
 
-double rootAngleHist::retrieveThetaAngle(int binNumber)
+auto rootAngleHist::retrieveThetaAngle(int binNumber) -> double
 {
     return (binNumber+0.5) / num_bins * 2 - 1;
 }
 
-double rootAngleHist::retrievePhiAngle(int binNumber)
+auto rootAngleHist::retrievePhiAngle(int binNumber) -> double
 {
     return ((binNumber+0.5) / num_bins * 2 * M_PI);
 }

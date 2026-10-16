@@ -36,7 +36,7 @@ EventSource::EventSource (double aFlux, unsigned acode)
 EventSource::~EventSource()
 {}
 
-double EventSource::flux (double time) const
+auto EventSource::flux (double time) const -> double
 {
   // Purpose and Method: This method returns the flux of the particular source.
   // Inputs  - current time
@@ -44,12 +44,12 @@ double EventSource::flux (double time) const
     return m_flux;  // default if not overridden
 }
 
-double EventSource::interval()const
+auto EventSource::interval()const -> double
 {
     return m_interval;
 }
 
-double EventSource::setInterval (double time)
+auto EventSource::setInterval (double time) -> double
 {
     return (m_interval = time);
     if( time<=0 ){
@@ -58,7 +58,7 @@ double EventSource::setInterval (double time)
 }
 
 
-double  EventSource::rate (double time )const
+auto  EventSource::rate (double time )const -> double
 {
   // Purpose and Method: This method returns the rate of particles entering the detector.
   // Inputs  - current time
@@ -67,26 +67,26 @@ double  EventSource::rate (double time )const
 }
 
 
-double	EventSource::solidAngle () const{
+auto	EventSource::solidAngle () const -> double{
     return m_solid_angle;
 }
 
 // UI titles
-std::string EventSource::fullTitle () const 
+auto EventSource::fullTitle () const -> std::string 
 { return std::string("EventSource");   }
-std::string EventSource::displayTitle () const  {  return m_name; }
+auto EventSource::displayTitle () const -> std::string  {  return m_name; }
 
 // inline function declarations:
 
 
-std::string EventSource::name () const	{   return m_name;  }
+auto EventSource::name () const -> std::string	{   return m_name;  }
 
 void EventSource::setName (const std::string& value)    { m_name = value;   }
 
-double    EventSource::totalArea () { return s_total_area; }
+auto    EventSource::totalArea () -> double { return s_total_area; }
 void    EventSource::totalArea (double value) { s_total_area = value; }
 
-int EventSource::code () const { 
+auto EventSource::code () const -> int { 
     return m_code; 
 }
 void EventSource::code ( int c ) { 

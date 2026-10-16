@@ -55,7 +55,7 @@ void flux_load() {
 }
 
 
-int main(int argn, char * argc[]) {
+auto main(int argn, char * argc[]) -> int {
     facilities::commonUtilities::setupEnvironment();
     using std::cout;
     using std::endl;

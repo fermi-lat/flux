@@ -179,7 +179,7 @@ void SourceDirection::solarSystemDir( double ra, double dec, double time)
 
 
 //! solid angle
-double SourceDirection::solidAngle()const {
+auto SourceDirection::solidAngle()const -> double {
     return m_spectrum->solidAngle();
 }
 

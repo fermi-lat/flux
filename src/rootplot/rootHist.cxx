@@ -45,7 +45,7 @@ void rootHist::updateBin(int binNumber, double data)
 }
 
 // Retrieve the contents of a bin
-double rootHist::retrieveBin(int binNumber)
+auto rootHist::retrieveBin(int binNumber) -> double
 {
     if(binNumber < 0) binNumber=0;
     else if(binNumber>=num_bins) binNumber= num_bins-1;

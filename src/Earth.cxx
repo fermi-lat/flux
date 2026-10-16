@@ -25,43 +25,43 @@ static SpectrumFactory<Earth> factory;
 const ISpectrumFactory& EarthFactory = factory;
 
 
-double Earth::tp() const {
+auto Earth::tp() const -> double {
 // Peak position
     return m_a[1];
 }
 
-double Earth::sigma() const {
+auto Earth::sigma() const -> double {
 // Peak Width (deg) corrected for EGRET PSF, orbital decay, orbital interpolation
     return m_a[3]/m_a[4]/4.*180./M_PI * m_a[2];
 }
 
-double Earth::t0() const {
+auto Earth::t0() const -> double {
 // Transition point from Gaussian to Exponential 
     return tp() + 1.5 * sigma() * m_a[2];  
 }
 
-double Earth::g0(double e) const {
+auto Earth::g0(double e) const -> double {
 // Spectrum of the constant component independent of AZ
     return m_a[5]*pow(e,m_a[6])*exp(-e/m_a[7]);
 }
 
-double Earth::g1(double e) const {
+auto Earth::g1(double e) const -> double {
 // Spectrum of the component dependent on AZ
     return m_a[8]*pow(e,m_a[9])*exp(-e/m_a[10]);
 }
 
-double Earth::sigmaz(double t) const {
+auto Earth::sigmaz(double t) const -> double {
 // Std Dev of the AZ dependent component
     return m_a[11] * exp(-0.5*pow(((t-m_a[12])/m_a[13]),2.));
 }
 
-double Earth::f0(double t, double p, double e) const {
+auto Earth::f0(double t, double p, double e) const -> double {
 // the part zt ZA < t0
     return g0(e) + g1(e) * exp(-0.5*pow(((p-m_a[14])/sigmaz(t)),2.));
 }
 
 
-double Earth::normcorr(double e) const {
+auto Earth::normcorr(double e) const -> double {
 // correction of the normalization of fa(t,p,e)
 // necessary because we are replacing the measured peak width 
 // by sigma() which is corrected for the EGRET PSF and effects
@@ -77,7 +77,7 @@ double Earth::normcorr(double e) const {
 }
 
 
-double Earth::fa(double t, double p, double e) const {
+auto Earth::fa(double t, double p, double e) const -> double {
     if(t <= t0()+1E-10  &&  t > t0()-5.*sigma()){ // the addition of 1E-10 is necessary
                                                   // to overcome a strange effect in the
                                                   // g++  3.2.3 optimizer
@@ -87,20 +87,20 @@ double Earth::fa(double t, double p, double e) const {
     }
 }
 
-double Earth::b(double e) const {
+auto Earth::b(double e) const -> double {
 // central flux
     return m_a[15]*pow(e,m_a[16])*exp(-e/m_a[17]);
 }
 
-double Earth::c(double e, double p) const {
+auto Earth::c(double e, double p) const -> double {
     return (log(fa(t0(),p,e))-log(b(e)))/(t0()-180.);
 }
 
-double Earth::c0(double e, double p) const {
+auto Earth::c0(double e, double p) const -> double {
     return log(fa(t0(),p,e))-c(e,p)*t0();
 }
 
-double Earth::fb(double t, double p, double e) const {
+auto Earth::fb(double t, double p, double e) const -> double {
     if(t > t0()+1E-10){
         return exp(c0(e,p)+c(e,p)*t);
     } 
@@ -109,7 +109,7 @@ double Earth::fb(double t, double p, double e) const {
     }
 }
 
-double Earth::f(double t, double p, double e) const {
+auto Earth::f(double t, double p, double e) const -> double {
     if(t < 90. || t > 180.){
         return 0.;
     } 
@@ -118,7 +118,7 @@ double Earth::f(double t, double p, double e) const {
     }
 }
 
-double Earth::ff(int isteps) const {
+auto Earth::ff(int isteps) const -> double {
 // Integral of earth flux over all sky from m_a[21] MeV to m_a[22] (MeV)
 //  using isteps integration steps
     int i, j, k;
@@ -207,9 +207,9 @@ double Earth::ff(int isteps) const {
     return theint;
 }
 
-double Earth::ffpartial(int isteps, 
+auto Earth::ffpartial(int isteps, 
 		 double zamin, double zamax, 
-		 double azmin, double azmax) const {
+		 double azmin, double azmax) const -> double {
 // Integral of earth flux (in cm^-2s^-1) over part of the sky from emin to emax
 //  using isteps integration steps
     int i, j, k;
@@ -361,28 +361,28 @@ void Earth::init(double alt, double emin, double emax) {
     return;
 }
        
-double Earth::pp(double t, double p, double e) const {
+auto Earth::pp(double t, double p, double e) const -> double {
 // the probability density normalized to give 1 when integrated over the
 //  whole sky
     return f(t,p,e) / m_ftot;
 }
 
-double Earth::qn(double e) const {
+auto Earth::qn(double e) const -> double {
 // the normalization of the envelope function
     return pp(tp(),180.,e)/pow(e,-1.5);
 }
 
-double Earth::q(double e) const {
+auto Earth::q(double e) const -> double {
 // the envelope function
     return qn(m_a[21])*pow(e,-1.5);
 }
 
-double Earth::qq(double e) const {
+auto Earth::qq(double e) const -> double {
 // the integral of the envelope function
     return 4.* 3.141592 * qn(m_a[21]) * 2. * (pow(m_a[21],-0.5) - pow(e,-0.5));
 }
 
-double Earth::qqinv(double x) const {
+auto Earth::qqinv(double x) const -> double {
 // the inverse of the integral of q
     return pow((pow(m_a[21],-0.5) - x/(8.*3.141592*qn(m_a[21]))),-2.);
 }
@@ -423,7 +423,7 @@ void Earth::earth(double &t, double &p, double &e) const {
 
 
 
-ISpectrumFactory &Magrathea() { // a.k.a. EarthFactory, see http://www.bbc.co.uk/dna/h2g2/A105265
+auto Magrathea() -> ISpectrumFactory & { // a.k.a. EarthFactory, see http://www.bbc.co.uk/dna/h2g2/A105265
    static SpectrumFactory<Earth> myFactory;
    return myFactory;
 }
@@ -448,25 +448,25 @@ Earth::Earth(const std::string &paramString) {
 
 }
 
-double Earth::flux(double time) const { // argument is the mission elapsed time (s)
+auto Earth::flux(double time) const -> double { // argument is the mission elapsed time (s)
     return m_ftot * 1E4 /solidAngle(); // (m^-2 / s/ sr)
 }
 
-double Earth::solidAngle() const {
+auto Earth::solidAngle() const -> double {
   double rval;
   rval = 2.*M_PI*(1. - cos( M_PI/180. * ( 180.-tp()+5*sigma() ) ) );
   return rval;
 }
 
 
-double Earth::energy(double time) {
+auto Earth::energy(double time) -> double {
     (void)(time); // the Earth is not variable in this version
     earth(m_t, m_p, m_e);
     m_eCalled = true;
     return (m_e);
 }
 
-std::pair<double, double> Earth::dir(double energy) {
+auto Earth::dir(double energy) -> std::pair<double, double> {
     double costheta, phi;
     if(energy != m_e || !m_eCalled){
 	std::cerr << "ERROR in routine calling Earth: need to call energy() before dir()." << std::endl;
@@ -479,7 +479,7 @@ std::pair<double, double> Earth::dir(double energy) {
     return std::make_pair(costheta, phi);
 }
 
-std::pair<double, std::pair<double, double> > Earth::photon(){
+auto Earth::photon() -> std::pair<double, std::pair<double, double> >{
     earth(m_t, m_p, m_e);
     std::pair<double, double> theDir = std::make_pair(cos(m_t/180.*M_PI), m_p/180.*M_PI);
     return std::make_pair(m_e, theDir);

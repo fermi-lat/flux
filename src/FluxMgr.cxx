@@ -35,13 +35,13 @@ using astro::GPS;
 using namespace xml_framework;
 
 // Helper function implementations
-std::string FluxMgr::getAttribute(XmlNode* node, const char* name) {
+auto FluxMgr::getAttribute(XmlNode* node, const char* name) -> std::string {
     if (!node) return "";
     auto* attr = node->first_attribute(name);
     return attr ? std::string(attr->value()) : "";
 }
 
-double FluxMgr::getDoubleAttribute(XmlNode* node, const char* name) {
+auto FluxMgr::getDoubleAttribute(XmlNode* node, const char* name) -> double {
     std::string val = getAttribute(node, name);
     if (val.empty()) return 0.0;
     try {
@@ -51,7 +51,7 @@ double FluxMgr::getDoubleAttribute(XmlNode* node, const char* name) {
     }
 }
 
-XmlNode* FluxMgr::findFirstChildByName(XmlNode* parent, const char* name) {
+auto FluxMgr::findFirstChildByName(XmlNode* parent, const char* name) -> XmlNode* {
     if (!parent) return nullptr;
     // Handle wildcard "*" to get first child element
     if (name && std::strcmp(name, "*") == 0) {
@@ -60,7 +60,7 @@ XmlNode* FluxMgr::findFirstChildByName(XmlNode* parent, const char* name) {
     return parent->first_node(name);
 }
 
-XmlNode* FluxMgr::getFirstChildElement(XmlNode* parent) {
+auto FluxMgr::getFirstChildElement(XmlNode* parent) -> XmlNode* {
     if (!parent) return nullptr;
     for (auto* child = parent->first_node(); child; child = child->next_sibling()) {
         if (child->type() == rapidxml::node_element) {
@@ -70,7 +70,7 @@ XmlNode* FluxMgr::getFirstChildElement(XmlNode* parent) {
     return nullptr;
 }
 
-XmlNode* FluxMgr::getSiblingElement(XmlNode* node) {
+auto FluxMgr::getSiblingElement(XmlNode* node) -> XmlNode* {
     if (!node) return nullptr;
     for (auto* sibling = node->next_sibling(); sibling; sibling = sibling->next_sibling()) {
         if (sibling->type() == rapidxml::node_element) {
@@ -80,7 +80,7 @@ XmlNode* FluxMgr::getSiblingElement(XmlNode* node) {
     return nullptr;
 }
 
-std::string FluxMgr::getTagName(XmlNode* node) {
+auto FluxMgr::getTagName(XmlNode* node) -> std::string {
     if (!node || !node->name()) return "";
     return std::string(node->name(), node->name_size());
 }
@@ -213,7 +213,7 @@ FluxMgr::~FluxMgr() {
     // unique_ptr handles cleanup automatically
 }
 
-EventSource* FluxMgr::source(std::string name) {
+auto FluxMgr::source(std::string name) -> EventSource* {
     // Purpose: to return a pointer to a source, referenced by name.
     auto it = m_sources.find(name);
     if (it == m_sources.end()) {
@@ -222,7 +222,7 @@ EventSource* FluxMgr::source(std::string name) {
     return getSourceFromXML(it->second.first);
 }
 
-EventSource* FluxMgr::compositeSource(std::vector<std::string> names) {
+auto FluxMgr::compositeSource(std::vector<std::string> names) -> EventSource* {
     // Purpose: to return a pointer to a source, referenced by a list of names.
     CompositeSource* comp = new CompositeSource();
     
@@ -242,7 +242,7 @@ EventSource* FluxMgr::compositeSource(std::vector<std::string> names) {
     return comp;
 }
 
-EventSource* FluxMgr::getSourceFromXML(XmlNode* src) {
+auto FluxMgr::getSourceFromXML(XmlNode* src) -> EventSource* {
     // Purpose: sourceFromXML - create a new EventSource from a DOM element
     if (!src) {
         FATAL_MACRO("Null XML source element");
@@ -270,13 +270,13 @@ EventSource* FluxMgr::getSourceFromXML(XmlNode* src) {
     return new FluxSource(src);
 }
 
-XmlNode* FluxMgr::getLibrarySource(const std::string& id) {
+auto FluxMgr::getLibrarySource(const std::string& id) -> XmlNode* {
     // Purpose: source library lookup by ID
     auto it = m_sources.find(id);
     return (it != m_sources.end()) ? it->second.first : nullptr;
 }
 
-std::list<std::string> FluxMgr::sourceList() const {
+auto FluxMgr::sourceList() const -> std::list<std::string> {
     std::list<std::string> s;
     for (const auto& [name, pair] : m_sources) {
         s.push_back(name);
@@ -284,7 +284,7 @@ std::list<std::string> FluxMgr::sourceList() const {
     return s;
 }
 
-std::vector<std::pair<std::string, std::list<std::string>>> FluxMgr::sourceOriginList() const {
+auto FluxMgr::sourceOriginList() const -> std::vector<std::pair<std::string, std::list<std::string>>> {
     std::vector<std::pair<std::string, std::list<std::string>>> originList;
     
     for (const auto& [name, pair] : m_sources) {
@@ -292,7 +292,7 @@ std::vector<std::pair<std::string, std::list<std::string>>> FluxMgr::sourceOrigi
         
         // Find if we already have an entry for this file
         auto it = std::find_if(originList.begin(), originList.end(),
-            [&filename](const auto& entry) { return entry.first == filename; });
+            [&filename](const auto& entry) -> auto { return entry.first == filename; });
         
         if (it != originList.end()) {
             it->second.push_back(name);
@@ -303,7 +303,7 @@ std::vector<std::pair<std::string, std::list<std::string>>> FluxMgr::sourceOrigi
     return originList;
 }
 
-double FluxMgr::time() const {
+auto FluxMgr::time() const -> double {
     return GPS::instance()->time();
 }
 
@@ -319,15 +319,15 @@ void FluxMgr::pass(double t) {
     GPS::instance()->pass(t);
 }
 
-std::pair<double, double> FluxMgr::location() {
+auto FluxMgr::location() -> std::pair<double, double> {
     return std::make_pair(GPS::instance()->lat(), GPS::instance()->lon());
 }
 
-CLHEP::HepRotation FluxMgr::transformToGlast(double seconds, GPS::CoordSystem index) {
+auto FluxMgr::transformToGlast(double seconds, GPS::CoordSystem index) -> CLHEP::HepRotation {
     return GPS::instance()->transformToGlast(seconds, index);
 }
 
-std::vector<double> FluxMgr::setRockType(GPS::RockType rockType, double rockAngle) {
+auto FluxMgr::setRockType(GPS::RockType rockType, double rockAngle) -> std::vector<double> {
     int type = GPS::instance()->setRockType(rockType);
     double degrees = GPS::instance()->rockingDegrees(rockAngle);
     return {static_cast<double>(type), degrees};
@@ -346,7 +346,7 @@ void FluxMgr::setAlignmentRotation(double qx, double qy, double qz, bool misalig
     }
 }
 
-int FluxMgr::setIdOffset(int id) {
+auto FluxMgr::setIdOffset(int id) -> int {
     int last = EventSource::s_id_offset;
     EventSource::s_id_offset = id;
     return last;

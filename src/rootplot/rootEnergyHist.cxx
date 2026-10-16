@@ -123,27 +123,27 @@ void rootEnergyHist::store(double energy)
     }
 }
 
-double rootEnergyHist::retrieveCount(int binNumber)
+auto rootEnergyHist::retrieveCount(int binNumber) -> double
 {
     return raw_hist->retrieveBin(binNumber);
 }
 
-double rootEnergyHist::retrieveFlux(int binNumber)
+auto rootEnergyHist::retrieveFlux(int binNumber) -> double
 {
     return flux_hist->retrieveBin(binNumber);
 }
 
-double rootEnergyHist::retrieveFluxUncertainty(int binNumber)
+auto rootEnergyHist::retrieveFluxUncertainty(int binNumber) -> double
 {
     return flux_sigma_hist->retrieveBin(binNumber);
 }
 
-double rootEnergyHist::retrieveEnergy(int binNumber)
+auto rootEnergyHist::retrieveEnergy(int binNumber) -> double
 {
     return emin*pow(10.0,((binNumber + 0.5)/num_bins) * range );
 }
 
-double rootEnergyHist::retrieveRange(void)
+auto rootEnergyHist::retrieveRange(void) -> double
 {
     return range;
 }

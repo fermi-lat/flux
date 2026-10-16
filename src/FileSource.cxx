@@ -54,12 +54,12 @@ FileSource::FileSource(const std::string & params)
    m_launchPoint = new FileLaunchPoint();
 }
 
-float FileSource::operator() (float xi) {
+auto FileSource::operator() (float xi) -> float {
    (void)(xi);
    return energy(0);
 }
 
-double FileSource::energy(double time) {
+auto FileSource::energy(double time) -> double {
    (void)(time);
    if (m_currentLine < m_inputLines.size()) {
       parseCurrentLine();
@@ -95,20 +95,20 @@ void FileSource::parseCurrentLine() {
    m_launchPoint->setPoint(starting_pt - m_backOffDistance*dir);
 }
 
-const char * FileSource::particleName() const {
+auto FileSource::particleName() const -> const char * {
    return m_particleName.c_str();
 }
 
-double FileSource::interval(double time) {
+auto FileSource::interval(double time) -> double {
    (void)(time);
    return m_interval;
 }
 
-LaunchDirection * FileSource::launchDirection() {
+auto FileSource::launchDirection() -> LaunchDirection * {
    return m_launchDirection;
 }
 
-LaunchPoint * FileSource::launchPoint() {
+auto FileSource::launchPoint() -> LaunchPoint * {
    return m_launchPoint;
 }
 
@@ -121,7 +121,7 @@ void FileSource::FileLaunchDir::execute(double KE, double time) {
 #endif
 }
 
-const CLHEP::Hep3Vector & FileSource::FileLaunchDir::dir() const {
+auto FileSource::FileLaunchDir::dir() const -> const CLHEP::Hep3Vector & {
    return m_dir;
 }
 
@@ -129,17 +129,17 @@ void FileSource::FileLaunchDir::setDir(const CLHEP::Hep3Vector & dir) {
    m_dir = dir;
 }
 
-std::string FileSource::FileLaunchDir::title() const {
+auto FileSource::FileLaunchDir::title() const -> std::string {
    return "FileSource";
 }
 
-astro::SkyDir FileSource::FileLaunchDir::skyDirection() const {
+auto FileSource::FileLaunchDir::skyDirection() const -> astro::SkyDir {
    static CLHEP::Hep3Vector my_dir;
    my_dir = m_glastToGalactic*m_dir;
    return astro::SkyDir(my_dir);
 }
 
-const CLHEP::Hep3Vector & FileSource::FileLaunchPoint::point() const {
+auto FileSource::FileLaunchPoint::point() const -> const CLHEP::Hep3Vector & {
    return m_pt;
 }
 
@@ -147,6 +147,6 @@ void FileSource::FileLaunchPoint::setPoint(const CLHEP::Hep3Vector & pt) {
    m_pt = pt;
 }
 
-std::string FileSource::FileLaunchPoint::title() const {
+auto FileSource::FileLaunchPoint::title() const -> std::string {
    return "FileLaunchPoint";
 }
