@@ -313,6 +313,14 @@ None.
   - Because of the zero-flux gotcha below, `<particle>` sources print an
     infinite interval and stop after one call (from reading the code; not
     checked at runtime).
+- **ST-unit-test:** the default run of ScienceTools'
+  `recipe/tests/ST-unit-test` (`unitTestsWithoutRoot`) runs `test_flux`
+  with no arguments, then `check_test_flux_output`, which only checks that
+  `testMgrOutput.out` **exists**. It computes an `outref` path
+  (`share/fermitools/data/flux/outref`) but never compares against it, and
+  no flux reference data exists anywhere (not in
+  `fermitools-test-scripts-data`, `fermitools-data` `outrefFiles/` or this
+  repo). See "Testing" in ScienceTools' `docs/architecture/README.md`.
 - **Unused build files:** `SConscript`, `fluxLib.py` (SCons),
   `azure-pipelines.yml`, `src/rootplot/test/roottest.cxx` (not built).
 
