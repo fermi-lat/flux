@@ -385,7 +385,7 @@ ScienceTools pins flux at `1d5fc58`. Details and old-vs-new behaviour are in
 - `EventSource::totalArea()` (default 6 m²), `s_backoff`, `s_id_offset`,
   `s_cone`, the alignment matrix, `Spectrum::startTime()`, the
   `SpectrumFactoryTable` singleton and `astro::GPS` are all process-wide.
-  `celestialSources` transients read `totalArea()` **in their
+  Most `celestialSources` transients read `totalArea()` **in their
   constructors** to pre-draw event times, so set the area before creating
   sources.
 - `FluxMgr::setArea` and `EventSource::totalArea(x)` are the same thing.
