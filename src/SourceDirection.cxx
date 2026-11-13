@@ -46,8 +46,8 @@ void SourceDirection::execute(double ke, double time){
 
     GPS* gps = GPS::instance();
     // get the direction information from the ISpectrum object
-    std::pair<double,double> direction = m_spectrum->dir(ke);
-    double first(direction.first), second(direction.second);
+    auto [first, second] = m_spectrum->dir(ke);
+    
 
     switch (m_frame) {
         case ZENITH:

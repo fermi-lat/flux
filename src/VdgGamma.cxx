@@ -30,9 +30,9 @@ public:
 
   auto energy( double time) -> double;
     
-  virtual auto title() const -> std::string{return "VdgGamma";}
-  virtual auto particleName() const -> const char * { return "gamma"; }
-  inline  auto nameOf() const -> const char * {return "VdgGamma";}
+  [[nodiscard]] virtual auto title() const -> std::string{return "VdgGamma";}
+  [[nodiscard]] virtual auto particleName() const -> const char * { return "gamma"; }
+  [[nodiscard]] inline  auto nameOf() const -> const char * {return "VdgGamma";}
     
     
 private:

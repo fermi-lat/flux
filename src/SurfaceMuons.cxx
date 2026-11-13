@@ -32,9 +32,9 @@ public:
     SurfaceMuons(const std::string& paramstring);
 
     /// flux integrated over energy, will be multipled by solidAngle to get a rate/m^2
-    auto flux (double /*time*/ ) const -> double { return m_flux/solidAngle();}
+    [[nodiscard]] auto flux (double /*time*/ ) const -> double { return m_flux/solidAngle();}
 
-    auto solidAngle()const -> double{return 2*M_PI*fabs(m_cosmax-m_cosmin);}
+    [[nodiscard]] auto solidAngle()const -> double{return 2*M_PI*fabs(m_cosmax-m_cosmin);}
 
     /** @brief sample a single particle energy from the spectrum
     @param current time (ignored)
@@ -48,10 +48,10 @@ public:
     */
     virtual auto dir(double energy) -> std::pair<double,double>;
     
-    virtual auto title() const -> std::string{return "SurfaceMuons";}
+    [[nodiscard]] virtual auto title() const -> std::string{return "SurfaceMuons";}
 
-    virtual auto particleName() const -> const char *;
-    inline  auto nameOf() const -> const char * {return "SurfaceMuons";}
+    [[nodiscard]] virtual auto particleName() const -> const char *;
+    [[nodiscard]] inline  auto nameOf() const -> const char * {return "SurfaceMuons";}
 
 
 private:
@@ -65,9 +65,9 @@ private:
 
 
 
-    auto analyticSpectrum(double time) const -> double;
+    [[nodiscard]] auto analyticSpectrum(double time) const -> double;
 
-    auto capriceSpectrum(double time) const -> double;
+    [[nodiscard]] auto capriceSpectrum(double time) const -> double;
 
     // local function that approximates the spectrum as a function of E*cos(theta)
 
@@ -79,11 +79,11 @@ private:
     */
     std::map<double,double> m_ispec; // integral spectrum, for sampling
     double m_flux;
-    double m_index;
-    double m_emax;
+    double m_index{2.71};
+    double m_emax{1000};
     double m_cosmin, m_cosmax;
     double m_costh;
-    double m_total;
+    double m_total{0};
 
 };
 
@@ -163,7 +163,7 @@ auto SurfaceMuons::energy( double time ) -> double
     double energy = 0; 
 
     double partial = CLHEP::RandFlat::shoot()*m_total; // the value of the integral to find the energy
-    map<double,double>::const_iterator 
+    auto 
         element  = m_ispec.lower_bound(partial);
 
     if( element == m_ispec.begin()){
@@ -173,7 +173,7 @@ auto SurfaceMuons::energy( double time ) -> double
 
     else if( element!=m_ispec.end() ){
         // interpolate here
-        map<double,double>::const_iterator prev = element;
+        auto prev = element;
         prev--;
         double 
             dI = partial - prev->first, // the part of the integral

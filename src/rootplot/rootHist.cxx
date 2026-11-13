@@ -27,7 +27,7 @@ rootHist::rootHist(int bins) : num_bins(bins)
 rootHist::~rootHist(void)
 {
     delete [] hist;
-    hist = NULL;
+    hist = nullptr;
 }
 
 rootHist::rootHist(const rootHist &oldHist) : num_bins(oldHist.num_bins)

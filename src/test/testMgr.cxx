@@ -29,7 +29,7 @@ void help() {
 }
 void listSources(const std::list<std::string>& source_list ) {
     std::cout << "List of available sources:" << std::endl;
-    for( std::list<std::string>::const_iterator it = source_list.begin(); 
+    for( auto it = source_list.begin(); 
         it != source_list.end(); ++it) { 
             std::cout << '\t'<< *it << std::endl;
         }
@@ -38,7 +38,7 @@ void listSources(const std::list<std::string>& source_list ) {
 void listSpectra() {
     std::cout << "List of loaded Spectrum objects: " << std::endl;
     std::list<std::string> spectra(SpectrumFactoryTable::instance()->spectrumList());
-    for( std::list<std::string>::const_iterator it = spectra.begin(); 
+    for( auto it = spectra.begin(); 
         it != spectra.end(); ++it) { 
             std::cout << '\t'<< *it << std::endl;
         }
@@ -112,7 +112,7 @@ auto main(int argn, char * argc[]) -> int {
     std::ostream& out = *m_out;
     std::cout << "Writing test results to the file " << testfilename << std::endl;
     
-    std::list<std::string>::iterator abc (allTheSources.begin() );
+    auto abc (allTheSources.begin() );
     for( ; abc != allTheSources.end() ; abc++){
 
         // now have FluxMgr create and run it.

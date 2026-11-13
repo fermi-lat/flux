@@ -29,8 +29,8 @@ namespace {
                 << std::endl;
         }
     private:
-        double m_mean, m_min, m_max;
-        int m_count;
+        double m_mean{0}, m_min{99}, m_max{-99};
+        int m_count{0};
     };
 
 }
@@ -39,7 +39,7 @@ rootplot::rootplot(int argc, char* argv[])
 : NUM_BINS(30),LOOP(30000),
 TIME(0.01), 
 ENERGY_MIN(0.01*1000.), 
-ENERGY_MAX(100.0*1000.), m_fm(0)
+ENERGY_MAX(100.0*1000.), m_fm(nullptr)
 {
     std::vector<std::string> args;
     for( int i =1; i< argc; ++i) 
@@ -238,7 +238,7 @@ void rootplot::init(std::vector<std::string> argv)
 
 #endif
 
-        if( 0==e ) {std::cerr << "Source \"" << sources[i] << "\" not found: -list for a list" << std::endl;
+        if( nullptr==e ) {std::cerr << "Source \"" << sources[i] << "\" not found: -list for a list" << std::endl;
         return;}
 
         energy_hist.setGraphType(default_graph.c_str());

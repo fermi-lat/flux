@@ -14,7 +14,7 @@
 double Spectrum::s_startTime(0);
 
 
-Spectrum::~Spectrum(){}
+Spectrum::~Spectrum()= default;
 
 
 auto Spectrum::flux (double time ) const -> double {

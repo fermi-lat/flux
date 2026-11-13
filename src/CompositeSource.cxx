@@ -18,13 +18,13 @@ $Header: /nfs/slac/g/glast/ground/cvs/flux/src/CompositeSource.cxx,v 1.19 2008/0
 
 CompositeSource::CompositeSource (double aRate)
 : EventSource(aRate)
-, m_recent(0),m_occulted(false)
+, m_recent(nullptr),m_occulted(false)
 {
 }
 
 CompositeSource::~CompositeSource()
 {
-    for (std::vector<EventSource*>::iterator it = m_sourceList.begin();
+    for (auto it = m_sourceList.begin();
         it != m_sourceList.end(); ++it ) delete (*it);
 }
 
@@ -33,7 +33,7 @@ void CompositeSource::addSource (EventSource* aSource)
 {
     int index( m_sourceList.size() ); 
     m_sourceList.push_back(aSource);
-    EventSource* dummy(0);
+    EventSource* dummy(nullptr);
     // insert in the map, tagged as needing to be evaluated
     m_source_map.insert(std::make_pair( -1, std::make_pair(aSource, dummy)));
 
@@ -45,7 +45,7 @@ void CompositeSource::addSource (EventSource* aSource)
 auto CompositeSource::process(CompositeSource::SourceMap::iterator it, double time) -> EventSource*
 {
     // set up defaults to flag that this source was used, and will be rerun on next iteration
-    EventSource * source(0);     // will set to the actual source if updating
+    EventSource * source(nullptr);     // will set to the actual source if updating
     double nexttime(-1);         // will be first 
 
     // now get details and remove this entry from the map
@@ -53,10 +53,10 @@ auto CompositeSource::process(CompositeSource::SourceMap::iterator it, double ti
     EventSource* actual = it->second.second;   // the actual FluxSource object if member is Composite
     m_source_map.erase(it);       // remove the entry from the map
 
-    if( actual==0){
+    if( actual==nullptr){
         // node needs to be run, so ask for next photon
         source = m_recent->event(time);
-        if( ! m_recent->enabled() ) return 0; // if disabled, no more calls
+        if( ! m_recent->enabled() ) return nullptr; // if disabled, no more calls
 
         double nextinterval( m_recent->interval() );
         nexttime = time+nextinterval; 
@@ -74,10 +74,10 @@ auto CompositeSource::event (double time) -> EventSource*
         throw std::runtime_error("CompositeSource::event called when disabled");
     }
     
-    EventSource* actual(0);
+    EventSource* actual(nullptr);
     do {
         // get earliest entry (
-        SourceMap::iterator it= m_source_map.begin();
+        auto it= m_source_map.begin();
         if( it==m_source_map.end()){ // no sources left
             disable();
             return this;
@@ -85,7 +85,7 @@ auto CompositeSource::event (double time) -> EventSource*
         // process it, returning either null or a valid source
         actual = process(it, time); 
 
-    }while (actual==0); // loop until valid source
+    }while (actual==nullptr); // loop until valid source
 
     double nexttime( actual->time());
     if( nexttime < time){
@@ -102,7 +102,7 @@ auto CompositeSource::event (double time) -> EventSource*
 auto CompositeSource::fullTitle () const -> std::string
 {
     std::stringstream  s;
-    std::vector<EventSource*>::const_iterator	it = m_sourceList.begin();
+    auto	it = m_sourceList.begin();
 
     while (it != m_sourceList.end()) {
 
@@ -116,13 +116,13 @@ auto CompositeSource::fullTitle () const -> std::string
 
 auto CompositeSource::displayTitle () const -> std::string
 {
-    return (m_recent == 0) ? "" : m_recent->displayTitle();
+    return (m_recent == nullptr) ? "" : m_recent->displayTitle();
 }
 
 auto CompositeSource::rate(double time) const -> double
 {
     //m_time += m_time-time;
-    std::vector<EventSource*>::const_iterator it = m_sourceList.begin();
+    auto it = m_sourceList.begin();
     double	total_rate = 0.;
     for(;it != m_sourceList.end();++it) {
         double rr = fabs((*it)->rate(time));
@@ -135,7 +135,7 @@ void CompositeSource::printOn(std::ostream& out)const
 {
     out << "Source(s), total rate="<< rate(EventSource::time()) << std::endl;
 
-    for( std::vector<EventSource*>::const_iterator it = m_sourceList.begin();
+    for( auto it = m_sourceList.begin();
         it != m_sourceList.end();++it)	{
             out <<  std::setw(8) << std::setprecision(4) << (*it)->rate(EventSource::time()) <<" Hz, "
                 << '#' << std::setw(6) << (*it)->eventNumber() <<' '
@@ -152,7 +152,7 @@ auto CompositeSource::findSource()const -> std::string
 auto  CompositeSource::numSource()const -> int
 {
     // get the value from the m_ident map, using the most recent source as a key
-    std::map<EventSource*, unsigned int>::const_iterator it = m_ident.find(m_recent);
+    auto it = m_ident.find(m_recent);
     int index( it->second );
     // now call this function associated with that source:
     int t( m_recent->numSource() ); 
@@ -161,7 +161,7 @@ auto  CompositeSource::numSource()const -> int
     if( t!= -1){
         // it is composite. Get its recent guy, 
         EventSource* actual = dynamic_cast<CompositeSource*>(m_recent)->m_recent;
-        if( actual !=0) { // check: maybe 
+        if( actual !=nullptr) { // check: maybe 
             int id (actual->identifier());
             if( id>0 )  return id;          
         }

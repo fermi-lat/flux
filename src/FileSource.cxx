@@ -38,7 +38,7 @@ namespace {
 }
 
 FileSource::FileSource(const std::string & params) 
-   : m_launchDirection(0), m_launchPoint(0), m_currentLine(0),
+   : m_launchDirection(nullptr), m_launchPoint(nullptr), m_currentLine(0),
    m_backOffDistance(EventSource::s_backoff) {
    std::map<std::string, std::string> pars;
    facilities::Util::keyValueTokenize(params, ", ", pars);

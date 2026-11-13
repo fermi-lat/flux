@@ -12,12 +12,12 @@ Original author: T. Burnett
 #include <stdexcept>
 
 Flux::Flux(std::string name) 
-:  m_flux(0)
+:  m_flux(nullptr)
 {
     m_event = s_mgr->source(name);
 }
 Flux::Flux(std::vector<std::string> names) 
-:  m_flux(0)
+:  m_flux(nullptr)
 {
     m_event = s_mgr->compositeSource(names);
 }
@@ -26,7 +26,7 @@ Flux::~Flux()
     delete m_flux;
 }
 
-FluxMgr* Flux::s_mgr=0;
+FluxMgr* Flux::s_mgr=nullptr;
 
 void Flux::mgr(FluxMgr* m){ s_mgr=m;}
 // name of the flux
@@ -38,7 +38,7 @@ auto Flux::name() const -> std::string
 /// full title of the flux
 auto Flux::title()const -> std::string 
 {
-    return m_event!=0? m_event->fullTitle() : "?";
+    return m_event!=nullptr? m_event->fullTitle() : "?";
 }
 
 
@@ -110,7 +110,7 @@ auto Flux::launchDir()const -> CLHEP::Hep3Vector
 // rate ( /mm**2 /s)
 auto Flux::rate()const -> double
 {
-    return  m_event!=0?  m_event->rate(time()) : -1;;
+    return  m_event!=nullptr?  m_event->rate(time()) : -1;;
 }
 
 /// set the area of the target

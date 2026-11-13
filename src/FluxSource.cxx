@@ -101,7 +101,7 @@ public:
     }
 
     /// return info
-    virtual auto title() const -> std::string {
+    [[nodiscard]] virtual auto title() const -> std::string {
         std::stringstream t;
         t << "radius(" << m_radius << ")";
         return t.str();
@@ -142,7 +142,7 @@ public:
         setPoint(r_pln * posLaunch + m_base_point);
     }
 
-    virtual auto title() const -> std::string {
+    [[nodiscard]] virtual auto title() const -> std::string {
         if (m_disk_radius == 0) return LaunchPoint::title();
         std::stringstream t;
         t << ", radius(" << m_disk_radius << ")";
@@ -175,7 +175,7 @@ public:
             m_zmin + m_dz * CLHEP::RandFlat::shoot()));
     }
 
-    virtual auto title() const -> std::string {
+    [[nodiscard]] virtual auto title() const -> std::string {
         std::stringstream t;
         t << "patch(" 
           << m_xmin << "," << m_xmin + m_dx << ","
@@ -238,11 +238,11 @@ public:
     }
 
     //! solid angle
-    virtual auto solidAngle() const -> double override {
+    [[nodiscard]] virtual auto solidAngle() const -> double override {
         return 2 * M_PI * (m_maxCos - m_minCos);
     }
 
-    virtual auto title() const -> std::string override {
+    [[nodiscard]] virtual auto title() const -> std::string override {
         std::stringstream t;
         t << "range(" << m_minCos << ',' << m_maxCos << ") ";
         if (m_theta != 0) {
@@ -262,7 +262,7 @@ private:
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 FluxSource::FluxSource(XmlNode* xelem)
     : EventSource()
-    , m_spectrum(0)
+    , m_spectrum(nullptr)
     , m_occultable(true)
     , m_zenithCosTheta(1.0)  // won't be occulted by default
     , m_launch_dir_owner(true)
@@ -271,7 +271,7 @@ FluxSource::FluxSource(XmlNode* xelem)
     static double d2r = M_PI / 180.;
     setName(getAttribute(xelem, "name").c_str());
 
-    ISpectrum* s = 0;
+    ISpectrum* s = nullptr;
     std::string class_name;
     std::string source_params; 
     
@@ -281,7 +281,7 @@ FluxSource::FluxSource(XmlNode* xelem)
 
     XmlNode* spec = findFirstChildByName(xelem, "spectrum");
 
-    if (spec == 0) {
+    if (spec == nullptr) {
         // source has no embedded spectrum element: expect a name
         class_name = getAttribute(xelem, "name");
     } else {
@@ -322,9 +322,9 @@ FluxSource::FluxSource(XmlNode* xelem)
         }
 
         // if s is still 0, we need to create the internal spectrum object.
-        if (s == 0) {
+        if (s == nullptr) {
             s = SpectrumFactoryTable::instance()->instantiate(class_name, source_params);
-            if (s == 0) {
+            if (s == nullptr) {
                 std::cerr << "List of known Spectrum classes:\n";
                 std::list<std::string> list = SpectrumFactoryTable::instance()->spectrumList();
                 for (auto it = list.begin(); it != list.end(); ++it)
@@ -403,7 +403,7 @@ FluxSource::FluxSource(XmlNode* xelem)
             // and so cannot be occulted.
             m_occultable = false;
             m_launch_dir = m_spectrum->launchDirection();
-            if (m_launch_dir == 0) {
+            if (m_launch_dir == nullptr) {
                 std::ostringstream what;
                 what << "FluxSource: cannot use a 'custom_dir' tag with a "
                      << class_name << " source.";
@@ -458,7 +458,7 @@ FluxSource::FluxSource(XmlNode* xelem)
         }
         else if (launchTag == "custom_pt") {
             m_launch_pt = m_spectrum->launchPoint();
-            if (m_launch_pt == 0) {
+            if (m_launch_pt == nullptr) {
                 std::ostringstream what;
                 what << "FluxSource: cannot use a 'custom_pt' tag with a "
                      << class_name << " source.";
@@ -564,7 +564,7 @@ auto FluxSource::eventNumber() const -> int {
 }
 
 auto FluxSource::title() const -> std::string {
-    if (m_spectrum == 0) return "";
+    if (m_spectrum == nullptr) return "";
     return m_spectrum->title() + ", "
         + m_launch_pt->title() + ", "
         + m_launch_dir->title();

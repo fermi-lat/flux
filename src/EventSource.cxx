@@ -34,7 +34,7 @@ EventSource::EventSource (double aFlux, unsigned acode)
     m_name = s.str();
 }
 EventSource::~EventSource()
-{}
+= default;
 
 auto EventSource::flux (double time) const -> double
 {

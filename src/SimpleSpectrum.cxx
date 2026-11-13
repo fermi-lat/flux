@@ -49,7 +49,7 @@ namespace {
             facilities::Util::keyValueTokenize(paramString, ",", m_tokenMap);
         }
         
-        auto value(std::string name) const -> double {
+        [[nodiscard]] auto value(std::string name) const -> double {
             auto it = m_tokenMap.find(name);
             if (it == m_tokenMap.end()) {
                 throw std::invalid_argument("SimpleSpectrum: keyword " + name + " not found");

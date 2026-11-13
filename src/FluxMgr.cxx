@@ -224,7 +224,7 @@ auto FluxMgr::source(std::string name) -> EventSource* {
 
 auto FluxMgr::compositeSource(std::vector<std::string> names) -> EventSource* {
     // Purpose: to return a pointer to a source, referenced by a list of names.
-    CompositeSource* comp = new CompositeSource();
+    auto* comp = new CompositeSource();
     
     for (const auto& name : names) {
         if (m_sources.find(name) == m_sources.end()) {
